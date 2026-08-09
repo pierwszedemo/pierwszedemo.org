@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import HeroPhoto from "../components/HeroPhoto.astro";
+import {
+  CONTACT_EMAIL,
+  HOME_CITY,
+  ROSTER,
+  SERVICES,
+  SITE_NAME,
+  SITE_TAGLINE,
+} from "../consts";
+---
+
+<BaseLayout
+  title={`${SITE_NAME} — ${SITE_TAGLINE}`}
+  description="Management, wydawnictwa i booking dla artystów alternatywnych. Prowadzę artystów od pierwszego demo do festiwalowych scen — z planem, nie z przypadku."
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav />
+
+    <main class="flex flex-1 flex-col">
+      <!-- Pasmo hero: tekst + zdjęcie. W makiecie prawa kolumna ma stałe
+           400 px; poniżej `md` zdjęcie schodzi pod tekst. -->
+      <!-- 400 px z makiety to 31.25% szerokości 1280 — przy węższych ekranach
+           kolumna ze zdjęciem musi zjeżdżać razem z resztą, inaczej lewa
+           kolumna nie mieści monospace'owego nadtytułu i strona się rozjeżdża. -->
+      <div
+        class="grid flex-1 md:grid-cols-[minmax(0,1fr)_clamp(15rem,31.25%,25rem)]"
+      >
+        <div
+          class="flex min-w-0 flex-col justify-between gap-14 border-b border-ink px-5 py-12 md:border-r md:border-b-0 md:px-8 md:pt-16 md:pb-11"
+        >
+          <div>
+            <p class="label text-muted">({SITE_TAGLINE} — {HOME_CITY})</p>
+            <h1
+              class="mt-6 text-hero leading-[0.98] font-semibold tracking-[-0.035em] text-balance md:mt-[26px]"
+            >
+              Kariera to <br class="hidden md:inline" />strategia.
+            </h1>
+          </div>
+
+          <div class="flex flex-col gap-7">
+            <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
+              Prowadzę artystów alternatywnych od pierwszego demo do
+              festiwalowych scen — z planem, nie z przypadku.
+            </p>
+            <ul
+              class="flex flex-col gap-3 font-mono text-[13px] leading-none font-medium tracking-[0.14em] uppercase sm:flex-row sm:flex-wrap sm:gap-x-9 sm:gap-y-3"
+            >
+              {
+                SERVICES.map((service) => (
+                  <li>
+                    ({service.no}) {service.label}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+
+        <HeroPhoto class="aspect-[4/5] md:aspect-auto" />
+      </div>
+
+      <!-- Roster + kontakt. „Artyści" z nawigacji celuje w #roster. -->
+      <div class="grid border-t border-ink md:grid-cols-2">
+        <section
+          id="roster"
+          class="flex flex-col gap-2.5 border-b border-hairline px-5 py-6 md:border-r md:border-b-0 md:px-8"
+        >
+          <h2 class="label text-muted">Roster (01)</h2>
+          {
+            ROSTER.map((artist) => (
+              <a
+                href={artist.href}
+                target="_blank"
+                rel="noopener"
+                data-social={artist.name}
+                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
+              >
+                <span class="text-roster font-semibold tracking-[-0.02em]">
+                  {artist.name}
+                </span>
+                <span class="text-sm text-muted">
+                  {artist.genres} <span aria-hidden="true">→</span>
+                  <span class="sr-only">(otwiera się w nowej karcie)</span>
+                </span>
+              </a>
+            ))
+          }
+        </section>
+
+        <section class="flex flex-col gap-2.5 px-5 py-6 md:px-8">
+          <h2 class="label text-muted">Kontakt</h2>
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            class="text-[clamp(1.125rem,3.2vw,1.625rem)] font-semibold break-all underline decoration-2 underline-offset-[6px]"
+          >
+            {CONTACT_EMAIL}
+          </a>
+        </section>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

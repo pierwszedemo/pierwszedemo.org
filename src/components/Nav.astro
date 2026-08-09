@@ -1,0 +1,46 @@
+---
+import { CONTACT_EMAIL, NAV, WORDMARK } from "../consts";
+
+interface Props {
+  /** Podświetla pozycję w menu — wartość równa NAV[n].label. */
+  active?: (typeof NAV)[number]["label"];
+}
+
+const { active } = Astro.props;
+
+// Wewnętrzne linie w pasmie są jasne (hairline), samo pasmo zamyka twarda
+// linia ink — ta różnica trzyma całą siatkę projektu.
+const cell = "px-5 py-4 md:px-8 md:py-[22px]";
+---
+
+<nav
+  class="grid grid-cols-3 border-b border-ink md:grid-cols-4"
+  aria-label="Główna"
+>
+  <a
+    href="/"
+    class={`${cell} col-span-3 border-b border-hairline text-[15px] font-bold tracking-[0.02em] md:col-span-1 md:border-r md:border-b-0`}
+  >
+    {WORDMARK}
+  </a>
+  {
+    NAV.map((item) => (
+      <a
+        href={item.href}
+        class={`${cell} border-r border-hairline text-sm ${
+          active === item.label ? "font-semibold text-ink" : "text-muted"
+        }`}
+        aria-current={active === item.label ? "page" : undefined}
+      >
+        {item.label}
+      </a>
+    ))
+  }
+  <a
+    href={`mailto:${CONTACT_EMAIL}`}
+    class={`${cell} flex items-center justify-between gap-3 text-sm`}
+  >
+    <span>Kontakt</span>
+    <span aria-hidden="true">↗</span>
+  </a>
+</nav>

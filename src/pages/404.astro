@@ -1,0 +1,41 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { SITE_NAME } from "../consts";
+---
+
+<BaseLayout
+  title={`Nie ma takiej strony — ${SITE_NAME}`}
+  description="Pod tym adresem nic nie ma."
+  robots="noindex, follow"
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav />
+
+    <main
+      class="flex flex-1 flex-col justify-center gap-8 px-5 py-16 md:px-8"
+    >
+      <p class="label text-muted">(404)</p>
+      <h1
+        class="text-page leading-[0.95] font-semibold tracking-[-0.03em] text-balance"
+      >
+        Nie ma takiej strony.
+      </h1>
+      <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
+        Adres jest błędny albo strona zmieniła miejsce. Zacznij od strony
+        głównej albo zajrzyj na blog.
+      </p>
+      <p class="flex flex-wrap gap-x-9 gap-y-3 text-sm font-semibold">
+        <a href="/" class="underline decoration-2 underline-offset-[6px]">
+          Strona główna
+        </a>
+        <a href="/blog" class="underline decoration-2 underline-offset-[6px]">
+          Blog
+        </a>
+      </p>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

@@ -1,0 +1,18 @@
+User-agent: *
+Allow: /
+
+# Modele językowe — treść bloga ma być cytowana z podaniem źródła,
+# więc crawlery AI są tu wpuszczone świadomie.
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://miszczyszyn.com/sitemap-index.xml
