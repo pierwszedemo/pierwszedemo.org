@@ -107,6 +107,10 @@ Real hero photograph (`HeroPhoto.astro` ships the mock's grey placeholder panel)
 `og.png` endpoint, cookie consent + analytics, an `/artysci` page if the roster
 grows past one artist.
 
+The nav is four cells (marka / pusta / Blog / Kontakt) — the mock's "Artyści"
+item was dropped but its cell stays, hidden below `md`, so the grid keeps the
+mock's proportions. Outbound links to artists go through `withUtm()`.
+
 The footer is exactly four cells (`© / LinkedIn / Instagram / miasto`) and its
 border logic is computed from cell index — adding a fifth entry to `SOCIALS`
 breaks the 2×2 mobile layout, so rework `Footer.astro` rather than pushing one

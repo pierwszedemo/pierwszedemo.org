@@ -14,15 +14,21 @@ const cell = "px-5 py-4 md:px-8 md:py-[22px]";
 ---
 
 <nav
-  class="grid grid-cols-3 border-b border-ink md:grid-cols-4"
+  class="grid grid-cols-2 border-b border-ink md:grid-cols-4"
   aria-label="Główna"
 >
   <a
     href="/"
-    class={`${cell} col-span-3 border-b border-hairline text-[15px] font-bold tracking-[0.02em] md:col-span-1 md:border-r md:border-b-0`}
+    class={`${cell} col-span-2 border-b border-hairline text-[15px] font-bold tracking-[0.02em] md:col-span-1 md:border-r md:border-b-0`}
   >
     {WORDMARK}
   </a>
+  {
+    /* Pusta komórka trzyma czterokolumnową siatkę z makiety po usunięciu
+       pozycji „Artyści". Na telefonie znika — pusty kafelek w układzie 2×2
+       wyglądałby jak błąd. */
+  }
+  <div class={`${cell} hidden border-r border-hairline md:block`} aria-hidden="true"></div>
   {
     NAV.map((item) => (
       <a
