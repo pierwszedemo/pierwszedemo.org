@@ -1,6 +1,6 @@
 ---
-title: Jak przygotować EPK, który otwiera drzwi
-lead: Bookerzy poświęcają jednemu EPK mniej niż 90 sekund. Wygrywa nie ten, kto napisze najwięcej – tylko ten, kogo da się najszybciej zrozumieć.
+title: EPK, czyli 90 sekund na zrobienie wrażenia
+lead: Osoba bookująca festiwal otwiera Twój press kit gdzieś między dwoma innymi mailami. Nie przeczyta go. Przeleci wzrokiem i zdecyduje.
 category: Promocja
 kind: notatka
 date: 2026-08-02
@@ -9,18 +9,18 @@ keyphrase: jak zrobić epk
 readingMinutes: 2
 ---
 
-Elektroniczny press kit to nie teczka z materiałami – to argument. Jedno zdanie o tym, kim jest artysta, jeden utwór, który to udowadnia, i jeden kontakt, pod który można zadzwonić. Tyle.
+Dostałem kiedyś EPK na czternaście ekranów. Był tam życiorys od podstawówki, lista wszystkich zagranych koncertów i skan dyplomu z przeglądu sprzed ośmiu lat. Muzyki nie było nigdzie. Zamknąłem to po minucie i do dziś nie wiem, jak ten zespół brzmi.
 
-Zaczynaj od muzyki. Link do singla ma być pierwszym klikalnym elementem, nie bio i nie zdjęcia. Jeśli utwór broni się sam, reszta dokumentu tylko domyka decyzję.
+Ale zacznijmy może od początku. **Press kit nie jest teczką z materiałami. Jest argumentem.** Jedno zdanie o tym, kim jest artystka albo artysta, jeden utwór, który to udowadnia, i jeden kontakt, pod który można zadzwonić.
 
-Pierwszy ekran odpowiada na trzy pytania, zanim ktokolwiek zdecyduje się przewijać dalej: kto to jest, jak brzmi i skąd pochodzi. Gatunek, miasto, rok debiutu, ostatnie wydawnictwo. Bio przydaje się w trzech długościach: jedno zdanie do line-upu, akapit do zapowiedzi koncertu i pełna wersja dla osoby, która naprawdę pisze o tym tekst. Redakcje kopiują to, co dostaną. Każda wersja ma być gotowa do wklejenia.
+Więc muzyka idzie na samą górę. Link do singla ma być pierwszą rzeczą, w którą da się kliknąć – nie bio, nie zdjęcia, nie historia zespołu. Jeśli utwór broni się sam, cała reszta tylko domyka decyzję, która i tak już zapadła.
 
-A teraz rzeczy, których w EPK być nie powinno. Lista wszystkich zagranych koncertów. Wyróżnienie sprzed siedmiu lat. Zdania w rodzaju „muzyka, która porusza". **Krótszy dokument z trzema mocnymi punktami wygrywa z dłuższym, w którym trzeba ich szukać.** Prosty test: gdyby wolno było zostawić tylko trzy informacje, które by przetrwały?
+Co dalej? Trzy odpowiedzi, zanim ktokolwiek zdecyduje się przewijać: kto to jest, jak brzmi i skąd pochodzi. Gatunek, miasto, rok debiutu, ostatnie wydawnictwo. Bio przydaje się w trzech długościach – zdanie do line-upu, akapit do zapowiedzi koncertu i pełna wersja dla osoby, która naprawdę siada i pisze o tym tekst. Redakcje kopiują dokładnie to, co dostaną, więc każda z tych wersji ma być gotowa do wklejenia bez jednej poprawki.
 
-Zdjęcia prasowe w pełnej rozdzielczości, opisane i gotowe do druku, oszczędzają redakcjom pracę – a to buduje reputację profesjonalnego zespołu szybciej niż jakikolwiek opis. Przy każdym kadrze nazwisko autora i zasady użycia. Zawsze.
+Zdjęcia prasowe w pełnej rozdzielczości, opisane, z nazwiskiem autora i jasną informacją, na jakich zasadach wolno ich użyć. Bez tego nie pójdą do druku. Serio. To nie jest formalność, tylko oszczędzenie komuś pół godziny pracy – a taka drobna uprzejmość wraca szybciej niż najlepszy opis.
 
-Drobiazg techniczny, który waży więcej, niż się wydaje: **EPK to adres strony, a nie załącznik.** Plik ginie w skrzynce, waży swoje i starzeje się w dniu wysłania. Stronę aktualizujesz w minutę, a jeden link wklejasz w wiadomość do bookera, w zgłoszenie na festiwal i w stopkę maila. Tak to wygląda u [Oli Geppert](https://olageppert.pl/epk).
+I rzecz techniczna, która waży więcej, niż się wydaje. **EPK to adres strony, nie załącznik.** Plik waży swoje, ginie w skrzynce i starzeje się w dniu wysłania. Stronę poprawiasz w minutę, a jeden link wklejasz w wiadomość, w zgłoszenie na festiwal i w stopkę maila. Tak to wygląda u [Oli Geppert](https://olageppert.pl/epk).
 
-Wersja do pobrania jest kopią dla kogoś, kto woli papier, a nie podstawowym sposobem wysyłki.
+Na końcu kontakt do managera, a nie do artystki – rozmowa o stawkach i terminach ma się zaczynać dokładnie tam, gdzie się skończy.
 
-Na końcu: dane kontaktowe managera, nie artysty. Rozmowa o stawkach i terminach powinna zaczynać się tam, gdzie się skończy – w jednym wątku.
+A Ty co wkładasz do swojego EPK, czego nikt nigdy nie otworzył? Napisz do mnie, jestem ciekaw.
