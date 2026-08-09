@@ -5,9 +5,11 @@ import Analytics from "@vercel/analytics/astro";
 import michal from "../assets/michal.jpg";
 import ConsentManager from "../components/ConsentManager.astro";
 import {
+  COMPANY,
   CONTACT_EMAIL,
   GA_ID,
   HOME_CITY,
+  ORGANIZATION_ID,
   LAST_CONTENT_UPDATE,
   PERSON_ID,
   SERVICES,
@@ -89,7 +91,27 @@ const personJsonLd = {
       addressCountry: "PL",
     },
   },
+  worksFor: { "@id": ORGANIZATION_ID },
   sameAs: SOCIALS.map((social) => social.href),
+};
+// Firma, przez którą prowadzony jest management i która jest administratorem
+// danych — te same dane co w polityce prywatności i w CEIDG.
+const organizationJsonLd = {
+  "@type": "Organization",
+  "@id": ORGANIZATION_ID,
+  name: COMPANY.name,
+  url: site.href,
+  founder: { "@id": PERSON_ID },
+  taxID: COMPANY.nip,
+  vatID: `PL${COMPANY.nip}`,
+  email: `mailto:${CONTACT_EMAIL}`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: COMPANY.street,
+    postalCode: COMPANY.postalCode,
+    addressLocality: COMPANY.city,
+    addressCountry: "PL",
+  },
 };
 const websiteJsonLd = {
   "@type": "WebSite",
@@ -123,6 +145,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     personJsonLd,
+    organizationJsonLd,
     websiteJsonLd,
     ...(pageJsonLd ? [pageJsonLd] : []),
     ...extraJsonLd,
