@@ -1,13 +1,15 @@
 ---
-import { HOME_CITY, SOCIALS } from "../consts";
+import { SOCIALS } from "../consts";
 
-// Układ z makiety: © / LinkedIn / Instagram / miasto. Adresu e-mail tu nie ma
+// Układ z makiety: © / LinkedIn / Instagram / Cookies. Adresu e-mail tu nie ma
 // świadomie — jest w nawigacji i w pasmie „Kontakt", a piąta komórka rozbiłaby
-// czterokolumnową siatkę.
+// czterokolumnową siatkę. Z tego samego powodu miasto ustąpiło miejsca
+// „Cookies": RODO wymaga, żeby wycofanie zgody było równie łatwe co jej
+// udzielenie, a Gdańsk i tak stoi w nadtytule hero.
 const cells = [
   { label: `© ${new Date().getFullYear()}` },
   ...SOCIALS,
-  { label: HOME_CITY },
+  { label: "Cookies", preferences: true },
 ];
 
 // Linie siatki liczone z pozycji komórki: przy dwóch kolumnach kreska pionowa
@@ -41,6 +43,16 @@ const cell = "px-5 py-4 md:py-[19px] lg:px-8";
           {item.name} <span aria-hidden="true">↗</span>
           <span class="sr-only">(otwiera się w nowej karcie)</span>
         </a>
+      ) : "preferences" in item ? (
+        // Panel otwiera delegowany listener w ConsentManager.astro — dzięki
+        // temu przycisk działa też po podmianie DOM przez ClientRouter.
+        <button
+          type="button"
+          data-cc-preferences
+          class={`${cell} ${border(index)} cursor-pointer text-left underline underline-offset-4 transition-colors hover:text-ink`}
+        >
+          {item.label}
+        </button>
       ) : (
         <div class={`${cell} ${border(index)}`}>{item.label}</div>
       ),

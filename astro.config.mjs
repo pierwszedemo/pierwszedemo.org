@@ -29,7 +29,9 @@ export default defineConfig({
   site: SITE_URL,
   output: "server",
   trailingSlash: "never",
-  adapter: vercel({ webAnalytics: { enabled: true } }),
+  // Bez `webAnalytics` w adapterze — skrypt wstrzykuje komponent <Analytics />
+  // z @vercel/analytics w BaseLayout. Obie drogi naraz wstawiłyby go dwa razy.
+  adapter: vercel(),
   integrations: [
     sitemap({
       // Sitemapa jest listą stron. Kanał RSS, karty OG i llms.txt to zasoby
