@@ -14,6 +14,14 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 /** Data ostatniej zmiany treści — trafia do sitemap.lastmod i dateModified. */
 export const LAST_CONTENT_UPDATE = "2026-08-09";
 
+/**
+ * Identyfikator pomiaru GA4 (G-XXXXXXXXXX). Pusty łańcuch = gtag.js w ogóle
+ * się nie ładuje; baner zgody i Consent Mode działają wtedy tak samo, tylko
+ * nie mają czego włączyć. Wpisanie ID to jedyna zmiana potrzebna do startu
+ * analityki — reszta jest już podpięta.
+ */
+export const GA_ID = "G-LN7ZQVG13T";
+
 /** Marka w lewej komórce nagłówka — w projekcie zapisana z ®. */
 export const WORDMARK = "Miszczyszyn®";
 
@@ -81,3 +89,95 @@ export type Category = (typeof CATEGORIES)[number];
 export const KINDS = ["notatka", "przewodnik"] as const;
 
 export type Kind = (typeof KINDS)[number];
+
+// ---------------------------------------------------------------------------
+// Polityka prywatności — jedno źródło dla strony /polityka-prywatnosci
+// i dla linków w banerze cookies (src/scripts/consent.ts).
+// ---------------------------------------------------------------------------
+export const PRIVACY_POLICY_PATH = "/polityka-prywatnosci";
+export const PRIVACY_POLICY_UPDATED = "2026-08-09";
+
+/** Nazwa cookie z decyzją użytkownika — pada też w treści polityki. */
+export const CONSENT_COOKIE = "mm_consent";
+export const CONSENT_COOKIE_DAYS = 182;
+
+/** Narzędzia zewnętrzne działające na stronie — tabela w polityce. */
+export const PRIVACY_TOOLS = [
+  {
+    name: "Vercel (hosting)",
+    provider: "Vercel Inc., USA",
+    purpose: "Serwowanie strony, logi serwera, ochrona przed nadużyciami.",
+    storage: "Brak cookies",
+    basis: "Uzasadniony interes (art. 6 ust. 1 lit. f RODO)",
+  },
+  {
+    name: "Vercel Web Analytics",
+    provider: "Vercel Inc., USA",
+    purpose:
+      "Zliczanie odwiedzin i kliknięć w linki, bez identyfikowania użytkowników.",
+    storage: "Brak cookies",
+    basis: "Uzasadniony interes (art. 6 ust. 1 lit. f RODO)",
+  },
+  {
+    name: "Umami",
+    provider: "Umami Software, Inc., USA",
+    purpose:
+      "Statystyki odwiedzin i kliknięć w linki, bez profilowania i bez identyfikatorów.",
+    storage: "Brak cookies",
+    basis: "Uzasadniony interes (art. 6 ust. 1 lit. f RODO)",
+  },
+  {
+    name: "Google Analytics 4",
+    provider: "Google Ireland Limited, Irlandia",
+    purpose:
+      "Statystyki odwiedzin: oglądane podstrony, źródła wejść i kliknięcia w linki.",
+    storage: "Cookies _ga, _ga_* (2 lata)",
+    basis: "Zgoda (art. 6 ust. 1 lit. a RODO)",
+  },
+] as const;
+
+export const PRIVACY_SECTIONS = [
+  {
+    title: "Kto jest administratorem",
+    paragraphs: [
+      `Administratorem danych zbieranych przez stronę ${SITE_URL} jest ${SITE_NAME}. We wszystkich sprawach dotyczących danych osobowych napisz na ${CONTACT_EMAIL}.`,
+    ],
+  },
+  {
+    title: "Jakie dane zbieram",
+    paragraphs: [
+      "Strona nie ma formularzy, logowania ani koszyka — nie proszę o żadne dane i nie zakładam kont.",
+      "Zbierane są wyłącznie dane techniczne związane z odwiedzinami: adres IP, typ przeglądarki i urządzenia, adres odwiedzonej podstrony, źródło wejścia oraz przybliżona lokalizacja na poziomie kraju. Trafiają do narzędzi statystycznych wymienionych niżej.",
+      `Jeśli napiszesz na ${CONTACT_EMAIL}, przetwarzam dane zawarte w wiadomości wyłącznie po to, żeby na nią odpowiedzieć.`,
+    ],
+  },
+  {
+    title: "Cookies i zgoda",
+    paragraphs: [
+      "Przy pierwszej wizycie widzisz baner z pytaniem o cookies. Do momentu Twojej decyzji Google Analytics nie zapisuje niczego na Twoim urządzeniu — działa w trybie Google Consent Mode v2 z domyślnie odrzuconymi zgodami.",
+      "Odmowa jest tak samo łatwa jak zgoda: oba przyciski są tej samej wielkości i dostępne jednym kliknięciem. Nic nie jest zaznaczone z góry.",
+      "Decyzję zmienisz w każdej chwili — link „Cookies” w stopce otwiera panel ustawień. Po cofnięciu zgody zapisane wcześniej cookies analityczne są usuwane.",
+      `Umami i Vercel Web Analytics nie zapisują niczego na Twoim urządzeniu i nie tworzą profili — liczą odwiedziny i kliknięcia w linki w postaci zbiorczych statystyk, bez wiązania ich z konkretną osobą — dlatego działają niezależnie od banera. Cookie z Twoją decyzją o zgodach (${CONSENT_COOKIE}, ${CONSENT_COOKIE_DAYS} dni) jest niezbędne do działania samego mechanizmu zgody.`,
+      "Kroje pisma są serwowane z tego samego serwera co strona — przeglądanie serwisu nie wysyła żadnego zapytania do Google Fonts.",
+    ],
+  },
+  {
+    title: "Przekazywanie danych poza EOG",
+    paragraphs: [
+      "Google, Vercel i Umami mogą przetwarzać dane w Stanach Zjednoczonych. Odbywa się to na podstawie decyzji Komisji Europejskiej o odpowiednim stopniu ochrony (EU–U.S. Data Privacy Framework) lub standardowych klauzul umownych.",
+    ],
+  },
+  {
+    title: "Jak długo przechowuję dane",
+    paragraphs: [
+      "Dane w Google Analytics są przechowywane maksymalnie 14 miesięcy. Statystyki Umami i Vercela są zagregowane i nie pozwalają na identyfikację. Korespondencja mailowa — przez czas potrzebny do obsługi sprawy i ewentualnych roszczeń.",
+    ],
+  },
+  {
+    title: "Twoje prawa",
+    paragraphs: [
+      "Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania, prawo do przenoszenia danych, prawo sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie oraz prawo do cofnięcia zgody w dowolnym momencie — bez wpływu na zgodność z prawem przetwarzania sprzed cofnięcia.",
+      `Żeby skorzystać z tych praw, napisz na ${CONTACT_EMAIL}. Przysługuje Ci też skarga do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).`,
+    ],
+  },
+] as const;

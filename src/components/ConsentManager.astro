@@ -1,0 +1,41 @@
+---
+// Baner zgody na cookies. Renderuje się w całości po stronie klienta —
+// tutaj tylko punkt zaczepienia dla skryptu (hoistowanego i bundlowanego
+// przez Astro, bo importuje bibliotekę).
+---
+
+<script>
+  import * as CookieConsent from "vanilla-cookieconsent";
+  import { consentConfig } from "../scripts/consent";
+
+  if (!window.__ccInit) {
+    window.__ccInit = true;
+
+    // Delegowane na document, żeby przeżyć podmianę <body> przez ClientRouter —
+    // każdy element z [data-cc-preferences] otwiera panel ustawień.
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      if (!target.closest("[data-cc-preferences]")) return;
+      event.preventDefault();
+      CookieConsent.showPreferences();
+    });
+
+    // Baner żyje bezpośrednio w <body>, a View Transitions podmieniają całe
+    // <body>. Zapamiętujemy węzeł przed podmianą i wstawiamy go z powrotem —
+    // zachowuje stan biblioteki i podpięte listenery. Rejestrujemy bezwarunkowo,
+    // bo przy zapisanej już zgodzie #cc-main powstaje dopiero przy
+    // showPreferences(), a nie od razu po run().
+    let ccRoot: HTMLElement | null = null;
+    document.addEventListener("astro:before-swap", () => {
+      ccRoot = document.getElementById("cc-main");
+    });
+    document.addEventListener("astro:after-swap", () => {
+      if (ccRoot && !document.getElementById("cc-main")) {
+        document.body.appendChild(ccRoot);
+      }
+    });
+
+    CookieConsent.run(consentConfig);
+  }
+</script>

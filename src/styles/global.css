@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "vanilla-cookieconsent/dist/cookieconsent.css";
 
 @theme {
   --font-sans: var(--font-archivo), system-ui, sans-serif;
@@ -50,5 +51,311 @@
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Baner cookies (vanilla-cookieconsent) — ten sam układ co na olageppert.pl,
+   ale w odwróconej palecie: czarny tekst na bieli, twarde krawędzie, zero
+   zaokrągleń i kursywy. Struktura reguł jest przeniesiona 1:1, bo każda z nich
+   obchodzi konkretne zachowanie biblioteki (opisane przy regułach).
+--------------------------------------------------------------------------- */
+#cc-main {
+  --cc-font-family: var(--font-sans);
+  --cc-bg: #fff;
+  --cc-primary-color: var(--color-ink);
+  --cc-secondary-color: var(--color-muted);
+  --cc-link-color: var(--color-ink);
+
+  --cc-separator-border-color: var(--color-hairline);
+  --cc-btn-border-radius: 0;
+  --cc-modal-border-radius: 0;
+  --cc-z-index: 50;
+
+  /* Strona jest biała, więc przyciemniamy ją pod modalem — rozjaśnienie
+     nie odcięłoby okna od tła. */
+  --cc-overlay-bg: rgb(16 16 16 / 0.45);
+  --cc-footer-bg: #fff;
+  --cc-footer-color: var(--color-muted);
+  --cc-footer-border-color: var(--color-hairline);
+
+  --cc-cookie-category-block-bg: var(--color-panel);
+  --cc-cookie-category-block-border: var(--color-hairline);
+  --cc-cookie-category-block-hover-bg: #eeece7;
+  --cc-cookie-category-block-hover-border: var(--color-muted);
+  --cc-cookie-category-expanded-block-bg: transparent;
+  --cc-cookie-category-expanded-block-hover-bg: var(--color-panel);
+
+  --cc-toggle-on-bg: var(--color-ink);
+  --cc-toggle-off-bg: #c9c7c1;
+  --cc-toggle-on-knob-bg: #fff;
+  --cc-toggle-off-knob-bg: #fff;
+  --cc-toggle-readonly-bg: var(--color-hairline);
+  --cc-toggle-readonly-knob-bg: #fff;
+  --cc-toggle-readonly-knob-icon-color: var(--color-muted);
+
+  --cc-webkit-scrollbar-bg: var(--color-hairline);
+  --cc-webkit-scrollbar-bg-hover: var(--color-muted);
+}
+
+#cc-main .cm,
+#cc-main .pm {
+  border: 1px solid var(--color-ink);
+  box-shadow: 0 20px 60px rgb(16 16 16 / 0.18);
+}
+
+/* Pasek półprzezroczysty — nie wycina dziury w kompozycji strony. Rozmycie tła
+   trzyma kontrast tekstu nad zdjęciem w hero. */
+#cc-main .cm {
+  background: rgb(255 255 255 / 0.82);
+  backdrop-filter: blur(16px);
+}
+
+/* Safari < 18 zna tylko -webkit-backdrop-filter, a Lightning CSS (Tailwind v4)
+   wycina prefiksy jako zbędne przy swoich targetach. Bez rozmycia tło o alfa
+   0.82 przepuszcza zdjęcie i tekst robi się nieczytelny — tam dajemy zwykłe,
+   kryjące tło. */
+@supports not (backdrop-filter: blur(1px)) {
+  #cc-main .cm {
+    background: #fff;
+  }
+}
+
+/* Biblioteka daje przyciskom w chmurce min-width: 10em, przez co zjadają całą
+   szerokość i tekst wchodzi pod nie. Przycinamy do treści. */
+#cc-main .cm--cloud {
+  width: max-content;
+  max-width: min(40rem, calc(100vw - 1.5rem));
+}
+
+#cc-main .cm--cloud.cm--inline .cm__btn {
+  min-width: 0;
+}
+
+/* border-left i flex:1 pochodzą z reguł biblioteki o wyższej specyficzności
+   (`.cm--cloud .cm__btns`), więc nadpisujemy je na tym samym poziomie. */
+#cc-main .cm--cloud .cm__btns {
+  max-width: none;
+  border: 0;
+}
+
+/* Tekst i linki w jednej linii bazowej. */
+#cc-main .cm--cloud .cm__body {
+  align-items: center;
+}
+
+/* flex:1 z biblioteki rozciągało kolumnę tekstu i jednolinijkowy napis
+   wychodził pod przyciski. Ma być szeroka dokładnie na treść. */
+#cc-main .cm--cloud .cm__texts {
+  flex: 0 0 auto;
+}
+
+/* Baner ma być jednym niskim paskiem: tekst po lewej, przyciski w rzędzie
+   po prawej. Tytuł zostaje tylko dla czytników ekranu. */
+#cc-main .cm__title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+#cc-main .cm__body {
+  padding: 0.6rem 0.75rem;
+}
+
+#cc-main .cm__texts,
+#cc-main .cm__desc {
+  padding: 0;
+}
+
+/* Biblioteka odsuwa opis od tytułu — tytuł jest tu ukryty, margines zbędny.
+   Selektor musi być ten sam co jej (`.cm__title + .cm__desc`). */
+#cc-main .cm__title + .cm__desc {
+  margin-top: 0;
+}
+
+#cc-main .cm__desc {
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* „Ustawienia" jako link w zdaniu — trzeci przycisk zabierałby całą linię.
+   Musi wyglądać identycznie jak sąsiednia „Polityka". */
+#cc-main .cm__desc button,
+#cc-main .cm__desc a {
+  all: unset;
+  cursor: pointer;
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s;
+}
+
+#cc-main .cm__desc button:hover,
+#cc-main .cm__desc a:hover {
+  color: var(--color-muted);
+}
+
+#cc-main .cm__btns {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  align-self: center;
+  gap: 1.25rem;
+  padding: 0 0 0 1.25rem;
+  border: 0;
+}
+
+#cc-main .cm__btns > .cm__btn-group {
+  margin: 0;
+}
+
+/* Biblioteka rozsuwa przyciski margin-topem (układ kolumnowy) — w rzędzie
+   przesunąłby „Akceptuję" w dół względem „Odrzucam". */
+#cc-main .cm__btn-group {
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+#cc-main .cm__btn-group > .cm__btn {
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Nagłówek panelu w typografii strony: Archivo półgruby, ciasny trekking. */
+#cc-main .pm__title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+/* Odmowa musi być tak samo widoczna jak zgoda (wytyczne UODO/EROD) — oba
+   dostają identyczny wygląd, bez wyróżnionego „akceptuj". */
+#cc-main .cm__btn,
+#cc-main .pm__btn {
+  background: transparent;
+  color: var(--color-ink);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition:
+    color 0.2s,
+    background-color 0.2s,
+    border-color 0.2s;
+}
+
+/* Na pasku „przyciski" są podkreślonymi linkami — ramki robiły z niego kafel. */
+#cc-main .cm__btn {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+  /* biblioteka trzyma min-height: 42px — przy linku to zbędne 25 px */
+  min-height: 0;
+  line-height: 1.4;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Biblioteka zeruje dekorację na wewnętrznym <span>, co zabijało podkreślenie. */
+#cc-main .cm__btn span {
+  text-decoration: inherit;
+}
+
+#cc-main .cm__btn:hover {
+  color: var(--color-muted);
+}
+
+/* W panelu ustawień zostają zwykłe przyciski w ramkach. */
+#cc-main .pm__btn,
+#cc-main .pm__close-btn {
+  border: 1px solid var(--color-ink);
+}
+
+#cc-main .pm__btn:hover,
+#cc-main .pm__close-btn:hover {
+  background: var(--color-ink);
+  color: #fff;
+}
+
+#cc-main .cm__desc a,
+#cc-main .pm__body a {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Pasek siedzi w prawym dolnym rogu, na stopce — bez ruszania układu strony.
+   Zasłania komórkę „Cookies", ale panel otwiera też „Ustawienia" w samym
+   pasku, więc nic nie znika z zasięgu użytkownika. */
+#cc-main .cm--bottom {
+  bottom: 1rem;
+}
+
+/* Stan spoczynkowy paska — bez tego zostaje przesunięcie z animacji wejścia
+   (translateY(1.6em)) i realna pozycja nie zgadza się z `bottom`. */
+html.show--consent #cc-main .cm {
+  transform: translateY(0);
+}
+
+/* Poniżej 640 px biblioteka łamie pasek na dwie linie: wymusza (!important)
+   kolumnę na .cm__body i .cm__btns plus kreskę między tekstem a przyciskami.
+   Wracamy do jednego rzędu — stąd !important przy każdej takiej reguli. */
+@media screen and (max-width: 640px) {
+  /* Pełna szerokość ekranu: kasujemy marginesy z --cc-modal-margin i boczne
+     krawędzie, zostaje sama kreska u góry. */
+  #cc-main .cm {
+    inset-inline: 0;
+    margin: 0;
+    border-inline: 0;
+    border-bottom: 0;
+  }
+
+  #cc-main .cm--bottom {
+    bottom: 0;
+  }
+
+  #cc-main .cm--cloud .cm__body {
+    flex-direction: row !important;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem !important;
+  }
+
+  #cc-main .cm__desc,
+  #cc-main .cm__btns {
+    padding: 0 !important;
+  }
+
+  /* 11 px zamiast 12 — przy 360 px inaczej zabrakłoby ~15 px na jedną linię. */
+  #cc-main .cm__desc {
+    font-size: 0.6875rem;
+  }
+
+  #cc-main .cm__btns {
+    flex-direction: row !important;
+    align-self: center;
+    margin-left: auto;
+    border-top: 0 !important;
+  }
+
+  #cc-main .cm__btn-group {
+    display: grid !important;
+    grid-auto-flow: column !important;
+    grid-auto-columns: max-content !important;
+    gap: 0.75rem !important;
+  }
+
+  #cc-main .cm__btn + .cm__btn {
+    margin: 0 !important;
+  }
+
+  #cc-main .cm__btn-group + .cm__btn-group {
+    margin: 0 0 0 0.75rem !important;
   }
 }
