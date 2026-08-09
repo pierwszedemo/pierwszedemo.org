@@ -103,9 +103,14 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
 
 ## Not built yet
 
-Real hero photograph (`HeroPhoto.astro` ships the mock's grey placeholder panel),
 `og.png` endpoint, cookie consent + analytics, an `/artysci` page if the roster
 grows past one artist.
+
+`src/assets/michal.jpg` is a phone snapshot, not a press portrait — it is what
+the design's placeholder slot got filled with, and it is the obvious thing to
+replace when a proper shot exists. Anything dropped in there must be
+pre-rotated and metadata-stripped first (the original carried an EXIF
+orientation tag and GPS coordinates).
 
 The nav is four cells (marka / pusta / Blog / Kontakt) — the mock's "Artyści"
 item was dropped but its cell stays, hidden below `md`, so the grid keeps the
