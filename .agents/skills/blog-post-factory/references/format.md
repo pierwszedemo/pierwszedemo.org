@@ -1,4 +1,4 @@
-# Format wpisu — kontrakt z rendererem
+# Format wpisu – kontrakt z rendererem
 
 ## Dlaczego to kontrakt, a nie styl
 
@@ -7,7 +7,7 @@ Ograniczenia w tym pliku nie są preferencją redakcyjną. Wynikają z tego, jak
 
 Blok `<style>` w tym pliku stylizuje **wyłącznie** `p`, `h2`, `h3` i `a`. Wszystko inne
 wpada w Tailwind Preflight, który kasuje punktory i marginesy list, zeruje marginesy
-`blockquote`, `pre` i `hr`. Lista markdownowa **nie zepsuje buildu** — wyrenderuje się jako
+`blockquote`, `pre` i `hr`. Lista markdownowa **nie zepsuje buildu** – wyrenderuje się jako
 ciąg linijek bez punktorów i bez odstępów, czyli jako coś, co wygląda na błąd. Dlatego
 zakaz jest egzekwowany grepem z sekcji „Weryfikacja" w `SKILL.md`, a nie nadzieją.
 
@@ -38,7 +38,7 @@ Do tego jedna reguła odstępu:
 }
 ```
 
-`p + h2` zamiast `:not(:first-child)` — omija wojnę o specyficzność z Tailwindem i nie
+`p + h2` zamiast `:not(:first-child)` – omija wojnę o specyficzność z Tailwindem i nie
 rozdziela pary `h2` + `h3`, gdy sekcja zaczyna się od podsekcji.
 
 Trzecia reguła dotyczy pogrubień:
@@ -50,7 +50,7 @@ Trzecia reguła dotyczy pogrubień:
 }
 ```
 
-Bez niej Preflight ustawia `font-weight: bolder`, co z akapitu o wadze 400 daje 700 —
+Bez niej Preflight ustawia `font-weight: bolder`, co z akapitu o wadze 400 daje 700 –
 czyli wyróżnione zdanie byłoby cięższe niż tytuł wpisu. W całym projekcie mocniejszy
 tekst to 600; `font-bold` ma wyłącznie wordmark w nawigacji.
 
@@ -59,14 +59,15 @@ tekst to 600; `font-bold` ma wyłącznie wordmark w nawigacji.
 | | |
 |---|---|
 | Długość | **300–500 słów** treści (bez frontmattera) |
-| Struktura | 5–7 akapitów po 2–4 zdania, **zero śródtytułów** |
-| Markdown | wyłącznie akapity i `[tekst](url)` |
+| Struktura | 5–8 akapitów po 1–4 zdania, **zero śródtytułów** |
+| Rytm | co najmniej jeden akapit jednozdaniowy, co najmniej co piąte zdanie ≤5 słów |
+| Markdown | akapity, `[tekst](url)`, `**pogrubienie**` |
 | Linki | 0–2; zero jest stanem domyślnym |
 | `readingMinutes` | 2–3 |
 
 Cztery najstarsze wpisy (`jak-przygotowac-epk`, `pre-save-to-nie-strategia`,
 `booking-festiwalowy-od-kuchni`, `ile-kosztuje-niezalezny-singiel`) mają 103–193 słowa.
-Są wzorcem **głosu i rytmu**, nie długości — widełki 300–500 są decyzją redakcyjną
+Są wzorcem **głosu i rytmu**, nie długości – widełki 300–500 są decyzją redakcyjną
 podjętą później i to one obowiązują.
 
 ## `kind: przewodnik`
@@ -74,17 +75,24 @@ podjętą później i to one obowiązują.
 | | |
 |---|---|
 | Długość | **1200–2000 słów** treści |
-| Struktura | 2–3 akapity wstępu bez śródtytułu → 4–6 sekcji `##` po 200–350 słów → `## Najczęstsze pytania` |
+| Struktura | 2–3 akapity wstępu bez śródtytułu → 4–6 sekcji `##` po 200–350 słów → `## Najczęstsze pytania` → `## Podsumowanie` |
 | FAQ | 3–5 pytań jako `###`, odpowiedź 40–70 słów |
-| Markdown | akapity, `##`, `###`, `[tekst](url)` |
+| Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**` |
 | Linki | 2–4 wewnętrzne + źródło przy pierwszym wystąpieniu każdej liczby |
 | `readingMinutes` | 7–11 |
 
-Nagłówki to frazy rzeczownikowe („Co dystrybutor robi za swoją prowizję"). Zakazane:
-`Podsumowanie`, `Wnioski`, `Wstęp`, `Na koniec` i nagłówki-pytania retoryczne poza sekcją
-FAQ.
+Nagłówków jest **6–10 na wpis**, licząc `##` i `###` razem – w korpusie autora nawet
+700-wyrazowy tekst dostaje 5–7 śródtytułów, więc rzadkie nagłówki brzmią nie jak on.
 
-**Bez sekcji `## Źródła` na końcu.** Blok „Nazwa — [tytuł](URL), sprawdzone DD.MM.RRRR"
+Domyślny kształt nagłówka to **krótka fraza rzeczownikowa**, często jedno- lub
+dwuwyrazowa („Sól", „Pieprz", „Cena i podsumowanie"). Mniej więcej **co dziesiąty
+nagłówek jest pytaniem czytelnika** – prawdziwym, nie retorycznym ozdobnikiem:
+„Po co w ogóle rejestrować utwór?", „Skąd się to bierze?", „Co zrobić, jak żyć?".
+
+`## Podsumowanie` jako ostatnia sekcja **jest kanonem tego autora**, nie kliszą – kończy
+tak niemal każdy dłuższy tekst. Zakazane zostają `Wstęp`, `Wnioski` i `Kluczowe wnioski`.
+
+**Bez sekcji `## Źródła` na końcu.** Blok „Nazwa – [tytuł](URL), sprawdzone DD.MM.RRRR"
 to aparat naukowy w blogu praktyka i renderuje się jako kilka nierozróżnialnych akapitów
 15,5 px. Cytatem jest link inline przy pierwszym wystąpieniu liczby.
 
@@ -105,7 +113,7 @@ Twardy rozstrzygacz: konspekt bez czterech sekcji, z których każda uczciwie po
 ```yaml
 ---
 title: Pre-save to nie strategia. To narzędzie
-lead: Kampania singla nie zaczyna się od linku do pre-save. Zaczyna się od pytania, kto ma go kliknąć — i dlaczego akurat teraz.
+lead: Kampania singla nie zaczyna się od linku do pre-save. Zaczyna się od pytania, kto ma go kliknąć – i dlaczego akurat teraz.
 category: Streaming
 kind: notatka
 date: 2026-06-11
@@ -114,26 +122,26 @@ readingMinutes: 2
 ---
 ```
 
-- **`title`** — 25–48 znaków (korpus: 29–40). Do `<title>` doklejane jest
-  ` — Michał Miszczyszyn`, czyli +22 znaki. Bez roku, bez dwukropka-klikbajtu
+- **`title`** – 25–48 znaków (korpus: 29–40). Do `<title>` doklejane jest
+  ` – Michał Miszczyszyn`, czyli +22 znaki. Bez roku, bez dwukropka-klikbajtu
   („Pre-save: 7 rzeczy, które musisz wiedzieć" jest poza stylem tego bloga).
   Nagłówek `h1` ma `max-w-[18ch]`, więc długi tytuł łamie się na cztery linijki.
-- **`lead`** — dokładnie 2 zdania, 120–180 znaków (korpus: 122/134/139/152). Trafia
+- **`lead`** – dokładnie 2 zdania, 120–180 znaków (korpus: 122/134/139/152). Trafia
   jednocześnie do `<meta name="description">`, `og:description`, pola `description`
   w `BlogPosting` **i** do widocznej kolumny „W skrócie". Musi bronić się jako zdanie.
-- **`category`** — jedna z siedmiu wartości `CATEGORIES` w `src/consts.ts`.
-- **`kind`** — `notatka` albo `przewodnik`. Ma default `notatka`, ale w nowych wpisach
+- **`category`** – jedna z siedmiu wartości `CATEGORIES` w `src/consts.ts`.
+- **`kind`** – `notatka` albo `przewodnik`. Ma default `notatka`, ale w nowych wpisach
   wpisuj jawnie.
-- **`date`** — data publikacji, `YYYY-MM-DD`. Porządkuje listę i linki prev/next.
+- **`date`** – data publikacji, `YYYY-MM-DD`. Porządkuje listę i linki prev/next.
   Przy aktualizacji **nie ruszasz** tego pola.
-- **`updated`** — opcjonalna, data rewizji faktów. Zasila `dateModified` w JSON-LD.
-- **`keyphrase`** — fraza główna, 2–4 słowa po polsku. Jedyny mechanizm deduplikacji
+- **`updated`** – opcjonalna, data rewizji faktów. Zasila `dateModified` w JSON-LD.
+- **`keyphrase`** – fraza główna, 2–4 słowa po polsku. Jedyny mechanizm deduplikacji
   tematów: bez niej porównywalibyśmy tytuły, a dwa różnie zatytułowane wpisy o pitchingu
   konkurują ze sobą w wyszukiwarce.
-- **`readingMinutes`** — liczba całkowita dodatnia, wzór niżej.
+- **`readingMinutes`** – liczba całkowita dodatnia, wzór niżej.
 
 **Pułapka YAML:** wartość zawierająca `: ` (dwukropek ze spacją), zaczynająca się od `-`,
-`#`, `[`, `{` albo `*`, musi być w cudzysłowie — inaczej `getCollection` rzuca błąd przy
+`#`, `[`, `{` albo `*`, musi być w cudzysłowie – inaczej `getCollection` rzuca błąd przy
 buildzie. Tytuł „Spotify for Artists: konfiguracja" **musi** być zacytowany.
 
 ## `readingMinutes`
@@ -157,18 +165,18 @@ z liczbami i nazwami instytucji, których się nie przelatuje wzrokiem. Podłoga
 
 Pogrubienie ma własną regułę, bo łatwo je przedawkować: **jedno lub dwa całe zdania na
 200 słów**. Nigdy pojedyncze słowo (wygląda jak zaznaczenie w podręczniku), nigdy cały
-akapit, nigdy w ostatnim akapicie — puenta broni się pozycją, a nie grubością. Wyróżnia
+akapit, nigdy w ostatnim akapicie – puenta broni się pozycją, a nie grubością. Wyróżnia
 się zdanie, które ma zostać w głowie kogoś, kto przeleciał wpis wzrokiem. Szablon
-renderuje `strong` jako 600 w kolorze `--color-ink`, czyli tak samo jak śródtytuły —
+renderuje `strong` jako 600 w kolorze `--color-ink`, czyli tak samo jak śródtytuły –
 wyróżnienie ma być czytelne, nie krzykliwe.
 
 **Zakazane bezwzględnie**, z powodem:
 
 | Element | Dlaczego |
 |---|---|
-| `- ` / `1. ` (listy) | Preflight kasuje punktory i marginesy — renderuje się jako zlepione linijki. Do tego lista punktowana jest najsilniejszym sygnałem tekstu pisanego przez model. |
+| `- ` / `1. ` (listy) | Preflight kasuje punktory i marginesy – renderuje się jako zlepione linijki. Do tego lista punktowana jest najsilniejszym sygnałem tekstu pisanego przez model. |
 | tabele | brak stylów; w łamie 15,5 px i tak nie mieszczą się szerokością |
-| `>` (cytat blokowy) | Preflight zeruje marginesy — cytat wygląda jak zwykły akapit z wciętym tekstem |
+| `>` (cytat blokowy) | Preflight zeruje marginesy – cytat wygląda jak zwykły akapit z wciętym tekstem |
 | ` ``` ` i `` ` `` | brak stylów `pre`/`code`; to nie jest blog techniczny |
 | `*kursywa*` | brak stylów; w korpusie nie występuje ani razu |
 | `—` (em dash, U+2014) | jedyna dozwolona kreska w tekście to półpauza `–`; szczegóły w `styl.md` |
@@ -200,29 +208,29 @@ zahacza.* „Budżet trasy" to Finanse, choć dotyczy koncertów. „Jak aplikow
 to Koncerty (chodzi o zagranie), ale „Great September z perspektywy delegata" to Branża
 (chodzi o bycie tam).
 
-Siedem etykiet mieści się w kolumnie 190 px listingu — najdłuższe, „Wydawnictwa"
+Siedem etykiet mieści się w kolumnie 190 px listingu – najdłuższe, „Wydawnictwa"
 i „Zarządzanie", mają po 11 znaków. Dłuższa nazwa kategorii złamałaby wiersz.
 
 ## Migracja repo
 
 Gdyby ktoś pracował na klonie sprzed wprowadzenia formatów, potrzebne są cztery zmiany.
 
-1. **`src/consts.ts`** — siedem wartości `CATEGORIES` (jak w tabeli wyżej) plus
+1. **`src/consts.ts`** – siedem wartości `CATEGORIES` (jak w tabeli wyżej) plus
    `export const KINDS = ["notatka", "przewodnik"] as const;` i `export type Kind`.
-2. **`src/content.config.ts`** — import `KINDS`, pola `kind: z.enum(KINDS).default("notatka")`,
+2. **`src/content.config.ts`** – import `KINDS`, pola `kind: z.enum(KINDS).default("notatka")`,
    `updated: z.coerce.date().optional()`, `keyphrase: z.string().optional()`.
-3. **`src/pages/blog/[...slug].astro`** — `const modified = isoDate(post.data.updated ?? post.data.date);`
+3. **`src/pages/blog/[...slug].astro`** – `const modified = isoDate(post.data.updated ?? post.data.date);`
    użyte w `blogPostingJsonLd.dateModified` i w propie `dateModified`; `class:list`
    z bramką `kind` na `column-count`; reguła CSS `p + h2, p + h3 { margin-top: 30px }`.
 4. **`bun run build`** musi przejść.
 
 ## Świadomie odłożone
 
-- **`FAQPage` w JSON-LD** — wymagałby pola `faq` we frontmatterze (kruchy YAML: dwukropki
+- **`FAQPage` w JSON-LD** – wymagałby pola `faq` we frontmatterze (kruchy YAML: dwukropki
   i cudzysłowy w pytaniach) albo parsowania treści. Duplikowałby też tekst widoczny na
   stronie. Pytania FAQ żyją jako `###` pod `## Najczęstsze pytania`; węzeł można dodać
   później, parsując wyrenderowany HTML.
-- **Style dla `ul`/`ol`/`table`/`strong`** — ich dodanie zaprasza do używania znaczników,
+- **Style dla `ul`/`ol`/`table`/`strong`** – ich dodanie zaprasza do używania znaczników,
   których zakaz jest jednocześnie najsilniejszą dźwignią przeciw tekstowi generycznemu.
-- **`rel="noopener"` na linkach zewnętrznych** — Astro nie dodaje go automatycznie,
+- **`rel="noopener"` na linkach zewnętrznych** – Astro nie dodaje go automatycznie,
   a linki w treści nie mają `target="_blank"`, więc dziś nie ma czego zabezpieczać.

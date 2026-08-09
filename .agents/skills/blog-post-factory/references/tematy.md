@@ -1,7 +1,7 @@
 # Tematy zalążkowe
 
 Punkt wyjścia, gdy użytkownik prosi o wpis bez podania tematu. **Plik jest tylko do
-odczytu** — nie odhaczaj pozycji, nie dopisuj statusów, nie prowadź tu dziennika.
+odczytu** – nie odhaczaj pozycji, nie dopisuj statusów, nie prowadź tu dziennika.
 Deduplikację niesie pole `keyphrase` w opublikowanych wpisach; drugi rejestr rozjechałby
 się z pierwszym przy pierwszym ręcznie napisanym tekście.
 
@@ -16,11 +16,11 @@ występuje już w `src/content/blog/*.md`.
 | Jak aplikować na showcase festival i dlaczego odrzucają | Koncerty | `showcase festiwal zgłoszenie` |
 | Spotify for Artists od zera: konfiguracja profilu | Streaming | `spotify for artists konfiguracja` |
 | Pitching do playlist edytorskich: co realnie się liczy | Streaming | `pitchowanie utworu spotify` |
-| ZAiKS, STOART, SAWP, ZPAV — kto komu płaci | Finanse | `zaiks stoart sawp różnice` |
+| ZAiKS, STOART, SAWP, ZPAV – kto komu płaci | Finanse | `zaiks stoart sawp różnice` |
 | Umowa menedżerska: prowizja, czas trwania, zakres | Zarządzanie | `umowa menedżerska artysta` |
 | Wybór dystrybutora cyfrowego w Polsce | Wydawnictwa | `dystrybucja muzyki polska` |
 | Harmonogram premiery singla: osiem tygodni wstecz | Wydawnictwa | `harmonogram premiery singla` |
-| EPK, który otwiera drzwi — pełny przewodnik | Promocja | `jak zrobić epk` |
+| EPK, który otwiera drzwi – pełny przewodnik | Promocja | `jak zrobić epk` |
 | Split sheet: dziel prawa, zanim będzie o co | Zarządzanie | `split sheet podział praw` |
 
 ## Notatki
@@ -28,17 +28,17 @@ występuje już w `src/content/blog/*.md`.
 | Tytuł roboczy | Kategoria | Fraza |
 |---|---|---|
 | Kiedy artysta naprawdę potrzebuje managera | Zarządzanie | `menedżer artysty kiedy` |
-| One-sheet czy EPK — kiedy który | Promocja | `one sheet muzyka` |
+| One-sheet czy EPK – kiedy który | Promocja | `one sheet muzyka` |
 | Canvas: jak go zrobić, żeby nie szkodził | Streaming | `spotify canvas` |
 | Weryfikacja profilu i Artist's Pick | Streaming | `weryfikacja profilu spotify` |
 | EP czy seria singli | Wydawnictwa | `ep czy single` |
 | Progi ZPAV: ile trzeba na złotą płytę | Wydawnictwa | `złota płyta ile sprzedaży` |
 | Merch: marża, minimum, magazyn | Finanse | `merch zespołu` |
-| Rebranding artysty w praktyce — czego uczy zmiana nazwy | Zarządzanie | `zmiana nazwy artysty` |
+| Rebranding artysty w praktyce – czego uczy zmiana nazwy | Zarządzanie | `zmiana nazwy artysty` |
 | Kalendarz polskich wydarzeń branżowych | Branża | `konferencje muzyczne polska` |
 | Rider techniczny bez wstydu | Koncerty | `rider techniczny zespół` |
 
-Wpis oznaczony frazą `zmiana nazwy artysty` to naturalne miejsce na przykład Oli Geppert —
+Wpis oznaczony frazą `zmiana nazwy artysty` to naturalne miejsce na przykład Oli Geppert –
 niedomknięty rebranding Birim na platformach jest konkretem, nie autopromocją.
 Zasady w `ola-geppert.md`.
 
@@ -46,12 +46,12 @@ Zasady w `ola-geppert.md`.
 
 Nie proponuj ich, dopóki ktoś nie potwierdzi faktów u źródła:
 
-- **„Wielkie Joł" jako konferencja branżowa** — nie udało się potwierdzić, że takie
+- **„Wielkie Joł" jako konferencja branżowa** – nie udało się potwierdzić, że takie
   wydarzenie w tej formule istnieje.
-- **Nouvelle Prague, Tallinn Music Week — terminy i formuła** — niezweryfikowane; jeśli
+- **Nouvelle Prague, Tallinn Music Week – terminy i formuła** – niezweryfikowane; jeśli
   wpis ma je wymieniać, najpierw WebFetch ze stron organizatorów.
-- **„Ile płaci Spotify za odtworzenie"** — nie ma stawki, którą dałoby się podać uczciwie;
+- **„Ile płaci Spotify za odtworzenie"** – nie ma stawki, którą dałoby się podać uczciwie;
   każda liczba w internecie jest wyliczeniem wstecznym z czyjegoś raportu. Temat da się
   zrobić tylko jako wpis o tym, dlaczego ta liczba nie istnieje.
-- **Rankingi dystrybutorów typu „najlepszy w 2027"** — wymagałyby danych o udziałach
+- **Rankingi dystrybutorów typu „najlepszy w 2027"** – wymagałyby danych o udziałach
   rynkowych, których nikt nie publikuje.

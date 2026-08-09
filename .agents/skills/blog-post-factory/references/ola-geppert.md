@@ -1,8 +1,8 @@
-# Ola Geppert — dossier
+# Ola Geppert – dossier
 
 *Spisane na podstawie źródeł kontrolowanych przez artystkę i jej management, stan na
 sierpień 2026. Poza sekcją „Rebranding" żaden fakt w tym pliku nie ma zewnętrznego
-potwierdzenia — bo go nie ma w internecie.*
+potwierdzenia – bo go nie ma w internecie.*
 
 ## ZAKAZY TWARDE
 
@@ -10,13 +10,13 @@ Czytasz to przed napisaniem jakiegokolwiek zdania z jej nazwiskiem.
 
 1. **Zero metryk zasięgu.** Żadnych słuchaczy miesięcznie, obserwujących, odtworzeń,
    zapisów, pozycji na playlistach. Liczby są przeddebiutanckie i cytowanie ich na blogu
-   menedżera szkodzi artystce, którą ten blog ma wspierać. Nie ma od tego wyjątku —
+   menedżera szkodzi artystce, którą ten blog ma wspierać. Nie ma od tego wyjątku –
    także wtedy, gdy liczba rośnie.
 2. **Zero cytatów prasowych, recenzji i playlist.** Nie istnieje ani jedna. Sprawdzone:
    brak wzmianek prasowych, recenzji, wywiadów, notowań radiowych i list koncertowych.
    Wymyślenie „jak pisano o niej w…" jest fabrykowaniem cudzej wypowiedzi.
 3. **Nigdy tytuł spoza dyskografii poniżej.** W wynikach wyszukiwania krąży tytuł
-   „Nokturn" pochodzący z martwego deploymentu testowego. To materiał nieopublikowany —
+   „Nokturn" pochodzący z martwego deploymentu testowego. To materiał nieopublikowany –
    nie istnieje dla bloga.
 4. **Nigdy teksty piosenek z katalogu `texts/` w repo olageppert.pl.** To utwory
    nieopublikowane.
@@ -31,13 +31,13 @@ Czytasz to przed napisaniem jakiegokolwiek zdania z jej nazwiskiem.
 ## Zasada źródła
 
 Ten plik jest **jedynym** dopuszczalnym źródłem faktów o artystce. Nie sprawdzaj jej
-w WebSearch — nowych faktów tam nie ma, są za to cudze osoby o tym nazwisku.
+w WebSearch – nowych faktów tam nie ma, są za to cudze osoby o tym nazwisku.
 
 Gdybyś mimo wszystko musiał czegoś poszukać (np. aktualnej nazwy pliku EPK): **nigdy
 zapytanie o samo „Ola Geppert"**. Zawsze z dopiskiem `Birim`, `olageppert.pl`,
 `dark pop` albo z identyfikatorem MusicBrainz.
 
-**Homonimy, które zdominują wyniki:** Edyta Geppert (znana polska wokalistka — główne
+**Homonimy, które zdominują wyniki:** Edyta Geppert (znana polska wokalistka – główne
 źródło szumu), Carl Geppert, Lena Geppert, Ola Electric.
 
 ## Kim jest
@@ -67,12 +67,12 @@ Aktualnie promowany singiel: **„Delikatnie"**.
 ## Rebranding
 
 Pseudonim **Birim** funkcjonował od 2020 do lipca 2026, kiedy artystka zaczęła publikować
-pod własnym imieniem i nazwiskiem. Katalog jest ten sam — to ta sama artystka, nie nowy
+pod własnym imieniem i nazwiskiem. Katalog jest ten sam – to ta sama artystka, nie nowy
 projekt.
 
 **Rebranding nie jest domknięty na wszystkich platformach.** Spotify i Deezer pokazują
 już nową nazwę; Apple Music i Amazon Music nadal wyświetlają „Birim". To jedyna
-sprawdzalna, konkretna anegdota, jaką wolno o niej opowiedzieć na blogu — i dobra,
+sprawdzalna, konkretna anegdota, jaką wolno o niej opowiedzieć na blogu – i dobra,
 bo pokazuje realny koszt zmiany nazwy artysty w rozproszonym ekosystemie DSP.
 
 Zmiana nazwy jest potwierdzona zewnętrznie w bazie MusicBrainz (alias `Birim` ma
@@ -81,7 +81,7 @@ zamkniętą datę końcową), identyfikator artystki:
 
 ## Występy i wykształcenie
 
-Podane przez artystkę, **bez zewnętrznego potwierdzenia** — cytuj dokładnie tak, jak stoi
+Podane przez artystkę, **bez zewnętrznego potwierdzenia** – cytuj dokładnie tak, jak stoi
 niżej, i **nigdy** z formułą „jak podaje…", „według…", bo nie ma czego przypisać.
 
 - Pięć lat kształcenia wokalnego.
@@ -90,7 +90,7 @@ niżej, i **nigdy** z formułą „jak podaje…", „według…", bo nie ma cze
 - MEGAFON Gdańsk, Morena Art Fest.
 - Laboratorium Sztuki Performance prowadzone przez Olę Kozioł.
 - II Międzynarodowy Festiwal Sztuk Performatywnych „Opowieści", Muzeum Mazowieckie
-  w Płocku (lipiec 2025) — performans wokalny „Nie".
+  w Płocku (lipiec 2025) – performans wokalny „Nie".
 - 2022–2025: studia z projektowania graficznego na ASP w Łodzi. Doświadczenie z obszaru
   sztuk wizualnych i performatywnych jest częścią jej języka artystycznego.
 
@@ -100,27 +100,27 @@ Debiutancka **EP** nagrywana z producentem **Ioanni** (kompozytor, pianista i pr
 Planowane okno wydawnicze: **jesień 2026**. Tytuł nie został ogłoszony.
 
 Pisownia: **Ioanni**, jedna forma w całym blogu. W przypadkach zależnych odmieniaj
-naturalnie („z Ioannim", „nagrana z Ioannim") — to nadal ta sama nazwa, nie „Ioannis".
+naturalnie („z Ioannim", „nagrana z Ioannim") – to nadal ta sama nazwa, nie „Ioannis".
 
 ## Bezpieczne linki
 
-- `https://olageppert.pl` — strona główna
-- `https://olageppert.pl/bio` — pełne bio
-- `https://olageppert.pl/bio#kontakt` — jedyna działająca kotwica na stronie
-- `https://olageppert.pl/epk` — electronic press kit, stąd bierzesz aktualny link do PDF-a
+- `https://olageppert.pl` – strona główna
+- `https://olageppert.pl/bio` – pełne bio
+- `https://olageppert.pl/bio#kontakt` – jedyna działająca kotwica na stronie
+- `https://olageppert.pl/epk` – electronic press kit, stąd bierzesz aktualny link do PDF-a
 
 Skróty (przekierowania, zawsze aktualne): `/spotify`, `/instagram` (`/ig`),
 `/apple-music` (`/apple`), `/youtube` (`/yt`), `/tiktok`, `/tidal`, `/deezer`,
 `/musicbrainz`, `/facebook` (`/fb`).
 
-Nie ma kotwic do pojedynczych sekcji bio ani slajdów EPK — nie próbuj linkować do
+Nie ma kotwic do pojedynczych sekcji bio ani slajdów EPK – nie próbuj linkować do
 konkretnego akapitu.
 
 ## Jak o niej pisać
 
 Wpis o Oli Geppert to **zawsze notatka**, nie przewodnik, i najwyżej jeden na sześć
 publikacji. Blog menedżera, który co drugi tekst pisze o własnej artystce, przestaje być
-blogiem branżowym i staje się materiałem promocyjnym — a wtedy traci tę jedyną rzecz,
+blogiem branżowym i staje się materiałem promocyjnym – a wtedy traci tę jedyną rzecz,
 która daje mu czytelników.
 
 Najlepsze wpisy z jej udziałem to te, w których jest **przykładem do tezy branżowej**
@@ -139,5 +139,5 @@ przykład:
 
 Zasady: **maksymalnie jeden taki link na wpis**, nigdy dwa, nie w każdym wpisie. Anchor
 opisuje rzecz, nie artystkę („tak wygląda EPK, który prowadzę"), i nigdy nie jest zachętą
-do odsłuchu. Jeśli akapit nie potrzebował przykładu, link nie ma się gdzie pojawić —
+do odsłuchu. Jeśli akapit nie potrzebował przykładu, link nie ma się gdzie pojawić –
 wtedy go nie ma. Wszystkie twarde zakazy z góry pliku obowiązują tak samo.
