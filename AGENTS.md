@@ -123,6 +123,18 @@ rasterises. Two constraints are load-bearing:
 Posts live under `/og/<slug>.png` rather than `/blog/<slug>/og.png` so they don't
 collide with the `[...slug]` catch-all.
 
+### Favicons
+
+`scripts/generate-favicons.mjs` builds `favicon.svg`, the PNGs and a hand-assembled
+multi-size `.ico` from one source. Run it by hand (`bun scripts/generate-favicons.mjs`),
+not in the build — icons change once every few years and the output is committed.
+
+The „M" is a **path baked from Archivo**, never `<text>`. The first version used
+`<text font-family="Archivo, …">` and every raster came out as an empty square:
+sharp rasterises SVG through librsvg, which resolves *system* fonts. A visitor's
+browser rendering `favicon.svg` has the same problem. If you restyle the icon,
+keep the glyph as an outline.
+
 ### Analytics & consent
 
 Three tools, ported from olageppert.pl with the palette inverted (black on white):
