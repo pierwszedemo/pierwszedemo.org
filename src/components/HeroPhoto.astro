@@ -1,12 +1,16 @@
 ---
+import { Image } from "astro:assets";
+import michal from "../assets/michal.jpg";
 import { SITE_NAME } from "../consts";
 
 /**
  * Slot na zdjęcie Michała z prawej kolumny hero.
  *
- * Docelowo w miejsce `<div class="…placeholder…">` wchodzi `<Image>` z
- * `astro:assets` (import z `src/assets/`) — reszta komponentu, czyli tło,
- * proporcje i czarny pasek z podpisem, zostaje bez zmian.
+ * Źródło (`src/assets/michal.jpg`) jest już obrócone zgodnie z EXIF i pozbawione
+ * metadanych — oryginał z telefonu niósł tag orientacji i współrzędne GPS.
+ * Kadr 3:4 prawie pokrywa się z proporcją kolumny, więc `object-cover` przycina
+ * minimalnie; `object-position` trzyma twarz w kadrze przy węższych ekranach,
+ * gdzie panel jest 4:5.
  */
 interface Props {
   class?: string;
@@ -16,11 +20,17 @@ const { class: className } = Astro.props;
 ---
 
 <div class:list={["relative bg-panel", className]}>
-  <div
-    class="label absolute inset-0 flex items-center justify-center px-6 text-center tracking-[0.18em] text-muted"
-  >
-    Zdjęcie — Michał
-  </div>
+  <Image
+    src={michal}
+    alt="Michał Miszczyszyn w niebieskiej kurtce, w tle panorama Bergen"
+    format="webp"
+    widths={[400, 800, 1200]}
+    sizes="(min-width: 768px) 400px, 100vw"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    class="absolute inset-0 size-full object-cover object-[center_35%]"
+  />
   <p
     class="label absolute inset-x-0 bottom-0 bg-ink px-6 py-[14px] tracking-[0.18em] text-white"
   >
