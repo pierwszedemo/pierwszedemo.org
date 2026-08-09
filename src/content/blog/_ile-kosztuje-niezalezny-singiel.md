@@ -11,18 +11,18 @@ readingMinutes: 2
 
 Ile kosztuje singiel? Prawie każda osoba, którą o to pytam, odpowiada stawką za dzień w studiu. I to jest właśnie ten moment, w którym budżet się rozjeżdża.
 
-Studio, miks i mastering są najłatwiejsze do wyceny, bo mają stawkę dzienną i konkretny koniec. Właśnie dlatego bardzo często bywają jedyną pozycją, którą ktokolwiek w ogóle planuje. A potem premiera odbywa się bez materiałów, bez zdjęć i bez grosza na promocję.
+Studio, miks i mastering są najłatwiejsze do wyceny, bo mają stawkę dzienną i konkretny koniec. Właśnie dlatego bardzo często bywają jedyną pozycją, którą ktokolwiek w ogóle planuje. A potem premiera odbywa się bez materiałów, bez zdjęć i bez grosza na promocję. Znajome?
 
-Spójrzmy na to inaczej. **Realny kosztorys singla ma cztery bloki: produkcję, materiały wizualne, dystrybucję i promocję.** Wizualne to okładka, sesja i przynajmniej jeden materiał wideo, choćby krótki. Dystrybucja jest tania. Zerowa nie jest. Promocja to zwykle pozycja, którą tnie się pierwszą i żałuje najbardziej.
+Spójrzmy na to inaczej. **Realny kosztorys singla ma cztery bloki: produkcję, materiały wizualne, dystrybucję i promocję.** Wizualne to okładka, sesja i przynajmniej jeden materiał wideo, choćby krótki. Dystrybucja jest tania. Ale nie darmowa. Promocja to zwykle pozycja, którą tnie się pierwszą i żałuje najbardziej.
 
 Do tego dochodzą koszty, o których nikt nie mówi na starcie: rejestracja utworu w ZAiKS-ie i ZPAV-ie, kod ISRC, rozliczenie ze współautorami, czasem prawnik przy pierwszej umowie. Pojedynczo drobne. Razem potrafią zjeść tyle, co dzień w studiu. Najgorsze, że przychodzą na końcu, gdy budżet jest już wydany, a terminu premiery nie da się ruszyć.
 
 Kolejność wydawania pieniędzy jest zresztą równie ważna jak ich suma. Budżet ustalasz w całości przed wejściem do studia, bo wtedy jeszcze możesz zdecydować, że nagranie będzie o dzień krótsze, za to zdjęcia w ogóle powstaną. Po miksie jest już za późno. Zostaje reszta, a reszty nie ma.
 
-A co z czasem, którego nikt nie fakturuje? Umawianie sesji, pilnowanie terminów w dystrybucji, przygotowanie opisów i wysyłka zgłoszeń zajmują tygodnie, których nikt nie policzy. Przy jednej premierze da się to udźwignąć po godzinach. Przy trzech w roku już nie.
+A co z czasem, którego nikt nie fakturuje? Umawianie sesji, pilnowanie terminów w dystrybucji, przygotowanie opisów, wysyłka zgłoszeń. Przy jednej premierze w roku da się to udźwignąć po godzinach. Przy trzech już nie. Ten czas trzeba albo komuś zapłacić, albo odjąć od czegoś innego – i lepiej wiedzieć o tym przed premierą, a nie w jej tygodniu.
 
-Uczciwa arytmetyka jest brutalna.
+Pojedynczy singiel prawie nigdy nie zwraca się sam.
 
-Przy typowych stawkach ze streamingu pojedynczy singiel prawie nigdy nie zwraca się sam. Zwraca się katalog – kolejne wydawnictwa ciągnące odsłuchy poprzednich, koncerty, na które ktoś przyszedł z powodu jednego utworu, i pozycja negocjacyjna, której rok wcześniej nie było.
+Zwraca się katalog – kolejne wydawnictwa ciągnące odsłuchy poprzednich, koncerty, na które ktoś przyszedł z powodu jednego utworu, i pozycja negocjacyjna, której rok wcześniej nie było. Dlatego pytanie „ile kosztuje singiel" jest źle postawione. Właściwe brzmi: ile kosztuje rok, w którym ten singiel jest jednym z trzech kroków.
 
-Dlatego budżet singla planuję zawsze razem z tym, co ma być po nim. Wydawnictwo bez ciągu dalszego to koszt. Wydawnictwo jako element planu na dwanaście miesięcy to inwestycja.
+Tak planuję budżet: zawsze razem z tym, co ma być po nim. Wydawnictwo bez ciągu dalszego jest wydatkiem zamkniętym w jednym miesiącu.
