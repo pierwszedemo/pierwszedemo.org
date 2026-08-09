@@ -23,6 +23,36 @@ nigdy zdaniem o rynku czy badaniach.
 
 Granica jest prosta: jeśli zdanie brzmi jak cytat z raportu, potrzebuje raportu.
 
+## Hipotezy o mechanizmach – wolno, ale oznaczone
+
+To osobna kategoria od liczb i **najciekawsza część tego bloga**. „Dlaczego booker
+odmawia", „na co reagują rekomendacje", „co platforma widzi w pierwszej dobie" – tego
+nikt nie potwierdzi oficjalnie, a i tak jest to najbardziej użyteczna wiedza, jaką ma
+praktyk. Wycinanie takich zdań tylko dlatego, że nie ma do nich linku, zubaża tekst
+i zostawia same truizmy.
+
+**Wolno spekulować, pod jednym warunkiem: przypuszczenie ma być nazwane przypuszczeniem.**
+
+Do tego służą: `prawdopodobnie`, `pewnie`, `chyba`, `może`, `podejrzewam`,
+`wygląda na to, że`, `zakładam, że`, `nikt tego nie potwierdzi, ale`. W korpusie autora
+`może` pada 113 razy, `pewnie` 24, `prawdopodobnie` 16, `chyba` 13 – to jest jego
+normalny sposób mówienia o rzeczach niepewnych, nie asekuracja.
+
+- Dobrze: „Żadna platforma nie tłumaczy, jak liczy, ale prawdopodobnie liczy się tempo,
+  a nie suma."
+- Dobrze: „Podejrzewam, że chodzi raczej o budżet po headlinerach niż o gatunek."
+- Źle: „Algorytmy czytają tempo, nie sumę." – mechanizm podany jako fakt.
+- Źle: „Prawdopodobnie 40% bookerów…" – to nie hipoteza, to liczba bez źródła.
+  Osłabianie liczby słowem „prawdopodobnie" nie czyni jej uczciwą, tylko mętną.
+
+**Różnica między tą sekcją a regułą nadrzędną:** liczba bez źródła wypada z tekstu,
+bo udaje wiedzę, której nie ma. Mechanizm bez źródła zostaje, jeśli jest jawnie
+podany jako czyjeś przypuszczenie – bo wtedy niczego nie udaje. Hedging jest zakazany
+przy liczbach i pożądany przy hipotezach.
+
+Jedno zastrzeżenie: hipoteza ma być Twoja i sensowna, a nie zasłyszana. „Podobno
+Spotify karze za…" to plotka, nie hipoteza – takie zdania wypadają razem z liczbami.
+
 ## Źródło pierwotne, nie streszczenie
 
 Linkuj komunikat organizacji, nie portal, który go opisał. `zpav.pl`, nie serwis

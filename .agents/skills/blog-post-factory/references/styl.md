@@ -109,6 +109,22 @@ Marker służy do **ograniczenia** zasięgu tezy, nie do jej osłabienia:
 
 > „Czy mamy ideał? Nie wiem, ale według mnie jest bardzo blisko."
 
+**Opinii nie asekurujesz, hipotezę owszem.** To dwie różne rzeczy i korpus traktuje je
+inaczej. Sąd o czymś, co autor widział, idzie w trybie oznajmującym. Przypuszczenie
+o mechanizmie, którego nikt z zewnątrz nie sprawdzi, dostaje jawny znacznik:
+`może` (113 wystąpień), `pewnie` (24), `prawdopodobnie` (16), `chyba` (13),
+`podejrzewam`, `wygląda na to, że`.
+
+> „React.Amsterdam to była najgorsza konferencja, na jakiej byłem." – opinia, bez znacznika.
+> „Prawdopodobnie liczy się tempo, a nie suma." – hipoteza, ze znacznikiem.
+
+Takie zdania są **najciekawszą częścią tego bloga** i nie wolno ich wycinać tylko
+dlatego, że nie ma do nich linku. Zasady w `zrodla.md`; krótko: liczba bez źródła
+wypada, mechanizm bez źródła zostaje, jeśli jest nazwany przypuszczeniem.
+
+Nadal zakazane są zwroty, które nie stawiają hipotezy, tylko uciekają od zdania:
+„nie jestem pewien", „trudno powiedzieć", „to złożona kwestia".
+
 **„Ty", „Ci", „Ciebie", „Twój" – zawsze wielką literą.** W całym korpusie nie ma ani
 jednego wyjątku.
 

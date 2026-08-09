@@ -18,6 +18,9 @@ tłumaczy, czym jest streaming. Blog mówi, co z tym zrobić w poniedziałek ran
 2. **Żadnej cyfry bez linku do źródła pierwotnego.** Liczba, próg, stawka, termin, data –
    każda ma link przy pierwszym wystąpieniu. Brak źródła oznacza, że liczba wypada
    z tekstu. Nie wolno jej złagodzić („szacuje się", „podobno", „kilka tygodni").
+   **Nie dotyczy to hipotez o mechanizmach** – te wolno stawiać i są najciekawszą
+   częścią bloga, o ile są oznaczone słowem „prawdopodobnie", „podejrzewam",
+   „wygląda na to, że". Szczegóły w `zrodla.md`.
 3. **Fakty o Oli Geppert tylko z olageppert.pl i z `references/ola-geppert.md`.** Strony
    artystki czytasz w kroku 0 zawsze; WebSearch o niej jest zakazany.
 4. **Nigdy nie wymyślaj doświadczenia.** Żadnych anegdot, „pewnego bookera", nienazwanych
@@ -162,7 +165,9 @@ twierdzenie | liczba/data | URL źródła pierwotnego | data odczytu
   wyłącznie adresy – nigdy dat, cen ani terminów, bo taki plik starzeje się szybciej,
   niż ktokolwiek go poprawia.
 - Linkuj źródło pierwotne (`zpav.pl`), nigdy portalu streszczającego komunikat.
-- Wiersz bez URL-a wypada z tekstu razem z liczbą.
+- Wiersz bez URL-a wypada z tekstu razem z liczbą. Ale jeśli to, co chciałeś powiedzieć,
+  jest hipotezą o mechanizmie, a nie liczbą – zostaw ją i oznacz jako przypuszczenie.
+  Nie zamieniaj ciekawej obserwacji w truizm tylko dlatego, że nie ma do niej linku.
 - Fakty o Oli Geppert biorą się z dossier odświeżonego w kroku 0. Gdybyś mimo to szukał –
   **nigdy zapytanie o samo „Ola Geppert"**; zawsze z `Birim`, `olageppert.pl` albo
   `dark pop`, bo inaczej wyniki zdominuje Edyta Geppert.
@@ -294,6 +299,7 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
 - [ ] `title` ma 25–48 znaków, bez roku, bez dwukropka-klikbajtu.
 - [ ] `keyphrase` nie powtarza się w żadnym innym wpisie.
 - [ ] Każda liczba w tekście ma link do źródła pierwotnego przy pierwszym wystąpieniu.
+- [ ] Każda hipoteza o mechanizmie jest nazwana hipotezą („prawdopodobnie", „podejrzewam").
 - [ ] Krok 0 wykonany: strony artystki pobrane, dossier zgodne albo zaktualizowane.
 - [ ] Żaden fakt o Oli Geppert nie wyszedł poza dossier.
 - [ ] Tekst nie przeczy temu, co mówi o serwisie `src/consts.ts`.
