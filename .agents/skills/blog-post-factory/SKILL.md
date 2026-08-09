@@ -5,7 +5,7 @@ description: Pisze wpisy na blog miszczyszyn.com – po polsku, z perspektywy me
 
 # blog-post-factory
 
-Piszesz wpisy na blog Michała Miszczyszyna – menedżera artystów z Warszawy, którego
+Piszesz wpisy na blog Michała Miszczyszyna – menedżera artystów z Gdańska, którego
 roster to jedna artystka przed debiutem płytowym, Ola Geppert. Czytelnikiem jest inny
 praktyk: muzyk bez wytwórni, początkujący menedżer, osoba prowadząca zespół. Blog nie
 tłumaczy, czym jest streaming. Blog mówi, co z tym zrobić w poniedziałek rano.
@@ -126,13 +126,14 @@ twierdzenie | liczba/data | URL źródła pierwotnego | data odczytu
 
 Pisz w tej kolejności – środek napisany jako pierwszy zawsze rozjeżdża się z tezą.
 
-1. **`lead`** – dokładnie 2 zdania, 120–180 znaków, teza wbrew intuicji. Jest jednocześnie
-   meta description i widocznym akapitem „W skrócie" w lewej kolumnie, więc musi bronić się
-   jako zdanie, nie jako meta tag. Nie zaczyna się od „W tym wpisie".
-2. **Ostatni akapit** – jeden z czterech kształtów z `styl.md`. Jeśli nie umiesz go teraz
+1. **`lead`** – 2–3 zdania, 120–180 znaków, teza wbrew intuicji. Może kończyć się pytaniem
+   i u autora bardzo często tak robi. Jest jednocześnie meta description i widocznym
+   akapitem „W skrócie" w lewej kolumnie, więc musi bronić się jako zdanie, nie jako meta
+   tag. Nie zaczyna się od „W tym wpisie".
+2. **Ostatni akapit** – jeden z pięciu kształtów z `styl.md`. Jeśli nie umiesz go teraz
    napisać, nie masz tezy i wracasz do kroku 1.
 3. **Środek.**
-   - Notatka: 5–8 „beatów", po jednym fakcie albo obserwacji na akapit, bez powtórzeń.
+   - Notatka: 5–10 „beatów", po jednym fakcie albo obserwacji na akapit, bez powtórzeń.
      Zdecyduj z góry, który akapit będzie jednozdaniowy – on niesie puentę środka.
    - Przewodnik: 4–6 nagłówków `##` (krótkie frazy rzeczownikowe, mniej więcej co dziesiąty
      to prawdziwe pytanie czytelnika), przy każdym przypisz konkretne wiersze z rejestru
@@ -149,8 +150,9 @@ Załaduj `references/styl.md` i `references/format.md`.
 - **Zapisuj od razu do `src/content/blog/<slug>.md`.** Nie ma folderu roboczego i to jest
   celowe: `bun run build` w kroku 7 jest realnym testem schematu.
 - **Rytm decyduje o tym, czy tekst brzmi jak człowiek.** Akapit 1–4 zdania, przynajmniej
-  jeden jednozdaniowy na wpis. Mediana zdania 12–14 słów, ale **co najmniej co piąte
-  zdanie ma ≤5 słów**, a żadne nie przekracza 30. Równoważniki bez czasownika są w domu.
+  jeden jednozdaniowy na wpis. Mediana zdania 10–14 słów, **co najmniej co piąte zdanie
+  ma ≤5 słów**, co najmniej jedno ma ≥20 słów, żadne nie przekracza 30. Pilnuj obu końców:
+  sama niska mediana daje tekst posiekany. Równoważniki bez czasownika są w domu.
   Maks. jedna półpauza na akapit, maks. jedna konstrukcja „to nie X – to Y" na wpis.
 - Co kilka akapitów przełam powagę kolokwializmem albo autoironią – bez tego zostaje
   referat. Pytanie retoryczne jest w domu, może być całym akapitem. „Ty", „Ci", „Twój"
@@ -183,8 +185,8 @@ Załaduj `references/styl.md` i `references/format.md`.
    Nie w każdym wpisie, nigdy dwa razy w jednym i nigdy jako zachęta do odsłuchu –
    to ilustracja tezy, nie promocja. Zasady faktograficzne w `ola-geppert.md`.
 5. **Link zwrotny** – najwyżej **jeden w całym blogu** prowadzący do nowego wpisu i tylko
-   wtedy, gdy akapit w starym wpisie już mówi o tym temacie. **Nigdy do czterech
-   najstarszych notatek** – ich zerowa liczba linków jest stylem, nie brakiem.
+   wtedy, gdy akapit w starym wpisie już mówi o tym temacie. Jeden dobry link zwrotny jest
+   wart więcej niż pięć wciśniętych na siłę.
 6. Polecenia z sekcji „Bramki mechaniczne" na dole tego pliku muszą przejść na czysto.
 
 ## Krok 7 – publikacja
@@ -257,7 +259,7 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
 - [ ] „Ty", „Ci", „Twój" wielką literą; rodzaj męski nie jest jedyną formą osobową.
 - [ ] Notatka nie ma śródtytułów; przewodnik ma 4–6 sekcji `##` o różnej długości
       i kończy się sekcją `## Podsumowanie`.
-- [ ] Zamknięcie ma jeden z czterech kształtów i nie powtarza formuły z poprzedniego wpisu.
+- [ ] Zamknięcie ma jeden z pięciu kształtów i nie powtarza formuły z poprzedniego wpisu.
 - [ ] `bun run build` przechodzi.
 
 Na koniec jedno pytanie, ważniejsze niż cała lista:

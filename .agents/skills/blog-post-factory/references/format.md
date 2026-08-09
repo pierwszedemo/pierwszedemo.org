@@ -59,16 +59,15 @@ tekst to 600; `font-bold` ma wyłącznie wordmark w nawigacji.
 | | |
 |---|---|
 | Długość | **300–500 słów** treści (bez frontmattera) |
-| Struktura | 5–8 akapitów po 1–4 zdania, **zero śródtytułów** |
-| Rytm | co najmniej jeden akapit jednozdaniowy, co najmniej co piąte zdanie ≤5 słów |
+| Struktura | 5–10 akapitów po 1–4 zdania, **zero śródtytułów** |
+| Rytm | co najmniej jeden akapit jednozdaniowy; co piąte zdanie ≤5 słów; co najmniej jedno ≥20 słów |
 | Markdown | akapity, `[tekst](url)`, `**pogrubienie**` |
 | Linki | 0–2; zero jest stanem domyślnym |
 | `readingMinutes` | 2–3 |
 
-Cztery najstarsze wpisy (`jak-przygotowac-epk`, `pre-save-to-nie-strategia`,
-`booking-festiwalowy-od-kuchni`, `ile-kosztuje-niezalezny-singiel`) mają 103–193 słowa.
-Są wzorcem **głosu i rytmu**, nie długości – widełki 300–500 są decyzją redakcyjną
-podjętą później i to one obowiązują.
+Widełki 300–500 słów są decyzją redakcyjną, nie wnioskiem z istniejących wpisów.
+Wpisy leżące w `src/content/blog/` nie są wzorcem niczego – powstały wcześniej z pomocą
+modelu i nie oddają stylu autora. Wzorzec głosu i rytmu jest wyłącznie w `styl.md`.
 
 ## `kind: przewodnik`
 
@@ -122,13 +121,16 @@ readingMinutes: 2
 ---
 ```
 
-- **`title`** – 25–48 znaków (korpus: 29–40). Do `<title>` doklejane jest
-  ` – Michał Miszczyszyn`, czyli +22 znaki. Bez roku, bez dwukropka-klikbajtu
-  („Pre-save: 7 rzeczy, które musisz wiedzieć" jest poza stylem tego bloga).
-  Nagłówek `h1` ma `max-w-[18ch]`, więc długi tytuł łamie się na cztery linijki.
-- **`lead`** – dokładnie 2 zdania, 120–180 znaków (korpus: 122/134/139/152). Trafia
-  jednocześnie do `<meta name="description">`, `og:description`, pola `description`
-  w `BlogPosting` **i** do widocznej kolumny „W skrócie". Musi bronić się jako zdanie.
+- **`title`** – 25–60 znaków. Górna granica bierze się z układu, nie ze stylu: `h1` ma
+  `max-w-[18ch]`, a do `<title>` doklejane jest ` – Michał Miszczyszyn`, czyli +22 znaki.
+  Tytuł może być pytaniem („Czy pre-save w ogóle coś daje?") albo mieć formę
+  „temat – doprecyzowanie" z półpauzą, bo obie występują u autora. Bez roku
+  i bez klikbajtowego wyliczenia („7 rzeczy, które musisz wiedzieć").
+- **`lead`** – 2–3 zdania, 120–180 znaków. Trafia jednocześnie do
+  `<meta name="description">`, `og:description`, pola `description` w `BlogPosting`
+  **i** do widocznej kolumny „W skrócie", więc musi bronić się jako zdanie, nie jako meta
+  tag. Górna granica znaków jest twarda – dłuższy opis i tak zostanie ucięty w wynikach
+  wyszukiwania. Lead **może kończyć się pytaniem** i u autora bardzo często tak robi.
 - **`category`** – jedna z siedmiu wartości `CATEGORIES` w `src/consts.ts`.
 - **`kind`** – `notatka` albo `przewodnik`. Ma default `notatka`, ale w nowych wpisach
   wpisuj jawnie.

@@ -1,59 +1,64 @@
 # Głos i typografia
 
-Ten plik ma dwa źródła. Pierwsze to cztery wpisy na tym blogu – one ustawiają temat,
-dystans i zakończenia. Drugie to **pl.typeofweb.com**, czyli 47 wpisów tego samego autora
-z lat 2016–2025, około 46 000 słów, przeanalizowanych pod kątem rytmu, interpunkcji
-i nawyków składniowych. Tam, gdzie oba źródła mówią co innego, wygrywa typeofweb –
-bo to jest głos autora, a cztery notatki to dopiero jego zastosowanie do nowego tematu.
+Jedynym źródłem tego pliku jest **pl.typeofweb.com** – 47 wpisów tego samego autora
+z lat 2016–2025, około 46 000 słów, przeanalizowanych pod kątem rytmu, interpunkcji,
+składni i nawyków narracyjnych. Wszystkie liczby niżej pochodzą z tego korpusu.
 
-Blog muzyczny jest jednak innym gatunkiem niż blog o JavaScripcie: krótszy, bardziej
-rzeczowy, bez kodu i bez komentarzy pod wpisem. Miejsca, w których świadomie odchodzimy
-od typeofweb, są niżej oznaczone jako **ODSTĘPSTWO**.
+> **Wpisy leżące dziś w `src/content/blog/` NIE są wzorcem.** Powstały wcześniej
+> z pomocą modelu i nie oddają stylu autora. Nie cytuj ich, nie naśladuj ich rytmu
+> i nie wyprowadzaj z nich reguł – ani długości tytułu, ani kształtu leadu, ani
+> zakończeń. Jeśli szukasz przykładu, bierz go z tego pliku albo bezpośrednio
+> z pl.typeofweb.com.
 
----
-
-## Cztery wpisy wzorcowe
-
-Pełny tekst, żeby nigdy nie zgadywać, jak brzmi ten blog. To wzorzec **tematu, dystansu
-i zakończeń**; rytmu i interpunkcji pilnują reguły z sekcji „Rytm" i „Typografia".
+Blog muzyczny jest innym gatunkiem niż blog o JavaScripcie: krótszy, bardziej rzeczowy,
+bez kodu i bez komentarzy pod wpisem. Miejsca, w których świadomie odchodzimy od
+typeofweb, są niżej oznaczone jako **ODSTĘPSTWO**.
 
 ---
 
-**Jak przygotować EPK, który otwiera drzwi** (Promocja)
-*lead: Bookerzy poświęcają jednemu EPK mniej niż 90 sekund. Wygrywa nie ten, kto napisze najwięcej – tylko ten, kogo da się najszybciej zrozumieć.*
+## Fragmenty wzorcowe
 
-> Elektroniczny press kit to nie teczka z materiałami – to argument. Jedno zdanie o tym, kim jest artysta, jeden utwór, który to udowadnia, i jeden kontakt, pod który można zadzwonić.
->
-> Zaczynaj od muzyki. Link do singla powinien być pierwszym klikalnym elementem – nie bio, nie zdjęcia. Jeśli utwór broni się sam, reszta dokumentu tylko domyka decyzję.
->
-> Na końcu: dane kontaktowe managera, nie artysty. Rozmowa o stawkach i terminach powinna zaczynać się tam, gdzie się skończy – w jednym wątku.
+Autentyczne zdania z korpusu. To jest punkt odniesienia dla rytmu i dystansu.
 
----
+**Otwarcia** – bodziec z zewnątrz albo obserwacja, nigdy definicja:
 
-**Pre-save to nie strategia. To narzędzie** (Streaming)
-*lead: Kampania singla nie zaczyna się od linku do pre-save. Zaczyna się od pytania, kto ma go kliknąć – i dlaczego akurat teraz.*
+> „Niedawno na X wiralowy stał się post na temat haszowania haseł."
+> „Znacie ten dowcip, że bezrobocie to były najgorsze dwie godziny życia programisty?"
+> „Trójka z przodu to już nie przelewki. Nie wiem, ile Ty masz lat. W sumie to nie
+> obchodzi mnie to. Ale gdy przekroczysz 30, to cały świat się nagle zmienia."
+> „Zachęcony ciekawym miejscem, dobrą agendą i tematyką, kupiłem bilet. I poleciałem."
 
-> Pre-save działa na ludziach, którzy już czekają. Wysłany do publiczności, która o artyście słyszy pierwszy raz, nie konwertuje – bo prosi o zobowiązanie, zanim da powód.
->
-> Dlatego pre-save traktuję jak jedno z narzędzi w planie wydawniczym, obok playlist redakcyjnych, radia i koncertów. Sam w sobie nie jest planem – bywa za to najlepszym testem, czy plan w ogóle istnieje.
+**Cofnięcie się po leadzie:**
 
----
+> „Ale zacznijmy może od początku." · „Dobra, może jednak trzeba to przedstawić, a więc:"
 
-**Booking festiwalowy od kuchni** (Koncerty)
-*lead: Line-up letniego festiwalu jest w dużej mierze zamknięty, zanim skończy się zima. „Nie” w kwietniu prawie zawsze znaczy „jeszcze nie”.*
+**Teza podana wprost, bez asekuracji:**
 
-> Kalendarz bookingu wyprzedza kalendarz publiczności o pół roku. Rozmowy o czerwcowych scenach toczą się w listopadzie i grudniu – kto pisze w maju, negocjuje już tylko o wolne miejsca po rezygnacjach.
->
-> I rzecz, którą łatwo przeoczyć: festiwale rozmawiają między sobą. Zespół, który zagrał punktualnie, zmieścił się w riderze i nie zrobił problemu z garderoby, wraca w rozmowach następnego sezonu – częściej niż ten, który zagrał odrobinę lepszy koncert.
+> „Amsterdam to na pewno najlepsze miasto do organizowania słabych konferencji."
+> „Aby znaleźć dobrą pracę w IT, musisz spełniać jeden z dwóch warunków: znać ludzi
+> albo być znanym."
+> „Ludzie z pracy to nie są Twoi przyjaciele."
 
----
+**Przyznanie się do przesady albo niewiedzy:**
 
-**Ile naprawdę kosztuje niezależny singiel** (Finanse)
-*lead: Nagranie to zwykle mniej niż połowa budżetu. Reszta rozchodzi się na rzeczy, których nie widać w streamingu – i to one decydują, czy utwór ktoś usłyszy.*
+> „Dobra, trochę skłamałem." · „Napisałem „mniejszym", a nie „żadnym"." ·
+> „Tego nie wiem i na to pytanie nie będę w stanie udzielić odpowiedzi."
 
-> Uczciwa arytmetyka jest brutalna: przy typowych stawkach ze streamingu pojedynczy singiel prawie nigdy nie zwraca się sam. Zwraca się katalog – kolejne wydawnictwa, które ciągną odsłuchy poprzednich, koncerty, na które ktoś przyszedł z powodu jednego utworu, i pozycja negocjacyjna, której rok wcześniej nie było.
->
-> Dlatego budżet singla planuję zawsze razem z tym, co ma być po nim. Wydawnictwo bez ciągu dalszego to koszt. Wydawnictwo jako element planu na dwanaście miesięcy to inwestycja z widoczną stopą zwrotu.
+**Kontrargument – nazwany, przyznany, ograniczony:**
+
+> „To prawda, ale martwi Cię to tylko wtedy, gdy powtarzasz to samo hasło w wielu miejscach."
+> „Łatwiej niż analogiczny kod z klasy, to prawda. Tylko co z tego?"
+
+**Krótkie uderzenia:**
+
+> „Brzmi prosto." · „Absolutnie nie." · „Win win." · „Smutek." · „Nic bardziej mylnego!" ·
+> „Po prostu tego nie rób." · „Cóż."
+
+**Kolokwializm i autoironia:**
+
+> „Na chłopski rozum są tu same zalety." · „Konkretnie i bez owijania w bawełnę." ·
+> „No dobra, wszystko pięknie, prawda? Niestety nie do końca…" ·
+> „Jako człowiek stary i zmęczony życiem, postanowiłem zebrać listę rzeczy…"
 
 ---
 
@@ -61,8 +66,9 @@ i zakończeń**; rytmu i interpunkcji pilnują reguły z sekcji „Rytm" i „Ty
 
 | miara | typeofweb | reguła dla tego bloga |
 |---|---|---|
-| mediana długości zdania | 12 słów | 12–14 |
+| mediana długości zdania | 12 słów | 10–14 |
 | zdania ≤5 słów | **21%** | co najmniej co piąte |
+| długi ogon (p75 / p90) | 18 / 25 słów | co najmniej jedno zdanie ≥20 słów |
 | zdania ≥30 słów | 5% | zero |
 | mediana akapitu | 3 zdania | 1–4 zdania |
 | akapity jednozdaniowe | **24%** | co najmniej jeden na wpis |
@@ -71,6 +77,10 @@ i zakończeń**; rytmu i interpunkcji pilnują reguły z sekcji „Rytm" i „Ty
 Najważniejsza cecha tego rytmu to **wariancja, nie długość**. Długie zdanie wyjaśniające,
 a po nim seria krótkich uderzeń. Tekst, w którym wszystkie zdania mają po 15 słów,
 jest technicznie poprawny i natychmiast rozpoznawalny jako pisany przez model.
+
+Mediana i długi ogon idą w parze i trzeba pilnować obu. Sama niska mediana daje tekst
+posiekany, w którym nic się nie wyjaśnia. Sam długi ogon daje wykład. Dopiero razem
+brzmią jak mowa.
 
 Prawdziwe zdania z korpusu, wszystkie ≤4 słowa: „Brzmi prosto." · „Absolutnie nie." ·
 „Win win." · „Smutek." · „Po prostu tego nie rób." · „Nic bardziej mylnego!" · „Cóż."
@@ -224,12 +234,16 @@ i bez kursywy.** Korpus: „na GitHubie", „w TypeScripcie", „propsów", „R
 Tutaj tak samo: `pre-save'u`, `na showcase'ie`, `w riderze`, `line-upu`, `playlisty`,
 `z bookerem`, `pitchowanie`, `w Spotify for Artists`.
 
-Lista zamknięta: pre-save, playlist, playlisting, pitching, showcase, booking, booker,
-rider, sync, DSP, streaming, mastering, miks, split sheet, one-sheet, EPK, Canvas,
-backline, line-up, headliner, merch, demo, master.
+**Nie ma listy zamkniętej.** Branżowy anglicyzm jest w tym języku normalny i autor go
+używa – `insight`, `engagement`, `roadmapa`, `content`, `deal`, `feedback`, `case`,
+`brief`, `slot`, `venue`, `support` są w porządku, o ile odmieniają się po polsku
+(`insightów`, `roadmapę`, `o dealu`, `na slocie`). Jedyne ograniczenie jest takie, że
+słowo ma nieść treść, a nie zastępować polskie, które znaczy dokładnie to samo:
+`spotkanie` nie musi być `meetingiem`, a `termin` `deadline'em` – chyba że w branży
+naprawdę mówi się inaczej.
 
-Wszystko spoza listy tłumaczy się na polski. Nie ma `insightów`, `engagementu`,
-`roadmapy`, `contentu` ani `deala`.
+Czego unikać: kalek składniowych („adresować problem", „dedykowany zespół", „w kontekście
+powyższego") i angielskiej pisowni tam, gdzie polska jest utrwalona (`hasz`, nie `hash`).
 
 ## Otwarcia i zakończenia
 
@@ -237,21 +251,35 @@ Wszystko spoza listy tłumaczy się na polski. Nie ma `insightów`, `engagementu
 nigdy definicję. Dopuszczalna jest anegdota w czasie przeszłym („Kiedyś…", „Ostatnio…").
 W przewodniku po leadzie warto się cofnąć o krok: „Zacznijmy może od początku."
 
-**Zakończenie notatki** ma jeden z czterech kształtów z korpusu tego bloga:
+**Zakończenie** ma jeden z czterech kształtów wyprowadzonych z korpusu typeofweb:
 
-1. reguła robocza w 1. osobie – „Dlatego budżet singla planuję zawsze…";
-2. konkret wewnętrzny – „Na końcu: dane kontaktowe managera, nie artysty.";
-3. rzecz łatwa do przeoczenia – „I rzecz, którą łatwo przeoczyć:";
-4. przewrócona teza – „Sam w sobie nie jest planem – bywa za to najlepszym testem…".
+1. **pytanie do czytelnika zostawione bez odpowiedzi** – najczęstszy kształt u autora
+   („A czy powinieneś/powinnaś mieć z tego powodu wyrzuty sumienia?");
+2. **krótka seria trybów rozkazujących** – dwa, trzy zdania po kilka słów
+   („Poznawaj ludzi. Chodź na meetupy i konferencje. Rozmawiaj.");
+3. **jednozdaniowa puenta-teza**, którą da się zacytować w rozmowie
+   („Hasz staje się de facto hasłem.");
+4. **przewrócona teza** – zdanie, które ogranicza to, co wcześniej brzmiało kategorycznie
+   („Podsumowując, czy warto? W mojej ocenie nie.");
+5. **zaproszenie do kontaktu** – pytanie plus „napisz do mnie", opisane niżej.
 
 Nie powtarzaj tego samego kształtu w dwóch wpisach z rzędu.
 
-**ODSTĘPSTWO – wezwanie do komentarza.** Najsilniejszy nawyk autora na typeofweb to
+**Wezwanie do kontaktu zamiast komentarza.** Najsilniejszy nawyk autora na typeofweb to
 zakończenie pytaniem do czytelnika i prośbą o komentarz („Napisz mi w komentarzu",
-„A jakie jest Twoje zdanie?"). **Ten blog nie ma komentarzy.** Nie wolno więc pisać
-„napisz w komentarzu" – to zaprosiłoby do nieistniejącego pola. Odpowiednikiem jest
-pytanie zostawione bez odpowiedzi albo, w przewodniku, jedno zdanie z adresem
-kontaktowym. Nigdy w notatce.
+„A jakie jest Twoje zdanie?"). Ten blog nie ma komentarzy, więc **zamiast nich zapraszasz
+do kontaktu** – ten sam gest, inny kanał:
+
+> „Masz inne doświadczenia? Napisz do mnie." · „Nie zgadzasz się? Tym bardziej napisz." ·
+> „Jeśli robisz to inaczej i działa – chętnie posłucham."
+
+Adres to `michal@miszczyszyn.com` (stała `CONTACT_EMAIL`), ale w treści zwykle wystarczy
+samo „napisz do mnie" – kontakt jest w nawigacji i w stopce każdej strony. Nie wklejaj
+adresu w każdy wpis, bo zamienia się w podpis.
+
+To zakończenie **nie jest obowiązkowe**. Sprawdza się tam, gdzie tekst jest opinią albo
+zaprasza do sporu; przy suchej instrukcji brzmi doklejone. Jeśli wpis kończy się mocną
+puentą, zostaw puentę.
 
 **Pytanie retoryczne jest w domu.** Pytajnik pada raz na 103 słowa; tekst bez ani jednego
 pytania nie brzmi jak on. Pytanie może być całym akapitem.
