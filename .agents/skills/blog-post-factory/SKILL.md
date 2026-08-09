@@ -1,6 +1,6 @@
 ---
 name: blog-post-factory
-description: Pisze wpisy na blog miszczyszyn.com – po polsku, z perspektywy menedżera artystów, całkowicie bez obrazków. Dwa formaty: „notatka" (300–500 słów, bez śródtytułów) i „przewodnik" (1200–2000 słów, sekcje H2 i FAQ). Prowadzi proces: wybór tematu i deduplikacja, wybór formatu, rejestr faktów ze źródłem dla każdej liczby, tekst, redakcja językowa, linkowanie, publikacja i build. Użyj, gdy pada „napisz wpis na bloga", „nowy wpis", „notatka na bloga", „przewodnik o…", „zaktualizuj wpis", „co napisać na bloga", albo gdy trzeba opisać temat branżowy: wydarzenia (Great September, showcase, konferencja), EPK i materiały prasowe, Spotify for Artists, wydawnictwo i dystrybucję, booking, tantiemy i pieniądze, umowę menedżerską, pracę z Olą Geppert.
+description: Pisze wpisy na blog miszczyszyn.com – po polsku, z perspektywy menedżera artystów, całkowicie bez obrazków. Dwa formaty: „notatka" (300–500 słów, bez śródtytułów) i „przewodnik" (1200–2000 słów, sekcje H2 i FAQ). Prowadzi proces: odświeżenie własnych źródeł (olageppert.pl i ten serwis), wybór tematu i deduplikacja, wybór formatu, rejestr faktów ze źródłem dla każdej liczby, tekst, redakcja językowa, linkowanie, publikacja i build. Użyj, gdy pada „napisz wpis na bloga", „nowy wpis", „notatka na bloga", „przewodnik o…", „zaktualizuj wpis", „co napisać na bloga", albo gdy trzeba opisać temat branżowy: wydarzenia (Great September, showcase, konferencja), EPK i materiały prasowe, Spotify for Artists, wydawnictwo i dystrybucję, booking, tantiemy i pieniądze, umowę menedżerską, pracę z Olą Geppert.
 ---
 
 # blog-post-factory
@@ -18,7 +18,8 @@ tłumaczy, czym jest streaming. Blog mówi, co z tym zrobić w poniedziałek ran
 2. **Żadnej cyfry bez linku do źródła pierwotnego.** Liczba, próg, stawka, termin, data –
    każda ma link przy pierwszym wystąpieniu. Brak źródła oznacza, że liczba wypada
    z tekstu. Nie wolno jej złagodzić („szacuje się", „podobno", „kilka tygodni").
-3. **Fakty o Oli Geppert wyłącznie z `references/ola-geppert.md`.** Zakaz WebSearch o niej.
+3. **Fakty o Oli Geppert tylko z olageppert.pl i z `references/ola-geppert.md`.** Strony
+   artystki czytasz w kroku 0 zawsze; WebSearch o niej jest zakazany.
 4. **Nigdy nie wymyślaj doświadczenia.** Żadnych anegdot, „pewnego bookera", nienazwanych
    klientów, kwot z pamięci. Jeśli wpis potrzebuje wiedzy, której nie masz – **zapytaj
    użytkownika**. Puste miejsce zgłasza się, nie zapełnia zmyśleniem.
@@ -30,8 +31,12 @@ tłumaczy, czym jest streaming. Blog mówi, co z tym zrobić w poniedziałek ran
 | `references/format.md` | krok 2 i 5 – kontrakt z rendererem, frontmatter, dozwolony markdown |
 | `references/styl.md` | krok 4, 5 i 6 – głos, rytm, typografia, frazy zakazane |
 | `references/zrodla.md` | krok 3 – zasady cytowania, adresy źródeł, wydarzenia |
-| `references/ola-geppert.md` | zawsze, gdy w tekście pada nazwisko artystki |
+| `references/ola-geppert.md` | krok 0 (odświeżenie z olageppert.pl) i zawsze, gdy pada nazwisko artystki |
 | `references/tematy.md` | krok 1, gdy użytkownik nie podał tematu |
+
+`ola-geppert.md` jest jedynym plikiem referencyjnym, który **sam się aktualizuje** –
+krok 0 nanosi na niego różnice ze strony artystki. Pozostałe zmieniasz tylko wtedy,
+gdy prosi o to użytkownik.
 
 ## Warunek wstępny
 
@@ -55,6 +60,46 @@ Commit `fix(blog): …`.
 
 **Sam temat** – użytkownik pyta „co napisać na bloga". Wykonaj krok 1 i zatrzymaj się
 na propozycjach. Nie pisz nic dalej bez potwierdzenia.
+
+---
+
+## Krok 0 – synchronizacja źródeł własnych
+
+Wykonujesz **zawsze**, przed wyborem tematu, w każdym trybie. Dwa własne serwisy są
+jedynymi źródłami, które wolno traktować jak prawdę bez dodatkowego potwierdzenia –
+i jedynymi, które zmieniają się bez uprzedzenia.
+
+### olageppert.pl
+
+1. WebFetchem pobierz `https://olageppert.pl`, `https://olageppert.pl/bio`
+   i `https://olageppert.pl/epk`.
+2. Porównaj z `references/ola-geppert.md`: dyskografia, plany wydawnicze, opis gatunku,
+   występy, kontakt, nazwa pliku PDF z EPK, wersja EPK, czego artystka aktualnie szuka.
+3. **Jeśli cokolwiek się różni albo doszło – zaktualizuj `references/ola-geppert.md`**,
+   zanim napiszesz pierwsze zdanie wpisu. Zmieniasz treść, podbijasz datę w nagłówku
+   pliku („stan na …") i wypisujesz użytkownikowi, co się zmieniło. Twarde zakazy z góry
+   dossier zostają nietknięte – aktualizujesz fakty, nie reguły.
+4. Jeśli nic się nie zmieniło, nic nie zapisujesz. Nie podbijaj daty „na wszelki wypadek",
+   bo wtedy przestaje ona cokolwiek znaczyć.
+5. Strona jest ważniejsza niż dossier. Dossier istnieje po to, żeby nie zgadywać, gdy
+   strona jest niedostępna, a nie po to, żeby ją zastępować.
+
+Jeśli WebFetch zawiedzie, pracujesz na dossier i **mówisz o tym wprost w raporcie** –
+razem z informacją, że fakty o artystce nie zostały odświeżone.
+
+### miszczyszyn.com – ten serwis
+
+Nie zgaduj, co jest na stronie, dla której piszesz. Przeczytaj:
+
+- `src/consts.ts` – roster, usługi, tagline, miasto, kontakt, profile, kategorie;
+- `src/pages/index.astro` – copy strony głównej, czyli jak serwis sam siebie opisuje;
+- frontmatter wszystkich `src/content/blog/*.md` – co już zostało powiedziane.
+
+Repo jest źródłem prawdy o tym serwisie, bo to ono trafia na produkcję. Jeśli coś tam
+doszło – nowa artystka w rosterze, nowa usługa, zmiana miasta, nowy kanał kontaktu –
+**używasz tego w tekście i nie powtarzasz nieaktualnych sformułowań z wcześniejszych
+wpisów**. Sprzeczność między starym wpisem a `consts.ts` rozstrzygasz na korzyść
+`consts.ts` i zgłaszasz ją użytkownikowi jako kandydata do aktualizacji.
 
 ---
 
@@ -118,7 +163,7 @@ twierdzenie | liczba/data | URL źródła pierwotnego | data odczytu
   niż ktokolwiek go poprawia.
 - Linkuj źródło pierwotne (`zpav.pl`), nigdy portalu streszczającego komunikat.
 - Wiersz bez URL-a wypada z tekstu razem z liczbą.
-- Fakty o Oli Geppert biorą się wyłącznie z dossier. Gdybyś mimo to czegokolwiek szukał –
+- Fakty o Oli Geppert biorą się z dossier odświeżonego w kroku 0. Gdybyś mimo to szukał –
   **nigdy zapytanie o samo „Ola Geppert"**; zawsze z `Birim`, `olageppert.pl` albo
   `dark pop`, bo inaczej wyniki zdominuje Edyta Geppert.
 
@@ -249,7 +294,9 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
 - [ ] `title` ma 25–48 znaków, bez roku, bez dwukropka-klikbajtu.
 - [ ] `keyphrase` nie powtarza się w żadnym innym wpisie.
 - [ ] Każda liczba w tekście ma link do źródła pierwotnego przy pierwszym wystąpieniu.
+- [ ] Krok 0 wykonany: strony artystki pobrane, dossier zgodne albo zaktualizowane.
 - [ ] Żaden fakt o Oli Geppert nie wyszedł poza dossier.
+- [ ] Tekst nie przeczy temu, co mówi o serwisie `src/consts.ts`.
 - [ ] Zero obrazków, list, tabel, cytatów blokowych i kursywy.
 - [ ] Pogrubienia: 1–2 całe zdania na 200 słów, żadnego w ostatnim akapicie.
 - [ ] Cudzysłowy `„…”`; `grep -c '—'` zwraca 0 – em dash nie występuje.

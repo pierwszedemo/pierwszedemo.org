@@ -1,8 +1,12 @@
 # Ola Geppert – dossier
 
-*Spisane na podstawie źródeł kontrolowanych przez artystkę i jej management, stan na
-sierpień 2026. Poza sekcją „Rebranding" żaden fakt w tym pliku nie ma zewnętrznego
-potwierdzenia – bo go nie ma w internecie.*
+*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-08-09**
+(EPK w wersji 07.2026, plik `ola-geppert-epk-07.2026.pdf`). Poza sekcją „Rebranding"
+żaden fakt w tym pliku nie ma zewnętrznego potwierdzenia – bo go nie ma w internecie.*
+
+*Ten plik aktualizuje się sam: krok 0 w `SKILL.md` pobiera strony artystki przy każdym
+uruchomieniu i nanosi różnice. Datę wyżej podbija się **tylko wtedy, gdy coś faktycznie
+sprawdzono** – nie przy każdym zapisie pliku.*
 
 ## ZAKAZY TWARDE
 
@@ -30,12 +34,20 @@ Czytasz to przed napisaniem jakiegokolwiek zdania z jej nazwiskiem.
 
 ## Zasada źródła
 
-Ten plik jest **jedynym** dopuszczalnym źródłem faktów o artystce. Nie sprawdzaj jej
-w WebSearch – nowych faktów tam nie ma, są za to cudze osoby o tym nazwisku.
+Źródłem prawdy jest **olageppert.pl**. Ten plik jest jego zapisem – wygodnym, bo nie
+wymaga sieci, ale zawsze o krok w tyle.
 
-Gdybyś mimo wszystko musiał czegoś poszukać (np. aktualnej nazwy pliku EPK): **nigdy
-zapytanie o samo „Ola Geppert"**. Zawsze z dopiskiem `Birim`, `olageppert.pl`,
-`dark pop` albo z identyfikatorem MusicBrainz.
+Dlatego w kroku 0 każdego uruchomienia skill pobiera WebFetchem `olageppert.pl`, `/bio`
+i `/epk`, porównuje je z tym plikiem i **aktualizuje go, jeśli cokolwiek się zmieniło**.
+Zmieniasz fakty i datę w nagłówku; twardych zakazów z góry pliku nie ruszasz. Gdy strona
+jest niedostępna, pracujesz na tym, co tu stoi, i mówisz o tym w raporcie.
+
+**WebSearch o artystce pozostaje zakazany.** Nowych faktów tam nie ma, są za to cudze
+osoby o tym nazwisku. Gdybyś mimo wszystko czegoś szukał: **nigdy zapytanie o samo
+„Ola Geppert"** – zawsze z dopiskiem `Birim`, `olageppert.pl`, `dark pop` albo
+z identyfikatorem MusicBrainz.
+
+Rozróżnienie jest proste: **strony artystki czytasz zawsze, internetu o niej nigdy.**
 
 **Homonimy, które zdominują wyniki:** Edyta Geppert (znana polska wokalistka – główne
 źródło szumu), Carl Geppert, Lena Geppert, Ola Electric.
