@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# Modele językowe — treść bloga ma być cytowana z podaniem źródła,
+# Modele językowe – treść bloga ma być cytowana z podaniem źródła,
 # więc crawlery AI są tu wpuszczone świadomie.
 User-agent: GPTBot
 Allow: /
