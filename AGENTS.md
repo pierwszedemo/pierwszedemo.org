@@ -22,7 +22,7 @@ collection schema. Type checking otherwise comes from the editor
 Astro 7, `output: "server"`, Vercel adapter, Tailwind v4 via the Vite plugin
 (no `tailwind.config` — theme tokens live in `@theme` inside
 `src/styles/global.css`). Polish-language site of an artist manager:
-`/`, `/blog`, `/blog/<slug>`, `/404`.
+`/`, `/blog`, `/blog/<slug>`, `/polityka-prywatnosci`, `/404`.
 
 The layout is a transcription of a Claude Design canvas project
 (`380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`),
@@ -116,6 +116,30 @@ rasterises. Two constraints are load-bearing:
 Posts live under `/og/<slug>.png` rather than `/blog/<slug>/og.png` so they don't
 collide with the `[...slug]` catch-all.
 
+### Analytics & consent
+
+Three tools, ported from olageppert.pl with the palette inverted (black on white):
+
+- **Google Analytics 4** — the only one that sets cookies, so the only one behind
+  the banner. Consent Mode v2 defaults (all `denied`) are inlined in `<head>`
+  *before* `gtag.js`; `src/scripts/consent.ts` raises them after the user decides.
+  `send_page_view: false` plus a manual `page_view` on `astro:page-load`, because
+  `ClientRouter` navigations are not full page loads. The whole block is gated on
+  `GA_ID` in `consts.ts` — blank it and no Google script loads at all.
+- **Umami** and **Vercel Web Analytics** (`<Analytics />` from `@vercel/analytics/astro`)
+  are cookieless, so ePrivacy art. 5(3) does not cover them and they sit outside
+  the banner. Do **not** also set `webAnalytics` on the Vercel adapter — either
+  route injects the script, both together inject it twice.
+
+`ConsentManager.astro` re-attaches the banner node across View Transitions and
+listens for `[data-cc-preferences]` (the footer „Cookies" cell and the button at
+the bottom of the privacy policy). Bump `revision` in `consentConfig` when the
+categories or wording change — it re-prompts everyone.
+
+`PRIVACY_TOOLS` / `PRIVACY_SECTIONS` in `consts.ts` feed both `/polityka-prywatnosci`
+and the wording inside the preferences panel. Adding a third-party script means
+adding a row there too, or the policy becomes false.
+
 ### Styling conventions
 
 Light Swiss look on `#ffffff`. Tokens in `@theme`: `--color-ink`, `--color-muted`,
@@ -172,7 +196,9 @@ The nav is four cells (marka / pusta / Blog / Kontakt) — the mock's "Artyści"
 item was dropped but its cell stays, hidden below `md`, so the grid keeps the
 mock's proportions. Outbound links to artists go through `withUtm()`.
 
-The footer is exactly four cells (`© / LinkedIn / Instagram / miasto`) and its
+The footer is exactly four cells (`© / LinkedIn / Instagram / Cookies`) and its
 border logic is computed from cell index — adding a fifth entry to `SOCIALS`
 breaks the 2×2 mobile layout, so rework `Footer.astro` rather than pushing one
-more item in.
+more item in. The city used to hold the fourth cell; it lost it to „Cookies",
+because withdrawing consent has to be as easy as giving it and Gdańsk is already
+in the hero eyebrow.

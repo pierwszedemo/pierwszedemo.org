@@ -1,9 +1,12 @@
 ---
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
+import Analytics from "@vercel/analytics/astro";
 import michal from "../assets/michal.jpg";
+import ConsentManager from "../components/ConsentManager.astro";
 import {
   CONTACT_EMAIL,
+  GA_ID,
   HOME_CITY,
   LAST_CONTENT_UPDATE,
   PERSON_ID,
@@ -173,11 +176,72 @@ const jsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <ClientRouter />
+
+    <!-- Umami — analityka bez cookies (nie wymaga zgody). Skrypt sam podpina się
+         pod history.pushState, więc liczy też nawigacje przez View Transitions. -->
+    <script
+      is:inline
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="3ff6a02b-368d-4b2b-b697-25cab2f8a077"></script>
+
+    {
+      /* Google Consent Mode v2 — domyślne odmowy MUSZĄ pojechać przed gtag.js.
+         Tryb advanced: loader ładuje się zawsze, ale przy `denied` nie zapisuje
+         cookies, tylko wysyła bezcookie'owe pingi. Podniesienie zgód robi
+         src/scripts/consent.ts po decyzji użytkownika. */
+    }
+    {
+      GA_ID && (
+        <>
+          <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            window.gtag = gtag;
+            gtag("consent", "default", {
+              ad_storage: "denied",
+              ad_user_data: "denied",
+              ad_personalization: "denied",
+              analytics_storage: "denied",
+              functionality_storage: "denied",
+              personalization_storage: "denied",
+              security_storage: "granted",
+              wait_for_update: 500,
+            });
+            gtag("set", "ads_data_redaction", true);
+            gtag("set", "url_passthrough", true);
+          </script>
+
+          <script
+            is:inline
+            async
+            src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          />
+          <script is:inline define:vars={{ GA_ID }}>
+            gtag("js", new Date());
+            // send_page_view:false — page_view wysyłamy ręcznie na
+            // astro:page-load, żeby liczyć też nawigacje przez View Transitions.
+            gtag("config", GA_ID, { send_page_view: false });
+            document.addEventListener("astro:page-load", () => {
+              gtag("event", "page_view", {
+                page_path: location.pathname + location.search,
+                page_location: location.href,
+                page_title: document.title,
+              });
+            });
+          </script>
+        </>
+      )
+    }
   </head>
 
   <body
     class="min-h-dvh bg-white font-sans text-ink antialiased [text-rendering:optimizeLegibility]"
   >
     <slot />
+    <Analytics />
+    <ConsentManager />
   </body>
 </html>
