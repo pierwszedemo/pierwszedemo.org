@@ -3,7 +3,8 @@
  * Uruchamiane ręcznie (`bun scripts/generate-favicons.mjs`), nie w buildzie —
  * ikony zmieniają się raz na kilka lat, a wynik siedzi w repo.
  *
- * Litera „M" jest wypalona jako ścieżka, nie `<text>`. Poprzednia wersja
+ * Litera (dziś „P" od „Pierwsze Demo") jest wypalona jako ścieżka, nie `<text>`.
+ * Poprzednia wersja
  * używała `<text font-family="Archivo, …">` i wychodził pusty kwadrat: sharp
  * rasteryzuje SVG librsvg, który sięga po fonty *systemowe*, a Archivo tam nie
  * ma. Ten sam problem miałaby przeglądarka gościa renderująca favicon.svg.
@@ -13,9 +14,13 @@ import opentype from "@shuding/opentype.js";
 import sharp from "sharp";
 
 const SIZE = 64;
+const GLYPH = "PD";
 // Duży glif: przy 16 px w karcie przeglądarki ramka zjada resztę miejsca
-// i cieńsza litera robi się nieczytelną plamą.
+// i cieńsza litera robi się nieczytelną plamą. Wartość jest górnym pułapem –
+// przy dwóch literach spada tyle, żeby monogram zmieścił się w ramce.
 const FONT_SIZE = 54;
+/** Światło między ramką a monogramem, w pikselach viewBoxa. */
+const PADDING = 4;
 const INK = "#101010";
 
 const font = opentype.parse(
@@ -40,23 +45,47 @@ function bounds(path) {
   };
 }
 
-// Wyśrodkowanie po realnych krawędziach glifu, nie po metrykach fontu —
-// metryki zostawiają nierówny margines nad i pod literą.
-const { x1, y1, x2, y2 } = bounds(font.getPath("M", 0, 0, FONT_SIZE));
-const dx = (SIZE - (x2 - x1)) / 2 - x1;
-const dy = (SIZE - (y2 - y1)) / 2 - y1;
-const d = font.getPath("M", dx, dy, FONT_SIZE).toPathData(3);
+/**
+ * Monogram wpisany w kwadrat `SIZE`, wyśrodkowany po realnych krawędziach
+ * glifów, nie po metrykach fontu — metryki zostawiają nierówny margines nad
+ * i pod literami. „PD" jest szersze niż wyższe, więc o skali decyduje
+ * szerokość.
+ */
+function monogram(padding) {
+  const raw = bounds(font.getPath(GLYPH, 0, 0, FONT_SIZE));
+  const fontSize = Math.min(
+    FONT_SIZE,
+    (FONT_SIZE * (SIZE - 2 * padding)) / (raw.x2 - raw.x1),
+  );
+  const { x1, y1, x2, y2 } = bounds(font.getPath(GLYPH, 0, 0, fontSize));
+  const dx = (SIZE - (x2 - x1)) / 2 - x1;
+  const dy = (SIZE - (y2 - y1)) / 2 - y1;
+  return font.getPath(GLYPH, dx, dy, fontSize).toPathData(3);
+}
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}">
+const framed = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}">
   <rect width="${SIZE}" height="${SIZE}" fill="#ffffff"/>
   <rect x="2" y="2" width="${SIZE - 4}" height="${SIZE - 4}" fill="none" stroke="${INK}" stroke-width="4"/>
-  <path d="${d}" fill="${INK}"/>
+  <path d="${monogram(PADDING)}" fill="${INK}"/>
 </svg>
 `;
-await Bun.write("public/favicon.svg", svg);
 
-const render = (size) =>
-  sharp("public/favicon.svg", { density: 512 })
+/**
+ * Wersja na 16–48 px. Ramka i dwie litery nie mieszczą się razem w karcie
+ * przeglądarki: przy 16 px na monogram zostaje ~10 px, laski liter schodzą
+ * poniżej piksela i „PD" rozmywa się w szarą plamę. Poniżej 64 px ramka więc
+ * znika, a monogram dostaje całe pole.
+ */
+const bare = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}">
+  <rect width="${SIZE}" height="${SIZE}" fill="#ffffff"/>
+  <path d="${monogram(2)}" fill="${INK}"/>
+</svg>
+`;
+
+await Bun.write("public/favicon.svg", framed);
+
+const render = (size, svg = framed) =>
+  sharp(Buffer.from(svg), { density: 512 })
     .resize(size, size)
     .png({ compressionLevel: 9 })
     .toBuffer();
@@ -73,7 +102,7 @@ for (const [file, size] of [
 // .ico z ładunkiem PNG: 6-bajtowy nagłówek + 16 bajtów na wpis + same PNG-i.
 // `sips -s format ico` daje tu 285 kB śmiecia, stąd ręczne składanie.
 const sizes = [16, 32, 48];
-const pngs = await Promise.all(sizes.map(render));
+const pngs = await Promise.all(sizes.map((size) => render(size, bare)));
 
 const header = Buffer.alloc(6);
 header.writeUInt16LE(1, 2); // typ: ikona

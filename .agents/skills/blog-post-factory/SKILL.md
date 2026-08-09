@@ -1,6 +1,6 @@
 ---
 name: blog-post-factory
-description: Pisze wpisy na blog miszczyszyn.com – po polsku, z perspektywy menedżera artystów, całkowicie bez obrazków. Dwa formaty: „notatka" (300–500 słów, bez śródtytułów) i „przewodnik" (1200–2000 słów, sekcje H2 i FAQ). Prowadzi proces: odświeżenie własnych źródeł (olageppert.pl i ten serwis), wybór tematu i deduplikacja, wybór formatu, rejestr faktów ze źródłem dla każdej liczby, tekst, redakcja językowa, linkowanie, publikacja i build. Użyj, gdy pada „napisz wpis na bloga", „nowy wpis", „notatka na bloga", „przewodnik o…", „zaktualizuj wpis", „co napisać na bloga", albo gdy trzeba opisać temat branżowy: wydarzenia (Great September, showcase, konferencja), EPK i materiały prasowe, Spotify for Artists, wydawnictwo i dystrybucję, booking, tantiemy i pieniądze, umowę menedżerską, pracę z Olą Geppert.
+description: Pisze wpisy na blog pierwszedemo.com – po polsku, z perspektywy menedżera artystów, całkowicie bez obrazków. Dwa formaty: „notatka" (300–500 słów, bez śródtytułów) i „przewodnik" (1200–2000 słów, sekcje H2 i FAQ). Prowadzi proces: odświeżenie własnych źródeł (olageppert.pl i ten serwis), wybór tematu i deduplikacja, wybór formatu, rejestr faktów ze źródłem dla każdej liczby, tekst, redakcja językowa, linkowanie, publikacja i build. Użyj, gdy pada „napisz wpis na bloga", „nowy wpis", „notatka na bloga", „przewodnik o…", „zaktualizuj wpis", „co napisać na bloga", albo gdy trzeba opisać temat branżowy: wydarzenia (Great September, showcase, konferencja), EPK i materiały prasowe, Spotify for Artists, wydawnictwo i dystrybucję, booking, tantiemy i pieniądze, umowę menedżerską, pracę z Olą Geppert.
 ---
 
 # blog-post-factory
@@ -90,7 +90,7 @@ i jedynymi, które zmieniają się bez uprzedzenia.
 Jeśli WebFetch zawiedzie, pracujesz na dossier i **mówisz o tym wprost w raporcie** –
 razem z informacją, że fakty o artystce nie zostały odświeżone.
 
-### miszczyszyn.com – ten serwis
+### pierwszedemo.com – ten serwis
 
 Nie zgaduj, co jest na stronie, dla której piszesz. Przeczytaj:
 

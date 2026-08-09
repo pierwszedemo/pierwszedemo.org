@@ -3,9 +3,10 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import HeroPhoto from "../components/HeroPhoto.astro";
+import EmailLink from "../components/EmailLink.astro";
 import {
-  CONTACT_EMAIL,
   HOME_CITY,
+  PERSON_NAME,
   ROSTER,
   SERVICES,
   SITE_NAME,
@@ -14,8 +15,12 @@ import {
 } from "../consts";
 ---
 
+{
+  /* Tytuł niesie i markę, i nazwisko: „Pierwsze Demo" jest nowe i nikt go
+     jeszcze nie wyszukuje, a zapytania po nazwisku muszą dalej trafiać tutaj. */
+}
 <BaseLayout
-  title={`${SITE_NAME} – ${SITE_TAGLINE}`}
+  title={`${SITE_NAME} – ${PERSON_NAME}, ${SITE_TAGLINE.toLowerCase()}`}
   description="Management, wydawnictwa i booking dla artystów alternatywnych. Prowadzę artystów od pierwszego demo do festiwalowych scen – z planem, nie z przypadku."
   schemaPageType="ProfilePage"
 >
@@ -102,12 +107,9 @@ import {
 
         <section class="flex flex-col gap-2.5 px-5 py-6 md:px-8">
           <h2 class="label text-muted">Kontakt</h2>
-          <a
-            href={`mailto:${CONTACT_EMAIL}`}
+          <EmailLink
             class="text-[clamp(1.125rem,3.2vw,1.625rem)] font-semibold break-all underline decoration-2 underline-offset-[6px]"
-          >
-            {CONTACT_EMAIL}
-          </a>
+          />
         </section>
       </div>
     </main>

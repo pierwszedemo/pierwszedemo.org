@@ -2,6 +2,16 @@
 
 Notatka robocza, 2026-08-09.
 
+## Decyzja (2026-08-09)
+
+Padło na `pierwszedemo.com` — wbrew rekomendacji niżej, która stawiała na
+`dlugagra.com`. Serwis jest przepięty: `SITE_URL`, marka („Pierwsze Demo"
+jako `SITE_NAME`, nazwisko zostaje w `PERSON_NAME`), kontakt, favicon (monogram
+„PD"). Reszta notatki zostaje jako zapis rozważań, nie jako plan.
+
+Do zrobienia poza repo: 301 z `miszczyszyn.com` na nowy host i nowa własność
+w Search Console — bez tego dorobek w wyszukiwarce zostaje pod starym adresem.
+
 Dostępność sprawdzana przez `dig NS` — brak delegacji NS to mocna
 poszlaka, że domena jest wolna, ale **nie dowód**: domena zarejestrowana
 i niedelegowana wygląda tak samo. Przed zakupem potwierdzić u rejestratora.

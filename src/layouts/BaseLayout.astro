@@ -12,10 +12,12 @@ import {
   ORGANIZATION_ID,
   LAST_CONTENT_UPDATE,
   PERSON_ID,
+  PERSON_NAME,
   SERVICES,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TAGLINE,
+  SITE_URL,
   SOCIALS,
   WEBSITE_ID,
 } from "../consts";
@@ -49,7 +51,7 @@ const {
   dateModified = LAST_CONTENT_UPDATE,
 } = Astro.props;
 
-const site = Astro.site ?? new URL("https://miszczyszyn.com");
+const site = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(canonicalPath, site).href;
 const ogImageUrl = new URL(ogImage, site).href;
 const photoUrl = new URL(michal.src, site).href;
@@ -57,7 +59,7 @@ const photoUrl = new URL(michal.src, site).href;
 const personJsonLd = {
   "@type": "Person",
   "@id": PERSON_ID,
-  name: SITE_NAME,
+  name: PERSON_NAME,
   url: site.href,
   jobTitle: SITE_TAGLINE,
   description: SITE_DESCRIPTION,

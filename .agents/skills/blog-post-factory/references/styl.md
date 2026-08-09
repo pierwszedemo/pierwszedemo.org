@@ -289,7 +289,7 @@ do kontaktu** – ten sam gest, inny kanał:
 > „Masz inne doświadczenia? Napisz do mnie." · „Nie zgadzasz się? Tym bardziej napisz." ·
 > „Jeśli robisz to inaczej i działa – chętnie posłucham."
 
-Adres to `michal@miszczyszyn.com` (stała `CONTACT_EMAIL`), ale w treści zwykle wystarczy
+Adres to `michal@pierwszedemo.com` (stała `CONTACT_EMAIL`), ale w treści zwykle wystarczy
 samo „napisz do mnie" – kontakt jest w nawigacji i w stopce każdej strony. Nie wklejaj
 adresu w każdy wpis, bo zamienia się w podpis.
 

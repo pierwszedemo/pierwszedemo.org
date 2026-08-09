@@ -7,6 +7,7 @@ import {
   PRIVACY_POLICY_UPDATED,
   PRIVACY_SECTIONS,
   PRIVACY_TOOLS,
+  SITE_HOST,
   SITE_NAME,
 } from "../consts";
 
@@ -21,7 +22,7 @@ const headers = [
 
 <BaseLayout
   title={`Polityka prywatności – ${SITE_NAME}`}
-  description="Jakie dane zbiera strona miszczyszyn.com, jakie cookies są używane, komu są przekazywane i jak wycofać zgodę."
+  description={`Jakie dane zbiera strona ${SITE_HOST}, jakie cookies są używane, komu są przekazywane i jak wycofać zgodę.`}
   canonicalPath={PRIVACY_POLICY_PATH}
   dateModified={PRIVACY_POLICY_UPDATED}
 >
