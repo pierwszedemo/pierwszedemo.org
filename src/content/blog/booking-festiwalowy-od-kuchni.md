@@ -1,6 +1,6 @@
 ---
 title: Booking festiwalowy od kuchni
-lead: Line-up letniego festiwalu jest w dużej mierze zamknięty, zanim skończy się zima. „Nie” w kwietniu prawie zawsze znaczy „jeszcze nie”.
+lead: Line-up letniego festiwalu jest w dużej mierze zamknięty, zanim skończy się zima. Dlaczego więc wszyscy wysyłają zgłoszenia w kwietniu?
 category: Koncerty
 kind: notatka
 date: 2026-04-09
@@ -9,18 +9,20 @@ keyphrase: booking festiwalowy
 readingMinutes: 2
 ---
 
-Kalendarz bookingu wyprzedza kalendarz publiczności o pół roku. Rozmowy o czerwcowych scenach toczą się w listopadzie i grudniu – kto pisze w maju, negocjuje już tylko o wolne miejsca po rezygnacjach.
+Znasz to uczucie, gdy wysyłasz zgłoszenie na czerwcowy festiwal i dostajesz uprzejme „niestety, mamy komplet"? Zwykle nie chodzi o Twoją muzykę. Chodzi o to, że spóźniłeś się o cztery miesiące.
 
-Ta jedna rzecz przestawia cały plan roku. **Premiera, która ma pomóc w bookingu, musi wyjść przed rozmowami o kolejnym lecie, a nie tuż przed sezonem.** Singiel wydany w maju trafia do programów dopiero rok później. Ten sam singiel wydany w październiku bywa argumentem w rozmowie, która toczy się miesiąc później.
+Kalendarz bookingu wyprzedza kalendarz publiczności o pół roku: rozmowy o czerwcowych scenach toczą się w listopadzie i grudniu. Kto pisze w maju, negocjuje już tylko o miejsca po rezygnacjach.
 
-Zgłoszenie wysyła się raz i konkretnie. Nazwa, miasto, gatunek w dwóch słowach, link do nagrania, propozycja terminu i zdanie o tym, dlaczego akurat ten festiwal. Seria przypomnień co tydzień niczego nie przyspiesza, bo decyzja nie czeka na kolejnego maila – czeka na moment, w którym układa się program.
+Ta jedna rzecz przestawia cały plan roku. **Premiera, która ma pomóc w bookingu, musi wyjść przed rozmowami o kolejnym lecie, a nie tuż przed sezonem.** Singiel wydany w maju trafia do programów dopiero rok później. Ten sam singiel w październiku bywa argumentem w rozmowie miesiąc później. Różnica jest ogromna.
 
-Zresztą osoby prowadzące booking nie układają line-upu z najlepszych zgłoszeń, tylko z tego, co się ze sobą klei: godzina, scena, sąsiedztwo w programie, budżet, który został po headlinerach. Odmowa najczęściej mówi o tych ograniczeniach, nie o muzyce.
+Załóżmy więc, że piszesz w listopadzie. Co ma być w tym mailu? Nazwa, miasto, gatunek w dwóch słowach, link do nagrania, propozycja terminu i jedno zdanie o tym, dlaczego akurat ten festiwal. Wysyłasz raz. Przypomnienia co tydzień niczego nie przyspieszają, bo decyzja nie czeka na kolejnego maila – czeka na moment, w którym układa się program.
 
-Co więc realnie wzmacnia zgłoszenie? To, co zdejmuje z organizatora ryzyko. Frekwencja na własnym koncercie w tym samym regionie, wideo z pełnej sceny zamiast klipu z próby, informacja o trasie, która i tak przechodzi obok. Każda z tych rzeczy odpowiada na jedno ciche pytanie: ile osób przyjdzie i czy będzie z kim się dogadać.
+Zresztą osoby prowadzące booking nie budują line-upu z najlepszych zgłoszeń, tylko z tego, co się ze sobą klei: godzina, scena, sąsiedztwo w programie, budżet, który został po headlinerach. Odmowa mówi o tych ograniczeniach. Rzadko o muzyce.
 
-Odpowiedzi na drugą część nie da się dopisać do maila. Ona buduje się latami.
+Co więc realnie wzmacnia zgłoszenie? Wszystko, co zdejmuje z organizatora ryzyko: frekwencja na własnym koncercie w tym samym regionie, wideo z pełnej sceny zamiast klipu z próby, trasa, która i tak przechodzi obok. Każda z tych rzeczy odpowiada na jedno ciche pytanie. Ile osób przyjdzie i czy będzie z kim się dogadać. Nic więcej.
 
-Dlatego wartość ma podtrzymywany kontakt, a nie pojedynczy strzał. Krótka informacja o premierze, trasie albo frekwencji utrzymuje artystę w polu widzenia do momentu, w którym akurat brakuje kogoś takiego. Trzy takie wiadomości w ciągu roku robią więcej niż dziesięć zgłoszeń wysłanych w jednym tygodniu.
+Odpowiedzi na tę drugą część nie dopiszesz do maila – ona buduje się latami.
 
-I rzecz, którą łatwo przeoczyć: festiwale rozmawiają między sobą. Zespół, który zagrał punktualnie, zmieścił się w riderze i nie zrobił problemu z garderoby, wraca w rozmowach następnego sezonu – częściej niż ten, który zagrał odrobinę lepszy koncert.
+Dlatego dużo większą wartość ma podtrzymywany kontakt niż pojedynczy, świetnie napisany strzał. Krótka informacja o premierze albo o frekwencji utrzymuje nazwę w polu widzenia do momentu, w którym akurat brakuje kogoś takiego. Trzy takie wiadomości w roku robią więcej niż dziesięć zgłoszeń w jednym tygodniu.
+
+I rzecz, którą łatwo przeoczyć: festiwale rozmawiają między sobą. Zespół, który zagrał punktualnie, zmieścił się w riderze i nie zrobił awantury o garderobę, wraca w rozmowach następnego sezonu. Częściej niż ten, który zagrał odrobinę lepszy koncert.
