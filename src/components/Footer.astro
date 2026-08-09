@@ -1,0 +1,36 @@
+---
+import { CONTACT_EMAIL, HOME_CITY, SOCIALS } from "../consts";
+
+// Szersze wcięcie z makiety dopiero od lg — przy 768 px czterokolumnowa
+// stopka z padding: 32px łamie adres e-mail w środku słowa.
+const cell = "px-5 py-4 md:py-[19px] lg:px-8";
+const year = new Date().getFullYear();
+---
+
+<footer
+  class="grid grid-cols-2 border-t border-ink text-[13px] text-muted md:grid-cols-4"
+>
+  <div class={`${cell} border-r border-b border-hairline md:border-b-0`}>
+    © {year}
+  </div>
+  {
+    SOCIALS.map((social) => (
+      <a
+        href={social.href}
+        rel="me noopener"
+        target="_blank"
+        class={`${cell} border-b border-hairline md:border-r md:border-b-0`}
+      >
+        {social.name} <span aria-hidden="true">↗</span>
+        <span class="sr-only">(otwiera się w nowej karcie)</span>
+      </a>
+    ))
+  }
+  <a
+    href={`mailto:${CONTACT_EMAIL}`}
+    class={`${cell} border-r border-hairline break-all`}
+  >
+    {CONTACT_EMAIL}
+  </a>
+  <div class={cell}>{HOME_CITY}</div>
+</footer>

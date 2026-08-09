@@ -1,0 +1,140 @@
+---
+import { Font } from "astro:assets";
+import { ClientRouter } from "astro:transitions";
+import {
+  CONTACT_EMAIL,
+  HOME_CITY,
+  LAST_CONTENT_UPDATE,
+  PERSON_ID,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_TAGLINE,
+  SOCIALS,
+  WEBSITE_ID,
+} from "../consts";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  canonicalPath?: string;
+  robots?: string;
+  ogType?: string;
+  /** Dodatkowe węzły dopinane do schema.org @graph (np. BlogPosting). */
+  extraJsonLd?: Record<string, unknown>[];
+  /** ISO date — schema.org dateModified tej strony. */
+  dateModified?: string;
+}
+
+const {
+  title,
+  description = SITE_DESCRIPTION,
+  canonicalPath = Astro.url.pathname,
+  robots = "index, follow, max-image-preview:large",
+  ogType = "website",
+  extraJsonLd = [],
+  dateModified = LAST_CONTENT_UPDATE,
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://miszczyszyn.com");
+const canonical = new URL(canonicalPath, site).href;
+
+const personJsonLd = {
+  "@type": "Person",
+  "@id": PERSON_ID,
+  name: SITE_NAME,
+  url: site.href,
+  jobTitle: SITE_TAGLINE,
+  description: SITE_DESCRIPTION,
+  email: `mailto:${CONTACT_EMAIL}`,
+  knowsLanguage: ["pl", "en"],
+  knowsAbout: [
+    "management artystów",
+    "wydawnictwa muzyczne",
+    "booking koncertowy",
+    "promocja muzyki",
+  ],
+  hasOccupation: { "@type": "Occupation", name: SITE_TAGLINE },
+  homeLocation: {
+    "@type": "Place",
+    name: HOME_CITY,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: HOME_CITY,
+      addressCountry: "PL",
+    },
+  },
+  sameAs: SOCIALS.map((social) => social.href),
+};
+const websiteJsonLd = {
+  "@type": "WebSite",
+  "@id": WEBSITE_ID,
+  url: site.href,
+  name: SITE_NAME,
+  description: SITE_DESCRIPTION,
+  inLanguage: "pl",
+  publisher: { "@id": PERSON_ID },
+  about: { "@id": PERSON_ID },
+};
+// Strony z noindex (404) nie dostają własnego węzła — nie ma czego indeksować.
+const pageJsonLd = robots.includes("noindex")
+  ? null
+  : {
+      "@type": "WebPage",
+      "@id": canonical,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: "pl",
+      isPartOf: { "@id": WEBSITE_ID },
+      about: { "@id": PERSON_ID },
+      dateModified,
+    };
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    personJsonLd,
+    websiteJsonLd,
+    ...(pageJsonLd ? [pageJsonLd] : []),
+    ...extraJsonLd,
+  ],
+};
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={robots} />
+    <link rel="canonical" href={canonical} />
+    <meta name="theme-color" content="#ffffff" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <Font cssVariable="--font-archivo" preload />
+    <Font cssVariable="--font-ibm-plex-mono" preload />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+    <ClientRouter />
+  </head>
+
+  <body
+    class="min-h-dvh bg-white font-sans text-ink antialiased [text-rendering:optimizeLegibility]"
+  >
+    <slot />
+  </body>
+</html>

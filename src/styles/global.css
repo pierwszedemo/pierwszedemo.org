@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-archivo), system-ui, sans-serif;
+  --font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
+
+  /* Kolory odczytane z projektu (Swiss, kierunek 2). */
+  --color-ink: #101010; /* tekst, twarde linie, bloki na negatywie */
+  --color-muted: #6f6d68; /* etykiety, metadane, nieaktywna nawigacja */
+  --color-body: #3c3a36; /* akapity */
+  --color-hairline: #e4e2dd; /* linie WEWNĄTRZ pasma (kontra ink między pasmami) */
+  --color-panel: #f4f2ee; /* tło slotu na zdjęcie */
+
+  /* Skala typograficzna — wartości z makiety 1280px jako górna granica. */
+  --text-hero: clamp(3.25rem, 9.25vw, 7.375rem); /* 118px @ 1280 */
+  --text-page: clamp(2.75rem, 7.2vw, 5.75rem); /* 92px @ 1280 */
+  --text-post: clamp(2.25rem, 5vw, 4rem); /* 64px */
+  --text-row: clamp(1.375rem, 2.2vw, 1.6875rem); /* 27px */
+  --text-roster: clamp(1.625rem, 2.6vw, 2rem); /* 32px */
+}
+
+/* Siatka projektu jest zbudowana na twardych krawędziach — żadnych zaokrągleń. */
+:root {
+  scrollbar-gutter: stable;
+}
+
+/* Widoczny focus w całym serwisie. Musi siedzieć w warstwie `base`,
+   inaczej reguła bez warstwy wygrywa z utilities Tailwinda i nie da się
+   jej nadpisać tam, gdzie tło jest czarne (wiersze bloga). */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+}
+
+/* Etykiety monospace: wielkie litery + rozstrzelenie, powtarzane w całym
+   projekcie. Jedna klasa zamiast pięciu utilities przy każdym użyciu. */
+@utility label {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.75rem;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { getSortedPosts, isoMonth } from "../../blog";
+import { SITE_NAME } from "../../consts";
+
+const posts = await getSortedPosts();
+const count = String(posts.length).padStart(2, "0");
+---
+
+<BaseLayout
+  title={`Blog — ${SITE_NAME}`}
+  description="Notatki z pracy przy karierach artystów: wydawnictwa, booking, promocja i pieniądze w niezależnej muzyce."
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav active="Blog" />
+
+    <main class="flex-1">
+      <div
+        class="flex flex-col gap-6 px-5 pt-10 pb-9 md:flex-row md:items-end md:justify-between md:px-8 md:pt-13"
+      >
+        <h1
+          class="text-page leading-[0.95] font-semibold tracking-[-0.03em]"
+        >
+          Blog ({count})
+        </h1>
+        <p
+          class="font-mono text-[13px] leading-[1.7] font-medium tracking-[0.16em] text-muted uppercase md:text-right"
+        >
+          Notatki z pracy<br />przy karierach
+        </p>
+      </div>
+
+      <ul>
+        {
+          posts.map((post, index) => (
+            <li>
+              <a
+                href={`/blog/${post.id}`}
+                class:list={[
+                  "group grid grid-cols-1 items-center gap-y-2 px-5 py-6 transition-colors md:grid-cols-[150px_1fr_190px_70px] md:gap-0 md:px-0 md:py-0",
+                  // Wiersz przy focusie robi się czarny, więc domyślny czarny
+                  // kontur znika — na inwersji musi być biały, do środka.
+                  "hover:bg-ink hover:text-white focus-visible:bg-ink focus-visible:text-white focus-visible:outline-white focus-visible:outline-offset-[-4px]",
+                  index === 0
+                    ? "border-t border-ink"
+                    : "border-t border-hairline",
+                  index === posts.length - 1 && "border-b border-hairline",
+                ]}
+              >
+                <span class="order-2 font-mono text-[13px] text-muted group-hover:text-white/70 group-focus-visible:text-white/70 md:order-none md:px-8 md:py-7">
+                  <time datetime={isoMonth(post.data.date)}>
+                    {isoMonth(post.data.date)}
+                  </time>
+                  <span class="md:hidden"> — {post.data.category}</span>
+                </span>
+                <span class="order-1 text-row font-semibold text-balance md:order-none md:py-7">
+                  {post.data.title}
+                </span>
+                <span class="order-3 hidden text-[13px] tracking-[0.14em] text-muted uppercase group-hover:text-white/70 group-focus-visible:text-white/70 md:order-none md:block md:py-7">
+                  {post.data.category}
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="hidden text-[22px] md:block md:px-8 md:py-7 md:text-right"
+                >
+                  →
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

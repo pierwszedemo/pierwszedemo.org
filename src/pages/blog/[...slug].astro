@@ -1,0 +1,167 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { getSortedPosts, isoDate, type Post } from "../../blog";
+import { PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
+
+interface Props {
+  post: Post;
+  next?: Post;
+}
+
+// Wpisy są w repo, więc rendering przy buildzie — inaczej trasa dynamiczna
+// nie trafiłaby do sitemapy (integracja umie wyliczyć tylko prerenderowane).
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const posts = await getSortedPosts();
+  return posts.map((post, index) => ({
+    params: { slug: post.id },
+    // Lista jest posortowana malejąco, więc „następny" w czytaniu to starszy wpis.
+    props: { post, next: posts[index + 1] },
+  }));
+}
+
+const { post, next } = Astro.props;
+const { Content } = await render(post);
+
+const canonical = new URL(`/blog/${post.id}`, SITE_URL).href;
+const blogPostingJsonLd = {
+  "@type": "BlogPosting",
+  "@id": `${canonical}#post`,
+  headline: post.data.title,
+  description: post.data.lead,
+  articleSection: post.data.category,
+  datePublished: isoDate(post.data.date),
+  dateModified: isoDate(post.data.date),
+  inLanguage: "pl",
+  author: { "@id": PERSON_ID },
+  publisher: { "@id": PERSON_ID },
+  isPartOf: { "@id": WEBSITE_ID },
+  mainEntityOfPage: canonical,
+};
+---
+
+<BaseLayout
+  title={`${post.data.title} — ${SITE_NAME}`}
+  description={post.data.lead}
+  ogType="article"
+  dateModified={isoDate(post.data.date)}
+  extraJsonLd={[blogPostingJsonLd]}
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav active="Blog" />
+
+    <main class="flex flex-1 flex-col">
+      <article class="flex flex-1 flex-col">
+        <!-- Pasek metadanych: data / kategoria / czas czytania -->
+        <div
+          class="label grid grid-cols-2 border-b border-ink text-muted md:grid-cols-[160px_1fr_160px]"
+        >
+          <div
+            class="border-r border-b border-hairline px-5 py-[18px] md:border-b-0"
+          >
+            <time datetime={isoDate(post.data.date)}>
+              {isoDate(post.data.date)}
+            </time>
+          </div>
+          <div
+            class="border-b border-hairline px-5 py-[18px] md:border-r md:border-b-0 md:px-8"
+          >
+            {post.data.category}
+          </div>
+          <div class="col-span-2 px-5 py-[18px] md:col-span-1">
+            {post.data.readingMinutes} min czyt.
+          </div>
+        </div>
+
+        <!-- Tytuł jest wcięty tak, żeby zaczynał się w osi kolumny z tekstem. -->
+        <!-- Wcięcie = szerokość kolumny „W skrócie" + 32 px, żeby tytuł
+             zaczynał się w osi tekstu wpisu. -->
+        <header
+          class="border-b border-ink px-5 py-10 md:px-8 md:pl-[22rem] lg:pl-[27rem]"
+        >
+          <h1
+            class="max-w-[18ch] text-post leading-[1.02] font-semibold tracking-[-0.03em] text-balance"
+          >
+            {post.data.title}
+          </h1>
+        </header>
+
+        <div
+          class="grid flex-1 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25rem_minmax(0,1fr)]"
+        >
+          <aside
+            class="flex flex-col gap-[18px] border-b border-hairline px-5 py-9 md:border-r md:border-b-0 md:px-8"
+          >
+            <h2 class="label text-muted">W skrócie</h2>
+            <p class="text-xl leading-[1.5] font-medium text-body">
+              {post.data.lead}
+            </p>
+          </aside>
+
+          <div
+            class="prose-swiss px-5 py-9 text-body md:px-10 lg:[column-count:2] lg:[column-gap:40px]"
+          >
+            <Content />
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <div
+      class="grid border-t border-ink text-sm md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25rem_minmax(0,1fr)]"
+    >
+      <a
+        href="/blog"
+        class="border-b border-hairline px-5 py-[21px] text-muted md:border-r md:border-b-0 md:px-8"
+      >
+        <span aria-hidden="true">←</span> Wszystkie wpisy
+      </a>
+      {
+        next ? (
+          <a
+            href={`/blog/${next.id}`}
+            class="flex items-center justify-between gap-4 px-5 py-[21px] md:px-8"
+          >
+            <span class="font-semibold">Następny: {next.data.title}</span>
+            <span aria-hidden="true">→</span>
+          </a>
+        ) : (
+          <p class="px-5 py-[21px] text-muted md:px-8">
+            To najstarszy wpis na blogu.
+          </p>
+        )
+      }
+    </div>
+
+    <Footer />
+  </div>
+</BaseLayout>
+
+<style>
+  /* Markdown wpisu — jeden blok zamiast wtyczki typography. */
+  .prose-swiss :global(p) {
+    margin: 0 0 18px;
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+  .prose-swiss :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  /* Śródtytuły nie mogą się urwać na końcu kolumny. */
+  .prose-swiss :global(h2),
+  .prose-swiss :global(h3) {
+    margin: 0 0 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--color-ink);
+    break-after: avoid;
+  }
+  .prose-swiss :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>
