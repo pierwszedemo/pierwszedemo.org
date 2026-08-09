@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
-import { HOME_CITY, SITE_TAGLINE, WORDMARK } from "./consts";
+import { HOME_CITY, SITE_HOST, SITE_TAGLINE, WORDMARK } from "./consts";
 
 /**
  * Karty OG 1200×630 rysowane tym samym językiem, co strona: biel, twarda
@@ -118,7 +118,7 @@ export async function renderOgCard({
           },
           [
             el("div", { fontSize: 26 }, WORDMARK),
-            el("div", { ...mono, color: MUTED }, badge ?? "miszczyszyn.com"),
+            el("div", { ...mono, color: MUTED }, badge ?? SITE_HOST),
           ],
         ),
       ],

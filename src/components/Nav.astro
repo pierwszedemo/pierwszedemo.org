@@ -1,5 +1,6 @@
 ---
-import { CONTACT_EMAIL, NAV, WORDMARK } from "../consts";
+import EmailLink from "./EmailLink.astro";
+import { NAV, WORDMARK } from "../consts";
 
 interface Props {
   /** Podświetla pozycję w menu – wartość równa NAV[n].label. */
@@ -42,11 +43,8 @@ const cell = "px-5 py-4 md:px-8 md:py-[22px]";
       </a>
     ))
   }
-  <a
-    href={`mailto:${CONTACT_EMAIL}`}
-    class={`${cell} flex items-center justify-between gap-3 text-sm`}
-  >
+  <EmailLink class={`${cell} flex items-center justify-between gap-3 text-sm`}>
     <span>Kontakt</span>
     <span aria-hidden="true">↗</span>
-  </a>
+  </EmailLink>
 </nav>

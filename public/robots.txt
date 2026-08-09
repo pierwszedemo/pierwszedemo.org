@@ -15,4 +15,4 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-Sitemap: https://miszczyszyn.com/sitemap-index.xml
+Sitemap: https://pierwszedemo.com/sitemap-index.xml

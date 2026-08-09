@@ -47,6 +47,20 @@ feeds the zod enum in `src/content.config.ts`, so adding a category is one edit.
 `LAST_CONTENT_UPDATE` must be bumped by hand – it drives JSON-LD `dateModified`
 and sitemap `lastmod`.
 
+The brand and the person are two constants, not one. `SITE_NAME` („Pierwsze
+Demo") is the site: titles, `og:site_name`, RSS, the `WebSite` node.
+`PERSON_NAME` („Michał Miszczyszyn") is the human: the `Person` node and the
+caption under the hero photo. Collapsing them back into one name makes the
+`Person` entity claim the site's name, which is the thing Google reads as the
+author. The domain lives in `SITE_URL` alone – `SITE_HOST`, the schema.org
+`@id`s, UTM `utm_source` and the OG card badge are all derived from it, so
+never type the host anywhere else.
+
+The e-mail address is only ever rendered through `src/components/EmailLink.astro`,
+which wraps the `mailto:` in `<!--email_off-->` – the same convention as
+olageppert.pl, so a change to how addresses are handled ports between the two
+sites without a grep.
+
 ### Blog
 
 Posts are markdown in `src/content/blog/`, loaded through a content collection
@@ -129,11 +143,16 @@ collide with the `[...slug]` catch-all.
 multi-size `.ico` from one source. Run it by hand (`bun scripts/generate-favicons.mjs`),
 not in the build — icons change once every few years and the output is committed.
 
-The „M" is a **path baked from Archivo**, never `<text>`. The first version used
-`<text font-family="Archivo, …">` and every raster came out as an empty square:
-sharp rasterises SVG through librsvg, which resolves *system* fonts. A visitor's
-browser rendering `favicon.svg` has the same problem. If you restyle the icon,
-keep the glyph as an outline.
+The „PD" monogram is a **path baked from Archivo**, never `<text>`. The first
+version used `<text font-family="Archivo, …">` and every raster came out as an
+empty square: sharp rasterises SVG through librsvg, which resolves *system*
+fonts. A visitor's browser rendering `favicon.svg` has the same problem. If you
+restyle the icon, keep the glyph as an outline.
+
+Two variants come out of the same monogram: `favicon.svg` and the ≥96 px PNGs
+keep the mock's frame, the 16/32/48 px entries inside `.ico` drop it. Framed,
+two letters at 16 px leave the stems below a pixel and „PD" smears into a grey
+block — the frame is what has to go, not the second letter.
 
 ### Analytics & consent
 

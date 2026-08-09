@@ -1,13 +1,28 @@
-export const SITE_URL = "https://miszczyszyn.com";
-export const SITE_NAME = "Michał Miszczyszyn";
+export const SITE_URL = "https://pierwszedemo.com";
+
+/** Sama domena – badge kart OG, UTM-y, opisy. Nigdy nie wpisuj jej ręcznie. */
+export const SITE_HOST = new URL(SITE_URL).host;
+
+/**
+ * Marka serwisu (tytuły, og:site_name, RSS) i osoba, która za nim stoi, to od
+ * rebrandu dwie różne rzeczy. `SITE_NAME` idzie tam, gdzie mowa o serwisie;
+ * `PERSON_NAME` tam, gdzie o człowieku – przede wszystkim w węźle Person
+ * schema.org, bo encja osoby nie może nazywać się jak strona.
+ */
+export const SITE_NAME = "Pierwsze Demo";
+export const PERSON_NAME = "Michał Miszczyszyn";
 export const SITE_TAGLINE = "Manager artystów";
 export const SITE_DESCRIPTION =
   "Management, wydawnictwa i booking dla artystów alternatywnych. Od pierwszego demo do festiwalowych scen – z planem, nie z przypadku.";
 
-export const CONTACT_EMAIL = "michal@miszczyszyn.com";
+export const CONTACT_EMAIL = "michal@pierwszedemo.com";
 export const HOME_CITY = "Gdańsk";
 
-/** Stabilne @id węzłów schema.org – nie zmieniaj, wiążą encje między stronami. */
+/**
+ * Stabilne @id węzłów schema.org – wiążą encje między stronami. Jadą z
+ * `SITE_URL`, więc zmiana domeny przepina je wszystkie naraz; poza taką
+ * przeprowadzką nie ma powodu ich ruszać.
+ */
 export const PERSON_ID = `${SITE_URL}/#michal`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const ORGANIZATION_ID = `${SITE_URL}/#firma`;
@@ -24,7 +39,7 @@ export const LAST_CONTENT_UPDATE = "2026-08-09";
 export const GA_ID = "G-MHM5P6X3TG";
 
 /** Marka w lewej komórce nagłówka – w projekcie zapisana z ®. */
-export const WORDMARK = "Michał Miszczyszyn®";
+export const WORDMARK = `${SITE_NAME}®`;
 
 /**
  * Nawigacja. Makieta ma tu cztery komórki (marka, Artyści, Blog, Kontakt);
@@ -55,7 +70,7 @@ export const ROSTER = [
 
 export function withUtm(href: string, campaign: string): string {
   const url = new URL(href);
-  url.searchParams.set("utm_source", "miszczyszyn.com");
+  url.searchParams.set("utm_source", SITE_HOST);
   url.searchParams.set("utm_medium", "referral");
   url.searchParams.set("utm_campaign", campaign);
   return url.href;
