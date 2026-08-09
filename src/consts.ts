@@ -10,6 +10,7 @@ export const HOME_CITY = "Gdańsk";
 /** Stabilne @id węzłów schema.org — nie zmieniaj, wiążą encje między stronami. */
 export const PERSON_ID = `${SITE_URL}/#michal`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
+export const ORGANIZATION_ID = `${SITE_URL}/#firma`;
 
 /** Data ostatniej zmiany treści — trafia do sitemap.lastmod i dateModified. */
 export const LAST_CONTENT_UPDATE = "2026-08-09";
@@ -101,6 +102,18 @@ export const PRIVACY_POLICY_UPDATED = "2026-08-09";
 export const CONSENT_COOKIE = "mm_consent";
 export const CONSENT_COOKIE_DAYS = 182;
 
+/**
+ * Administrator danych. To firma, nie osoba prywatna — dane muszą się zgadzać
+ * z wpisem w CEIDG i z polityką na pl.typeofweb.com, bo to ten sam podmiot.
+ */
+export const COMPANY = {
+  name: "Type of Web - Michał Miszczyszyn",
+  street: "ul. Bażantowa 9/21",
+  postalCode: "80-175",
+  city: "Gdańsk",
+  nip: "6040080451",
+} as const;
+
 /** Narzędzia zewnętrzne działające na stronie — tabela w polityce. */
 export const PRIVACY_TOOLS = [
   {
@@ -140,7 +153,8 @@ export const PRIVACY_SECTIONS = [
   {
     title: "Kto jest administratorem",
     paragraphs: [
-      `Administratorem danych zbieranych przez stronę ${SITE_URL} jest ${SITE_NAME}. We wszystkich sprawach dotyczących danych osobowych napisz na ${CONTACT_EMAIL}.`,
+      `Administratorem danych zbieranych przez stronę ${SITE_URL} jest ${COMPANY.name}, ${COMPANY.street}, ${COMPANY.postalCode} ${COMPANY.city}, NIP ${COMPANY.nip} — działalność gospodarcza wpisana do CEIDG.`,
+      `We wszystkich sprawach dotyczących danych osobowych napisz na ${CONTACT_EMAIL}.`,
     ],
   },
   {
