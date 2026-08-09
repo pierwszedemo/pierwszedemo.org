@@ -10,6 +10,7 @@ import {
   SERVICES,
   SITE_NAME,
   SITE_TAGLINE,
+  withUtm,
 } from "../consts";
 ---
 
@@ -73,7 +74,7 @@ import {
           {
             ROSTER.map((artist) => (
               <a
-                href={artist.href}
+                href={withUtm(artist.href, "roster")}
                 target="_blank"
                 rel="noopener"
                 data-social={artist.name}
