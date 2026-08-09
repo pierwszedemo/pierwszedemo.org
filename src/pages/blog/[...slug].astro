@@ -12,8 +12,9 @@ interface Props {
   next?: Post;
 }
 
-// Wpisy są w repo, więc rendering przy buildzie – inaczej trasa dynamiczna
-// nie trafiłaby do sitemapy (integracja umie wyliczyć tylko prerenderowane).
+// Redundantne przy `output: "static"`, ale zostaje jako zabezpieczenie: gdyby
+// serwis wrócił do trybu server, bez tego trasa dynamiczna wypadłaby z sitemapy
+// (integracja umie wyliczyć tylko prerenderowane).
 export const prerender = true;
 
 export async function getStaticPaths() {

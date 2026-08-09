@@ -24,7 +24,7 @@ export const LAST_CONTENT_UPDATE = "2026-08-09";
 export const GA_ID = "G-LN7ZQVG13T";
 
 /** Marka w lewej komórce nagłówka – w projekcie zapisana z ®. */
-export const WORDMARK = "Miszczyszyn®";
+export const WORDMARK = "Michał Miszczyszyn®";
 
 /**
  * Nawigacja. Makieta ma tu cztery komórki (marka, Artyści, Blog, Kontakt);

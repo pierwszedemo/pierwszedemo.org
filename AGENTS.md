@@ -19,7 +19,7 @@ collection schema. Type checking otherwise comes from the editor
 
 ## Architecture
 
-Astro 7, `output: "server"`, Vercel adapter, Tailwind v4 via the Vite plugin
+Astro 7, `output: "static"`, Vercel adapter, Tailwind v4 via the Vite plugin
 (no `tailwind.config` – theme tokens live in `@theme` inside
 `src/styles/global.css`). Polish-language site of an artist manager:
 `/`, `/blog`, `/blog/<slug>`, `/polityka-prywatnosci`, `/404`.
@@ -57,9 +57,16 @@ column, doubling as the meta description), `category`, `kind`, `date`,
 links, so they can't disagree.
 
 `src/pages/blog/[...slug].astro` sets `prerender = true` and `getStaticPaths()`.
-That is load-bearing: with `output: "server"` an on-demand dynamic route cannot
-be enumerated by `@astrojs/sitemap`, and the posts would silently vanish from the
-sitemap.
+Redundant under `output: "static"`, kept as a guard: in server mode an on-demand
+dynamic route cannot be enumerated by `@astrojs/sitemap` and the posts would
+silently vanish from the sitemap.
+
+**The site is fully static on purpose.** It was `output: "server"` (copied from
+olageppert.pl) until a page rendered on demand made `<Image>` skip build-time
+optimisation and emit a runtime `/_image?href=…` URL instead — an endpoint Vercel
+does not serve, so the hero photo 404'd in production. Nothing here computes
+per request; if that ever changes, prerender the pages that use `<Image>` or turn
+on the adapter's `imageService`.
 
 Two post formats, both markdown, distinguished by `kind`: `notatka` (300–500
 words, no headings) and `przewodnik` (1200–2000 words, `##` sections plus an FAQ).
