@@ -9,10 +9,10 @@ import { HOME_CITY, SITE_TAGLINE, WORDMARK } from "./consts";
  * linia, Archivo w tytule, IBM Plex Mono w etykietach.
  *
  * Dlaczego satori, a nie samo SVG w sharpie: sharp renderuje SVG librsvg,
- * który sięga po *systemowe* fonty — Archivo nie ma ani na tej maszynie, ani
+ * który sięga po *systemowe* fonty – Archivo nie ma ani na tej maszynie, ani
  * na builderze Vercela, więc tekst wyszedłby zastępczym krojem. Satori dostaje
  * pliki TTF wprost i zamienia tekst na ścieżki, więc sharp rasteryzuje już
- * gotowe kształty. Stąd też wersje TTF w `src/assets/fonts` — Fonts API Astro
+ * gotowe kształty. Stąd też wersje TTF w `src/assets/fonts` – Fonts API Astro
  * cachuje woff2, którego satori nie czyta.
  *
  * Ścieżki liczymy od `process.cwd()`, a nie od `import.meta.url`: Vite bundluje
@@ -44,12 +44,12 @@ interface CardOptions {
   /** Nadtytuł w monospace, u góry karty. */
   eyebrow?: string;
   title: string;
-  /** Prawa etykieta w stopce karty — kategoria wpisu albo adres serwisu. */
+  /** Prawa etykieta w stopce karty – kategoria wpisu albo adres serwisu. */
   badge?: string;
 }
 
 // Satori bez JSX: element to zwykły obiekt {type, props}. Każdy div z wieloma
-// dziećmi musi mieć jawny `display: flex` — satori nie zakłada blokowego układu.
+// dziećmi musi mieć jawny `display: flex` – satori nie zakłada blokowego układu.
 const el = (type: string, style: Record<string, unknown>, children?: unknown) =>
   ({ type, props: { style, ...(children === undefined ? {} : { children }) } }) as const;
 
@@ -61,11 +61,11 @@ const mono = {
 };
 
 export async function renderOgCard({
-  eyebrow = `(${SITE_TAGLINE} — ${HOME_CITY})`,
+  eyebrow = `(${SITE_TAGLINE} – ${HOME_CITY})`,
   title,
   badge,
 }: CardOptions): Promise<Buffer> {
-  // Długie tytuły wpisów muszą zmieścić się w trzech wierszach — bez tego
+  // Długie tytuły wpisów muszą zmieścić się w trzech wierszach – bez tego
   // satori pozwoliłby im wyjechać poza kartę.
   const size = title.length > 64 ? 66 : title.length > 40 ? 78 : 94;
 

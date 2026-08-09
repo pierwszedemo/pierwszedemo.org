@@ -14,7 +14,7 @@ import {
 export const prerender = true;
 
 /**
- * /llms.txt — propozycja konwencji (llmstxt.org), nie standard. Żaden dostawca
+ * /llms.txt – propozycja konwencji (llmstxt.org), nie standard. Żaden dostawca
  * modeli nie potwierdził, że ją czyta, więc traktujemy to jako tani eksperyment:
  * plik generuje się z tych samych stałych co strona, więc nie ma czego
  * aktualizować ręcznie i nie może się rozjechać z treścią.
@@ -35,7 +35,7 @@ export const GET: APIRoute = async () => {
     "",
     "## Artyści",
     "",
-    ...ROSTER.map((artist) => `- [${artist.name}](${artist.href}) — ${artist.genres}`),
+    ...ROSTER.map((artist) => `- [${artist.name}](${artist.href}) – ${artist.genres}`),
     "",
     "## Blog",
     "",

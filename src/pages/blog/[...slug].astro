@@ -12,7 +12,7 @@ interface Props {
   next?: Post;
 }
 
-// Wpisy są w repo, więc rendering przy buildzie — inaczej trasa dynamiczna
+// Wpisy są w repo, więc rendering przy buildzie – inaczej trasa dynamiczna
 // nie trafiłaby do sitemapy (integracja umie wyliczyć tylko prerenderowane).
 export const prerender = true;
 
@@ -30,7 +30,7 @@ const { Content } = await render(post);
 
 const canonical = new URL(`/blog/${post.id}`, SITE_URL).href;
 // Przewodniki starzeją się na liczbach, więc po rewizji faktów liczy się data
-// aktualizacji — ale data publikacji zostaje, bo porządkuje listę wpisów.
+// aktualizacji – ale data publikacji zostaje, bo porządkuje listę wpisów.
 const modified = isoDate(post.data.updated ?? post.data.date);
 const ogImage = `/og/${post.id}.png`;
 const blogPostingJsonLd = {
@@ -49,7 +49,7 @@ const blogPostingJsonLd = {
   mainEntityOfPage: { "@id": canonical },
   image: new URL(ogImage, SITE_URL).href,
   wordCount: wordCount(post.body ?? ""),
-  // ISO 8601 — ta sama liczba, którą widać w pasku metadanych wpisu.
+  // ISO 8601 – ta sama liczba, którą widać w pasku metadanych wpisu.
   timeRequired: `PT${post.data.readingMinutes}M`,
   ...(post.data.keyphrase
     ? { keywords: [post.data.keyphrase, post.data.category] }
@@ -66,7 +66,7 @@ const breadcrumb = breadcrumbJsonLd(
 ---
 
 <BaseLayout
-  title={`${post.data.title} — ${SITE_NAME}`}
+  title={`${post.data.title} – ${SITE_NAME}`}
   description={post.data.lead}
   ogType="article"
   ogImage={ogImage}
@@ -171,7 +171,7 @@ const breadcrumb = breadcrumbJsonLd(
 </BaseLayout>
 
 <style>
-  /* Markdown wpisu — jeden blok zamiast wtyczki typography. */
+  /* Markdown wpisu – jeden blok zamiast wtyczki typography. */
   .prose-swiss :global(p) {
     margin: 0 0 18px;
     font-size: 15.5px;
@@ -189,14 +189,14 @@ const breadcrumb = breadcrumbJsonLd(
     color: var(--color-ink);
     break-after: avoid;
   }
-  /* Odstęp nad śródtytułem dotyczy tylko przewodników — notatki śródtytułów nie
+  /* Odstęp nad śródtytułem dotyczy tylko przewodników – notatki śródtytułów nie
      mają. Selektor `p + h2` zamiast `:not(:first-child)` omija wojnę
      o specyficzność i nie rozdziela pary h2 + h3. */
   .prose-swiss :global(p + h2),
   .prose-swiss :global(p + h3) {
     margin-top: 30px;
   }
-  /* Preflight daje `bolder`, czyli 700 — a w całym projekcie mocniejszy tekst
+  /* Preflight daje `bolder`, czyli 700 – a w całym projekcie mocniejszy tekst
      to 600 (font-bold ma tylko wordmark). Bez tego wyróżnione zdanie w treści
      jest cięższe niż tytuł wpisu. */
   .prose-swiss :global(strong) {

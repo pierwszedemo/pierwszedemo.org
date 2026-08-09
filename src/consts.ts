@@ -2,28 +2,28 @@ export const SITE_URL = "https://miszczyszyn.com";
 export const SITE_NAME = "Michał Miszczyszyn";
 export const SITE_TAGLINE = "Manager artystów";
 export const SITE_DESCRIPTION =
-  "Management, wydawnictwa i booking dla artystów alternatywnych. Od pierwszego demo do festiwalowych scen — z planem, nie z przypadku.";
+  "Management, wydawnictwa i booking dla artystów alternatywnych. Od pierwszego demo do festiwalowych scen – z planem, nie z przypadku.";
 
 export const CONTACT_EMAIL = "michal@miszczyszyn.com";
 export const HOME_CITY = "Gdańsk";
 
-/** Stabilne @id węzłów schema.org — nie zmieniaj, wiążą encje między stronami. */
+/** Stabilne @id węzłów schema.org – nie zmieniaj, wiążą encje między stronami. */
 export const PERSON_ID = `${SITE_URL}/#michal`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const ORGANIZATION_ID = `${SITE_URL}/#firma`;
 
-/** Data ostatniej zmiany treści — trafia do sitemap.lastmod i dateModified. */
+/** Data ostatniej zmiany treści – trafia do sitemap.lastmod i dateModified. */
 export const LAST_CONTENT_UPDATE = "2026-08-09";
 
 /**
  * Identyfikator pomiaru GA4 (G-XXXXXXXXXX). Pusty łańcuch = gtag.js w ogóle
  * się nie ładuje; baner zgody i Consent Mode działają wtedy tak samo, tylko
  * nie mają czego włączyć. Wpisanie ID to jedyna zmiana potrzebna do startu
- * analityki — reszta jest już podpięta.
+ * analityki – reszta jest już podpięta.
  */
 export const GA_ID = "G-LN7ZQVG13T";
 
-/** Marka w lewej komórce nagłówka — w projekcie zapisana z ®. */
+/** Marka w lewej komórce nagłówka – w projekcie zapisana z ®. */
 export const WORDMARK = "Miszczyszyn®";
 
 /**
@@ -42,7 +42,7 @@ export const SERVICES = [
 /**
  * Linki wychodzące do stron artystów dostają UTM-y, żeby w ich analityce
  * ruch z tej strony dał się odróżnić od wejść bezpośrednich. `href` trzymamy
- * czysty — parametry dokleja `withUtm()` w miejscu użycia, więc kanoniczny
+ * czysty – parametry dokleja `withUtm()` w miejscu użycia, więc kanoniczny
  * adres zostaje jeden (m.in. w JSON-LD, gdyby kiedyś tam trafił).
  */
 export const ROSTER = [
@@ -69,7 +69,7 @@ export const SOCIALS = [
 
 /**
  * Kategoria opisuje efekt pracy, o której jest wpis, a nie temat, o który
- * zahacza — „budżet trasy" to Finanse, choć dotyczy koncertów.
+ * zahacza – „budżet trasy" to Finanse, choć dotyczy koncertów.
  */
 export const CATEGORIES = [
   "Promocja",
@@ -85,25 +85,25 @@ export type Category = (typeof CATEGORIES)[number];
 
 /**
  * Formaty wpisu. To nie jest wyłącznie konwencja redakcyjna: `kind` steruje
- * układem łamów w src/pages/blog/[...slug].astro — patrz komentarz tamże.
+ * układem łamów w src/pages/blog/[...slug].astro – patrz komentarz tamże.
  */
 export const KINDS = ["notatka", "przewodnik"] as const;
 
 export type Kind = (typeof KINDS)[number];
 
 // ---------------------------------------------------------------------------
-// Polityka prywatności — jedno źródło dla strony /polityka-prywatnosci
+// Polityka prywatności – jedno źródło dla strony /polityka-prywatnosci
 // i dla linków w banerze cookies (src/scripts/consent.ts).
 // ---------------------------------------------------------------------------
 export const PRIVACY_POLICY_PATH = "/polityka-prywatnosci";
 export const PRIVACY_POLICY_UPDATED = "2026-08-09";
 
-/** Nazwa cookie z decyzją użytkownika — pada też w treści polityki. */
+/** Nazwa cookie z decyzją użytkownika – pada też w treści polityki. */
 export const CONSENT_COOKIE = "mm_consent";
 export const CONSENT_COOKIE_DAYS = 182;
 
 /**
- * Administrator danych. To firma, nie osoba prywatna — dane muszą się zgadzać
+ * Administrator danych. To firma, nie osoba prywatna – dane muszą się zgadzać
  * z wpisem w CEIDG i z polityką na pl.typeofweb.com, bo to ten sam podmiot.
  */
 export const COMPANY = {
@@ -114,7 +114,7 @@ export const COMPANY = {
   nip: "6040080451",
 } as const;
 
-/** Narzędzia zewnętrzne działające na stronie — tabela w polityce. */
+/** Narzędzia zewnętrzne działające na stronie – tabela w polityce. */
 export const PRIVACY_TOOLS = [
   {
     name: "Vercel (hosting)",
@@ -153,14 +153,14 @@ export const PRIVACY_SECTIONS = [
   {
     title: "Kto jest administratorem",
     paragraphs: [
-      `Administratorem danych zbieranych przez stronę ${SITE_URL} jest ${COMPANY.name}, ${COMPANY.street}, ${COMPANY.postalCode} ${COMPANY.city}, NIP ${COMPANY.nip} — działalność gospodarcza wpisana do CEIDG.`,
+      `Administratorem danych zbieranych przez stronę ${SITE_URL} jest ${COMPANY.name}, ${COMPANY.street}, ${COMPANY.postalCode} ${COMPANY.city}, NIP ${COMPANY.nip} – działalność gospodarcza wpisana do CEIDG.`,
       `We wszystkich sprawach dotyczących danych osobowych napisz na ${CONTACT_EMAIL}.`,
     ],
   },
   {
     title: "Jakie dane zbieram",
     paragraphs: [
-      "Strona nie ma formularzy, logowania ani koszyka — nie proszę o żadne dane i nie zakładam kont.",
+      "Strona nie ma formularzy, logowania ani koszyka – nie proszę o żadne dane i nie zakładam kont.",
       "Zbierane są wyłącznie dane techniczne związane z odwiedzinami: adres IP, typ przeglądarki i urządzenia, adres odwiedzonej podstrony, źródło wejścia oraz przybliżona lokalizacja na poziomie kraju. Trafiają do narzędzi statystycznych wymienionych niżej.",
       `Jeśli napiszesz na ${CONTACT_EMAIL}, przetwarzam dane zawarte w wiadomości wyłącznie po to, żeby na nią odpowiedzieć.`,
     ],
@@ -168,11 +168,11 @@ export const PRIVACY_SECTIONS = [
   {
     title: "Cookies i zgoda",
     paragraphs: [
-      "Przy pierwszej wizycie widzisz baner z pytaniem o cookies. Do momentu Twojej decyzji Google Analytics nie zapisuje niczego na Twoim urządzeniu — działa w trybie Google Consent Mode v2 z domyślnie odrzuconymi zgodami.",
+      "Przy pierwszej wizycie widzisz baner z pytaniem o cookies. Do momentu Twojej decyzji Google Analytics nie zapisuje niczego na Twoim urządzeniu – działa w trybie Google Consent Mode v2 z domyślnie odrzuconymi zgodami.",
       "Odmowa jest tak samo łatwa jak zgoda: oba przyciski są tej samej wielkości i dostępne jednym kliknięciem. Nic nie jest zaznaczone z góry.",
-      "Decyzję zmienisz w każdej chwili — link „Cookies” w stopce otwiera panel ustawień. Po cofnięciu zgody zapisane wcześniej cookies analityczne są usuwane.",
-      `Umami i Vercel Web Analytics nie zapisują niczego na Twoim urządzeniu i nie tworzą profili — liczą odwiedziny i kliknięcia w linki w postaci zbiorczych statystyk, bez wiązania ich z konkretną osobą — dlatego działają niezależnie od banera. Cookie z Twoją decyzją o zgodach (${CONSENT_COOKIE}, ${CONSENT_COOKIE_DAYS} dni) jest niezbędne do działania samego mechanizmu zgody.`,
-      "Kroje pisma są serwowane z tego samego serwera co strona — przeglądanie serwisu nie wysyła żadnego zapytania do Google Fonts.",
+      "Decyzję zmienisz w każdej chwili – link „Cookies” w stopce otwiera panel ustawień. Po cofnięciu zgody zapisane wcześniej cookies analityczne są usuwane.",
+      `Umami i Vercel Web Analytics nie zapisują niczego na Twoim urządzeniu i nie tworzą profili – liczą odwiedziny i kliknięcia w linki w postaci zbiorczych statystyk, bez wiązania ich z konkretną osobą – dlatego działają niezależnie od banera. Cookie z Twoją decyzją o zgodach (${CONSENT_COOKIE}, ${CONSENT_COOKIE_DAYS} dni) jest niezbędne do działania samego mechanizmu zgody.`,
+      "Kroje pisma są serwowane z tego samego serwera co strona – przeglądanie serwisu nie wysyła żadnego zapytania do Google Fonts.",
     ],
   },
   {
@@ -184,13 +184,13 @@ export const PRIVACY_SECTIONS = [
   {
     title: "Jak długo przechowuję dane",
     paragraphs: [
-      "Dane w Google Analytics są przechowywane maksymalnie 14 miesięcy. Statystyki Umami i Vercela są zagregowane i nie pozwalają na identyfikację. Korespondencja mailowa — przez czas potrzebny do obsługi sprawy i ewentualnych roszczeń.",
+      "Dane w Google Analytics są przechowywane maksymalnie 14 miesięcy. Statystyki Umami i Vercela są zagregowane i nie pozwalają na identyfikację. Korespondencja mailowa – przez czas potrzebny do obsługi sprawy i ewentualnych roszczeń.",
     ],
   },
   {
     title: "Twoje prawa",
     paragraphs: [
-      "Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania, prawo do przenoszenia danych, prawo sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie oraz prawo do cofnięcia zgody w dowolnym momencie — bez wpływu na zgodność z prawem przetwarzania sprzed cofnięcia.",
+      "Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia lub ograniczenia przetwarzania, prawo do przenoszenia danych, prawo sprzeciwu wobec przetwarzania opartego na uzasadnionym interesie oraz prawo do cofnięcia zgody w dowolnym momencie – bez wpływu na zgodność z prawem przetwarzania sprzed cofnięcia.",
       `Żeby skorzystać z tych praw, napisz na ${CONTACT_EMAIL}. Przysługuje Ci też skarga do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa).`,
     ],
   },
