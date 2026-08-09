@@ -21,7 +21,7 @@ export const LAST_CONTENT_UPDATE = "2026-08-09";
  * nie mają czego włączyć. Wpisanie ID to jedyna zmiana potrzebna do startu
  * analityki – reszta jest już podpięta.
  */
-export const GA_ID = "G-LN7ZQVG13T";
+export const GA_ID = "G-MHM5P6X3TG";
 
 /** Marka w lewej komórce nagłówka – w projekcie zapisana z ®. */
 export const WORDMARK = "Michał Miszczyszyn®";
