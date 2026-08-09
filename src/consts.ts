@@ -58,11 +58,26 @@ export const SOCIALS = [
   { name: "Instagram", href: "https://www.instagram.com/typeofweb/" },
 ] as const;
 
+/**
+ * Kategoria opisuje efekt pracy, o której jest wpis, a nie temat, o który
+ * zahacza — „budżet trasy" to Finanse, choć dotyczy koncertów.
+ */
 export const CATEGORIES = [
   "Promocja",
   "Wydawnictwa",
+  "Streaming",
   "Koncerty",
   "Finanse",
+  "Zarządzanie",
+  "Branża",
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number];
+
+/**
+ * Formaty wpisu. To nie jest wyłącznie konwencja redakcyjna: `kind` steruje
+ * układem łamów w src/pages/blog/[...slug].astro — patrz komentarz tamże.
+ */
+export const KINDS = ["notatka", "przewodnik"] as const;
+
+export type Kind = (typeof KINDS)[number];

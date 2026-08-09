@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import { getSortedPosts, isoDate, type Post } from "../../blog";
+import { breadcrumbJsonLd, wordCount } from "../../schema";
 import { PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
 
 interface Props {
@@ -28,28 +29,49 @@ const { post, next } = Astro.props;
 const { Content } = await render(post);
 
 const canonical = new URL(`/blog/${post.id}`, SITE_URL).href;
+// Przewodniki starzeją się na liczbach, więc po rewizji faktów liczy się data
+// aktualizacji — ale data publikacji zostaje, bo porządkuje listę wpisów.
+const modified = isoDate(post.data.updated ?? post.data.date);
+const ogImage = `/og/${post.id}.png`;
 const blogPostingJsonLd = {
   "@type": "BlogPosting",
   "@id": `${canonical}#post`,
   headline: post.data.title,
   description: post.data.lead,
+  url: canonical,
   articleSection: post.data.category,
   datePublished: isoDate(post.data.date),
-  dateModified: isoDate(post.data.date),
+  dateModified: modified,
   inLanguage: "pl",
   author: { "@id": PERSON_ID },
   publisher: { "@id": PERSON_ID },
   isPartOf: { "@id": WEBSITE_ID },
-  mainEntityOfPage: canonical,
+  mainEntityOfPage: { "@id": canonical },
+  image: new URL(ogImage, SITE_URL).href,
+  wordCount: wordCount(post.body ?? ""),
+  // ISO 8601 — ta sama liczba, którą widać w pasku metadanych wpisu.
+  timeRequired: `PT${post.data.readingMinutes}M`,
+  ...(post.data.keyphrase
+    ? { keywords: [post.data.keyphrase, post.data.category] }
+    : { keywords: [post.data.category] }),
 };
+const breadcrumb = breadcrumbJsonLd(
+  [
+    { name: "Start", path: "/" },
+    { name: "Blog", path: "/blog" },
+    { name: post.data.title, path: `/blog/${post.id}` },
+  ],
+  canonical,
+);
 ---
 
 <BaseLayout
   title={`${post.data.title} — ${SITE_NAME}`}
   description={post.data.lead}
   ogType="article"
-  dateModified={isoDate(post.data.date)}
-  extraJsonLd={[blogPostingJsonLd]}
+  ogImage={ogImage}
+  dateModified={modified}
+  extraJsonLd={[blogPostingJsonLd, breadcrumb]}
 >
   <div class="flex min-h-dvh flex-col">
     <Nav active="Blog" />
@@ -103,7 +125,14 @@ const blogPostingJsonLd = {
           </aside>
 
           <div
-            class="prose-swiss px-5 py-9 text-body md:px-10 lg:[column-count:2] lg:[column-gap:40px]"
+            class:list={[
+              "prose-swiss px-5 py-9 text-body md:px-10",
+              // Dwie łamy działają tylko na krótkiej notatce. Przy przewodniku
+              // łama jest wyższa niż ekran, więc czytelnik musiałby zjechać na
+              // sam dół strony i wrócić na górę po drugą.
+              post.data.kind === "notatka" &&
+                "lg:[column-count:2] lg:[column-gap:40px]",
+            ]}
           >
             <Content />
           </div>
@@ -159,6 +188,20 @@ const blogPostingJsonLd = {
     font-weight: 600;
     color: var(--color-ink);
     break-after: avoid;
+  }
+  /* Odstęp nad śródtytułem dotyczy tylko przewodników — notatki śródtytułów nie
+     mają. Selektor `p + h2` zamiast `:not(:first-child)` omija wojnę
+     o specyficzność i nie rozdziela pary h2 + h3. */
+  .prose-swiss :global(p + h2),
+  .prose-swiss :global(p + h3) {
+    margin-top: 30px;
+  }
+  /* Preflight daje `bolder`, czyli 700 — a w całym projekcie mocniejszy tekst
+     to 600 (font-bold ma tylko wordmark). Bez tego wyróżnione zdanie w treści
+     jest cięższe niż tytuł wpisu. */
+  .prose-swiss :global(strong) {
+    font-weight: 600;
+    color: var(--color-ink);
   }
   .prose-swiss :global(a) {
     text-decoration: underline;
