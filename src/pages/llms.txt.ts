@@ -3,6 +3,7 @@ import { getSortedPosts, isoDate } from "../blog";
 import {
   CONTACT_EMAIL,
   HOME_CITY,
+  PERSON_NAME,
   ROSTER,
   SERVICES,
   SITE_DESCRIPTION,
@@ -27,7 +28,7 @@ export const GET: APIRoute = async () => {
     "",
     `> ${SITE_DESCRIPTION}`,
     "",
-    `${SITE_TAGLINE} z ${HOME_CITY}a. Kontakt: ${CONTACT_EMAIL}`,
+    `${PERSON_NAME} – ${SITE_TAGLINE.toLowerCase()} z ${HOME_CITY}a. Kontakt: ${CONTACT_EMAIL}`,
     "",
     "## Zakres pracy",
     "",
