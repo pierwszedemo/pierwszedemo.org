@@ -11,9 +11,11 @@ bun run build     # astro build (also prerenders /blog/<slug>)
 bun run preview   # astro preview
 ```
 
-No test suite, no linter, no formatter. Type checking comes from `astro check` /
-the editor (`@typescript/native-preview` is a devDependency); `tsconfig.json`
-extends `astro/tsconfigs/base`.
+No test suite, no linter, no formatter. `@astrojs/check` is not a dependency, so
+`bun run build` is the only gate in the repo — it is what validates the content
+collection schema. Type checking otherwise comes from the editor
+(`@typescript/native-preview` is a devDependency); `tsconfig.json` extends
+`astro/tsconfigs/base`.
 
 ## Architecture
 
@@ -49,7 +51,8 @@ and sitemap `lastmod`.
 
 Posts are markdown in `src/content/blog/`, loaded through a content collection
 (`src/content.config.ts`) with a zod schema: `title`, `lead` (the "W skrócie"
-column), `category`, `date`, `readingMinutes`. `src/blog.ts` owns sort order —
+column, doubling as the meta description), `category`, `kind`, `date`,
+`updated?`, `keyphrase?`, `readingMinutes`. `src/blog.ts` owns sort order —
 `getSortedPosts()` is the single source for both the list page and the prev/next
 links, so they can't disagree.
 
@@ -58,16 +61,60 @@ That is load-bearing: with `output: "server"` an on-demand dynamic route cannot
 be enumerated by `@astrojs/sitemap`, and the posts would silently vanish from the
 sitemap.
 
+Two post formats, both markdown, distinguished by `kind`: `notatka` (300–500
+words, no headings) and `przewodnik` (1200–2000 words, `##` sections plus an FAQ).
+`kind` is not just an editorial label — it gates `lg:[column-count:2]` in
+`[...slug].astro`. It looks like a redundant condition and is the readability of
+every przewodnik: two columns taller than the viewport make the reader scroll to
+the bottom of the page and back up for the second one. `readingMinutes` is
+`max(2, round(words / 180))`, measured on the body only. `updated` (not `date`)
+drives `dateModified`; `keyphrase` is what deduplicates topics across posts.
+
+Body markdown is deliberately narrow — paragraphs, `##`, `###`, links, nothing
+else. `.prose-swiss` styles only those, so a list or a table renders as unstyled
+lines that Tailwind Preflight has already stripped of bullets and margins.
+`.claude/skills/blog-post-factory/` is the skill that writes to these rules.
+
 ### SEO / structured data
 
 `src/layouts/BaseLayout.astro` emits every page's `<head>` and a schema.org
 `@graph`: a `Person` node (stable `PERSON_ID`), a `WebSite` node (`WEBSITE_ID`)
-and a page node. Pages contribute extra nodes via `extraJsonLd` — the post page
-adds `BlogPosting`. Pages with `robots="noindex"` get no page node.
+and a page node whose `@type` comes from the `schemaPageType` prop — `ProfilePage`
+on the homepage (it gets `mainEntity`, the others get `about`), `CollectionPage`
+on `/blog`, `WebPage` elsewhere. Pages contribute extra nodes via `extraJsonLd`:
+`/blog` adds `Blog` + `ItemList`, a post adds `BlogPosting`, and both add
+`BreadcrumbList`. Pages with `robots="noindex"` get no page node.
+
+Breadcrumbs exist only in JSON-LD — the mock's grid has nowhere to put them
+visually, but they give Google a path to render under the result instead of a
+bare URL. `src/schema.ts` holds `breadcrumbJsonLd()` and `wordCount()`.
 
 Canonical URLs have **no** trailing slash (`trailingSlash: "never"` in Astro,
 `trailingSlash: false` + `cleanUrls` in `vercel.json`); the sitemap `serialize()`
 hook strips the slash the Vercel adapter's build format adds.
+
+Sitemap `lastmod` is **per URL**, not global. `astro.config.mjs` reads each post's
+`updated`/`date` straight out of the frontmatter with a regex, because a content
+collection cannot be imported from the config. Without that every URL claimed the
+same revision date, which is the same as claiming nothing. The sitemap also
+filters out `.png`/`.xml`/`.txt` routes — the OG cards, the feed and `llms.txt`
+are resources, not pages.
+
+### OG cards
+
+`/og.png` (homepage) and `/og/<slug>.png` (posts) are drawn at build time by
+`src/og.ts` — satori lays the card out and converts text to paths, sharp
+rasterises. Two constraints are load-bearing:
+
+- Fonts are vendored as **TTF** in `src/assets/fonts/`. Astro's Fonts API caches
+  woff2, which satori cannot read; and handing plain SVG to sharp would render
+  through librsvg, which resolves *system* fonts — Archivo exists on neither this
+  machine nor the Vercel builder.
+- Paths resolve from `process.cwd()`, never `import.meta.url`: Vite bundles the
+  module into `dist/server/.prerender/chunks/`, where the TTFs are not.
+
+Posts live under `/og/<slug>.png` rather than `/blog/<slug>/og.png` so they don't
+collide with the `[...slug]` catch-all.
 
 ### Styling conventions
 
@@ -97,14 +144,23 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
   `feat(blog): kolejność wpisów i linki prev/next`.
 - Comments explain *why* a non-obvious choice was made (browser quirk, SEO rule,
   layout trap), not what the code does. Keep that bar.
-- `.agents/skills` and `.claude/skills` vendor the `seo`, `accessibility` and
-  `frontend-design` skills (pinned in `skills-lock.json`) — this project cares
-  about all three.
+- Skills live in `.agents/skills/`; `.claude/skills/` holds symlinks to them.
+  `seo`, `accessibility` and `frontend-design` are vendored from GitHub and
+  pinned in `skills-lock.json` — this project cares about all three.
+  `blog-post-factory` is this repo's own skill and is deliberately *not* in
+  `skills-lock.json`: that file pins upstream skills by `computedHash`, and a
+  locally authored one would fail every sync.
 
 ## Not built yet
 
-`og.png` endpoint, cookie consent + analytics, an `/artysci` page if the roster
-grows past one artist.
+Cookie consent + analytics, an `/artysci` page if the roster grows past one
+artist.
+
+The homepage `<h1>` is the mono eyebrow „(Manager artystów — Gdańsk)", not the
+slogan — the slogan carries no keywords and the h1 is the strongest on-page
+signal. Visually nothing changed: the h1 stays a small label and „Kariera to
+strategia." is still the largest text on the page, as a `<p>`. Don't "fix" this
+back by promoting the slogan.
 
 `src/assets/michal.jpg` is a phone snapshot, not a press portrait — it is what
 the design's placeholder slot got filled with, and it is the obvious thing to

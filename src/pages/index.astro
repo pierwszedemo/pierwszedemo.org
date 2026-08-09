@@ -17,6 +17,7 @@ import {
 <BaseLayout
   title={`${SITE_NAME} — ${SITE_TAGLINE}`}
   description="Management, wydawnictwa i booking dla artystów alternatywnych. Prowadzę artystów od pierwszego demo do festiwalowych scen — z planem, nie z przypadku."
+  schemaPageType="ProfilePage"
 >
   <div class="flex min-h-dvh flex-col">
     <Nav />
@@ -34,12 +35,19 @@ import {
           class="flex min-w-0 flex-col justify-between gap-14 border-b border-ink px-5 py-12 md:border-r md:border-b-0 md:px-8 md:pt-16 md:pb-11"
         >
           <div>
-            <p class="label text-muted">({SITE_TAGLINE} — {HOME_CITY})</p>
-            <h1
+            {
+              /* Nagłówkiem strony jest nadtytuł, nie slogan: „Manager artystów
+                 — Gdańsk" niesie frazy, pod które ta strona ma się wyświetlać,
+                 a „Kariera to strategia." nie niesie żadnej. Wizualnie nic się
+                 nie zmienia — h1 zostaje małą etykietą monospace, a slogan
+                 dalej jest największym tekstem na stronie. */
+            }
+            <h1 class="label text-muted">({SITE_TAGLINE} — {HOME_CITY})</h1>
+            <p
               class="mt-6 text-hero leading-[0.98] font-semibold tracking-[-0.035em] text-balance md:mt-[26px]"
             >
               Kariera to <br class="hidden md:inline" />strategia.
-            </h1>
+            </p>
           </div>
 
           <div class="flex flex-col gap-7">
