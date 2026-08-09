@@ -27,7 +27,11 @@ const postLastmod = Object.fromEntries(
 
 export default defineConfig({
   site: SITE_URL,
-  output: "server",
+  // Cały serwis to treść z repo — nic nie liczy się per request. Przy
+  // `output: "server"` strona główna renderowała się na żądanie, a wtedy
+  // <Image> nie optymalizuje przy buildzie, tylko wystawia adres do runtime'owego
+  // endpointu /_image, którego na Vercelu nie ma → 404 na zdjęciu w hero.
+  output: "static",
   trailingSlash: "never",
   // Bez `webAnalytics` w adapterze – skrypt wstrzykuje komponent <Analytics />
   // z @vercel/analytics w BaseLayout. Obie drogi naraz wstawiłyby go dwa razy.
