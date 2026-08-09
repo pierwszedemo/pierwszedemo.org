@@ -21,6 +21,8 @@ Zdjęcia prasowe w pełnej rozdzielczości, opisane, z nazwiskiem autora i jasn�
 
 I rzecz techniczna, która waży więcej, niż się wydaje. **EPK to adres strony, nie załącznik.** Plik waży swoje, ginie w skrzynce i starzeje się w dniu wysłania. Stronę poprawiasz w minutę, a jeden link wklejasz w wiadomość, w zgłoszenie na festiwal i w stopkę maila. Tak to wygląda u [Oli Geppert](https://olageppert.pl/epk).
 
-Na końcu kontakt do managera, a nie do artystki – rozmowa o stawkach i terminach ma się zaczynać dokładnie tam, gdzie się skończy.
+Na końcu kontakt do managera, a nie do artystki. Nie chodzi o prestiż, tylko o to, żeby o stawce, terminie i warunkach rozmawiała od początku osoba, która może je ustalić. Artystka odsyłająca zapytanie dalej traci dwa dni i część pola do negocjacji.
 
-A Ty co wkładasz do swojego EPK, czego nikt nigdy nie otworzył? Napisz do mnie, jestem ciekaw.
+A Ty co trzymasz w swoim EPK, czego nikt nigdy nie otworzył?
+
+Napisz do mnie, jestem ciekaw.
