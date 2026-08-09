@@ -104,6 +104,10 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
 ## Not built yet
 
 Real hero photograph (`HeroPhoto.astro` ships the mock's grey placeholder panel),
-`og.png` endpoint, cookie consent + analytics, LinkedIn URL (deliberately absent
-from `SOCIALS` until confirmed — a 404 in the footer is worse than one fewer
-link), an `/artysci` page if the roster grows past one artist.
+`og.png` endpoint, cookie consent + analytics, an `/artysci` page if the roster
+grows past one artist.
+
+The footer is exactly four cells (`© / LinkedIn / Instagram / miasto`) and its
+border logic is computed from cell index — adding a fifth entry to `SOCIALS`
+breaks the 2×2 mobile layout, so rework `Footer.astro` rather than pushing one
+more item in.

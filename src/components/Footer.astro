@@ -1,36 +1,49 @@
 ---
-import { CONTACT_EMAIL, HOME_CITY, SOCIALS } from "../consts";
+import { HOME_CITY, SOCIALS } from "../consts";
+
+// Układ z makiety: © / LinkedIn / Instagram / miasto. Adresu e-mail tu nie ma
+// świadomie — jest w nawigacji i w pasmie „Kontakt", a piąta komórka rozbiłaby
+// czterokolumnową siatkę.
+const cells = [
+  { label: `© ${new Date().getFullYear()}` },
+  ...SOCIALS,
+  { label: HOME_CITY },
+];
+
+// Linie siatki liczone z pozycji komórki: przy dwóch kolumnach kreska pionowa
+// idzie po lewej komórce wiersza, pozioma pod górnym wierszem; przy czterech
+// zostaje tylko pionowa, poza ostatnią komórką.
+const border = (index: number) =>
+  [
+    "border-hairline",
+    index % 2 === 0 ? "border-r" : "",
+    index < 2 ? "border-b md:border-b-0" : "",
+    index < cells.length - 1 ? "md:border-r" : "md:border-r-0",
+  ].join(" ");
 
 // Szersze wcięcie z makiety dopiero od lg — przy 768 px czterokolumnowa
-// stopka z padding: 32px łamie adres e-mail w środku słowa.
+// stopka z padding: 32px łamie dłuższe etykiety w środku słowa.
 const cell = "px-5 py-4 md:py-[19px] lg:px-8";
-const year = new Date().getFullYear();
 ---
 
 <footer
   class="grid grid-cols-2 border-t border-ink text-[13px] text-muted md:grid-cols-4"
 >
-  <div class={`${cell} border-r border-b border-hairline md:border-b-0`}>
-    © {year}
-  </div>
   {
-    SOCIALS.map((social) => (
-      <a
-        href={social.href}
-        rel="me noopener"
-        target="_blank"
-        class={`${cell} border-b border-hairline md:border-r md:border-b-0`}
-      >
-        {social.name} <span aria-hidden="true">↗</span>
-        <span class="sr-only">(otwiera się w nowej karcie)</span>
-      </a>
-    ))
+    cells.map((item, index) =>
+      "href" in item ? (
+        <a
+          href={item.href}
+          rel="me noopener"
+          target="_blank"
+          class={`${cell} ${border(index)}`}
+        >
+          {item.name} <span aria-hidden="true">↗</span>
+          <span class="sr-only">(otwiera się w nowej karcie)</span>
+        </a>
+      ) : (
+        <div class={`${cell} ${border(index)}`}>{item.label}</div>
+      ),
+    )
   }
-  <a
-    href={`mailto:${CONTACT_EMAIL}`}
-    class={`${cell} border-r border-hairline break-all`}
-  >
-    {CONTACT_EMAIL}
-  </a>
-  <div class={cell}>{HOME_CITY}</div>
 </footer>

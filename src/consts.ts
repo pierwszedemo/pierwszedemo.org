@@ -40,11 +40,9 @@ export const ROSTER = [
   },
 ] as const;
 
-/**
- * LinkedIn celowo nie ma tu wpisu — adres profilu nie jest potwierdzony,
- * a link 404 w stopce szkodzi bardziej niż brak linku.
- */
+/** Kolejność jak w stopce z makiety: LinkedIn, potem Instagram. */
 export const SOCIALS = [
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/mmiszczyszyn/" },
   { name: "Instagram", href: "https://www.instagram.com/typeofweb/" },
 ] as const;
 
