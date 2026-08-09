@@ -9,9 +9,9 @@ keyphrase: pre-save spotify
 readingMinutes: 2
 ---
 
-Wrzucasz link do pre-save i czekasz, aż coś się wydarzy? No cóż, możesz się nigdy nie doczekać.
+Link do pre-save poszedł w świat na sześć tygodni przed premierą. I co dalej? Zwykle nic. Bo link nie jest kampanią, tylko jednym z jej kroków, i to wcale nie pierwszym.
 
-Pre-save działa na ludziach, którzy już czekają na ten utwór. Wysłany do publiczności, która o artyście słyszy pierwszy raz, nie konwertuje – bo prosi o zobowiązanie, zanim zdąży dać jakikolwiek powód.
+Pre-save działa na ludziach, którzy już czekają na ten utwór. Wysłany do publiczności, która o artystce słyszy pierwszy raz, nie konwertuje – bo prosi o zobowiązanie, zanim zdąży dać jakikolwiek powód.
 
 Kolejność jest więc odwrotna niż w większości kampanii. Najpierw dwa-trzy tygodnie materiału, który tłumaczy, czym ten utwór właściwie jest, a dopiero potem prośba o zapis. Fragment, kontekst, kulisy. Cokolwiek, co zamienia „nowy singiel" w coś konkretnego.
 
@@ -19,7 +19,7 @@ Te tygodnie robią przy okazji drugą rzecz: zbierają uwagę tam, gdzie masz st
 
 Zresztą sam pre-save nie zastępuje własnego kanału kontaktu. Zapisy zostają na platformie i nie zabierzesz ich ani do następnego wydawnictwa, ani do ogłoszenia trasy. Lista mailingowa wygląda mniej efektownie, za to działa przy każdej kolejnej premierze – a kampania singla jest jedyną naturalną okazją, żeby o taki kontakt poprosić.
 
-I teraz sedno. Realny efekt pre-save to nie liczba zapisów, tylko rozkład odsłuchów w pierwszej dobie. Algorytmy czytają tempo, nie sumę. Sto osób, które włączy utwór w dniu premiery, znaczy dla nich więcej niż tysiąc, które dodadzą go sobie przez kolejny miesiąc.
+Patrzę więc nie na liczbę zapisów, tylko na to, ile osób włączy utwór pierwszego dnia. Zapis jest deklaracją. Odsłuch jest faktem, i to on decyduje, czy cokolwiek ruszy dalej – bo rekomendacje reagują na pierwsze dni, a nie na sumę z miesiąca.
 
 Tu popełnia się najczęstszy błąd: cała energia idzie w tygodnie przed premierą, a w dniu wydania nie dzieje się kompletnie nic.
 
