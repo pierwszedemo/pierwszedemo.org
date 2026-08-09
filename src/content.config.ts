@@ -3,7 +3,10 @@ import { glob } from "astro/loaders";
 import { CATEGORIES, KINDS } from "./consts";
 
 const blog = defineCollection({
-  loader: glob({ base: "./src/content/blog", pattern: "**/*.md" }),
+  // Podkreślnik na początku nazwy = szkic: plik zostaje w repo, ale nie wchodzi
+  // do kolekcji, więc nie ma go ani na liście, ani w sitemapie, RSS-ie i llms.txt.
+  // Wzorzec musi to wykluczać jawnie — sam loader nie traktuje `_` specjalnie.
+  loader: glob({ base: "./src/content/blog", pattern: "**/[!_]*.md" }),
   schema: z.object({
     title: z.string(),
     /** Akapit „W skrócie" z lewej kolumny wpisu. Jednocześnie meta description. */
