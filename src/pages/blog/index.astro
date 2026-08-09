@@ -2,16 +2,68 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
-import { getSortedPosts, isoMonth } from "../../blog";
-import { SITE_NAME } from "../../consts";
+import { getSortedPosts, isoDate, isoMonth } from "../../blog";
+import { breadcrumbJsonLd } from "../../schema";
+import { PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
 
 const posts = await getSortedPosts();
 const count = String(posts.length).padStart(2, "0");
+
+const canonical = new URL("/blog", SITE_URL).href;
+const postUrl = (id: string) => new URL(`/blog/${id}`, SITE_URL).href;
+
+// Węzeł `Blog` zbiera wpisy w jedną encję, a `ItemList` daje im kolejność —
+// bez niej lista jest dla robota czterema niepowiązanymi linkami.
+const blogJsonLd = {
+  "@type": "Blog",
+  "@id": `${canonical}#blog`,
+  name: `Blog — ${SITE_NAME}`,
+  description:
+    "Notatki z pracy przy karierach artystów: wydawnictwa, booking, promocja i pieniądze w niezależnej muzyce.",
+  url: canonical,
+  inLanguage: "pl",
+  author: { "@id": PERSON_ID },
+  publisher: { "@id": PERSON_ID },
+  isPartOf: { "@id": WEBSITE_ID },
+  blogPost: posts.map((post) => ({
+    "@type": "BlogPosting",
+    "@id": `${postUrl(post.id)}#post`,
+    headline: post.data.title,
+    description: post.data.lead,
+    url: postUrl(post.id),
+    articleSection: post.data.category,
+    datePublished: isoDate(post.data.date),
+    dateModified: isoDate(post.data.updated ?? post.data.date),
+    author: { "@id": PERSON_ID },
+  })),
+};
+const itemListJsonLd = {
+  "@type": "ItemList",
+  "@id": `${canonical}#lista`,
+  name: `Wpisy na blogu ${SITE_NAME}`,
+  numberOfItems: posts.length,
+  itemListOrder: "https://schema.org/ItemListOrderDescending",
+  itemListElement: posts.map((post, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: postUrl(post.id),
+    name: post.data.title,
+  })),
+};
+const breadcrumb = breadcrumbJsonLd(
+  [
+    { name: "Start", path: "/" },
+    { name: "Blog", path: "/blog" },
+  ],
+  canonical,
+);
 ---
 
 <BaseLayout
   title={`Blog — ${SITE_NAME}`}
   description="Notatki z pracy przy karierach artystów: wydawnictwa, booking, promocja i pieniądze w niezależnej muzyce."
+  schemaPageType="CollectionPage"
+  extraJsonLd={[blogJsonLd, itemListJsonLd, breadcrumb]}
 >
   <div class="flex min-h-dvh flex-col">
     <Nav active="Blog" />
