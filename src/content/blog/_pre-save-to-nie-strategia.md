@@ -19,7 +19,9 @@ Te tygodnie robią przy okazji drugą rzecz: zbierają uwagę tam, gdzie masz st
 
 Zresztą sam pre-save nie zastępuje własnego kanału kontaktu. Zapisy zostają na platformie i nie zabierzesz ich ani do następnego wydawnictwa, ani do ogłoszenia trasy. Lista mailingowa wygląda mniej efektownie, za to działa przy każdej kolejnej premierze – a kampania singla jest jedyną naturalną okazją, żeby o taki kontakt poprosić.
 
-Patrzę więc nie na liczbę zapisów, tylko na to, ile osób włączy utwór pierwszego dnia. Zapis jest deklaracją. Odsłuch jest faktem, i to on decyduje, czy cokolwiek ruszy dalej – bo rekomendacje reagują na pierwsze dni, a nie na sumę z miesiąca.
+Patrzę więc nie na liczbę zapisów, tylko na to, ile osób włączy utwór pierwszego dnia. Zapis jest deklaracją. Odsłuch jest faktem.
+
+Żadna platforma nie tłumaczy, jak dokładnie liczy, ale prawdopodobnie liczy się tempo, a nie suma. Sto osób, które włączy utwór w dniu premiery, robi wtedy dla rekomendacji więcej niż tysiąc rozłożone na miesiąc. Z zewnątrz nie da się tego sprawdzić i tak też to traktuję: jako założenie robocze, nie jako wiedzę. Ale każda kampania, którą prowadziłem, układała się pod to założenie i jeszcze nie widziałem powodu, żeby je porzucić.
 
 Tu popełnia się najczęstszy błąd: cała energia idzie w tygodnie przed premierą, a w dniu wydania nie dzieje się kompletnie nic.
 
