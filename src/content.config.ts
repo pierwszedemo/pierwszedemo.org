@@ -12,7 +12,7 @@ const blog = defineCollection({
     /** Default trzyma wpisy sprzed wprowadzenia formatów przy życiu bez edycji. */
     kind: z.enum(KINDS).default("notatka"),
     date: z.coerce.date(),
-    /** Data rewizji faktów — przewodniki starzeją się na liczbach. Zasila dateModified. */
+    /** Data rewizji faktów – przewodniki starzeją się na liczbach. Zasila dateModified. */
     updated: z.coerce.date().optional(),
     /**
      * Fraza główna wpisu. Bez niej deduplikacja tematów porównywałaby tytuły,

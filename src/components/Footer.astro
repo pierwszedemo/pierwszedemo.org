@@ -2,7 +2,7 @@
 import { SOCIALS } from "../consts";
 
 // Układ z makiety: © / LinkedIn / Instagram / Cookies. Adresu e-mail tu nie ma
-// świadomie — jest w nawigacji i w pasmie „Kontakt", a piąta komórka rozbiłaby
+// świadomie – jest w nawigacji i w pasmie „Kontakt", a piąta komórka rozbiłaby
 // czterokolumnową siatkę. Z tego samego powodu miasto ustąpiło miejsca
 // „Cookies": RODO wymaga, żeby wycofanie zgody było równie łatwe co jej
 // udzielenie, a Gdańsk i tak stoi w nadtytule hero.
@@ -23,7 +23,7 @@ const border = (index: number) =>
     index < cells.length - 1 ? "md:border-r" : "md:border-r-0",
   ].join(" ");
 
-// Szersze wcięcie z makiety dopiero od lg — przy 768 px czterokolumnowa
+// Szersze wcięcie z makiety dopiero od lg – przy 768 px czterokolumnowa
 // stopka z padding: 32px łamie dłuższe etykiety w środku słowa.
 const cell = "px-5 py-4 md:py-[19px] lg:px-8";
 ---
@@ -44,7 +44,7 @@ const cell = "px-5 py-4 md:py-[19px] lg:px-8";
           <span class="sr-only">(otwiera się w nowej karcie)</span>
         </a>
       ) : "preferences" in item ? (
-        // Panel otwiera delegowany listener w ConsentManager.astro — dzięki
+        // Panel otwiera delegowany listener w ConsentManager.astro – dzięki
         // temu przycisk działa też po podmianie DOM przez ClientRouter.
         <button
           type="button"

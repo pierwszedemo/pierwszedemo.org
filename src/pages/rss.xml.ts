@@ -9,7 +9,7 @@ export const GET: APIRoute = async () => {
   const posts = await getSortedPosts();
 
   return rss({
-    title: `${SITE_NAME} — blog`,
+    title: `${SITE_NAME} – blog`,
     description: SITE_DESCRIPTION,
     site: SITE_URL,
     // Treści wpisu nie wysyłamy: kanał ma przyprowadzać na stronę, a nie ją
