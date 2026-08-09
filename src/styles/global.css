@@ -12,7 +12,7 @@
   --color-hairline: #e4e2dd; /* linie WEWNĄTRZ pasma (kontra ink między pasmami) */
   --color-panel: #f4f2ee; /* tło slotu na zdjęcie */
 
-  /* Skala typograficzna — wartości z makiety 1280px jako górna granica. */
+  /* Skala typograficzna – wartości z makiety 1280px jako górna granica. */
   --text-hero: clamp(3.25rem, 9.25vw, 7.375rem); /* 118px @ 1280 */
   --text-page: clamp(2.75rem, 7.2vw, 5.75rem); /* 92px @ 1280 */
   --text-post: clamp(2.25rem, 5vw, 4rem); /* 64px */
@@ -20,7 +20,7 @@
   --text-roster: clamp(1.625rem, 2.6vw, 2rem); /* 32px */
 }
 
-/* Siatka projektu jest zbudowana na twardych krawędziach — żadnych zaokrągleń. */
+/* Siatka projektu jest zbudowana na twardych krawędziach – żadnych zaokrągleń. */
 :root {
   scrollbar-gutter: stable;
 }
@@ -55,7 +55,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Baner cookies (vanilla-cookieconsent) — ten sam układ co na olageppert.pl,
+   Baner cookies (vanilla-cookieconsent) – ten sam układ co na olageppert.pl,
    ale w odwróconej palecie: czarny tekst na bieli, twarde krawędzie, zero
    zaokrągleń i kursywy. Struktura reguł jest przeniesiona 1:1, bo każda z nich
    obchodzi konkretne zachowanie biblioteki (opisane przy regułach).
@@ -72,7 +72,7 @@
   --cc-modal-border-radius: 0;
   --cc-z-index: 50;
 
-  /* Strona jest biała, więc przyciemniamy ją pod modalem — rozjaśnienie
+  /* Strona jest biała, więc przyciemniamy ją pod modalem – rozjaśnienie
      nie odcięłoby okna od tła. */
   --cc-overlay-bg: rgb(16 16 16 / 0.45);
   --cc-footer-bg: #fff;
@@ -104,7 +104,7 @@
   box-shadow: 0 20px 60px rgb(16 16 16 / 0.18);
 }
 
-/* Pasek półprzezroczysty — nie wycina dziury w kompozycji strony. Rozmycie tła
+/* Pasek półprzezroczysty – nie wycina dziury w kompozycji strony. Rozmycie tła
    trzyma kontrast tekstu nad zdjęciem w hero. */
 #cc-main .cm {
   background: rgb(255 255 255 / 0.82);
@@ -113,7 +113,7 @@
 
 /* Safari < 18 zna tylko -webkit-backdrop-filter, a Lightning CSS (Tailwind v4)
    wycina prefiksy jako zbędne przy swoich targetach. Bez rozmycia tło o alfa
-   0.82 przepuszcza zdjęcie i tekst robi się nieczytelny — tam dajemy zwykłe,
+   0.82 przepuszcza zdjęcie i tekst robi się nieczytelny – tam dajemy zwykłe,
    kryjące tło. */
 @supports not (backdrop-filter: blur(1px)) {
   #cc-main .cm {
@@ -170,7 +170,7 @@
   padding: 0;
 }
 
-/* Biblioteka odsuwa opis od tytułu — tytuł jest tu ukryty, margines zbędny.
+/* Biblioteka odsuwa opis od tytułu – tytuł jest tu ukryty, margines zbędny.
    Selektor musi być ten sam co jej (`.cm__title + .cm__desc`). */
 #cc-main .cm__title + .cm__desc {
   margin-top: 0;
@@ -182,7 +182,7 @@
   white-space: nowrap;
 }
 
-/* „Ustawienia" jako link w zdaniu — trzeci przycisk zabierałby całą linię.
+/* „Ustawienia" jako link w zdaniu – trzeci przycisk zabierałby całą linię.
    Musi wyglądać identycznie jak sąsiednia „Polityka". */
 #cc-main .cm__desc button,
 #cc-main .cm__desc a {
@@ -213,7 +213,7 @@
   margin: 0;
 }
 
-/* Biblioteka rozsuwa przyciski margin-topem (układ kolumnowy) — w rzędzie
+/* Biblioteka rozsuwa przyciski margin-topem (układ kolumnowy) – w rzędzie
    przesunąłby „Akceptuję" w dół względem „Odrzucam". */
 #cc-main .cm__btn-group {
   grid-auto-flow: column;
@@ -234,7 +234,7 @@
   letter-spacing: -0.02em;
 }
 
-/* Odmowa musi być tak samo widoczna jak zgoda (wytyczne UODO/EROD) — oba
+/* Odmowa musi być tak samo widoczna jak zgoda (wytyczne UODO/EROD) – oba
    dostają identyczny wygląd, bez wyróżnionego „akceptuj". */
 #cc-main .cm__btn,
 #cc-main .pm__btn {
@@ -251,12 +251,12 @@
     border-color 0.2s;
 }
 
-/* Na pasku „przyciski" są podkreślonymi linkami — ramki robiły z niego kafel. */
+/* Na pasku „przyciski" są podkreślonymi linkami – ramki robiły z niego kafel. */
 #cc-main .cm__btn {
   border: 0;
   padding: 0;
   min-width: 0;
-  /* biblioteka trzyma min-height: 42px — przy linku to zbędne 25 px */
+  /* biblioteka trzyma min-height: 42px – przy linku to zbędne 25 px */
   min-height: 0;
   line-height: 1.4;
   text-decoration: underline;
@@ -290,14 +290,14 @@
   text-underline-offset: 4px;
 }
 
-/* Pasek siedzi w prawym dolnym rogu, na stopce — bez ruszania układu strony.
+/* Pasek siedzi w prawym dolnym rogu, na stopce – bez ruszania układu strony.
    Zasłania komórkę „Cookies", ale panel otwiera też „Ustawienia" w samym
    pasku, więc nic nie znika z zasięgu użytkownika. */
 #cc-main .cm--bottom {
   bottom: 1rem;
 }
 
-/* Stan spoczynkowy paska — bez tego zostaje przesunięcie z animacji wejścia
+/* Stan spoczynkowy paska – bez tego zostaje przesunięcie z animacji wejścia
    (translateY(1.6em)) i realna pozycja nie zgadza się z `bottom`. */
 html.show--consent #cc-main .cm {
   transform: translateY(0);
@@ -305,7 +305,7 @@ html.show--consent #cc-main .cm {
 
 /* Poniżej 640 px biblioteka łamie pasek na dwie linie: wymusza (!important)
    kolumnę na .cm__body i .cm__btns plus kreskę między tekstem a przyciskami.
-   Wracamy do jednego rzędu — stąd !important przy każdej takiej reguli. */
+   Wracamy do jednego rzędu – stąd !important przy każdej takiej reguli. */
 @media screen and (max-width: 640px) {
   /* Pełna szerokość ekranu: kasujemy marginesy z --cc-modal-margin i boczne
      krawędzie, zostaje sama kreska u góry. */
@@ -332,7 +332,7 @@ html.show--consent #cc-main .cm {
     padding: 0 !important;
   }
 
-  /* 11 px zamiast 12 — przy 360 px inaczej zabrakłoby ~15 px na jedną linię. */
+  /* 11 px zamiast 12 – przy 360 px inaczej zabrakłoby ~15 px na jedną linię. */
   #cc-main .cm__desc {
     font-size: 0.6875rem;
   }

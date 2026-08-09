@@ -29,11 +29,11 @@ interface Props {
   ogType?: string;
   /** Ścieżka do karty OG 1200×630. Wpisy podstawiają własną z /og/<slug>.png. */
   ogImage?: string;
-  /** Typ węzła strony w @graph — strona główna jest profilem osoby. */
+  /** Typ węzła strony w @graph – strona główna jest profilem osoby. */
   schemaPageType?: "WebPage" | "ProfilePage" | "CollectionPage";
   /** Dodatkowe węzły dopinane do schema.org @graph (np. BlogPosting). */
   extraJsonLd?: Record<string, unknown>[];
-  /** ISO date — schema.org dateModified tej strony. */
+  /** ISO date – schema.org dateModified tej strony. */
   dateModified?: string;
 }
 
@@ -64,7 +64,7 @@ const personJsonLd = {
   email: `mailto:${CONTACT_EMAIL}`,
   image: photoUrl,
   mainEntityOfPage: site.href,
-  // Usługi z pasma hero jako katalog — te trzy pozycje to jedyne, co strona
+  // Usługi z pasma hero jako katalog – te trzy pozycje to jedyne, co strona
   // faktycznie oferuje, więc encja nie obiecuje niczego ponad treść.
   hasOfferCatalog: {
     "@type": "OfferCatalog",
@@ -95,7 +95,7 @@ const personJsonLd = {
   sameAs: SOCIALS.map((social) => social.href),
 };
 // Firma, przez którą prowadzony jest management i która jest administratorem
-// danych — te same dane co w polityce prywatności i w CEIDG.
+// danych – te same dane co w polityce prywatności i w CEIDG.
 const organizationJsonLd = {
   "@type": "Organization",
   "@id": ORGANIZATION_ID,
@@ -123,7 +123,7 @@ const websiteJsonLd = {
   publisher: { "@id": PERSON_ID },
   about: { "@id": PERSON_ID },
 };
-// Strony z noindex (404) nie dostają własnego węzła — nie ma czego indeksować.
+// Strony z noindex (404) nie dostają własnego węzła – nie ma czego indeksować.
 const pageJsonLd = robots.includes("noindex")
   ? null
   : {
@@ -173,7 +173,7 @@ const jsonLd = {
     <link
       rel="alternate"
       type="application/rss+xml"
-      title={`${SITE_NAME} — blog`}
+      title={`${SITE_NAME} – blog`}
       href="/rss.xml"
     />
 
@@ -200,7 +200,7 @@ const jsonLd = {
 
     <ClientRouter />
 
-    <!-- Umami — analityka bez cookies (nie wymaga zgody). Skrypt sam podpina się
+    <!-- Umami – analityka bez cookies (nie wymaga zgody). Skrypt sam podpina się
          pod history.pushState, więc liczy też nawigacje przez View Transitions. -->
     <script
       is:inline
@@ -209,7 +209,7 @@ const jsonLd = {
       data-website-id="3ff6a02b-368d-4b2b-b697-25cab2f8a077"></script>
 
     {
-      /* Google Consent Mode v2 — domyślne odmowy MUSZĄ pojechać przed gtag.js.
+      /* Google Consent Mode v2 – domyślne odmowy MUSZĄ pojechać przed gtag.js.
          Tryb advanced: loader ładuje się zawsze, ale przy `denied` nie zapisuje
          cookies, tylko wysyła bezcookie'owe pingi. Podniesienie zgód robi
          src/scripts/consent.ts po decyzji użytkownika. */
@@ -244,7 +244,7 @@ const jsonLd = {
           />
           <script is:inline define:vars={{ GA_ID }}>
             gtag("js", new Date());
-            // send_page_view:false — page_view wysyłamy ręcznie na
+            // send_page_view:false – page_view wysyłamy ręcznie na
             // astro:page-load, żeby liczyć też nawigacje przez View Transitions.
             gtag("config", GA_ID, { send_page_view: false });
             document.addEventListener("astro:page-load", () => {

@@ -1,8 +1,8 @@
 import { SITE_URL } from "./consts";
 
 /**
- * Okruszki nawigacyjne. Serwis nie pokazuje ich wizualnie — siatka z makiety
- * nie ma na nie miejsca — ale Google buduje z nich ścieżkę pod wynikiem
+ * Okruszki nawigacyjne. Serwis nie pokazuje ich wizualnie – siatka z makiety
+ * nie ma na nie miejsca – ale Google buduje z nich ścieżkę pod wynikiem
  * wyszukiwania zamiast gołego adresu URL.
  */
 export function breadcrumbJsonLd(
@@ -23,7 +23,7 @@ export function breadcrumbJsonLd(
 
 /**
  * Liczba słów treści wpisu. Markdown jest tu wąski (akapity, nagłówki, linki),
- * więc wystarczy zdjąć składnię linków i znaczniki nagłówków — bez parsera.
+ * więc wystarczy zdjąć składnię linków i znaczniki nagłówków – bez parsera.
  */
 export function wordCount(markdown: string): number {
   return markdown

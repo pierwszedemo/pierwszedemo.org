@@ -8,7 +8,7 @@ import { LAST_CONTENT_UPDATE, SITE_URL } from "./src/consts";
 
 // Data rewizji każdego wpisu, czytana wprost z frontmattera. Kolekcji treści
 // nie da się zaimportować w configu, a bez tego wszystkie adresy w sitemapie
-// dostawały jedną globalną datę — czyli komunikat „cały serwis zmienił się
+// dostawały jedną globalną datę – czyli komunikat „cały serwis zmienił się
 // tego samego dnia", który nie niesie żadnej informacji.
 const BLOG_DIR = "./src/content/blog";
 const postLastmod = Object.fromEntries(
@@ -29,17 +29,17 @@ export default defineConfig({
   site: SITE_URL,
   output: "server",
   trailingSlash: "never",
-  // Bez `webAnalytics` w adapterze — skrypt wstrzykuje komponent <Analytics />
+  // Bez `webAnalytics` w adapterze – skrypt wstrzykuje komponent <Analytics />
   // z @vercel/analytics w BaseLayout. Obie drogi naraz wstawiłyby go dwa razy.
   adapter: vercel(),
   integrations: [
     sitemap({
       // Sitemapa jest listą stron. Kanał RSS, karty OG i llms.txt to zasoby
-      // pomocnicze — w indeksie tylko rozmywają to, co ma trafić do wyników.
+      // pomocnicze – w indeksie tylko rozmywają to, co ma trafić do wyników.
       filter: (page) => !/\.(png|xml|txt)$/.test(new URL(page).pathname),
       serialize(item) {
         // Astro dokleja ukośnik na końcu, `trailingSlash: "never"` go nie
-        // zdejmuje w sitemapie — bez tego każdy adres w mapie przekierowuje.
+        // zdejmuje w sitemapie – bez tego każdy adres w mapie przekierowuje.
         const url = new URL(item.url);
         if (url.pathname !== "/") url.pathname = url.pathname.replace(/\/$/, "");
         item.url = url.href;

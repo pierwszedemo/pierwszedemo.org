@@ -4,7 +4,7 @@ import { OG_HEADERS, renderOgCard } from "../../og";
 
 export const prerender = true;
 
-// Osobny katalog `/og/`, nie `/blog/<slug>/og.png` — ten drugi wpadłby w
+// Osobny katalog `/og/`, nie `/blog/<slug>/og.png` – ten drugi wpadłby w
 // catch-all `[...slug]` strony wpisu i trasy zaczęłyby się gryźć.
 export async function getStaticPaths() {
   const posts = await getSortedPosts();
