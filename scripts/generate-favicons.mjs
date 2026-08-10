@@ -101,8 +101,21 @@ for (const [file, size] of [
 
 // .ico z ładunkiem PNG: 6-bajtowy nagłówek + 16 bajtów na wpis + same PNG-i.
 // `sips -s format ico` daje tu 285 kB śmiecia, stąd ręczne składanie.
-const sizes = [16, 32, 48];
-const pngs = await Promise.all(sizes.map((size) => render(size, bare)));
+//
+// Kolejność jest **malejąca**, i to nie kosmetyka: Google (jak większość
+// prostych parserów ICO) bierze pierwszy wpis z katalogu, a nie największy.
+// Przy 16 → 32 → 48 dostawał 16×16 i skalował je w górę do 48 px w wynikach
+// wyszukiwania, czyli do szarej plamy. Dokumentacja Google prosi o ikonę
+// większą niż 48×48 – stąd 96 na czele.
+//
+// Górny pułap to 96 i to jest świadome. Pole szerokości we wpisie katalogu ma
+// jeden bajt: spec mówi „unsigned, 0 = 256", ale część czytników (choćby
+// `file`) bierze go jako signed char i 128 wychodzi im jako -128. 96 mieści
+// się poniżej progu i żaden parser nie musi zgadywać.
+const sizes = [96, 64, 48, 32, 16];
+const pngs = await Promise.all(
+  sizes.map((size) => render(size, size >= 64 ? framed : bare)),
+);
 
 const header = Buffer.alloc(6);
 header.writeUInt16LE(1, 2); // typ: ikona
