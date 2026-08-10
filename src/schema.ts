@@ -22,6 +22,14 @@ export function breadcrumbJsonLd(
 }
 
 /**
+ * Data dla schema.org. Sam dzień („2026-08-09") Google odrzuca komunikatem
+ * „Invalid datetime value”, więc każda data w JSON-LD wychodzi jako pełne
+ * ISO 8601 z Z – tym samym zapisem co lastmod w sitemapie (astro.config.mjs).
+ */
+export const isoDateTime = (value: string | Date) =>
+  new Date(value).toISOString();
+
+/**
  * Liczba słów treści wpisu. Markdown jest tu wąski (akapity, nagłówki, linki),
  * więc wystarczy zdjąć składnię linków i znaczniki nagłówków – bez parsera.
  */

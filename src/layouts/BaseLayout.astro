@@ -21,6 +21,7 @@ import {
   SOCIALS,
   WEBSITE_ID,
 } from "../consts";
+import { isoDateTime } from "../schema";
 import "../styles/global.css";
 
 interface Props {
@@ -35,7 +36,8 @@ interface Props {
   schemaPageType?: "WebPage" | "ProfilePage" | "CollectionPage";
   /** Dodatkowe węzły dopinane do schema.org @graph (np. BlogPosting). */
   extraJsonLd?: Record<string, unknown>[];
-  /** ISO date – schema.org dateModified tej strony. */
+  /** Data (YYYY-MM-DD wystarczy) – schema.org dateModified tej strony.
+   * Na pełne ISO 8601 rozwija ją `isoDateTime()` niżej. */
   dateModified?: string;
 }
 
@@ -137,7 +139,7 @@ const pageJsonLd = robots.includes("noindex")
       inLanguage: "pl",
       isPartOf: { "@id": WEBSITE_ID },
       primaryImageOfPage: ogImageUrl,
-      dateModified,
+      dateModified: isoDateTime(dateModified),
       // ProfilePage opisuje osobę wprost; pozostałe strony tylko jej dotyczą.
       ...(schemaPageType === "ProfilePage"
         ? { mainEntity: { "@id": PERSON_ID } }
