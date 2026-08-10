@@ -62,7 +62,7 @@ tekst to 600; `font-bold` ma wyłącznie wordmark w nawigacji.
 | Struktura | 5–10 akapitów po 1–4 zdania, **zero śródtytułów** |
 | Rytm | co najmniej jeden akapit jednozdaniowy; co piąte zdanie ≤5 słów; co najmniej jedno ≥20 słów |
 | Markdown | akapity, `[tekst](url)`, `**pogrubienie**` |
-| Linki | 0–2; zero jest stanem domyślnym |
+| Linki | 1–3 wewnętrzne; linkowanie do własnych wpisów jest pożądane |
 | `readingMinutes` | 2–3 |
 
 Widełki 300–500 słów są decyzją redakcyjną, nie wnioskiem z istniejących wpisów.
@@ -77,7 +77,7 @@ modelu i nie oddają stylu autora. Wzorzec głosu i rytmu jest wyłącznie w `st
 | Struktura | 2–3 akapity wstępu bez śródtytułu → 4–6 sekcji `##` po 200–350 słów → `## Najczęstsze pytania` → `## Podsumowanie` |
 | FAQ | 3–5 pytań jako `###`, odpowiedź 40–70 słów |
 | Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**` |
-| Linki | 2–4 wewnętrzne + źródło przy pierwszym wystąpieniu każdej liczby |
+| Linki | 3–6 wewnętrznych + źródło przy pierwszym wystąpieniu każdej liczby |
 | `readingMinutes` | 7–11 |
 
 Nagłówków jest **6–10 na wpis**, licząc `##` i `###` razem – w korpusie autora nawet

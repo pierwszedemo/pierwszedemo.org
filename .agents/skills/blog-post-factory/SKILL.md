@@ -97,7 +97,22 @@ Nie zgaduj, co jest na stronie, dla której piszesz. Przeczytaj:
 
 - `src/consts.ts` – roster, usługi, tagline, miasto, kontakt, profile, kategorie;
 - `src/pages/index.astro` – copy strony głównej, czyli jak serwis sam siebie opisuje;
-- frontmatter wszystkich `src/content/blog/*.md` – co już zostało powiedziane.
+- **treść wszystkich `src/content/blog/*.md`, nie sam frontmatter.**
+
+Ostatni punkt jest ważniejszy, niż wygląda, i robi się go **przed** napisaniem czegokolwiek.
+Frontmatter mówi, o czym są wpisy; dopiero treść mówi, **które argumenty już padły**.
+Bez tego drugi tekst powtarza tezę pierwszego innymi słowami, obydwa robią się przez to
+płytsze, a w wyszukiwarce konkurują ze sobą.
+
+Z lektury wynoszysz dwie rzeczy:
+
+- **czego nie powtarzać** – jeśli argument jest już rozwinięty gdzie indziej, w nowym
+  wpisie zostaje po nim jedno zdanie i link;
+- **gdzie linkować** – konkretne akapity w starych wpisach, które dotykają nowego tematu
+  i przyjmą link zwrotny (krok 6).
+
+Wpisy z podkreśleniem na początku nazwy (`_slug.md`) są niepublikowane – czytasz je,
+żeby nie dublować treści, ale **nigdy do nich nie linkujesz**, bo nie mają adresu.
 
 Repo jest źródłem prawdy o tym serwisie, bo to ono trafia na produkcję. Jeśli coś tam
 doszło – nowa artystka w rosterze, nowa usługa, zmiana miasta, nowy kanał kontaktu –
@@ -113,8 +128,8 @@ wpisów**. Sprzeczność między starym wpisem a `consts.ts` rozstrzygasz na kor
    przedstaw 3–5 propozycji z uzasadnieniem i zatrzymaj się.
 2. Ustal **frazę główną** – to, czego czytelnik szuka w wyszukiwarce, po polsku, 2–4 słowa
    (`pre-save spotify`, `umowa menedżerska muzyk`, `ile kosztuje singiel`).
-3. Przeczytaj frontmatter wszystkich `src/content/blog/*.md`. Porównaj frazę z polem
-   `keyphrase` każdego wpisu, a tezę z polem `lead`.
+3. Masz już przeczytane wpisy z kroku 0. Porównaj frazę z polem `keyphrase` każdego
+   z nich, tezę z polem `lead`, a planowane argumenty z tym, co faktycznie stoi w treści.
 4. **Kolizja frazy albo pokrycie tezy → zaproponuj tryb aktualizacji zamiast nowego wpisu.**
    Dwa wpisy o tym samym konkurują ze sobą w wyszukiwarce; przy blogu tej wielkości to
    czysta strata.
@@ -226,19 +241,30 @@ Załaduj `references/styl.md` i `references/format.md`.
    Sprawdzenie: `grep -c '—'` na pliku musi zwrócić 0.
 3. **Test podstawienia** – w każdym akapicie zamień kluczowy rzeczownik na „X". Jeśli
    akapit nadal jest prawdziwy, jest pusty i wylatuje.
-4. **Linki** – notatka 0–2, przewodnik 2–4 wewnętrzne, plus link do źródła przy pierwszym
-   wystąpieniu każdej liczby. Anchor to fragment zdania, nie nazwa wpisu.
-   **Zakaz sekcji „Powiązane wpisy"** – to widoczny szkielet SEO, a nie tekst.
+4. **Linkuj do własnych wpisów – to jest pożądane, nie tolerowane.** Notatka 1–3 linków
+   wewnętrznych, przewodnik 3–6, plus link do źródła przy pierwszym wystąpieniu każdej
+   liczby. Blog, w którym teksty się nawzajem nie znają, czyta się jak zbiór luźnych
+   notatek; blog, w którym się znają, wygląda jak wiedza jednej osoby.
+   Reguły są dwie i obie łatwo sprawdzić:
+   - link wychodzi ze **zdania, które i tak trzeba było napisać** – zamiast rozwijać
+     wątek należący do innego wpisu, mówisz jedno zdanie i linkujesz;
+   - anchor to **fragment zdania**, nigdy tytuł wpisu ani „tutaj".
+
+   **Zakaz sekcji „Powiązane wpisy"** na końcu – to widoczny szkielet SEO, a nie tekst.
+   Linki mają siedzieć w akapitach.
 5. **Przykład z własnej praktyki** – co jakiś czas, mniej więcej co trzeci wpis, wpleć link
    do `olageppert.pl` jako **konkretny przykład rzeczy, o której jest akapit**: EPK
    (`/epk`), profil artysty (`/spotify`), kampania singla, przygotowanie EP. Maksymalnie
    jeden taki link na wpis i tylko tam, gdzie zdanie i tak potrzebowało przykładu.
    Nie w każdym wpisie, nigdy dwa razy w jednym i nigdy jako zachęta do odsłuchu –
    to ilustracja tezy, nie promocja. Zasady faktograficzne w `ola-geppert.md`.
-5. **Link zwrotny** – najwyżej **jeden w całym blogu** prowadzący do nowego wpisu i tylko
-   wtedy, gdy akapit w starym wpisie już mówi o tym temacie. Jeden dobry link zwrotny jest
-   wart więcej niż pięć wciśniętych na siłę.
-6. Polecenia z sekcji „Bramki mechaniczne" na dole tego pliku muszą przejść na czysto.
+6. **Linki zwrotne – domknij ruch w drugą stronę.** Nowy wpis nie może być ślepą uliczką,
+   do której nic nie prowadzi. Przejrzyj opublikowane teksty i tam, gdzie akapit **już
+   mówi** o temacie nowego wpisu, wstaw link do niego. Zwykle wychodzi to w jednym lub
+   dwóch wpisach, czasem w trzech. Najwyżej jeden link zwrotny na istniejący wpis
+   i nigdy kosztem przepisania cudzego akapitu pod link – jeśli trzeba dopisać zdanie,
+   żeby link miał sens, to znaczy, że tam nie pasuje.
+7. Polecenia z sekcji „Bramki mechaniczne" na dole tego pliku muszą przejść na czysto.
 
 ## Krok 7 – publikacja
 
@@ -296,9 +322,15 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
 ## Checklista przed publikacją
 
 - [ ] Liczba słów mieści się w widełkach formatu.
-- [ ] `lead` to dokładnie 2 zdania, 120–180 znaków, nie zaczyna się od „W tym wpisie".
-- [ ] `title` ma 25–48 znaków, bez roku, bez dwukropka-klikbajtu.
+- [ ] `lead` to 2–3 zdania, 120–180 znaków, nie zaczyna się od „W tym wpisie".
+- [ ] `title` ma 25–60 znaków, bez roku, bez klikbajtowego wyliczenia.
 - [ ] `keyphrase` nie powtarza się w żadnym innym wpisie.
+- [ ] Treść opublikowanych wpisów przeczytana; żaden argument nie jest powtórzony za
+      tekstem, który już go rozwija – zamiast tego jedno zdanie i link.
+- [ ] Notatka ma 1–3 linki wewnętrzne, przewodnik 3–6; każdy wychodzi ze zdania, a anchor
+      jest fragmentem zdania, nie tytułem ani „tutaj".
+- [ ] Do nowego wpisu prowadzi link zwrotny z co najmniej jednego starego – o ile jest
+      akapit, który i tak o tym mówi.
 - [ ] Każda liczba w tekście ma link do źródła pierwotnego przy pierwszym wystąpieniu.
 - [ ] Każda hipoteza o mechanizmie jest nazwana hipotezą („prawdopodobnie", „podejrzewam").
 - [ ] Krok 0 wykonany: strony artystki pobrane, dossier zgodne albo zaktualizowane.
