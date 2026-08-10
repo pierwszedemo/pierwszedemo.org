@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import { getSortedPosts, isoDate, type Post } from "../../blog";
-import { breadcrumbJsonLd, wordCount } from "../../schema";
+import { breadcrumbJsonLd, isoDateTime, wordCount } from "../../schema";
 import { PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
 
 interface Props {
@@ -41,8 +41,8 @@ const blogPostingJsonLd = {
   description: post.data.lead,
   url: canonical,
   articleSection: post.data.category,
-  datePublished: isoDate(post.data.date),
-  dateModified: modified,
+  datePublished: isoDateTime(post.data.date),
+  dateModified: isoDateTime(modified),
   inLanguage: "pl",
   author: { "@id": PERSON_ID },
   publisher: { "@id": PERSON_ID },

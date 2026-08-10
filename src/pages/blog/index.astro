@@ -2,8 +2,8 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
-import { getSortedPosts, isoDate, isoMonth } from "../../blog";
-import { breadcrumbJsonLd } from "../../schema";
+import { getSortedPosts, isoMonth } from "../../blog";
+import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import { PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
 
 const posts = await getSortedPosts();
@@ -32,8 +32,8 @@ const blogJsonLd = {
     description: post.data.lead,
     url: postUrl(post.id),
     articleSection: post.data.category,
-    datePublished: isoDate(post.data.date),
-    dateModified: isoDate(post.data.updated ?? post.data.date),
+    datePublished: isoDateTime(post.data.date),
+    dateModified: isoDateTime(post.data.updated ?? post.data.date),
     author: { "@id": PERSON_ID },
   })),
 };
