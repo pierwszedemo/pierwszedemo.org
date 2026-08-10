@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
-import { HOME_CITY, SITE_HOST, SITE_TAGLINE, WORDMARK } from "./consts";
+import { HOME_CITY, PERSON_NAME, SITE_HOST, SITE_TAGLINE, WORDMARK } from "./consts";
 
 /**
  * Karty OG 1200×630 rysowane tym samym językiem, co strona: biel, twarda
@@ -41,7 +41,12 @@ const INK = "#101010";
 const MUTED = "#6f6d68";
 
 interface CardOptions {
-  /** Nadtytuł w monospace, u góry karty. */
+  /**
+   * Nadtytuł w monospace, u góry karty. Domyślnie podpis człowieka, nie marki:
+   * kartę widać w podglądzie linku, gdzie stopka z wordmarkiem bywa przycięta,
+   * a nazwisko jest tym, po czym ktoś rozpoznaje autora. Bez nawiasów, które
+   * nosi `h1` strony głównej – tam to etykieta, tu byline.
+   */
   eyebrow?: string;
   title: string;
   /** Prawa etykieta w stopce karty – kategoria wpisu albo adres serwisu. */
@@ -61,7 +66,7 @@ const mono = {
 };
 
 export async function renderOgCard({
-  eyebrow = `(${SITE_TAGLINE} – ${HOME_CITY})`,
+  eyebrow = `${PERSON_NAME} – ${SITE_TAGLINE} – ${HOME_CITY}`,
   title,
   badge,
 }: CardOptions): Promise<Buffer> {
