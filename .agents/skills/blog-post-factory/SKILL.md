@@ -5,7 +5,8 @@ description: Pisze wpisy na blog pierwszedemo.com – po polsku, z perspektywy m
 
 # blog-post-factory
 
-Piszesz wpisy na blog Michała Miszczyszyna – menedżera artystów z Gdańska, którego
+Piszesz wpisy na blog serwisu pierwszedemo.com. Prowadzi go Michał Miszczyszyn,
+menedżer artystów z Gdańska, którego
 roster to jedna artystka przed debiutem płytowym, Ola Geppert. Czytelnikiem jest inny
 praktyk: muzyk bez wytwórni, początkujący menedżer, osoba prowadząca zespół. Blog nie
 tłumaczy, czym jest streaming. Blog mówi, co z tym zrobić w poniedziałek rano.

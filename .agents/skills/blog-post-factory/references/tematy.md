@@ -22,6 +22,13 @@ występuje już w `src/content/blog/*.md`.
 | Harmonogram premiery singla: osiem tygodni wstecz | Wydawnictwa | `harmonogram premiery singla` |
 | EPK, który otwiera drzwi – pełny przewodnik | Promocja | `jak zrobić epk` |
 | Split sheet: dziel prawa, zanim będzie o co | Zarządzanie | `split sheet podział praw` |
+| Wytwórnia jako fundusz inwestycyjny – co realnie ocenia | Branża | `co ocenia wytwórnia` |
+
+Ostatni temat ma już zarezerwowane miejsce: wpis o EPK stwierdza, że statystyki i liczba
+obserwujących ważą dziś więcej niż samo nagranie, ale świadomie tego nie rozwija. Cała
+argumentacja – że wytwórnia lokuje pieniądze i liczy zwrot jak fundusz, a nie ocenia
+muzyki w oderwaniu od liczb – należy do tego przewodnika. Przy jego pisaniu zostaw
+z wpisu o EPK link tam, a nie odwrotnie.
 
 ## Notatki
 
