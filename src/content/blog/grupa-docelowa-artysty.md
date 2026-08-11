@@ -5,10 +5,10 @@ category: Promocja
 kind: notatka
 date: 2026-08-11
 keyphrase: grupa docelowa artysty
-readingMinutes: 2
+readingMinutes: 3
 ---
 
-Profil idealnego słuchacza, który powstaje przed premierą, jest zakładem. Kobieta, 25-34, duże miasto, słucha w drodze do pracy. Brzmi jak wiedza. Ale na tym etapie to zgadywanka.
+Profil idealnego słuchacza (ICP), który powstaje przed premierą, jest zakładem. Kobieta, 25-34, duże miasto, słucha w drodze do pracy. Brzmi jak wiedza. Ale na tym etapie to zgadywanka.
 
 I bardzo dobrze – taki profil i tak trzeba napisać. **ICP na starcie nie jest opisem publiczności. Jest hipotezą, która ma datę rozliczenia i liczbę, po której poznasz, że przegrała.** To jest _bet_. Bez daty i bez liczb nie ma większej wartości.
 
@@ -26,8 +26,8 @@ Termin rozliczenia ustawiam na cztery tygodnie po premierze i nie jest to liczba
 
 Co wtedy sprawdzam? Które grupy filmików na TikToku i Instagramie dowiozły zasięg, jak wygląda demografia słuchaczy i kto wraca po więcej. To ostatnie platforma liczy za Ciebie: [super listenerem jest osoba, która włączyła muzykę 15 razy w ciągu 28 dni](https://support.spotify.com/us/artists/article/audience-segments/). **Po tych 28 dniach zakład jest rozstrzygnięty i to nazywam grupą docelową.**
 
-I dopiero wtedy zaczyna mieć sens wydawanie pieniędzy, bo [reklamą kupisz wyświetlenia, a nie słuchaczy](/blog/ile-kosztuje-niezalezny-singiel). Budżet postawiony na niezweryfikowanej hipotezie kupuje Ci potwierdzenie własnych założeń. Drogo.
+I dopiero wtedy zaczyna mieć sens wydawanie pieniędzy, bo [reklamą kupisz wyświetlenia, a nie słuchaczy](/blog/ile-kosztuje-niezalezny-singiel). Budżet postawiony na niezweryfikowanej hipotezie kupuje Ci potwierdzenie własnych założeń. Odsłuchy i puste sale na koncertach. Auć.
 
 Zostaje pytanie, co wtedy, gdy zakład przegra. Nic strasznego. Płacisz czasem za informację, że nisza, którą obstawiałaś albo obstawiałeś, nie jest trafna. Naprawdę drogi jest wyłącznie zakład, którego nikt nie rozliczył: kosztuje tyle samo czasu i pieniędzy, ale nie zostawia po sobie żadnej wiedzy. Nawet jeśli zgadniesz i pozornie trafisz za pierwszym razem – to być może umyka Ci coś większego.
 
-Zgadywanie i _bet_ wyglądają na pozór identycznie. Różni je data, w której siadasz i sprawdzasz wynik.
+Zgadywanie i _bet_ wyglądają na pozór identycznie. Różni je to, czy siadasz i sprawdzasz wynik.
