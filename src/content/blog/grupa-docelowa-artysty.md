@@ -12,7 +12,7 @@ Profil idealnego słuchacza (ICP), który powstaje przed premierą, jest zakład
 
 I bardzo dobrze – taki profil i tak trzeba napisać. **ICP na starcie nie jest opisem publiczności. Jest hipotezą, która ma datę rozliczenia i liczbę, po której poznasz, że przegrała.** To jest _bet_. Bez daty i bez liczb nie ma większej wartości.
 
-Jeden zakład to jednak za mało. Tę samą piosenkę da się zinterpretować na kilka sposobów naraz: jedna osoba słyszy w niej tekst o rozstaniu, druga produkcję, trzecia tło do jazdy nocą przez miasto. Każda zostaje z innego powodu i żadnej z nich nie przewidzisz w arkuszu.
+Jeden zakład to jednak za mało. Tę samą piosenkę da się zinterpretować na kilka sposobów na raz: jedna osoba słyszy w niej tekst o rozstaniu, druga produkcję, trzecia tło do jazdy nocą przez miasto. Każda zostaje z innego powodu i żadnej z nich nie przewidzisz w arkuszu.
 
 Do tego dochodzi rzecz przyziemna. Zaglądam do panelu artystki, która ma za sobą kilka singli, ale wciąż czeka na pierwszy album, i widzę płeć rozłożoną mniej więcej po połowie, a wiek od 18 do 54 lat. Trzy pokolenia. Próba jest mała, więc nie zbuduję na niej żadnej tezy o rynku, ale oznacza, że nie mogę skreślić żadnej z tych grup, dopóki ich nie sprawdzę.
 
