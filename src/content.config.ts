@@ -6,7 +6,16 @@ const blog = defineCollection({
   // Podkreślnik na początku nazwy = szkic: plik zostaje w repo, ale nie wchodzi
   // do kolekcji, więc nie ma go ani na liście, ani w sitemapie, RSS-ie i llms.txt.
   // Wzorzec musi to wykluczać jawnie — sam loader nie traktuje `_` specjalnie.
-  loader: glob({ base: "./src/content/blog", pattern: "**/[!_]*.md" }),
+  //
+  // Wykluczenie jest osobnym wzorcem, nie klasą `[!_]`, bo loader mierzy ten sam
+  // wzorzec dwoma silnikami: tinyglobby przy starcie i picomatch w watcherze.
+  // picomatch czyta `[!_]` jako klasę znaków `{!, _}`, nie jako negację — więc
+  // `onChange` odrzucał każdy plik wpisu i zmiana w `.md` nie przeładowywała
+  // dev-serwera (build był poprawny, bo tam pracuje tinyglobby).
+  loader: glob({
+    base: "./src/content/blog",
+    pattern: ["**/*.md", "!**/_*.md"],
+  }),
   schema: z.object({
     title: z.string(),
     /** Akapit „W skrócie" z lewej kolumny wpisu. Jednocześnie meta description. */
