@@ -4,6 +4,7 @@ lead: Nagranie, okładka i promocja mogą kosztować zero złotych. Twardą cen�
 category: Finanse
 kind: notatka
 date: 2026-08-10
+updated: 2026-08-11
 keyphrase: ile kosztuje singiel
 readingMinutes: 2
 ---
