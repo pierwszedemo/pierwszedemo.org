@@ -28,4 +28,6 @@ Co wtedy sprawdzam? Które grupy filmików na TikToku i Instagramie dowiozły za
 
 I dopiero wtedy zaczyna mieć sens wydawanie pieniędzy, bo [reklamą kupisz wyświetlenia, a nie słuchaczy](/blog/ile-kosztuje-niezalezny-singiel). Budżet postawiony na niezweryfikowanej hipotezie kupuje Ci potwierdzenie własnych założeń. Drogo.
 
-Zgadywanie i _bet_ wyglądają na papierze identycznie. Różni je data, w której siadasz i sprawdzasz wynik.
+Zostaje pytanie, co wtedy, gdy zakład przegra. Nic strasznego. Płacisz czasem za informację, że nisza, którą obstawiałaś albo obstawiałeś, nie jest trafna. Naprawdę drogi jest wyłącznie zakład, którego nikt nie rozliczył: kosztuje tyle samo czasu i pieniędzy, ale nie zostawia po sobie żadnej wiedzy. Nawet jeśli zgadniesz i pozornie trafisz za pierwszym razem – to być może umyka Ci coś większego.
+
+Zgadywanie i _bet_ wyglądają na pozór identycznie. Różni je data, w której siadasz i sprawdzasz wynik.
