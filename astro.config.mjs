@@ -5,6 +5,8 @@ import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
 import { LAST_CONTENT_UPDATE, SITE_URL } from "./src/consts";
+import { satteri } from "@astrojs/markdown-satteri";
+import { satteriHanging } from "./src/typography";
 
 // Data rewizji każdego wpisu, czytana wprost z frontmattera. Kolekcji treści
 // nie da się zaimportować w configu, a bez tego wszystkie adresy w sitemapie
@@ -54,6 +56,10 @@ export default defineConfig({
       },
     }),
   ],
+  // `satteri()` bez opcji to i tak domyślny procesor Astro 7 – tu dostaje tylko
+  // jedną wtyczkę więcej. Tytuły i leady nie idą przez markdown, więc tam ta
+  // sama funkcja jest wołana wprost w szablonach wpisu i listy.
+  markdown: { processor: satteri({ mdastPlugins: [satteriHanging] }) },
   vite: { plugins: [tailwindcss()] },
   fonts: [
     {
@@ -61,7 +67,11 @@ export default defineConfig({
       name: "Archivo",
       cssVariable: "--font-archivo",
       weights: [400, 500, 600, 700],
-      styles: ["normal"],
+      // `italic` jest tu dla kursywy w treści wpisu. Bez tego wariantu
+      // przeglądarka pochyla Archivo syntetycznie – to skos nałożony na krój
+      // prosty, nie prawdziwa kursywa. Przeglądarka pobiera tylko te pliki,
+      // które faktycznie są użyte, więc wpis bez kursywy nic nie płaci.
+      styles: ["normal", "italic"],
       subsets: ["latin", "latin-ext"], // latin-ext = polskie diakrytyki
       fallbacks: ["system-ui", "sans-serif"],
     },
