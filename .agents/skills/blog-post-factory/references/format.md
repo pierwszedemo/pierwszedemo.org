@@ -5,7 +5,8 @@
 Ograniczenia w tym pliku nie są preferencją redakcyjną. Wynikają z tego, jak
 `src/pages/blog/[...slug].astro` renderuje treść.
 
-Blok `<style>` w tym pliku stylizuje **wyłącznie** `p`, `h2`, `h3` i `a`. Wszystko inne
+Blok `<style>` w tym pliku stylizuje **wyłącznie** `p`, `h2`, `h3`, `a`, `strong` i `em`.
+Wszystko inne
 wpada w Tailwind Preflight, który kasuje punktory i marginesy list, zeruje marginesy
 `blockquote`, `pre` i `hr`. Lista markdownowa **nie zepsuje buildu** – wyrenderuje się jako
 ciąg linijek bez punktorów i bez odstępów, czyli jako coś, co wygląda na błąd. Dlatego
@@ -61,7 +62,7 @@ tekst to 600; `font-bold` ma wyłącznie wordmark w nawigacji.
 | Długość | **300–500 słów** treści (bez frontmattera) |
 | Struktura | 5–10 akapitów po 1–4 zdania, **zero śródtytułów** |
 | Rytm | co najmniej jeden akapit jednozdaniowy; co piąte zdanie ≤5 słów; co najmniej jedno ≥20 słów |
-| Markdown | akapity, `[tekst](url)`, `**pogrubienie**` |
+| Markdown | akapity, `[tekst](url)`, `**pogrubienie**`, `_kursywa_` |
 | Linki | 1–3 wewnętrzne; linkowanie do własnych wpisów jest pożądane |
 | `readingMinutes` | 2–3 |
 
@@ -76,7 +77,7 @@ modelu i nie oddają stylu autora. Wzorzec głosu i rytmu jest wyłącznie w `st
 | Długość | **1200–2000 słów** treści |
 | Struktura | 2–3 akapity wstępu bez śródtytułu → 4–6 sekcji `##` po 200–350 słów → `## Najczęstsze pytania` → `## Podsumowanie` |
 | FAQ | 3–5 pytań jako `###`, odpowiedź 40–70 słów |
-| Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**` |
+| Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**`, `_kursywa_` |
 | Linki | 3–6 wewnętrznych + źródło przy pierwszym wystąpieniu każdej liczby |
 | `readingMinutes` | 7–11 |
 
@@ -163,14 +164,25 @@ z liczbami i nazwami instytucji, których się nie przelatuje wzrokiem. Podłoga
 ## Dozwolony i zakazany markdown
 
 **Dozwolone:** akapity oddzielone pustą linią, `##`, `###`, `[tekst](url)`,
-`**pogrubienie**`.
+`**pogrubienie**`, `_kursywa_`.
 
 Pogrubienie ma własną regułę, bo łatwo je przedawkować: **jedno lub dwa całe zdania na
-200 słów**. Nigdy pojedyncze słowo (wygląda jak zaznaczenie w podręczniku), nigdy cały
-akapit, nigdy w ostatnim akapicie – puenta broni się pozycją, a nie grubością. Wyróżnia
-się zdanie, które ma zostać w głowie kogoś, kto przeleciał wpis wzrokiem. Szablon
-renderuje `strong` jako 600 w kolorze `--color-ink`, czyli tak samo jak śródtytuły –
-wyróżnienie ma być czytelne, nie krzykliwe.
+200 słów**. Nigdy pojedyncze słowo – wygląda jak zaznaczenie w podręczniku. Nigdy
+w ostatnim akapicie – puenta broni się pozycją, a nie grubością. Wyróżnia się zdanie,
+które ma zostać w głowie kogoś, kto przeleciał wpis wzrokiem. Szablon renderuje `strong`
+jako 600 w kolorze `--color-ink`, czyli tak samo jak śródtytuły – wyróżnienie ma być
+czytelne, nie krzykliwe.
+
+**Akapit jednozdaniowy wolno pogrubić w całości.** To ta sama figura co akapit
+jednozdaniowy bez pogrubienia, tylko mocniejsza: zdanie stojące samo, niosące tezę
+środka. Liczy się do limitu 1–2 na 200 słów jak każde inne wyróżnienie. Zakaz dotyczy
+akapitu wielozdaniowego – tam pogrubienie przestaje wskazywać zdanie i zamienia w blok
+całą myśl.
+
+Kursywa jest dla terminu obcego, którego zdanie nie wchłonęło jako polskiego słowa
+(„to jest _bet_"). Nie służy do emfazy – od tego jest pogrubienie – i nie stawia się jej
+przy anglicyzmach, które odmieniają się normalnie (`pre-save'u`, `na showcase'ie`,
+`playlisty`). Krój ma wczytany wariant `italic`, więc to prawdziwa kursywa, nie skos.
 
 **Zakazane bezwzględnie**, z powodem:
 
@@ -180,7 +192,6 @@ wyróżnienie ma być czytelne, nie krzykliwe.
 | tabele | brak stylów; w łamie 15,5 px i tak nie mieszczą się szerokością |
 | `>` (cytat blokowy) | Preflight zeruje marginesy – cytat wygląda jak zwykły akapit z wciętym tekstem |
 | ` ``` ` i `` ` `` | brak stylów `pre`/`code`; to nie jest blog techniczny |
-| `*kursywa*` | brak stylów; w korpusie nie występuje ani razu |
 | `—` (em dash, U+2014) | jedyna dozwolona kreska w tekście to półpauza `–`; szczegóły w `styl.md` |
 | `#` i `####`+ | `h1` należy do szablonu, głębsze poziomy nie mają stylów |
 | `---` (linia pozioma) | Preflight zeruje marginesy, a w treści kolidowałaby wizualnie z krawędziami pasm |
@@ -232,7 +243,9 @@ Gdyby ktoś pracował na klonie sprzed wprowadzenia formatów, potrzebne są czt
   i cudzysłowy w pytaniach) albo parsowania treści. Duplikowałby też tekst widoczny na
   stronie. Pytania FAQ żyją jako `###` pod `## Najczęstsze pytania`; węzeł można dodać
   później, parsując wyrenderowany HTML.
-- **Style dla `ul`/`ol`/`table`/`strong`** – ich dodanie zaprasza do używania znaczników,
-  których zakaz jest jednocześnie najsilniejszą dźwignią przeciw tekstowi generycznemu.
+- **Style dla `ul`/`ol`/`table`** – ich dodanie zaprasza do używania znaczników, których
+  zakaz jest jednocześnie najsilniejszą dźwignią przeciw tekstowi generycznemu. `strong`
+  i `em` mają już swoje reguły w `[...slug].astro`, bo jedno niesie tezę, a drugie termin
+  obcy – żadne z nich nie jest listą przebraną za akapit.
 - **`rel="noopener"` na linkach zewnętrznych** – Astro nie dodaje go automatycznie,
   a linki w treści nie mają `target="_blank"`, więc dziś nie ma czego zabezpieczać.

@@ -237,15 +237,26 @@ Gęstość: w korpusie mediana to 3 pogrubienia na 200 słów. **Na tym blogu ob
 1–2 na 200 słów** – wpisy są krótsze i gęstsze w tezy, więc trójka zamieniłaby połowę
 notatki w wyróżnienie. Nigdy w ostatnim akapicie: puenta broni się pozycją.
 
-**ODSTĘPSTWO – kursywa.** Na typeofweb kursywa niesie terminy obce. Tutaj jest zakazana,
-bo `.prose-swiss` nie ma dla niej stylu i renderuje się tak samo jak tekst zwykły.
-Termin obcy zostaje po prostu odmieniony po polsku.
+Akapit jednozdaniowy wolno pogrubić w całości – to najmocniejsza wersja tej samej figury,
+którą korpus stosuje bez pogrubienia. W akapicie wielozdaniowym pogrubia się zdanie,
+nigdy całość.
+
+**Kursywa niesie termin obcy**, dokładnie jak na typeofweb („to jest _bet_"). Nie jest
+emfazą – od tego jest pogrubienie – i nie dotyczy anglicyzmów, które zdanie wchłonęło
+z polską odmianą (`pre-save'u`, `na showcase'ie`, `playlisty`). Krój ma wczytany wariant
+`italic`, a `.prose-swiss` ma regułę dla `em`; wcześniejsza wersja tego pliku zakazywała
+kursywy właśnie dlatego, że tego stylu nie było.
 
 ## Anglicyzmy
 
 **Termin angielski wchodzi do zdania jak polskie słowo, z pełną odmianą, bez cudzysłowu
 i bez kursywy.** Korpus: „na GitHubie", „w TypeScripcie", „propsów", „Reduksa",
 „cache'ować", „RAM-em".
+
+Kursywa zostaje dla słów, których zdanie tak nie wchłonęło – takich, które stoją
+nieodmienione i są w tym zdaniu cytatem z obcego języka, nie polskim wyrazem
+(„to jest _bet_"). Jedno, może dwa takie miejsca na wpis; więcej znaczy, że tekst
+przestał być po polsku.
 
 Tutaj tak samo: `pre-save'u`, `na showcase'ie`, `w riderze`, `line-upu`, `playlisty`,
 `z bookerem`, `pitchowanie`, `w Spotify for Artists`.
@@ -264,8 +275,31 @@ powyższego") i angielskiej pisowni tam, gdzie polska jest utrwalona (`hasz`, ni
 ## Otwarcia i zakończenia
 
 **Otwarcie** opisuje bodziec z zewnątrz albo obserwację o tym, jak rzecz działa naprawdę –
-nigdy definicję. Dopuszczalna jest anegdota w czasie przeszłym („Kiedyś…", „Ostatnio…").
-W przewodniku po leadzie warto się cofnąć o krok: „Zacznijmy może od początku."
+nigdy definicję. W przewodniku po leadzie warto się cofnąć o krok: „Zacznijmy może od
+początku."
+
+Kształtów otwarcia jest sześć i **żadnego nie wolno powtórzyć w dwóch wpisach z rzędu**:
+
+1. **anegdota w czasie przeszłym** – „Dostałem kiedyś…", „Kiedyś wysłałem…", „Ostatnio…";
+2. **teza podana wprost, bez asekuracji** – „Amsterdam to na pewno najlepsze miasto do
+   organizowania słabych konferencji.", „Profil idealnego słuchacza jest wart tyle co
+   horoskop.";
+3. **pytanie do czytelnika** – „Znacie ten dowcip, że…?", „Znasz to uczucie, gdy…?";
+4. **bodziec z zewnątrz** – „Niedawno na X wiralowy stał się post…", cudze zdanie
+   z rozmowy, komunikat instytucji;
+5. **scena hipotetyczna** – „Wyobraź sobie…", „Załóżmy, że piszesz w listopadzie.";
+6. **liczba albo termin, który przeczy intuicji** – „Line-up letniego festiwalu jest
+   zamknięty w lutym."
+
+To jest najczęstsza rzecz, którą ten blog wpada w schemat: dwie notatki z rzędu zaczynają
+się od „Dostałem kiedyś…" i nagle wszystkie teksty brzmią jak jedna rubryka. Krok 0
+i tak każe przeczytać treść opublikowanych wpisów – **pierwszy akapit każdego z nich
+sprawdzasz osobno i wybierasz kształt, którego tam nie ma.**
+
+**Ta sama zasada dotyczy krótkich uderzeń.** „Cóż.", „Serio.", „Absolutnie nie.",
+„Smutek." są w domu, ale są też natychmiast rozpoznawalne. Jedno takie zdanie na wpis
+wystarczy, a tego samego nie powtarzasz w dwóch wpisach z rzędu. „Cóż." jako osobny
+akapit szczególnie – trzy wpisy pod rząd z tym samym westchnieniem to nie styl, to tik.
 
 **Zakończenie** ma jeden z czterech kształtów wyprowadzonych z korpusu typeofweb:
 

@@ -198,7 +198,11 @@ Pisz w tej kolejności – środek napisany jako pierwszy zawsze rozjeżdża si�
    tag. Nie zaczyna się od „W tym wpisie".
 2. **Ostatni akapit** – jeden z pięciu kształtów z `styl.md`. Jeśli nie umiesz go teraz
    napisać, nie masz tezy i wracasz do kroku 1.
-3. **Środek.**
+3. **Pierwszy akapit** – jeden z sześciu kształtów otwarcia z `styl.md`. Zanim wybierzesz,
+   spójrz na pierwsze akapity opublikowanych wpisów (masz je przeczytane z kroku 0)
+   i **wykreśl kształt, którym zaczyna się poprzedni wpis**. Anegdota „Dostałem kiedyś…"
+   jest najwygodniejsza i dlatego najszybciej się zużywa.
+4. **Środek.**
    - Notatka: 5–10 „beatów", po jednym fakcie albo obserwacji na akapit, bez powtórzeń.
      Zdecyduj z góry, który akapit będzie jednozdaniowy – on niesie puentę środka.
    - Przewodnik: 4–6 nagłówków `##` (krótkie frazy rzeczownikowe, mniej więcej co dziesiąty
@@ -224,12 +228,15 @@ Załaduj `references/styl.md` i `references/format.md`.
   referat. Pytanie retoryczne jest w domu, może być całym akapitem. „Ty", „Ci", „Twój"
   zawsze wielką literą. Opinię wypowiadaj oznajmująco, bez „moim zdaniem".
 - **Dozwolony markdown, wyczerpująco:** akapity, `##`, `###`, `[tekst](url)`,
-  `**pogrubienie**`. Nic więcej. Powody są w `format.md` – krótko: `.prose-swiss` stylizuje
-  tylko te elementy, a lista punktowana jest jednocześnie najsilniejszym sygnałem tekstu
-  pisanego przez model.
-- **Pogrubienie**: jedno lub dwa całe zdania na 200 słów, nigdy pojedyncze słowo i nigdy
-  cały akapit. Wyróżnia się zdanie, które czytelnik ma zapamiętać, gdy przeleci wpis
-  wzrokiem. Nie pogrubia się ostatniego akapitu – puenta broni się pozycją.
+  `**pogrubienie**`, `_kursywa_`. Nic więcej. Powody są w `format.md` – krótko:
+  `.prose-swiss` stylizuje tylko te elementy, a lista punktowana jest jednocześnie
+  najsilniejszym sygnałem tekstu pisanego przez model.
+- **Pogrubienie**: jedno lub dwa całe zdania na 200 słów, nigdy pojedyncze słowo.
+  Wyróżnia się zdanie, które czytelnik ma zapamiętać, gdy przeleci wpis wzrokiem.
+  Akapit jednozdaniowy wolno pogrubić w całości; wielozdaniowego nie. Nie pogrubia się
+  ostatniego akapitu – puenta broni się pozycją.
+- **Kursywa**: termin obcy, którego zdanie nie wchłonęło z polską odmianą („to jest
+  _bet_"). Nie emfaza – od tego jest pogrubienie.
 
 ## Krok 6 – redakcja, linki i bramki mechaniczne
 
@@ -336,8 +343,10 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
 - [ ] Krok 0 wykonany: strony artystki pobrane, dossier zgodne albo zaktualizowane.
 - [ ] Żaden fakt o Oli Geppert nie wyszedł poza dossier.
 - [ ] Tekst nie przeczy temu, co mówi o serwisie `src/consts.ts`.
-- [ ] Zero obrazków, list, tabel, cytatów blokowych i kursywy.
-- [ ] Pogrubienia: 1–2 całe zdania na 200 słów, żadnego w ostatnim akapicie.
+- [ ] Zero obrazków, list, tabel i cytatów blokowych.
+- [ ] Kursywa (jeśli jest) niesie termin obcy, nie emfazę.
+- [ ] Pogrubienia: 1–2 całe zdania na 200 słów, żadnego w ostatnim akapicie; pogrubiony
+      w całości bywa tylko akapit jednozdaniowy.
 - [ ] Cudzysłowy `„…”`; `grep -c '—'` zwraca 0 – em dash nie występuje.
 - [ ] Żadna fraza z listy zakazanych nie przeszła.
 - [ ] Rytm: jest akapit jednozdaniowy, co najmniej co piąte zdanie ma ≤5 słów, żadne >30.
@@ -345,6 +354,8 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
 - [ ] „Ty", „Ci", „Twój" wielką literą; rodzaj męski nie jest jedyną formą osobową.
 - [ ] Notatka nie ma śródtytułów; przewodnik ma 4–6 sekcji `##` o różnej długości
       i kończy się sekcją `## Podsumowanie`.
+- [ ] Otwarcie ma jeden z sześciu kształtów i **nie powtarza kształtu poprzedniego wpisu**;
+      krótkie uderzenie („Cóż.", „Serio.") nie powtarza się dwa wpisy z rzędu.
 - [ ] Zamknięcie ma jeden z pięciu kształtów i nie powtarza formuły z poprzedniego wpisu.
 - [ ] `bun run build` przechodzi.
 
