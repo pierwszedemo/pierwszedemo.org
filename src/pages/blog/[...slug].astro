@@ -5,6 +5,7 @@ import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import { getSortedPosts, isoDate, type Post } from "../../blog";
 import { breadcrumbJsonLd, isoDateTime, wordCount } from "../../schema";
+import { fixHanging } from "../../typography";
 import { PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
 
 interface Props {
@@ -109,7 +110,9 @@ const breadcrumb = breadcrumbJsonLd(
           <h1
             class="max-w-[18ch] text-post leading-[1.02] font-semibold tracking-[-0.03em] text-balance"
           >
-            {post.data.title}
+            {/* Niełamliwe spacje tylko w tekście widocznym na stronie – w meta,
+                JSON-LD, RSS-ie i llms.txt to dane dla maszyn, nie typografia. */}
+            {fixHanging(post.data.title)}
           </h1>
         </header>
 
@@ -121,7 +124,7 @@ const breadcrumb = breadcrumbJsonLd(
           >
             <h2 class="label text-muted">W skrócie</h2>
             <p class="text-xl leading-[1.5] font-medium text-body">
-              {post.data.lead}
+              {fixHanging(post.data.lead)}
             </p>
           </aside>
 
@@ -156,7 +159,7 @@ const breadcrumb = breadcrumbJsonLd(
             href={`/blog/${next.id}`}
             class="flex items-center justify-between gap-4 px-5 py-[21px] md:px-8"
           >
-            <span class="font-semibold">Następny: {next.data.title}</span>
+            <span class="font-semibold">Następny: {fixHanging(next.data.title)}</span>
             <span aria-hidden="true">→</span>
           </a>
         ) : (
@@ -203,6 +206,14 @@ const breadcrumb = breadcrumbJsonLd(
   .prose-swiss :global(strong) {
     font-weight: 600;
     color: var(--color-ink);
+  }
+  /* Kursywa niesie termin obcy („to jest bet"). Preflight nie rusza `em`, więc
+     pochylenie działałoby i bez tej reguły – ale dopiero wariant `italic`
+     Archivo z astro.config.mjs daje prawdziwy krój zamiast skosu. Reguła stoi
+     tu jawnie, żeby ta zależność była widoczna w jednym miejscu z resztą
+     stylów treści. */
+  .prose-swiss :global(em) {
+    font-style: italic;
   }
   .prose-swiss :global(a) {
     text-decoration: underline;
