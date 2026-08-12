@@ -37,6 +37,17 @@ const blog = defineCollection({
          * a dwa różnie zatytułowane wpisy o tym samym konkurują ze sobą w wyszukiwarce.
          */
         keyphrase: z.string().optional(),
+        /**
+         * Wyimek – zdanie, w które ma wpaść ktoś przelatujący stronę wzrokiem.
+         * Renderuje się jako pasmo pod tytułem i zostaje też w treści, bo wyimek
+         * ma powtarzać, a nie zastępować. Osobne pole zamiast znacznika w markdownie:
+         * korpus wpisu dopuszcza tylko akapity, ##, ###, linki, strong i em, więc
+         * odblokowanie `>` pod cytaty otworzyłoby element, którego Preflight nie
+         * stylizuje i który jest sygnałem tekstu pisanego przez model.
+         */
+        pullquote: z.string().optional(),
+        /** Kto to powiedział. Bez tego wyimek czyta się jak głos autora wpisu. */
+        pullquoteAuthor: z.string().optional(),
         readingMinutes: z.number().int().positive(),
         /**
          * ID utworu z open.spotify.com/track/<id> – osadza odtwarzacz w kolumnie
