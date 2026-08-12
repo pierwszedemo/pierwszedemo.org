@@ -141,6 +141,14 @@ readingMinutes: 2
 - **`keyphrase`** – fraza główna, 2–4 słowa po polsku. Jedyny mechanizm deduplikacji
   tematów: bez niej porównywalibyśmy tytuły, a dwa różnie zatytułowane wpisy o pitchingu
   konkurują ze sobą w wyszukiwarce.
+- **`pullquote`** – opcjonalny wyimek. Renderuje się jako osobne pasmo pod tytułem,
+  z cudzysłowami dokładanymi przez szablon, i **zostaje też w treści** – wyimek powtarza
+  zdanie, nie zastępuje go. Bierz zdanie, w które ma wpaść ktoś przelatujący stronę
+  wzrokiem, najlepiej cudzą wypowiedź. Nie rób tego pogrubieniem w akapicie: `strong`
+  to tutaj sama waga 600, więc kilkadziesiąt słów zamienia się w szary blok zamiast
+  w akcent. Pole istnieje właśnie po to, żeby nie odblokowywać `>` w korpusie.
+- **`pullquoteAuthor`** – opcjonalne, kto to powiedział. Bez tego wyimek czyta się jak
+  głos autora wpisu, co przy wywiadzie jest po prostu nieprawdą.
 - **`readingMinutes`** – liczba całkowita dodatnia, wzór niżej.
 - **`image`** / **`imageAlt`** – opcjonalna grafika wpisu, renderowana w kolumnie
   „W skrócie" pod leadem (ten sam slot co odtwarzacz Spotify). Ścieżka względem

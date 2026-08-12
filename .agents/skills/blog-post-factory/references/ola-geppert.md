@@ -42,6 +42,9 @@ Czytasz to przed napisaniem jakiegokolwiek zdania z jej nazwiskiem.
    się przesunąć. Wolno napisać, że EP powstaje i kiedy jest planowana. Potwierdzenie
    techniczne: repo artystki celowo nie emituje węzła `MusicAlbum`, bo schema bez nazwy
    szkodzi bardziej, niż pomaga.
+   **Tracklista też nie jest jawna** – żadnej kolejności utworów, numerów pozycji ani
+   zdań w rodzaju „drugi i trzeci utwór". Wolno mówić o pojedynczych utworach po tytule
+   z listy dozwolonej w zakazie nr 3, ale nie o tym, gdzie stoją na płycie.
 8. **Nigdy okoliczności wyprowadzki Ioanniego z Cypru.** Zgodził się na sam wątek
    cypryjski („żeby nie pokazać go ze złej strony") i poprosił, żeby powody wyjazdu nie
    trafiły do materiałów, **w szczególności nie do nagłówka**. Wolno: pochodzenie, dwanaście
