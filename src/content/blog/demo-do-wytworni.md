@@ -16,9 +16,9 @@ Zacznijmy więc od zdania, którego źle się słucha. **Wytwórnie nie szukają
 
 ## Kto siedzi po drugiej stronie
 
-Zanim zająłem się muzyką, budowałem od zera własną firmę finansowaną przez fundusz z Doliny Krzemowej. Byłem tam wielokrotnie, mieszkałem po kilka tygodni. Rozmawiałem. Pitchowałem. **Im dłużej siedzę w branży muzycznej, tym mniej różnic widzę między wytwórniami a inwestorami.** I wiem, jak wygląda rozmowa z nimi: osoba naprzeciwko kiwa głową, mówi, że produkt jest świetny i pyta o liczby. Zawsze o liczby.
+Zanim zająłem się muzyką, budowałem od zera własną firmę finansowaną przez fundusz z Doliny Krzemowej. Byłem tam wielokrotnie. Mieszkałem. Rozmawiałem. Pitchowałem. **Im dłużej siedzę w branży muzycznej, tym mniej widzę różnic między wytwórniami a inwestorami.** I wiem, jak wygląda rozmowa z nimi: osoba naprzeciwko kiwa głową, mówi, że produkt jest świetny i pyta o liczby. Zawsze o liczby.
 
-Fundusz ma portfel. Większość jego zakładów nie zwróci się nigdy, a całość utrzymuje kilka trafień, które muszą zapłacić za resztę. Wytwórnia ma dokładnie to samo, tylko zamiast spółek ma katalog. Stąd bierze się jej ostrożność, którą artyści odbierają jako brak wyobraźni albo złą wolę.
+Fundusz ma portfolio. Większość jego zakładów nie zwróci się nigdy, a całość utrzymuje kilka trafień, które muszą zapłacić za resztę. Wytwórnia ma dokładnie to samo, tylko zamiast spółek ma katalog. Stąd bierze się jej ostrożność, którą artyści odbierają jako brak wyobraźni albo złą wolę.
 
 Skrzynka A&R wygląda zresztą jak _deal flow_ każdego funduszu: setki wiadomości od ludzi robiących naprawdę dobre rzeczy. **Odrzucenie rzadko mówi cokolwiek o muzyce.** Mówi o tym, że nie widać dowodu.
 
@@ -32,19 +32,19 @@ Warto też zadać kilka innych pomocniczych pytań. Czy z tą osobą da się pra
 
 ## Trakcja zamiast demówki
 
-Współczesny A&R mniej odkrywa, a bardziej [potwierdza popyt, który artysta już udowodnił](https://orphiq.com/resources/a-and-r-in-2026). Romantyczne odkrycie w klubie wciąż się zdarza. Ale jest wyjątkiem, nie regułą.
+Współczesny A&R mniej odkrywa, a bardziej [potwierdza popyt, który artysta już udowodnił](https://orphiq.com/resources/a-and-r-in-2026). Romantyczne napotkanie w klubie wciąż się zdarza. Ale jest wyjątkiem, nie regułą.
 
-Bo procedura zaczyna się od narzędzi. Chartmetric i Soundcharts działają jak wyszukiwarki artystów z konfigurowalnymi watchlistami – Chartmetric ma [bazę artystów przebijających się na 1,4 miliona playlist Spotify](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/). Ktoś ustawia filtry i dostaje gotową listę nazwisk, które w tym tygodniu urosły.
+Bo procedura zaczyna się od narzędzi. Chartmetric i Soundcharts działają jak wyszukiwarki artystów z konfigurowalnymi _watchlistami_ – Chartmetric ma [bazę artystów przebijających się na 1,4 miliona playlist Spotify](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/). Ktoś ustawia filtry i dostaje gotową listę nazwisk, które w tym tygodniu urosły.
 
 **Twoja demówka konkuruje więc nie z innymi demówkami, tylko z gotowym raportem, który ktoś dostał na biurko.** Mail trzeba otworzyć, przeczytać, posłuchać i przeanalizować. Raport czyta się sam.
 
 Co tak naprawdę się liczy? Nie liczba obserwujących, wbrew temu, co się może wydawać. **Liczy się stosunek odsłuchów do słuchaczy: [powyżej 3-4 to fani zaangażowani, poniżej 2 to bierne playlisty](https://orphiq.com/resources/a-and-r-in-2026).** Do tego zapisy utworu, komentarze zamiast samych polubień i geografia: silny rynek macierzysty, z którego widać ekspansję.
 
-Dlatego skala sama w sobie niczego nie załatwia. Orphiq podaje wprost, że [50 tys. słuchaczy miesięcznie przy proporcji 6:1 w niedoinwestowanym gatunku dostaje więcej uwagi niż 500 tys. przy 2:1 w przepełnionym](https://orphiq.com/resources/a-and-r-in-2026). Dziesięć razy mniej ludzi, a rozmowa poważniejsza.
+Dlatego skala sama w sobie niczego nie załatwia. Orphiq podaje wprost, że [50 tys. słuchaczy miesięcznie przy proporcji 6:1 w niedoinwestowanym gatunku dostaje więcej uwagi niż 500 tys. przy 2:1 w przepełnionym](https://orphiq.com/resources/a-and-r-in-2026). Dziesięć razy mniej ludzi, a rozmowa poważniejsza. To dla Ciebie nadzieja.
 
-Zanim jednak uznasz, że wszystko sprowadza się do panelu z wykresami: [tylko około połowa odkryć przychodzi z narzędzi cyfrowych](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/), reszta nadal z sieci kontaktów i poleceń. Znajomości nie umarły. Zmieniło się to, że dziś służą do potwierdzenia czegoś, co i tak musi być widać w danych.
+Zanim jednak uznasz, że wszystko sprowadza się do panelu z wykresami: [tylko około połowa odkryć przychodzi z narzędzi cyfrowych](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/), reszta nadal z **sieci kontaktów i poleceń**. Dlatego tak ważny jest udział w wydarzeniach branżowych i showcase'ach. Znajomości nie umarły. Zmieniło się to, że dziś służą do potwierdzenia czegoś, co i tak musi być widać w danych.
 
-Te dwie części koegzystują. Polecenie od osoby, której ktoś ufa, sprawia, że otwarty zostaje plik z Twoimi liczbami. Bez polecenia raczej nikt tam nie zajrzy. Natomiast bez liczb plik zostanie otwarty i zamknięty po dziesięcu sekundach.
+Te dwie części koegzystują. Polecenie od osoby, której ktoś ufa, sprawia, że otwarty zostaje plik z Twoimi liczbami. Bez polecenia raczej nikt tam nie zajrzy. Natomiast jeśli w tym pliku nie ma liczb, to zostanie zamknięty po dziesięcu sekundach.
 
 I stąd wniosek, który brzmi banalnie, a zmienia kolejność pracy na następne pół roku. **Trakcję buduje się przed rozmową, nie w jej trakcie.** Nawet skromną, byle własną i policzalną – bo [profil słuchacza bez rozliczonego _betu_ jest tylko hipotezą](/blog/grupa-docelowa-artysty).
 
@@ -54,7 +54,7 @@ I stąd wniosek, który brzmi banalnie, a zmienia kolejność pracy na następne
 
 Wysłanie maila kosztuje kwadrans. Droga jest reszta.
 
-Realnie rozmowa z wytwórnią to dwa miesiące korespondencji, zanim padnie cokolwiek wiążącego. Jeśli na ten czas wstrzymasz single, oddajesz dwa miesiące kalendarza za odpowiedź, której możesz nie dostać. A jeśli materiał się spodoba, wytwórnia zwykle i tak sama ustawia daty wydań – kolejne tygodnie albo miesiące.
+Realnie rozmowa z wytwórnią to dwa miesiące korespondencji, zanim padnie cokolwiek wiążącego. Jeśli na ten czas wstrzymasz single, oddajesz dwa miesiące kalendarza za odpowiedź, której możesz nie otrzymać. A jeśli materiał się spodoba, wytwórnia zwykle i tak sama ustawia daty premier – kolejne tygodnie albo miesiące.
 
 Przy publiczności bliskiej zeru taka cisza jest kosztowna. Fani nie czekają na Was na tyle mocno, żeby przetrwać pół roku bez żadnego nowego utworu. **Wysyłka do wytwórni nie kosztuje prawie nic. Czekanie na odpowiedź kosztuje cały rok wydawniczy.**
 
@@ -76,7 +76,7 @@ Ale kierunek jest prosty i działa tak samo dla wytwórni i inwestorów. Każdy 
 
 **Umowa nie jest nagrodą za muzykę. Jest wyceną ryzyka, które druga strona bierze na siebie – a wycenę obniża się dowodami, nie talentem.** Każdy wydany singiel, każda rolka i każda playlista zdobyta bez niczyjej pomocy zdejmuje kawałek tego ryzyka.
 
-Więc jeśli nie masz dziś czym negocjować, najlepszą rzeczą, jaką możesz zrobić dla tej umowy, jest przesunięcie jej w czasie o kilka wydawnictw. To może brzmieć jak odkładanie marzenia na później, ale _de facto_ jest kupowanie to sobie lepszych warunków.
+Więc jeśli nie masz dziś czym negocjować, najlepszą rzeczą, jaką możesz zrobić dla siebie, jest przesunięcie podpisania umowy o kilka wydawnictw. To może brzmieć jak odkładanie marzenia na później, ale _de facto_ jest to kupowanie sobie lepszych warunków.
 
 ## Po co w ogóle wytwórnia?
 
@@ -86,11 +86,11 @@ Kiedyś wytwórnia była warunkiem wejścia. Miała studio, tłocznię, dystrybu
 
 Została jej za to rola, która wciąż jest sporo warta: przyspieszać. Budżet na kampanię, kontakty do playlist redakcyjnych i radia, sync, zagranica, ludzie, do których sam się nie dodzwonisz. To realna wartość.
 
-Tylko że przyspieszać da się wyłącznie coś, co już leci. Duży budżet położony na projekt bez publiczności kupuje wyświetlenia i ciszę zaraz po nich. Tak samo działa marketing wpompowany w produkt, którego nikt nie chciał używać nawet za darmo.
+**Tyle że przyspieszać da się wyłącznie coś, co już leci.** Duży budżet położony na projekt bez publiczności kupuje wyświetlenia i ciszę zaraz po nich. Tak samo działa marketing wpompowany w produkt, którego nikt nie chciał używać nawet za darmo.
 
 Znajome? No właśnie.
 
-**Wytwórnia i fundusz są mnożnikiem, nie generatorem – a mnożnik razy zero daje zero, choćby był bardzo duży.** Stąd bierze się cała ta obsesja na punkcie samodzielności i pytanie, czy kogoś trzeba niańczyć. To nie jest test charakteru. To sprawdzenie, czy jest co mnożyć.
+**Wytwórnia i fundusz są mnożnikiem, nie generatorem – a mnożnik razy zero daje zero, choćby był bardzo duży.** Stąd bierze się cała ta obsesja na punkcie samodzielności. To nie jest test charakteru. To sprawdzenie, czy jest co mnożyć.
 
 Fundusz nie poprowadzi Ci firmy. Dopłaci do tego, co i tak robisz, i podpowie, gdzie skręcić. Wytwórnia działa identycznie: nie napisze Ci piosenek, nie nakręci rolek, nie zbuduje relacji z ludźmi, którzy przychodzą na koncerty.
 
@@ -116,7 +116,7 @@ Odwrotnie. Samodzielne wydawnictwo jest dziś sposobem na zdobycie danych, któr
 
 ## Podsumowanie
 
-Wytwórnia jest funduszem, nie mecenasem. Ocenia ryzyko, patrzy na proporcje w danych, pyta o samodzielność i płaci za dowód, a nie za obietnicę. A potem rozpędza to, co już leci. Nie zaczyna za Ciebie.
+**Wytwórnia jest inwestorem, nie mecenasem.** Ocenia ryzyko, patrzy na proporcje w danych, pyta o samodzielność i płaci za dowód, a nie za obietnicę. A potem rozpędza to, co już leci. Nie zaczyna za Ciebie.
 
 Wysłanie demo jest tanie i nie ma powodu z niego rezygnować. Kosztowne jest wyłącznie to, co wielu robi zaraz potem: wstrzymuje wydania i czeka na odpowiedź, która przy zerowej publiczności prawie zawsze brzmi „nie”.
 
