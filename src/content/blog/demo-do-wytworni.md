@@ -12,7 +12,7 @@ Muzykę publikuje dziś [około 12 milionów osób, a 1% z nich zbiera 90% wszys
 
 Wytwórnia patrzy na ten sam wykres co Ty, tylko wyciąga z niego inny wniosek. Skoro dziewięć na dziesięć odtworzeń bierze garstka, to pieniądze idą tam, gdzie ktoś już pokazał, że umie do tej garstki dołączyć. Cała reszta jest zakładem o to, że dołączy. Drogim zakładem.
 
-Zacznijmy więc od zdania, którego źle się słucha. **Wytwórnie nie nie szukają talentów. To inwestorzy.**
+Zacznijmy więc od zdania, którego źle się słucha. **Wytwórnie nie szukają talentów. To inwestorzy.**
 
 ## Kto siedzi po drugiej stronie
 
