@@ -25,4 +25,4 @@ Na promocję na tym etapie odradzam wydawanie czegokolwiek, dopóki nie wiadomo,
 
 I to jest budżet, którego nikt nie planuje: umawianie terminów, opisy, metadane, zgłoszenia do playlist, przypominanie się mediom. Przy jednej premierze w roku da się to udźwignąć po godzinach. Przy trzech ktoś musi te godziny dostać albo odjąć je od czegoś innego, i lepiej wiedzieć o tym przed premierą, a nie w jej tygodniu.
 
-Pojedynczy singiel prawie nigdy nie zwraca się sam. **Zwraca się katalog**: kolejne wydawnictwa ciągnące odsłuchy poprzednich, koncerty i pozycja, której rok wcześniej nie było. Więc nie pytaj, ile kosztuje singiel. Pytaj, ile masz czasu przez najbliższy rok.
+Pojedynczy singiel prawie nigdy nie zwraca się sam. **Zwraca się katalog**: [kolejne wydawnictwa ciągnące odsłuchy poprzednich](/blog/demo-do-wytworni), koncerty i pozycja, której rok wcześniej nie było. Więc nie pytaj, ile kosztuje singiel. Pytaj, ile masz czasu przez najbliższy rok.
