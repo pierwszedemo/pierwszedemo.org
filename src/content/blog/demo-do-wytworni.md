@@ -112,7 +112,7 @@ Nie czekaj w ogóle. Działaj dalej. Brak odpowiedzi po dwóch miesiącach trakt
 
 ### Czy wydanie singla samodzielnie zamyka drogę do wytwórni?
 
-Odwrotnie. Samodzielne wydawnictwo jest dziś sposobem na zdobycie danych, które ktokolwiek zechce obejrzeć. Katalog wydany przez dystrybutora cyfrowego można później przenieść albo zostawić tam, gdzie jest – to kwestia zapisów w umowie, a nie przeszkoda nie do przebrnięcia.
+Odwrotnie. Samodzielne wydawnictwo jest dziś sposobem na zdobycie danych, które ktokolwiek zechce obejrzeć. Katalog wydany przez dystrybutora cyfrowego można później przenieść – to kwestia zapisów w umowie, a nie przeszkoda nie do przebrnięcia.
 
 ## Podsumowanie
 
