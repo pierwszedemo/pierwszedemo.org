@@ -1,6 +1,6 @@
 ---
 title: Trzy tygodnie i dwa lata. Wywiad z Olą Geppert i Ioannim
-lead: 'Singiel „To nie ja” powstawał prawie dwa lata. Samo komponowanie i produkcja zajęły z tego dwa, trzy tygodnie. Więc co robiło się przez resztę czasu?'
+lead: 'Singiel „To nie ja” powstawał prawie dwa lata. Samo komponowanie i produkcja zajęły z tego dwa, trzy tygodnie. Więc co działo się przez resztę czasu?'
 category: Wydawnictwa
 kind: przewodnik
 date: 2026-09-10
