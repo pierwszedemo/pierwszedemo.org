@@ -19,7 +19,7 @@ Okładka i zdjęcia? Każda i każdy z nas nosi w kieszeni aparat, którym da si
 
 Jedyna pozycja z twardą ceną to dystrybucja. Najtańszy plan [DistroKid kosztuje 24,99 $ rocznie](https://distrokid.com/pricing/) za nielimitowane wydawnictwa i całość wpływów zostaje u artystki albo artysty. Polskie [Mugo nie bierze abonamentu](https://mugo.pl), tylko zostawia 70-85% przychodu ze sprzedaży cyfrowej, zależnie od pakietu. To cały koszt wejścia – raczej niewiele.
 
-Na promocję na tym etapie odradzam wydawanie czegokolwiek, dopóki nie wiadomo, [komu właściwie ten utwór ma trafić w ucho](/blog/grupa-docelowa-artysty). **Rolki, posty i wiadomości do ludzi kosztują wyłącznie czas. Płatna reklama kupuje zasięg, nie publiczność.** Reklamy przyjdą wtedy, gdy będzie już wiadomo do jakiej niszy kierujemy utwór i które treści „chwyciły” na socialach.
+Na promocję na tym etapie odradzam wydawanie czegokolwiek, dopóki nie wiadomo, [komu właściwie ten utwór ma trafić w ucho](/blog/grupa-docelowa-artysty). **Rolki, posty i wiadomości do ludzi kosztują wyłącznie czas. Płatna reklama kupuje zasięg, nie publiczność.** Reklamy przyjdą wtedy, gdy będzie już wiadomo do jakiej niszy kierujemy utwór i [które treści „chwyciły” na socialach](/blog/strategia-social-media-artysty).
 
 **Rachunek za pierwszego singla płacisz czasem, nie przelewem.**
 

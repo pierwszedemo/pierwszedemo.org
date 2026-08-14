@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
-import { getSortedPosts, isoMonth } from "../../blog";
+import { getSortedPosts, isoDate, isoMonth } from "../../blog";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import { PERSON_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
 import { fixHanging } from "../../typography";
@@ -103,8 +103,8 @@ const breadcrumb = breadcrumbJsonLd(
                 ]}
               >
                 <span class="order-2 font-mono text-[13px] text-muted group-hover:text-white/70 group-focus-visible:text-white/70 md:order-none md:px-8 md:py-7">
-                  <time datetime={isoMonth(post.data.date)}>
-                    {isoMonth(post.data.date)}
+                  <time datetime={isoDate(post.data.date)}>
+                    {isoDate(post.data.date)}
                   </time>
                   <span class="md:hidden"> – {post.data.category}</span>
                 </span>

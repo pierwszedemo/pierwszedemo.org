@@ -18,7 +18,7 @@ Do tego dochodzi rzecz przyziemna. Zaglądam do panelu artystki, która ma za so
 
 **Dlatego obstawiam kilka nisz naraz.**
 
-Tylko nie zrozum mnie źle, to nie jest zgoda na chaos. Pojedynczy film czy post ma być kierowany wąsko, do konkretnej garstki ludzi, bo treść adresowana do wszystkich nie trafia w nikogo. Ale całość musi być różnorodna, bo tylko wtedy widać, która nisza w ogóle reaguje. Oczywiście w obrębie tego samego image'u i persony, która [jest opisana na początku press kitu](/blog/jak-przygotowac-epk).
+Tylko nie zrozum mnie źle, to nie jest zgoda na chaos. [Pojedynczy film czy post ma być kierowany wąsko](/blog/strategia-social-media-artysty), do konkretnej garstki ludzi, bo treść adresowana do wszystkich nie trafia w nikogo. Ale całość musi być różnorodna, bo tylko wtedy widać, która nisza w ogóle reaguje. Oczywiście w obrębie tego samego image'u i persony, która [jest opisana na początku press kitu](/blog/jak-przygotowac-epk).
 
 Nie ma na tym etapie złych pomysłów. Ale muszą być mierzalne.
 
