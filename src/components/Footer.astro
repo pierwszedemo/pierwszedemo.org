@@ -1,61 +1,29 @@
 ---
-import { SOCIALS } from "../consts";
-
-// Układ z makiety: © / LinkedIn / Instagram / Cookies. Adresu e-mail tu nie ma
-// świadomie – jest w nawigacji i w pasmie „Kontakt", a piąta komórka rozbiłaby
-// czterokolumnową siatkę. Z tego samego powodu miasto ustąpiło miejsca
-// „Cookies": RODO wymaga, żeby wycofanie zgody było równie łatwe co jej
-// udzielenie, a Gdańsk i tak stoi w nadtytule hero.
-const cells = [
-  { label: `© ${new Date().getFullYear()}` },
-  ...SOCIALS,
-  { label: "Cookies", preferences: true },
-];
-
-// Linie siatki liczone z pozycji komórki: przy dwóch kolumnach kreska pionowa
-// idzie po lewej komórce wiersza, pozioma pod górnym wierszem; przy czterech
-// zostaje tylko pionowa, poza ostatnią komórką.
-const border = (index: number) =>
-  [
-    "border-hairline",
-    index % 2 === 0 ? "border-r" : "",
-    index < 2 ? "border-b md:border-b-0" : "",
-    index < cells.length - 1 ? "md:border-r" : "md:border-r-0",
-  ].join(" ");
-
-// Szersze wcięcie z makiety dopiero od lg – przy 768 px czterokolumnowa
-// stopka z padding: 32px łamie dłuższe etykiety w środku słowa.
+// Profile społecznościowe są tylko w schema.org. Widoczna stopka zostawia
+// niezbędne minimum: podpis i równie łatwy jak zgoda dostęp do ustawień cookies.
 const cell = "px-5 py-4 md:py-[19px] lg:px-8";
 ---
 
 <footer
   class="grid grid-cols-2 border-t border-ink text-[13px] text-muted md:grid-cols-4"
 >
-  {
-    cells.map((item, index) =>
-      "href" in item ? (
-        <a
-          href={item.href}
-          rel="me noopener"
-          target="_blank"
-          class={`${cell} ${border(index)}`}
-        >
-          {item.name} <span aria-hidden="true">↗</span>
-          <span class="sr-only">(otwiera się w nowej karcie)</span>
-        </a>
-      ) : "preferences" in item ? (
-        // Panel otwiera delegowany listener w ConsentManager.astro – dzięki
-        // temu przycisk działa też po podmianie DOM przez ClientRouter.
-        <button
-          type="button"
-          data-cc-preferences
-          class={`${cell} ${border(index)} cursor-pointer text-left underline underline-offset-4 transition-colors hover:text-ink`}
-        >
-          {item.label}
-        </button>
-      ) : (
-        <div class={`${cell} ${border(index)}`}>{item.label}</div>
-      ),
-    )
-  }
+  <div
+    class={`${cell} border-r border-b border-hairline md:border-b-0`}
+  >
+    © {new Date().getFullYear()}
+  </div>
+  <div
+    class={`${cell} border-b border-hairline md:border-r md:border-b-0`}
+    aria-hidden="true"
+  ></div>
+  <div class={`${cell} border-r border-hairline`} aria-hidden="true"></div>
+  <!-- Panel otwiera delegowany listener w ConsentManager.astro – dzięki temu
+       przycisk działa też po podmianie DOM przez ClientRouter. -->
+  <button
+    type="button"
+    data-cc-preferences
+    class={`${cell} cursor-pointer text-left underline underline-offset-4 transition-colors hover:text-ink`}
+  >
+    Cookies
+  </button>
 </footer>
