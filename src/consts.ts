@@ -84,6 +84,8 @@ export const PERSON_PROFILES = [
   { name: "LinkedIn", href: "https://linkedin.com/in/mmiszczyszyn" },
   { name: "Instagram", href: "https://www.instagram.com/typeofweb/" },
   { name: "Facebook", href: "https://facebook.com/typeofweb" },
+  { name: "YouTube", href: "https://www.youtube.com/typeofweb" },
+  { name: "X", href: "https://x.com/typeofweb" },
 ] as const;
 
 /**
