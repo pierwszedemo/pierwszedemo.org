@@ -1,5 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/to-nie-ja",
+      "destination": "https://open.spotify.com/album/48QYx4OrlDe4tLGTOWuyaw",
+      "permanent": false
+    }
+  ]
 }
