@@ -17,6 +17,7 @@ export const SITE_DESCRIPTION =
 
 export const CONTACT_EMAIL = "michal@pierwszedemo.com";
 export const HOME_CITY = "Gdańsk";
+export const TYPE_OF_WEB_URL = "https://typeofweb.com";
 
 /**
  * Stabilne @id węzłów schema.org – wiążą encje między stronami. Jadą z
@@ -28,7 +29,7 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const ORGANIZATION_ID = `${SITE_URL}/#firma`;
 
 /** Data ostatniej zmiany treści – trafia do sitemap.lastmod i dateModified. */
-export const LAST_CONTENT_UPDATE = "2026-08-13";
+export const LAST_CONTENT_UPDATE = "2026-08-16";
 
 /**
  * Identyfikator pomiaru GA4 (G-XXXXXXXXXX). Pusty łańcuch = gtag.js w ogóle
@@ -42,11 +43,12 @@ export const GA_ID = "G-MHM5P6X3TG";
 export const WORDMARK = `${SITE_NAME}®`;
 
 /**
- * Nawigacja. Makieta ma tu cztery komórki (marka, Artyści, Blog, Kontakt);
- * „Artyści" wypadło, a jego miejsce trzyma pusta komórka w `Nav.astro`, żeby
- * siatka została czterokolumnowa.
+ * Nawigacja. Cztery komórki z makiety zajmują marka, O mnie, Blog i Kontakt.
  */
-export const NAV = [{ label: "Blog", href: "/blog" }] as const;
+export const NAV = [
+  { label: "O mnie", href: "/o-mnie" },
+  { label: "Blog", href: "/blog" },
+] as const;
 
 export const SERVICES = [
   { no: "01", label: "Management" },
@@ -76,10 +78,12 @@ export function withUtm(href: string, campaign: string): string {
   return url.href;
 }
 
-/** Kolejność jak w stopce z makiety: LinkedIn, potem Instagram. */
-export const SOCIALS = [
-  { name: "LinkedIn", href: "https://www.linkedin.com/in/mmiszczyszyn/" },
+/** Publiczne profile, które identyfikują tę samą osobę w danych schema.org. */
+export const PERSON_PROFILES = [
+  { name: "Type of Web", href: TYPE_OF_WEB_URL },
+  { name: "LinkedIn", href: "https://linkedin.com/in/mmiszczyszyn" },
   { name: "Instagram", href: "https://www.instagram.com/typeofweb/" },
+  { name: "Facebook", href: "https://facebook.com/typeofweb" },
 ] as const;
 
 /**
@@ -123,8 +127,8 @@ export const CONSENT_COOKIE_DAYS = 182;
  */
 export const COMPANY = {
   name: "Type of Web - Michał Miszczyszyn",
-  street: "ul. Bażantowa 9/21",
-  postalCode: "80-175",
+  street: "ul. Stolema 6H/2",
+  postalCode: "80-177",
   city: "Gdańsk",
   nip: "6040080451",
 } as const;
