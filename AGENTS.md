@@ -66,7 +66,10 @@ sites without a grep.
 Posts are markdown in `src/content/blog/`, loaded through a content collection
 (`src/content.config.ts`) with a zod schema: `title`, `lead` (the "W skrócie"
 column, doubling as the meta description), `category`, `kind`, `date`,
-`updated?`, `keyphrase?`, `readingMinutes`. `src/blog.ts` owns sort order –
+`updated?`, `keyphrase?`, `readingMinutes`, `spotifyTrackId?` (embeds a Spotify
+player under the lead in the "W skrócie" column – a frontmatter field, never an
+iframe in the body; the player loads without the consent banner on legitimate
+interest, same convention as olageppert.pl, and has its row in `PRIVACY_TOOLS`). `src/blog.ts` owns sort order –
 `getSortedPosts()` is the single source for both the list page and the prev/next
 links, so they can't disagree.
 
