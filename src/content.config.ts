@@ -32,6 +32,14 @@ const blog = defineCollection({
      */
     keyphrase: z.string().optional(),
     readingMinutes: z.number().int().positive(),
+    /**
+     * ID utworu z open.spotify.com/track/<id> – osadza odtwarzacz w kolumnie
+     * „W skrócie". Pole zamiast iframe'u w markdownie, bo korpus wpisu
+     * dopuszcza tylko akapity, ##, ###, linki, strong i em. Odtwarzacz ładuje
+     * się bez banera – uzasadniony interes, wpis w PRIVACY_TOOLS, ta sama
+     * konwencja co na olageppert.pl.
+     */
+    spotifyTrackId: z.string().optional(),
   }),
 });
 
