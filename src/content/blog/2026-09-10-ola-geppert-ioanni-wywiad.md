@@ -8,6 +8,9 @@ keyphrase: ola geppert ioanni
 pullquote: 'Zamiast uchwycić jakiś moment, przedłużamy tę chwilę i jest takie ryzyko, że gdzieś straci się ten impet, i to, co pierwotnie było świeże i lekkie, może być gorsze albo nawet wcale nie wyjść. Zakurzyć się w szufladzie.'
 pullquoteAuthor: Ola Geppert
 readingMinutes: 11
+# Po premierze wstaw ID z open.spotify.com/track/<id> – osadzi odtwarzacz
+# w kolumnie „W skrócie".
+spotifyTrackId: 48QYx4OrlDe4tLGTOWuyaw
 ---
 
 Singiel „To nie ja” [ukazuje się dziś](SPOTIFY-URL-DO-UZUPELNIENIA), a jesienią wyjdzie debiutancka EP Oli Geppert i Ioanniego. Ona pisze teksty i śpiewa, on komponuje, produkuje, miksuje i masteruje. Ola wydała wcześniej [siedem singli, od debiutu w 2022 roku](https://olageppert.pl/bio), jeszcze jako Birim.
@@ -22,7 +25,7 @@ Rozmawiałem z obojgiem osobno i żadne z nich nie znało odpowiedzi drugiego. P
 
 ### Jak to się stało, że zaczęliście nagrywać razem?
 
-**Ioanni:** Nasz wspólny kolega zauważył mnie jako osobę, która ma talent, i chciał mnie dołączyć do grupy, w której była też Ola. Wysłałem Oli jakąś moją produkcję i bardzo jej się spodobało. Parę dni później napisała. Pamiętam, to było pytanie, czy chcę dograć żywe pianino do jej piosenki. I tą piosenką jest „To nie ja”.
+**Ioanni:** Nasz wspólny kolega zauważył mnie […] i chciał mnie dołączyć do grupy, w której była też Ola. Wysłałem Oli jakąś moją produkcję i bardzo jej się spodobało. Parę dni później napisała. Pamiętam, to było pytanie, czy chcę dograć żywe pianino do jej piosenki. I tą piosenką jest „To nie ja”.
 
 **Ola:** Ioannis przysłał mi utwór produkowany z kolegą. Powiedziałam, że podoba mi się pianino, że możemy coś razem stworzyć. Parę tygodni później przysłałam mu demo mojego utworu.
 
