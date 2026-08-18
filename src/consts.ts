@@ -168,6 +168,14 @@ export const PRIVACY_TOOLS = [
     storage: "Cookies _ga, _ga_* (2 lata)",
     basis: "Zgoda (art. 6 ust. 1 lit. a RODO)",
   },
+  {
+    name: "Odtwarzacz Spotify",
+    provider: "Spotify AB, Szwecja",
+    purpose:
+      "Osadzony odtwarzacz utworu w niektórych wpisach na blogu – odsłuch bez wychodzenia ze strony.",
+    storage: "Cookies i localStorage Spotify",
+    basis: "Uzasadniony interes (art. 6 ust. 1 lit. f RODO)",
+  },
 ] as const;
 
 export const PRIVACY_SECTIONS = [
@@ -194,6 +202,7 @@ export const PRIVACY_SECTIONS = [
       "Decyzję zmienisz w każdej chwili – link „Cookies” w stopce otwiera panel ustawień. Po cofnięciu zgody zapisane wcześniej cookies analityczne są usuwane.",
       `Umami i Vercel Web Analytics nie zapisują niczego na Twoim urządzeniu i nie tworzą profili – liczą odwiedziny i kliknięcia w linki w postaci zbiorczych statystyk, bez wiązania ich z konkretną osobą – dlatego działają niezależnie od banera. Cookie z Twoją decyzją o zgodach (${CONSENT_COOKIE}, ${CONSENT_COOKIE_DAYS} dni) jest niezbędne do działania samego mechanizmu zgody.`,
       "Kroje pisma są serwowane z tego samego serwera co strona – przeglądanie serwisu nie wysyła żadnego zapytania do Google Fonts.",
+      "W niektórych wpisach na blogu osadzony jest odtwarzacz Spotify. Wczytuje się razem ze stroną i Spotify zapisuje wtedy własne cookies oraz dane w localStorage, na zasadach opisanych w polityce prywatności Spotify. Jeśli tego nie chcesz, zablokuj cookies stron trzecich w ustawieniach przeglądarki.",
     ],
   },
   {
