@@ -3,7 +3,7 @@ title: Początkujący manager robi wszystko oprócz muzyki
 lead: Na starcie jesteś sprzedawcą, bookerem, marketingowcem i fotografem naraz. A główna robota i tak polega na pilnowaniu, żeby artyści kończyli to, co zaczęli.
 category: Zarządzanie
 kind: notatka
-date: 2026-08-18
+date: 2026-08-19
 keyphrase: początkujący manager artysty
 readingMinutes: 2
 ---
@@ -30,6 +30,6 @@ Każde z tych zdań świetnie brzmi i nic z nich nie wynika. „100 tys. słucha
 
 Więc ostudzam, urealniam, ściągam na ziemię. Kalendarz wydawniczy planuję od daty premiery wstecz, z buforem na wszystko, co miało „być gotowe na jutro”. Nie po to, żeby odbierać komukolwiek entuzjazm – po to, żeby premiera wydarzyła się naprawdę, a nie w trybie przypuszczającym.
 
-Do tego wspólny kalendarz, regularne spotkania u mnie w domu i premiera ustawiona pod [Great September](https://greatseptember.pl/). Termin, którego nie da się przesunąć, motywuje lepiej niż manager. A motywacja jest tu potrzebna do najnudniejszej części tej roboty, czyli do kończenia rzeczy zaczętych. Bez tego zostaje szuflada pełna prawie gotowych singli.
+Do tego wspólny kalendarz, regularne spotkania w domu i premiera ustawiona pod [Great September](https://greatseptember.pl/). Termin, którego nie da się przesunąć motywuje lepiej niż manager. A motywacja jest tu potrzebna do najnudniejszej części tej roboty, czyli do kończenia rzeczy zaczętych. Bez tego zostaje szuflada pełna _prawie_ gotowych singli.
 
-Marzenia są po stronie artystów. Terminy są po Twojej.
+Marzenia są po stronie artystów. Terminy po Twojej.
