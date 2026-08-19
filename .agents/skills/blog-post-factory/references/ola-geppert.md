@@ -108,7 +108,11 @@ niżej, i **nigdy** z formułą „jak podaje…", „według…", bo nie ma cze
 
 ## Plany
 
-Debiutancka **EP** nagrywana z producentem **Ioanni** (kompozytor, pianista i producent).
+Debiutancka **EP** nagrywana z producentem **Ioanni** (kompozytor, pianista i producent,
+a także współautor części tekstów). Wydawnictwo powstaje jako collab dwójki artystów
+i Michał zarządza w praktyce obojgiem, choć w rosterze formalnie jest sama Ola.
+*(Rola Ioanniego jako współautora tekstów i układ collabu: informacja od Michała,
+2026-08-19 – strona artystki opisuje Ioanniego tylko jako producenta.)*
 Planowane okno wydawnicze: **jesień 2026**. Tytuł nie został ogłoszony.
 
 Pisownia: **Ioanni**, jedna forma w całym blogu. W przypadkach zależnych odmieniaj

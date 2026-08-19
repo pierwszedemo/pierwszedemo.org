@@ -44,10 +44,16 @@ z wpisu o EPK link tam, a nie odwrotnie.
 | Rebranding artysty w praktyce – czego uczy zmiana nazwy | Zarządzanie | `zmiana nazwy artysty` |
 | Kalendarz polskich wydarzeń branżowych | Branża | `konferencje muzyczne polska` |
 | Rider techniczny bez wstydu | Koncerty | `rider techniczny zespół` |
+| Do agencji z gotowym pomysłem – co i kiedy podzlecać | Zarządzanie | `agencja dla artysty` |
 
 Wpis oznaczony frazą `zmiana nazwy artysty` to naturalne miejsce na przykład Oli Geppert –
 niedomknięty rebranding Birim na platformach jest konkretem, nie autopromocją.
 Zasady w `ola-geppert.md`.
+
+Temat `agencja dla artysty` zamówił autor (2026-08-19) przy pisaniu wpisu
+`poczatkujacy-manager-artysty` – tamten tekst mówi „do agencji przychodzi się z gotowym
+pomysłem" i świadomie tego nie rozwija. Przy pisaniu zostaw stamtąd link zwrotny tutaj.
+Materiał (co realnie podzlecił i jak wyszło) trzeba wziąć od autora – nie zgaduj.
 
 ## Tematy odrzucone
 
