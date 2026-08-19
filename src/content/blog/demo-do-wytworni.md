@@ -96,7 +96,7 @@ Fundusz nie poprowadzi Ci firmy. Dopłaci do tego, co i tak robisz, i podpowie, 
 
 **Najdroższe złudzenie w tej okolicy brzmi mniej więcej tak: podpiszemy i wtedy się zacznie.** Nie zacznie. To Ty musisz zacząć.
 
-**Wytwórnia i inwestor nie mogą być tym, co umożliwia Ci realizację projektu. Są tym, co go bardziej rozpędza.** Reszta zostaje po stronie Twojej i Twojego managera: kalendarz, materiały, sociale, koncerty, kontakt z ludźmi, którzy już słuchają. [Press kit też musi być konkretem, a nie tylko obietnicą](/blog/jak-przygotowac-epk), niezależnie od tego, kto go w końcu dostanie.
+**Wytwórnia i inwestor nie mogą być tym, co umożliwia Ci realizację projektu. Są tym, co go bardziej rozpędza.** Reszta zostaje [po stronie Twojej i Twojego managera](/blog/poczatkujacy-manager-artysty): kalendarz, materiały, sociale, koncerty, kontakt z ludźmi, którzy już słuchają. [Press kit też musi być konkretem, a nie tylko obietnicą](/blog/jak-przygotowac-epk), niezależnie od tego, kto go w końcu dostanie.
 
 Dlatego u siebie prowadzę to równolegle. [Debiutancka EP, którą przygotowujemy na jesień 2026](https://olageppert.pl), ma swój termin i swoją kolejkę singli niezależnie od tego, kto ostatecznie ją wyda. Rozmowy toczą się obok, a nie zamiast.
 
