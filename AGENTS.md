@@ -212,9 +212,16 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
 - Skills live in `.agents/skills/`; `.claude/skills/` holds symlinks to them.
   `seo`, `accessibility` and `frontend-design` are vendored from GitHub and
   pinned in `skills-lock.json` – this project cares about all three.
-  `blog-post-factory` is this repo's own skill and is deliberately *not* in
-  `skills-lock.json`: that file pins upstream skills by `computedHash`, and a
-  locally authored one would fail every sync.
+  `blog-post-factory` and `instagram-carousel` are this repo's own skills and
+  are deliberately *not* in `skills-lock.json`: that file pins upstream skills
+  by `computedHash`, and a locally authored one would fail every sync.
+- `instagram-carousel` turns a published post into a 1080×1080 carousel
+  (cover / 1–4 content slides / CTA) plus a caption, written to
+  `instagram/<slug>/`. Its `scripts/generate.mjs` mirrors `src/og.ts`
+  (satori + sharp, same palette and footer); it vendors its own
+  `Archivo-Regular.ttf` because `src/assets/fonts/` holds only what the OG
+  cards use. `instagram/` output is committed – it is the promotion history
+  of a post.
 
 ## Not built yet
 
