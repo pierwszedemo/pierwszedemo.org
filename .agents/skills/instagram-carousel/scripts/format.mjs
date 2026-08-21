@@ -12,20 +12,23 @@
  *             oddzielone hairline. Lista, której karuzela nie ma.
  *   pytanie – jeden slajd, tekst wyśrodkowany w hairline'owej ramce, wielki
  *             „?” w mono. Karuzela jest zawsze lewa i bez ramki.
+ *   liczba  – jeden slajd, kadr dzielony: góra negatyw z liczbą w Archivo
+ *             ~340 px, dół biel ze zdaniem i stopką. Jedyny format z dwoma
+ *             tłami w jednym kadrze.
  *
  * Uruchomienie – zawsze z katalogu głównego repo:
- *   bun .agents/skills/instagram-carousel/scripts/format.mjs <slug> <mit|zapisz|pytanie>
+ *   bun .agents/skills/instagram-carousel/scripts/format.mjs <slug> <mit|zapisz|pytanie|liczba>
  * Czyta instagram/<data>-<slug>-<format>/spec.json, zapisuje tam NN.png
  * i alt.txt – każdy post na Instagram ma własny katalog, jak karuzela.
  */
 import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import {
-  BODY, HAIRLINE, INK, MUTED, MUTED_ON_INK, PANEL, el, failOn, footer, frame, glue, header, makeCheck, mono,
+  BODY, HAIRLINE, INK, MUTED, MUTED_ON_INK, PAD, PANEL, el, failOn, footer, frame, glue, header, makeCheck, mono,
   readSpec, render, requireRepoRoot, resolvePostDir,
 } from "./lib.mjs";
 
-const FORMATS = ["mit", "zapisz", "pytanie"];
+const FORMATS = ["mit", "zapisz", "pytanie", "liczba"];
 const [slug, format] = process.argv.slice(2);
 requireRepoRoot();
 const post = resolvePostDir(slug, format);
@@ -141,6 +144,45 @@ if (format === "pytanie") {
     ]),
   ];
   altLines = [`Pytanie: ${spec.pytanie} ${spec.podpis ?? "Odpowiedz w komentarzu"}`];
+}
+
+if (format === "liczba") {
+  // Liczba to jeden token – musi zmieścić się w 912 px. Przy 340 px Archivo
+  // SemiBold z trackingiem -0.06em to ok. 5 znaków; dłuższe schodzą niżej.
+  check("liczba", spec.liczba, 9, { token: 9 });
+  check("zdanie", spec.zdanie, 170, { token: 26 });
+  check("zrodlo", spec.zrodlo, 60, { required: false, token: 30 });
+  failOn(errors);
+  const n = spec.liczba.length;
+  const size = n > 7 ? 200 : n > 5 ? 260 : 340;
+  // Kadr dzielony: góra na negatywie z liczbą, dół na bieli ze zdaniem.
+  // Jedyny format z dwoma tłami w jednym kadrze – to jest jego sygnatura,
+  // nie dodawaj podziału gdzie indziej.
+  nodes = [
+    el("div", { display: "flex", flexDirection: "column", width: "100%", height: "100%", fontFamily: "Archivo" }, [
+      el(
+        "div",
+        {
+          display: "flex", flexDirection: "column", justifyContent: "space-between", flexGrow: 1,
+          padding: PAD, paddingBottom: 64, backgroundColor: INK, color: "#ffffff",
+        },
+        [
+          header(eyebrow, "Liczba", true),
+          el("div", { fontSize: size, fontWeight: 600, lineHeight: 0.95, letterSpacing: "-0.06em", marginLeft: -8 }, spec.liczba),
+        ],
+      ),
+      el(
+        "div",
+        { display: "flex", flexDirection: "column", padding: PAD, paddingTop: 64, backgroundColor: "#ffffff", color: INK },
+        [
+          el("div", { fontSize: 44, fontWeight: 600, lineHeight: 1.2, letterSpacing: "-0.02em", maxWidth: 880 }, glue(spec.zdanie)),
+          ...(spec.zrodlo ? [el("div", { ...mono, marginTop: 28, color: MUTED }, spec.zrodlo)] : []),
+          el("div", { display: "flex", flexDirection: "column", marginTop: 56 }, footer(false)),
+        ],
+      ),
+    ]),
+  ];
+  altLines = [`${spec.liczba}. ${spec.zdanie}${spec.zrodlo ? ` Źródło: ${spec.zrodlo}` : ""}`];
 }
 
 mkdirSync(dir, { recursive: true });
