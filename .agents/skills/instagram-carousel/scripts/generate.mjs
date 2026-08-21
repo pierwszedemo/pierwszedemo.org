@@ -1,102 +1,40 @@
 #!/usr/bin/env bun
 /**
- * Karuzela na Instagram: pionowe kadry 1080×1350 rysowane tym samym językiem, co
- * karty OG (src/og.ts): biel, twarda linia, Archivo w nagłówkach, IBM Plex
- * Mono w etykietach. Okładka i slajdy treści na bieli, CTA na negatywie – jak
- * wiersze bloga na stronie.
- *
- * Dlaczego satori, a nie SVG w sharpie: sharp renderuje SVG librsvg, który
- * sięga po *systemowe* fonty – Archivo nie ma na tej maszynie. Satori dostaje
- * TTF wprost i zamienia tekst na ścieżki. Regular (treść slajdów) jest
- * zvendorowany w assets/ obok skryptu, bo src/assets/fonts trzyma tylko
- * odmiany potrzebne kartom OG.
+ * Karuzela na Instagram: okładka z hookiem, 1–4 slajdy treści, CTA na
+ * negatywie – jak wiersze bloga na stronie. Wspólne ramy (kadr, paleta,
+ * fonty, nagłówek, stopka, walidacja, zapis) są w lib.mjs; tu jest tylko
+ * układ środka kadru właściwy dla karuzeli.
  *
  * Uruchomienie – zawsze z katalogu głównego repo:
  *   bun .agents/skills/instagram-carousel/scripts/generate.mjs <slug>
- * Czyta instagram/<data>-<slug>/slides.json, zapisuje tam NN.png, alt.txt.
+ * Czyta instagram/<data>-<slug>-karuzela/spec.json, zapisuje tam NN.png, alt.txt.
  */
-import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync } from "node:fs";
 import { resolve } from "node:path";
-import satori from "satori";
-import sharp from "sharp";
-import { HOME_CITY, PERSON_NAME, SITE_HOST, SITE_TAGLINE, WORDMARK } from "../../../../src/consts.ts";
-
-// 4:5 – najwyższy kadr, jaki Instagram pokazuje w feedzie bez przycinania;
-// kwadrat oddaje ~20% wysokości ekranu sąsiednim postom.
-const WIDTH = 1080;
-const HEIGHT = 1350;
-const PAD = 84;
-
-const INK = "#101010";
-const MUTED = "#6f6d68";
-const BODY = "#3c3a36";
-/** Odpowiednik muted na negatywie – hairline z palety strony. */
-const MUTED_ON_INK = "#a6a49f";
-
-// Ścieżki od process.cwd(): skrypt czyta też pliki spoza swojego katalogu
-// (fonty OG, instagram/<data>-<slug>/), więc i tak wymaga startu z korzenia repo –
-// jedna konwencja zamiast dwóch.
-const font = (path) => readFileSync(resolve(process.cwd(), path));
+import { SITE_HOST } from "../../../../src/consts.ts";
+import {
+  BODY, MUTED_ON_INK, el, failOn, footer, frame, glue, header, makeCheck, mono, pageNo, readSpec, render,
+  requireRepoRoot, resolvePostDir,
+} from "./lib.mjs";
 
 const slug = process.argv[2];
-if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
+requireRepoRoot();
+const post = resolvePostDir(slug, "karuzela");
+if (!post) {
   console.error("Użycie: bun .agents/skills/instagram-carousel/scripts/generate.mjs <slug>");
-  if (slug?.startsWith("_")) console.error("Szkic (_slug.md) nie ma adresu – najpierw opublikuj wpis.");
   process.exit(1);
 }
-if (!existsSync(resolve(process.cwd(), "src/assets/fonts/Archivo-SemiBold.ttf"))) {
-  console.error("Nie widzę src/assets/fonts – uruchom skrypt z katalogu głównego repo.");
-  process.exit(1);
-}
-// Adres wpisu trafia na slajd CTA jako piksele – literówka w slugu dałaby
-// karuzelę z martwym linkiem, którego nikt już nie poprawi.
-// Pliki wpisów mają prefiks daty (`RRRR-MM-DD-slug.md`), adres – sam slug.
-const postFile = new RegExp(`^\\d{4}-\\d{2}-\\d{2}-${slug}\\.md$`);
-const postName = readdirSync(resolve(process.cwd(), "src/content/blog")).find((f) => postFile.test(f));
-if (!postName) {
-  console.error(`Nie ma opublikowanego wpisu src/content/blog/RRRR-MM-DD-${slug}.md.`);
-  process.exit(1);
-}
-
-// Katalog wynikowy nazywa się jak plik wpisu (`RRRR-MM-DD-slug`), żeby
-// `ls instagram/` układał promocje chronologicznie obok `ls src/content/blog/`.
-// Data jest z nazwy pliku wpisu, nie z dzisiaj – jedna data, dwa miejsca.
-const dirName = postName.replace(/\.md$/, "");
-const dir = resolve(process.cwd(), "instagram", dirName);
-const specPath = resolve(dir, "slides.json");
-if (!existsSync(specPath)) {
-  console.error(`Brak ${specPath} – najpierw zapisz specyfikację slajdów (schemat w SKILL.md).`);
-  process.exit(1);
-}
-let spec;
-try {
-  spec = JSON.parse(readFileSync(specPath, "utf8"));
-} catch (e) {
-  console.error(`${specPath} nie jest poprawnym JSON-em: ${e.message}`);
-  process.exit(1);
-}
+const { dir, dirName } = post;
+const spec = readSpec(resolve(dir, "spec.json"));
 
 // ---------------------------------------------------------------------------
-// Walidacja. Limity znaków to nie stylistyka, tylko geometria: satori nie
-// zmniejsza tekstu, który się nie mieści – wyjechałby poza kadr.
+// Walidacja.
 // ---------------------------------------------------------------------------
 const errors = [];
+const check = makeCheck(errors);
 const cover = spec.cover ?? {};
 const slides = Array.isArray(spec.slides) ? spec.slides : [];
 const cta = spec.cta ?? {};
-
-const isText = (v) => typeof v === "string" && v.trim().length > 0;
-/** Satori nie łamie w środku słowa – jeden długi token wyjedzie poza kadr. */
-const longestToken = (s) => Math.max(0, ...s.split(/\s+/).map((t) => t.length));
-const check = (name, value, max, { required = true, token = 26 } = {}) => {
-  if (value === undefined || value === null || value === "") {
-    if (required) errors.push(`${name} jest wymagany`);
-    return;
-  }
-  if (!isText(value)) return errors.push(`${name} musi być niepustym tekstem`);
-  if (value.length > max) errors.push(`${name} ma ${value.length} znaków, limit ${max}`);
-  if (longestToken(value) > token) errors.push(`${name}: słowo dłuższe niż ${token} znaków nie złamie się w wierszu`);
-};
 
 // Limit tokenu zależy od stopnia pisma: 17 znaków Archivo przy 96 px to już ~900 px.
 check("cover.hook", cover.hook, 110, { token: 17 });
@@ -121,98 +59,20 @@ if (!Array.isArray(ctaLines) || ctaLines.length < 1 || ctaLines.length > 4) {
 }
 const ctaUrl = cta.url ?? `${SITE_HOST}/blog/${slug}`;
 check("cta.url", ctaUrl, 60, { token: 60 });
-
-if (errors.length) {
-  console.error("Specyfikacja nie przeszła walidacji:");
-  for (const e of errors) console.error(`  – ${e}`);
-  process.exit(1);
-}
+failOn(errors);
 
 // ---------------------------------------------------------------------------
 // Rysowanie.
 // ---------------------------------------------------------------------------
-const FONTS = [
-  { name: "Archivo", data: font(".agents/skills/instagram-carousel/assets/Archivo-Regular.ttf"), weight: 400, style: "normal" },
-  { name: "Archivo", data: font("src/assets/fonts/Archivo-SemiBold.ttf"), weight: 600, style: "normal" },
-  { name: "IBM Plex Mono", data: font("src/assets/fonts/IBMPlexMono-Medium.ttf"), weight: 500, style: "normal" },
-];
-
-// Satori bez JSX: element to obiekt {type, props}. Każdy div z wieloma dziećmi
-// musi mieć jawny `display: flex` – satori nie zakłada blokowego układu.
-const el = (type, style, children) =>
-  ({ type, props: { style, ...(children === undefined ? {} : { children }) } });
-
-const mono = {
-  fontFamily: "IBM Plex Mono",
-  fontWeight: 500,
-  fontSize: 23,
-  letterSpacing: "0.18em",
-  textTransform: "uppercase",
-};
-
-// Wiszące spójniki: „i", „w", „z", „a", „o", „u" na końcu wiersza to błąd
-// polskiej typografii. Twarda spacja (U+00A0) po nich – satori jej nie łamie.
-const glue = (s) => s.replace(/(^|[\s(„])([aiouwzAIOUWZ])\s+/g, "$1$2\u00A0");
-
 const total = slides.length + 2;
-const pageNo = (i) => `${String(i).padStart(2, "0")}/${String(total).padStart(2, "0")}`;
-
-/** Nagłówek i stopka są wspólne dla wszystkich slajdów – to one robią serię. */
-const header = (left, right, onInk) => el(
-  "div",
-  { display: "flex", justifyContent: "space-between", alignItems: "center" },
-  [
-    el("div", { ...mono, color: onInk ? MUTED_ON_INK : MUTED }, left),
-    el("div", { ...mono, color: onInk ? "#ffffff" : INK }, right),
-  ],
-);
-
-const footer = (onInk) => el(
-  "div",
-  {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    borderTop: `3px solid ${onInk ? "#ffffff" : INK}`,
-    paddingTop: 30,
-  },
-  [
-    el("div", { display: "flex", flexDirection: "column" }, [
-      el("div", { fontSize: 30, fontWeight: 600 }, WORDMARK),
-      // Podpis człowieka pod marką: mniejszy stopień i ciaśniejsze rozstrzelenie
-      // niż w `mono`, bo 46 znaków z trackingiem 0.2em nie mieści się obok adresu.
-      el(
-        "div",
-        { ...mono, fontSize: 17, letterSpacing: "0.08em", marginTop: 10, color: onInk ? MUTED_ON_INK : MUTED },
-        `${PERSON_NAME} – ${SITE_TAGLINE} – ${HOME_CITY}`,
-      ),
-    ]),
-    el("div", { ...mono, color: onInk ? MUTED_ON_INK : MUTED }, SITE_HOST),
-  ],
-);
-
-const frame = (onInk, children) => el(
-  "div",
-  {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    width: "100%",
-    height: "100%",
-    padding: PAD,
-    backgroundColor: onInk ? INK : "#ffffff",
-    color: onInk ? "#ffffff" : INK,
-    fontFamily: "Archivo",
-  },
-  children,
-);
+const no = (i) => pageNo(i, total);
 
 const coverSlide = () => {
   const hook = glue(cover.hook);
   // Progi dobrane tak, żeby hook mieścił się w 2–4 wierszach przy 912 px.
   const size = hook.length > 90 ? 64 : hook.length > 70 ? 72 : hook.length > 40 ? 84 : 96;
   return frame(false, [
-    header(cover.eyebrow ?? "Blog", pageNo(1)),
+    header(cover.eyebrow ?? "Blog", no(1)),
     el(
       "div",
       { display: "flex", flexGrow: 1, flexDirection: "column", justifyContent: "flex-end", paddingBottom: 56 },
@@ -226,7 +86,7 @@ const contentSlide = (s, i) => {
   const heading = s.heading;
   const headingSize = heading.length > 34 ? 46 : 56;
   return frame(false, [
-    header(cover.eyebrow ?? "Blog", pageNo(i + 2)),
+    header(cover.eyebrow ?? "Blog", no(i + 2)),
     el(
       "div",
       { display: "flex", flexGrow: 1, flexDirection: "column", justifyContent: "center" },
@@ -244,7 +104,7 @@ const contentSlide = (s, i) => {
 };
 
 const ctaSlide = () => frame(true, [
-  header("Na koniec", pageNo(total), true),
+  header("Na koniec", no(total), true),
   el(
     "div",
     { display: "flex", flexGrow: 1, flexDirection: "column", justifyContent: "flex-end", paddingBottom: 56 },
@@ -260,31 +120,15 @@ const ctaSlide = () => frame(true, [
   footer(true),
 ]);
 
-const nodes = [coverSlide(), ...slides.map(contentSlide), ctaSlide()];
-
 mkdirSync(dir, { recursive: true });
-// Poprzedni przebieg mógł mieć więcej slajdów – stare NN.png z inną
-// numeracją MM zostałyby obok nowych i poszłyby razem na Instagram.
-for (const f of readdirSync(dir)) {
-  if (/^\d{2}\.png$/.test(f)) rmSync(resolve(dir, f));
-}
-for (let i = 0; i < nodes.length; i++) {
-  const svg = await satori(nodes[i], { width: WIDTH, height: HEIGHT, fonts: FONTS });
-  const png = await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
-  const file = resolve(dir, `${String(i + 1).padStart(2, "0")}.png`);
-  writeFileSync(file, png);
-  console.log(`✓ instagram/${dirName}/${String(i + 1).padStart(2, "0")}.png`);
-}
-
-// Tekst alternatywny: jedna linia na slajd, do wklejenia w pole „Alt text”
-// przy publikacji. Powstaje z tej samej specyfikacji co piksele, więc nie
-// może się od nich różnić. Stopka (wordmark, adres, podpis) jest na każdym
-// slajdzie identyczna – w alcie byłaby szumem, więc zostaje tylko treść.
-const altLines = [
-  `${cover.eyebrow ?? "Blog"}. ${cover.hook}`,
-  ...slides.map((s) => `${s.heading}. ${paragraphs(s.body).join(" ")}`),
-  `${ctaLines.join(" ")} ${ctaUrl}`,
-].map((line, i) => `${String(i + 1).padStart(2, "0")}: ${line}`);
-writeFileSync(resolve(dir, "alt.txt"), altLines.join("\n") + "\n");
-console.log(`✓ instagram/${dirName}/alt.txt`);
-console.log(`Gotowe: ${nodes.length} slajdów (okładka + ${slides.length} treści + CTA).`);
+await render({
+  dir,
+  dirName,
+  nodes: [coverSlide(), ...slides.map(contentSlide), ctaSlide()],
+  altLines: [
+    `${cover.eyebrow ?? "Blog"}. ${cover.hook}`,
+    ...slides.map((s) => `${s.heading}. ${paragraphs(s.body).join(" ")}`),
+    `${ctaLines.join(" ")} ${ctaUrl}`,
+  ],
+});
+console.log(`Gotowe: ${total} slajdów (okładka + ${slides.length} treści + CTA).`);
