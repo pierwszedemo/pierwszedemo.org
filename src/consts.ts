@@ -18,6 +18,8 @@ export const SITE_DESCRIPTION =
 export const CONTACT_EMAIL = "michal@pierwszedemo.com";
 export const HOME_CITY = "Gdańsk";
 export const TYPE_OF_WEB_URL = "https://typeofweb.com";
+/** Profil marki (nie osoby) – stąd w stopce i w `sameAs` Organization, nie Person. */
+export const INSTAGRAM_URL = "https://www.instagram.com/pierwszedemo/";
 
 /**
  * Stabilne @id węzłów schema.org – wiążą encje między stronami. Jadą z
