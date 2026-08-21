@@ -113,7 +113,9 @@ bun .agents/skills/instagram-carousel/scripts/generate.mjs <slug>
 ```
 
 Powstaje `instagram/<slug>/01.png` (okładka), `02.png…` (treść), ostatni numer
-to CTA na czarnym tle. Skrypt najpierw usuwa stare `NN.png` z katalogu, więc
+to CTA na czarnym tle. Obok ląduje `alt.txt` – jedna linia na slajd
+(`NN: nagłówek. akapity`), do wklejenia w pole tekstu alternatywnego przy
+publikacji; powstaje z `slides.json`, więc nie edytuj go ręcznie. Skrypt najpierw usuwa stare `NN.png` z katalogu, więc
 po skróceniu karuzeli nie zostają slajdy z nieaktualną numeracją. PNG 1080×1350 (4:5) – Instagram i tak przekompresuje je do
 JPG, ale płaskie plamy i ostre krawędzie tej estetyki wychodzą z PNG najczyściej.
 
