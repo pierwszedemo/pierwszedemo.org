@@ -270,4 +270,16 @@ for (let i = 0; i < nodes.length; i++) {
   writeFileSync(file, png);
   console.log(`✓ instagram/${slug}/${String(i + 1).padStart(2, "0")}.png`);
 }
+
+// Tekst alternatywny: jedna linia na slajd, do wklejenia w pole „Alt text”
+// przy publikacji. Powstaje z tej samej specyfikacji co piksele, więc nie
+// może się od nich różnić. Stopka (wordmark, adres, podpis) jest na każdym
+// slajdzie identyczna – w alcie byłaby szumem, więc zostaje tylko treść.
+const altLines = [
+  `${cover.eyebrow ?? "Blog"}. ${cover.hook}`,
+  ...slides.map((s) => `${s.heading}. ${paragraphs(s.body).join(" ")}`),
+  `${ctaLines.join(" ")} ${ctaUrl}`,
+].map((line, i) => `${String(i + 1).padStart(2, "0")}: ${line}`);
+writeFileSync(resolve(dir, "alt.txt"), altLines.join("\n") + "\n");
+console.log(`✓ instagram/${slug}/alt.txt`);
 console.log(`Gotowe: ${nodes.length} slajdów (okładka + ${slides.length} treści + CTA).`);

@@ -220,7 +220,8 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
   are deliberately *not* in `skills-lock.json`: that file pins upstream skills
   by `computedHash`, and a locally authored one would fail every sync.
 - `instagram-carousel` turns a published post into a 1080×1350 (4:5) carousel
-  (cover / 1–4 content slides / CTA) plus a caption, written to
+  (cover / 1–4 content slides / CTA) plus a caption and `alt.txt` (one
+  line of alt text per slide, derived from `slides.json`), written to
   `instagram/<slug>/`. Its `scripts/generate.mjs` mirrors `src/og.ts`
   (satori + sharp, same palette and footer); it vendors its own
   `Archivo-Regular.ttf` because `src/assets/fonts/` holds only what the OG
