@@ -1,6 +1,6 @@
 ---
 name: instagram-carousel
-description: Generuje karuzelę na Instagram z istniejącego wpisu na blogu pierwszedemo.com – kwadratowe grafiki 1080×1080 (okładka z hookiem, 1–4 slajdy z esencją wpisu, slajd CTA) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/<slug>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „instagramowa wersja wpisu”, „promocja wpisu w social mediach”.
+description: Generuje karuzelę na Instagram z istniejącego wpisu na blogu pierwszedemo.com – pionowe grafiki 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy z esencją wpisu, slajd CTA) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/<slug>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „instagramowa wersja wpisu”, „promocja wpisu w social mediach”.
 ---
 
 # instagram-carousel
@@ -114,7 +114,7 @@ bun .agents/skills/instagram-carousel/scripts/generate.mjs <slug>
 
 Powstaje `instagram/<slug>/01.png` (okładka), `02.png…` (treść), ostatni numer
 to CTA na czarnym tle. Skrypt najpierw usuwa stare `NN.png` z katalogu, więc
-po skróceniu karuzeli nie zostają slajdy z nieaktualną numeracją. PNG 1080×1080 – Instagram i tak przekompresuje je do
+po skróceniu karuzeli nie zostają slajdy z nieaktualną numeracją. PNG 1080×1350 (4:5) – Instagram i tak przekompresuje je do
 JPG, ale płaskie plamy i ostre krawędzie tej estetyki wychodzą z PNG najczyściej.
 
 ## Krok 5 – kontrola wzrokowa

@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 /**
- * Karuzela na Instagram: kwadraty 1080×1080 rysowane tym samym językiem, co
+ * Karuzela na Instagram: pionowe kadry 1080×1350 rysowane tym samym językiem, co
  * karty OG (src/og.ts): biel, twarda linia, Archivo w nagłówkach, IBM Plex
  * Mono w etykietach. Okładka i slajdy treści na bieli, CTA na negatywie – jak
  * wiersze bloga na stronie.
@@ -21,7 +21,10 @@ import satori from "satori";
 import sharp from "sharp";
 import { HOME_CITY, PERSON_NAME, SITE_HOST, SITE_TAGLINE, WORDMARK } from "../../../../src/consts.ts";
 
-const SIZE = 1080;
+// 4:5 – najwyższy kadr, jaki Instagram pokazuje w feedzie bez przycinania;
+// kwadrat oddaje ~20% wysokości ekranu sąsiednim postom.
+const WIDTH = 1080;
+const HEIGHT = 1350;
 const PAD = 84;
 
 const INK = "#101010";
@@ -261,7 +264,7 @@ for (const f of readdirSync(dir)) {
   if (/^\d{2}\.png$/.test(f)) rmSync(resolve(dir, f));
 }
 for (let i = 0; i < nodes.length; i++) {
-  const svg = await satori(nodes[i], { width: SIZE, height: SIZE, fonts: FONTS });
+  const svg = await satori(nodes[i], { width: WIDTH, height: HEIGHT, fonts: FONTS });
   const png = await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
   const file = resolve(dir, `${String(i + 1).padStart(2, "0")}.png`);
   writeFileSync(file, png);
