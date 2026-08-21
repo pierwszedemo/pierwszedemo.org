@@ -54,11 +54,13 @@ Przeczytaj **cały wpis**, nie sam frontmatter. Z lektury wynoś:
   niesie 2–3, przewodnik 3–4 (po jednym na najważniejsze sekcje `##`). Nie
   upychaj wszystkiego: punkt, który nie mieści się w limicie znaków, jest
   kandydatem do wycięcia, nie do skrócenia w bełkot.
-- **Slajd to teza, nie akapit.** Nagłówek plus jedno, góra dwa krótkie zdania
-  – w praktyce ≤120 znaków `body`. Uzasadnienie, przykład i liczby wspierające
-  zostają we wpisie; na slajdzie jest tylko to, co ma zaciekawić. Limit 440
-  znaków w walidatorze to geometria kadru, nie cel – karuzela, która go
-  wypełnia, jest streszczeniem notatki i nikt po niej nie kliknie w blog.
+- **Slajd = teza + jeden konkret, bez wniosku.** Celuj w 180–250 znaków
+  `body`. Konkret (scena, liczba ze źródłem, kontrast, cytat z panelu) jest
+  obowiązkowy – to on zatrzymuje kciuk; sama teza w jednym zdaniu czyta się
+  jak slogan i nie angażuje. Wniosek, uzasadnienie i „co z tym zrobić”
+  zostają we wpisie – to one są powodem kliknięcia. Limit 440 znaków
+  w walidatorze to geometria kadru, nie cel: karuzela, która go wypełnia,
+  streszcza notatkę i nikt po niej nie wejdzie na blog.
 - Ostatni slajd treści kończy się niedopowiedzeniem albo pytaniem („Co, jeśli
   przegra?”) – powód, żeby wejść na blog, ma zostać.
 
@@ -95,7 +97,7 @@ Zapisz do `instagram/<data>-<slug>/slides.json`:
   tylko górną); stopień pisma dobiera się do długości, 96→64 px.
 - `slides` – 1–4 pozycje; `heading` ≤64 znaki, `body` to string albo tablica
   1–3 akapitów, łącznie ≤440 znaków **licząc spację między akapitami** (górna
-  granica geometrii; redakcyjnie celuj w ≤120 – patrz krok 2).
+  granica geometrii; redakcyjnie celuj w 180–250 – patrz krok 2).
 - `cta` jest opcjonalne – domyślne wartości (powyżej) są dobre w 90% przypadków;
   `lines` to tablica 1–4 linii po ≤22 znaki, `url` ≤60 znaków. Adres renderuje
   się małymi literami – ścieżki na Vercelu rozróżniają wielkość liter.
