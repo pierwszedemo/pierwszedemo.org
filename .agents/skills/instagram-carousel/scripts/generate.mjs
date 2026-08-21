@@ -13,7 +13,7 @@
  *
  * Uruchomienie – zawsze z katalogu głównego repo:
  *   bun .agents/skills/instagram-carousel/scripts/generate.mjs <slug>
- * Czyta instagram/<slug>/slides.json, zapisuje instagram/<slug>/NN.png.
+ * Czyta instagram/<data>-<slug>/slides.json, zapisuje tam NN.png, alt.txt.
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
@@ -34,7 +34,7 @@ const BODY = "#3c3a36";
 const MUTED_ON_INK = "#a6a49f";
 
 // Ścieżki od process.cwd(): skrypt czyta też pliki spoza swojego katalogu
-// (fonty OG, instagram/<slug>/), więc i tak wymaga startu z korzenia repo –
+// (fonty OG, instagram/<data>-<slug>/), więc i tak wymaga startu z korzenia repo –
 // jedna konwencja zamiast dwóch.
 const font = (path) => readFileSync(resolve(process.cwd(), path));
 
@@ -52,12 +52,17 @@ if (!existsSync(resolve(process.cwd(), "src/assets/fonts/Archivo-SemiBold.ttf"))
 // karuzelę z martwym linkiem, którego nikt już nie poprawi.
 // Pliki wpisów mają prefiks daty (`RRRR-MM-DD-slug.md`), adres – sam slug.
 const postFile = new RegExp(`^\\d{4}-\\d{2}-\\d{2}-${slug}\\.md$`);
-if (!readdirSync(resolve(process.cwd(), "src/content/blog")).some((f) => postFile.test(f))) {
+const postName = readdirSync(resolve(process.cwd(), "src/content/blog")).find((f) => postFile.test(f));
+if (!postName) {
   console.error(`Nie ma opublikowanego wpisu src/content/blog/RRRR-MM-DD-${slug}.md.`);
   process.exit(1);
 }
 
-const dir = resolve(process.cwd(), "instagram", slug);
+// Katalog wynikowy nazywa się jak plik wpisu (`RRRR-MM-DD-slug`), żeby
+// `ls instagram/` układał promocje chronologicznie obok `ls src/content/blog/`.
+// Data jest z nazwy pliku wpisu, nie z dzisiaj – jedna data, dwa miejsca.
+const dirName = postName.replace(/\.md$/, "");
+const dir = resolve(process.cwd(), "instagram", dirName);
 const specPath = resolve(dir, "slides.json");
 if (!existsSync(specPath)) {
   console.error(`Brak ${specPath} – najpierw zapisz specyfikację slajdów (schemat w SKILL.md).`);
@@ -268,7 +273,7 @@ for (let i = 0; i < nodes.length; i++) {
   const png = await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
   const file = resolve(dir, `${String(i + 1).padStart(2, "0")}.png`);
   writeFileSync(file, png);
-  console.log(`✓ instagram/${slug}/${String(i + 1).padStart(2, "0")}.png`);
+  console.log(`✓ instagram/${dirName}/${String(i + 1).padStart(2, "0")}.png`);
 }
 
 // Tekst alternatywny: jedna linia na slajd, do wklejenia w pole „Alt text”
@@ -281,5 +286,5 @@ const altLines = [
   `${ctaLines.join(" ")} ${ctaUrl}`,
 ].map((line, i) => `${String(i + 1).padStart(2, "0")}: ${line}`);
 writeFileSync(resolve(dir, "alt.txt"), altLines.join("\n") + "\n");
-console.log(`✓ instagram/${slug}/alt.txt`);
+console.log(`✓ instagram/${dirName}/alt.txt`);
 console.log(`Gotowe: ${nodes.length} slajdów (okładka + ${slides.length} treści + CTA).`);
