@@ -217,7 +217,8 @@ Załaduj `references/styl.md` i `references/format.md`.
 
 - **Pisz od razu po polsku.** Nigdy nie tłumacz z angielskiego szkicu – składnia zostaje
   angielska i tekst brzmi jak tłumaczenie maszynowe.
-- **Zapisuj od razu do `src/content/blog/<slug>.md`.** Nie ma folderu roboczego i to jest
+- **Zapisuj od razu do `src/content/blog/<data>-<slug>.md`** (`2026-08-11-grupa-docelowa-artysty.md`;
+  data = `date` z frontmattera, adres to sam slug – reguły w `format.md`). Nie ma folderu roboczego i to jest
   celowe: `bun run build` w kroku 7 jest realnym testem schematu.
 - **Rytm decyduje o tym, czy tekst brzmi jak człowiek.** Akapit 1–4 zdania, przynajmniej
   jeden jednozdaniowy na wpis. Mediana zdania 10–14 słów, **co najmniej co piąte zdanie
@@ -278,7 +279,7 @@ Załaduj `references/styl.md` i `references/format.md`.
 1. Uzupełnij frontmatter (pola i limity w `format.md`).
 2. Przelicz `readingMinutes`:
    ```bash
-   sed '1,/^---$/d;1,/^---$/d' src/content/blog/<slug>.md | wc -w
+   sed '1,/^---$/d;1,/^---$/d' src/content/blog/<data>-<slug>.md | wc -w
    ```
    `readingMinutes = max(2, round(słowa / 180))`.
 3. Podbij `LAST_CONTENT_UPDATE` w `src/consts.ts`. Uwaga na pułapkę: `serialize()`
@@ -299,7 +300,7 @@ myślniki i cudzysłowy, więc grepowanie całego pliku daje fałszywe trafienia
 
 ```bash
 SLUG=<slug>
-BODY() { sed '1,/^---$/d;1,/^---$/d' "src/content/blog/$SLUG.md"; }
+BODY() { sed '1,/^---$/d;1,/^---$/d' src/content/blog/*-"$SLUG".md; }
 
 # 1. Liczba słów – musi mieścić się w widełkach formatu
 BODY | wc -w

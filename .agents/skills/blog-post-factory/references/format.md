@@ -154,7 +154,7 @@ readingMinutes = max(2, round(słowa / 180))
 ```
 
 ```bash
-sed '1,/^---$/d;1,/^---$/d' src/content/blog/<slug>.md | wc -w
+sed '1,/^---$/d;1,/^---$/d' src/content/blog/<data>-<slug>.md | wc -w
 ```
 
 180 słów na minutę, nie zwyczajowe 200–250: polski jest bardziej fleksyjny, a to teksty
@@ -201,8 +201,11 @@ przy anglicyzmach, które odmieniają się normalnie (`pre-save'u`, `na showcase
 ## Slug
 
 Małe litery ASCII bez polskich znaków, myślniki, 3–5 słów, zawiera rdzeń frazy głównej.
-Nazwa pliku **jest** adresem (`post.id` to nazwa pliku bez rozszerzenia), więc raz
-opublikowanego sluga się nie zmienia.
+Plik nazywa się `RRRR-MM-DD-<slug>.md` (data = `date` z frontmattera – żeby `ls`
+pokazywał chronologię), a adresem jest sam slug: `generateId` w `content.config.ts`
+zdejmuje prefiks daty, `post.id` to czysty slug. Raz opublikowanego sluga się nie
+zmienia; prefiks również zostaje, bo `date` się nie zmienia (patrz tryb aktualizacji).
+Szkic: `_RRRR-MM-DD-<slug>.md` – podkreślenie na początku, przed datą.
 
 ## Kategorie i reguła rozstrzygania
 

@@ -30,7 +30,8 @@ na Instagramie scrolluje; każdy slajd musi bronić się w dwie sekundy.
 
 Kandydatami są wyłącznie opublikowane wpisy – `src/content/blog/*.md` **bez**
 plików zaczynających się podkreśleniem (`_szkic.md` nie ma adresu, więc nie ma
-czego promować).
+czego promować). Slug to nazwa pliku **bez** prefiksu daty i rozszerzenia:
+`2026-08-11-grupa-docelowa-artysty.md` → `grupa-docelowa-artysty`.
 
 - Jeśli użytkownik podał slug albo temat – dopasuj po slugu, `title`,
   `keyphrase` i `lead`. Jedno pewne trafienie: jedź dalej i tylko powiedz, który
@@ -97,7 +98,7 @@ Zapisz do `instagram/<slug>/slides.json`:
 
 Limity to geometria, nie sugestia: satori nie zmniejsza tekstu i nadmiar
 wyjeżdża poza kadr. Walidacja w skrypcie je egzekwuje i wypisuje wszystkie
-błędy naraz. Slug musi wskazywać istniejący `src/content/blog/<slug>.md` –
+błędy naraz. Slug musi wskazywać istniejący `src/content/blog/RRRR-MM-DD-<slug>.md` –
 adres wpisu trafia na slajd CTA jako piksele, więc literówki nie da się
 później poprawić. Wariant karuzeli dla tego samego wpisu (bez nadpisywania)
 zrób pod nazwą `<slug>-v2` – skrypt odmówi, bo pod takim slugiem nie ma wpisu;
