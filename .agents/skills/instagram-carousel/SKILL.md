@@ -1,6 +1,6 @@
 ---
 name: instagram-carousel
-description: Generuje karuzelę na Instagram z istniejącego wpisu na blogu pierwszedemo.com – pionowe grafiki 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy z esencją wpisu, slajd CTA) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/<slug>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „instagramowa wersja wpisu”, „promocja wpisu w social mediach”.
+description: Generuje karuzelę na Instagram z istniejącego wpisu na blogu pierwszedemo.com – pionowe grafiki 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy z esencją wpisu, slajd CTA) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/<data>-<slug>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „instagramowa wersja wpisu”, „promocja wpisu w social mediach”.
 ---
 
 # instagram-carousel
@@ -38,7 +38,9 @@ czego promować). Slug to nazwa pliku **bez** prefiksu daty i rozszerzenia:
   wpis bierzesz.
 - Niejednoznacznie albo wcale: wypisz listę (tytuł, kategoria, data) i **zapytaj
   użytkownika** (AskUserQuestion). Nie zgaduj.
-- Jeśli `instagram/<slug>/` już istnieje, powiedz o tym – ponowne uruchomienie
+- Katalog wynikowy to `instagram/RRRR-MM-DD-<slug>/` – prefiks jest z nazwy
+  pliku wpisu, skrypt dobiera go sam; `<data>` poniżej oznacza właśnie tę datę.
+- Jeśli `instagram/<data>-<slug>/` już istnieje, powiedz o tym – ponowne uruchomienie
   nadpisuje grafiki, a użytkownik mógł chcieć wariant, nie podmianę.
 
 ## Krok 2 – lektura i plan slajdów
@@ -61,7 +63,7 @@ literą, opinia oznajmująco, zero fraz w rodzaju „w dzisiejszych czasach”,
 
 ## Krok 3 – specyfikacja `slides.json`
 
-Zapisz do `instagram/<slug>/slides.json`:
+Zapisz do `instagram/<data>-<slug>/slides.json`:
 
 ```json
 {
@@ -112,7 +114,7 @@ Z katalogu głównego repo:
 bun .agents/skills/instagram-carousel/scripts/generate.mjs <slug>
 ```
 
-Powstaje `instagram/<slug>/01.png` (okładka), `02.png…` (treść), ostatni numer
+Powstaje `instagram/<data>-<slug>/01.png` (okładka), `02.png…` (treść), ostatni numer
 to CTA na czarnym tle. Obok ląduje `alt.txt` – jedna linia na slajd
 (`NN: nagłówek. akapity`), do wklejenia w pole tekstu alternatywnego przy
 publikacji; powstaje z `slides.json`, więc nie edytuj go ręcznie. Skrypt najpierw usuwa stare `NN.png` z katalogu, więc
@@ -136,7 +138,7 @@ slajdu „na styk”.
 
 ## Krok 6 – opis posta (`caption.txt`)
 
-Zapisz `instagram/<slug>/caption.txt`:
+Zapisz `instagram/<data>-<slug>/caption.txt`:
 
 1. **Pierwsza linia ≤125 znaków** – tyle widać przed „więcej”. Wariacja hooka,
    nie jego kopia słowo w słowo.
@@ -150,7 +152,7 @@ Zapisz `instagram/<slug>/caption.txt`:
    #instagood i innego spamu zasięgowego.
 
 Zasady faktograficzne i typograficzne z sekcji „Zasady” obowiązują też tutaj.
-Bramka: `grep -c '"' instagram/<slug>/caption.txt` i `grep -c '—'` muszą
+Bramka: `grep -c '"' instagram/<data>-<slug>/caption.txt` i `grep -c '—'` muszą
 zwrócić 0 – prosty cudzysłów i em dash nie mają prawa przejść.
 
 ## Krok 7 – raport
