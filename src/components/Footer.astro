@@ -1,6 +1,9 @@
 ---
-// Profile społecznościowe są tylko w schema.org. Widoczna stopka zostawia
-// niezbędne minimum: podpis i równie łatwy jak zgoda dostęp do ustawień cookies.
+import { INSTAGRAM_URL } from "../consts";
+
+// Profile osobiste są tylko w schema.org. Widoczna stopka zostawia niezbędne
+// minimum: podpis, Instagram marki i równie łatwy jak zgoda dostęp do
+// ustawień cookies.
 const cell = "px-5 py-4 md:py-[19px] lg:px-8";
 ---
 
@@ -16,7 +19,14 @@ const cell = "px-5 py-4 md:py-[19px] lg:px-8";
     class={`${cell} border-b border-hairline md:border-r md:border-b-0`}
     aria-hidden="true"
   ></div>
-  <div class={`${cell} border-r border-hairline`} aria-hidden="true"></div>
+  <a
+    href={INSTAGRAM_URL}
+    target="_blank"
+    rel="noopener"
+    class={`${cell} border-r border-hairline underline underline-offset-4 transition-colors hover:text-ink`}
+  >
+    Instagram
+  </a>
   <!-- Panel otwiera delegowany listener w ConsentManager.astro – dzięki temu
        przycisk działa też po podmianie DOM przez ClientRouter. -->
   <button

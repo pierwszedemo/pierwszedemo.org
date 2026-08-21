@@ -13,6 +13,7 @@ import {
   LAST_CONTENT_UPDATE,
   PERSON_ID,
   PERSON_NAME,
+  INSTAGRAM_URL,
   PERSON_PROFILES,
   SERVICES,
   SITE_DESCRIPTION,
@@ -111,7 +112,7 @@ const organizationJsonLd = {
   taxID: COMPANY.nip,
   vatID: `PL${COMPANY.nip}`,
   email: `mailto:${CONTACT_EMAIL}`,
-  sameAs: PERSON_PROFILES.map((profile) => profile.href),
+  sameAs: [INSTAGRAM_URL, ...PERSON_PROFILES.map((profile) => profile.href)],
   address: {
     "@type": "PostalAddress",
     streetAddress: COMPANY.street,
