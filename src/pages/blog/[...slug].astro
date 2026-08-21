@@ -103,9 +103,11 @@ const breadcrumb = breadcrumbJsonLd(
 
         <!-- Tytuł jest wcięty tak, żeby zaczynał się w osi kolumny z tekstem. -->
         <!-- Wcięcie = szerokość kolumny „W skrócie" + 32 px, żeby tytuł
-             zaczynał się w osi tekstu wpisu. -->
+             zaczynał się w osi tekstu wpisu. Od lg kolumna ma 25 %, a nie
+             makietowe 400 px – wtedy jej prawa krawędź pokrywa się z pierwszą
+             komórką nagłówka i stopki (4 równe kolumny). -->
         <header
-          class="border-b border-ink px-5 py-10 md:px-8 md:pl-[22rem] lg:pl-[27rem]"
+          class="border-b border-ink px-5 py-10 md:px-8 md:pl-[22rem] lg:pl-[calc(25%+2rem)]"
         >
           <h1
             class="max-w-[18ch] text-post leading-[1.02] font-semibold tracking-[-0.03em] text-balance"
@@ -117,7 +119,7 @@ const breadcrumb = breadcrumbJsonLd(
         </header>
 
         <div
-          class="grid flex-1 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25rem_minmax(0,1fr)]"
+          class="grid flex-1 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25%_minmax(0,1fr)]"
         >
           <aside
             class="border-b border-hairline px-5 py-9 md:border-r md:border-b-0 md:px-8"
@@ -169,7 +171,7 @@ const breadcrumb = breadcrumbJsonLd(
     </main>
 
     <div
-      class="grid border-t border-ink text-sm md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25rem_minmax(0,1fr)]"
+      class="grid border-t border-ink text-sm md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25%_minmax(0,1fr)]"
     >
       <a
         href="/blog"
