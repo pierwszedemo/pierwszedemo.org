@@ -221,10 +221,10 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
   by `computedHash`, and a locally authored one would fail every sync.
 - `instagram-carousel` turns a published post into Instagram graphics: a
   1080×1350 (4:5) carousel (cover / 1–4 content slides / CTA) or one of three
-  single-post formats (`mit` / `zapisz` / `pytanie`) whose layouts deliberately
+  single-post formats (`mit` / `zapisz` / `pytanie` / `liczba`) whose layouts deliberately
   differ from the carousel so the feed does not blur into one wall of white
   cards. Every post gets its own directory `instagram/YYYY-MM-DD-<slug>-<type>/`
-  (`type` = `karuzela` | `mit` | `zapisz` | `pytanie`) holding the same four
+  (`type` = `karuzela` | `mit` | `zapisz` | `pytanie` | `liczba`) holding the same four
   things: `spec.json`, `NN.png`, `alt.txt` (one line of alt text per slide,
   derived from the spec) and `caption.txt`. The date prefix is copied from the
   post filename, so `ls instagram/` lists in the same order as the posts.

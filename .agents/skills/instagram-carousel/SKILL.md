@@ -1,6 +1,6 @@
 ---
 name: instagram-carousel
-description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.com – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „promocja wpisu w social mediach”.
+description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.com – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
 ---
 
 # instagram-carousel
@@ -39,7 +39,7 @@ czego promować). Slug to nazwa pliku **bez** prefiksu daty i rozszerzenia:
 - Niejednoznacznie albo wcale: wypisz listę (tytuł, kategoria, data) i **zapytaj
   użytkownika** (AskUserQuestion). Nie zgaduj.
 - Katalog wynikowy to `instagram/RRRR-MM-DD-<slug>-<typ>/`, gdzie `<typ>` to
-  `karuzela`, `mit`, `zapisz` albo `pytanie` – jeden post na Instagram = jeden
+  `karuzela`, `mit`, `zapisz`, `pytanie` albo `liczba` – jeden post na Instagram = jeden
   katalog, w każdym te same pliki: `spec.json`, `NN.png`, `alt.txt`,
   `caption.txt`. Prefiks daty jest z nazwy pliku wpisu, skrypt dobiera go
   sam; `<data>` poniżej oznacza właśnie tę datę.
@@ -174,7 +174,7 @@ Maksymalnie 10 linijek: który wpis, ile slajdów i dlaczego tyle, hook, pierwsz
 linia opisu, lista plików. Zaproponuj commit
 `feat(ig): karuzela <slug>` – **bez commitowania bez prośby**.
 
-## Formaty pojedyncze – mit / zapisz / pytanie
+## Formaty pojedyncze – mit / zapisz / pytanie / liczba
 
 Trzy formaty obok karuzeli, do recyklingu tego samego wpisu w odstępie kilku
 tygodni. Zasady z sekcji „Zasady” obowiązują w całości – treść wyłącznie
@@ -207,11 +207,20 @@ i tego nie ujednolicaj z powrotem:
   słowie albo liczbie – „Ile rolek leży Ci na dysku?” działa, „Co sądzisz
   o strategii w socialach?” nie. Najlepsze pytanie to takie, które wpis już
   zadaje na końcu.
+- **liczba** – jeden slajd, kadr dzielony: góra negatyw z liczbą w Archivo 340 px (do 5 znaków;
+  dłuższe schodzą do 260/200), dół biel ze zdaniem i stopką. Jedyny format
+  z dwoma tłami w jednym kadrze – nie dodawaj podziału gdzie indziej. Spec:
+  `{ "eyebrow", "liczba" (≤9, np. „0 zł”, „24,99 $”, „28 dni”), "zdanie"
+  (≤170), "zrodlo"? (≤60, mono pod zdaniem) }`. Zasada 2 obowiązuje
+  podwójnie: liczba ze statystyki wchodzi tylko z linkiem we wpisie
+  (i wtedy podaj `zrodlo`); liczba będąca tezą wpisu („0 zł”) – tylko jeśli
+  zdanie pod nią mówi dokładnie to, co wpis, bez zaokrąglenia w wygodną
+  stronę.
 
 Generacja i kontrola jak w krokach 4–5:
 
 ```bash
-bun .agents/skills/instagram-carousel/scripts/format.mjs <slug> <mit|zapisz|pytanie>
+bun .agents/skills/instagram-carousel/scripts/format.mjs <slug> <mit|zapisz|pytanie|liczba>
 ```
 
 Opis (`caption.txt`) jak w kroku 6, ale krótszy: pierwsza linia,
