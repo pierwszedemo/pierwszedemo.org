@@ -1,6 +1,6 @@
 ---
 name: instagram-carousel
-description: Generuje karuzelę na Instagram z istniejącego wpisu na blogu pierwszedemo.com – pionowe grafiki 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy z esencją wpisu, slajd CTA) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/<data>-<slug>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „instagramowa wersja wpisu”, „promocja wpisu w social mediach”.
+description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.com – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „promocja wpisu w social mediach”.
 ---
 
 # instagram-carousel
@@ -38,10 +38,14 @@ czego promować). Slug to nazwa pliku **bez** prefiksu daty i rozszerzenia:
   wpis bierzesz.
 - Niejednoznacznie albo wcale: wypisz listę (tytuł, kategoria, data) i **zapytaj
   użytkownika** (AskUserQuestion). Nie zgaduj.
-- Katalog wynikowy to `instagram/RRRR-MM-DD-<slug>/` – prefiks jest z nazwy
-  pliku wpisu, skrypt dobiera go sam; `<data>` poniżej oznacza właśnie tę datę.
-- Jeśli `instagram/<data>-<slug>/` już istnieje, powiedz o tym – ponowne uruchomienie
-  nadpisuje grafiki, a użytkownik mógł chcieć wariant, nie podmianę.
+- Katalog wynikowy to `instagram/RRRR-MM-DD-<slug>-<typ>/`, gdzie `<typ>` to
+  `karuzela`, `mit`, `zapisz` albo `pytanie` – jeden post na Instagram = jeden
+  katalog, w każdym te same pliki: `spec.json`, `NN.png`, `alt.txt`,
+  `caption.txt`. Prefiks daty jest z nazwy pliku wpisu, skrypt dobiera go
+  sam; `<data>` poniżej oznacza właśnie tę datę.
+- Jeśli `instagram/<data>-<slug>-karuzela/` już istnieje, powiedz o tym –
+  ponowne uruchomienie nadpisuje grafiki, a użytkownik mógł chcieć wariant,
+  nie podmianę.
 
 ## Krok 2 – lektura i plan slajdów
 
@@ -68,9 +72,9 @@ Styl tekstu na slajdach = styl bloga: krótkie zdania, „Ty/Ci/Twój” wielką
 literą, opinia oznajmująco, zero fraz w rodzaju „w dzisiejszych czasach”,
 „kluczem do sukcesu”, „gamechanger”.
 
-## Krok 3 – specyfikacja `slides.json`
+## Krok 3 – specyfikacja `spec.json`
 
-Zapisz do `instagram/<data>-<slug>/slides.json`:
+Zapisz do `instagram/<data>-<slug>-karuzela/spec.json`:
 
 ```json
 {
@@ -122,10 +126,11 @@ Z katalogu głównego repo:
 bun .agents/skills/instagram-carousel/scripts/generate.mjs <slug>
 ```
 
-Powstaje `instagram/<data>-<slug>/01.png` (okładka), `02.png…` (treść), ostatni numer
-to CTA na czarnym tle. Obok ląduje `alt.txt` – jedna linia na slajd
-(`NN: nagłówek. akapity`), do wklejenia w pole tekstu alternatywnego przy
-publikacji; powstaje z `slides.json`, więc nie edytuj go ręcznie. Skrypt najpierw usuwa stare `NN.png` z katalogu, więc
+Powstaje `instagram/<data>-<slug>-karuzela/01.png` (okładka), `02.png…`
+(treść), ostatni numer to CTA na czarnym tle. Obok ląduje `alt.txt` – jedna
+linia na slajd (`NN: nagłówek. akapity`), do wklejenia w pole tekstu
+alternatywnego przy publikacji; powstaje z `spec.json`, więc nie edytuj go
+ręcznie. Skrypt najpierw usuwa stare `NN.png` z katalogu, więc
 po skróceniu karuzeli nie zostają slajdy z nieaktualną numeracją. PNG 1080×1350 (4:5) – Instagram i tak przekompresuje je do
 JPG, ale płaskie plamy i ostre krawędzie tej estetyki wychodzą z PNG najczyściej.
 
@@ -141,12 +146,12 @@ Obejrzyj (Read) **każdy** wygenerowany PNG. Walidacja łapie długości, ale ni
 - polskie znaki (ą, ś, ż…) wyglądają poprawnie;
 - numeracja `NN/MM` zgadza się z liczbą plików.
 
-Coś nie gra → popraw copy w `slides.json` i wygeneruj ponownie. Nie akceptuj
+Coś nie gra → popraw copy w `spec.json` i wygeneruj ponownie. Nie akceptuj
 slajdu „na styk”.
 
 ## Krok 6 – opis posta (`caption.txt`)
 
-Zapisz `instagram/<data>-<slug>/caption.txt`:
+Zapisz `instagram/<data>-<slug>-karuzela/caption.txt`:
 
 1. **Pierwsza linia ≤125 znaków** – tyle widać przed „więcej”. Wariacja hooka,
    nie jego kopia słowo w słowo.
@@ -160,7 +165,7 @@ Zapisz `instagram/<data>-<slug>/caption.txt`:
    #instagood i innego spamu zasięgowego.
 
 Zasady faktograficzne i typograficzne z sekcji „Zasady” obowiązują też tutaj.
-Bramka: `grep -c '"' instagram/<data>-<slug>/caption.txt` i `grep -c '—'` muszą
+Bramka: `grep -c '"' instagram/<data>-<slug>-karuzela/caption.txt` i `grep -c '—'` muszą
 zwrócić 0 – prosty cudzysłów i em dash nie mają prawa przejść.
 
 ## Krok 7 – raport
@@ -169,13 +174,62 @@ Maksymalnie 10 linijek: który wpis, ile slajdów i dlaczego tyle, hook, pierwsz
 linia opisu, lista plików. Zaproponuj commit
 `feat(ig): karuzela <slug>` – **bez commitowania bez prośby**.
 
+## Formaty pojedyncze – mit / zapisz / pytanie
+
+Trzy formaty obok karuzeli, do recyklingu tego samego wpisu w odstępie kilku
+tygodni. Zasady z sekcji „Zasady” obowiązują w całości – treść wyłącznie
+z wpisu, liczby tylko ze źródłem, typografia bloga. Wybór wpisu jak w kroku 1.
+Każdy format dostaje własny katalog `instagram/<data>-<slug>-<format>/`
+z tym samym zestawem plików co karuzela (`spec.json`, `NN.png`, `alt.txt`,
+`caption.txt`) – `ls instagram/` pokazuje od razu, co z danego wpisu już
+poszło.
+
+**Design celowo odbiega od karuzeli**, żeby profil nie zlał się w ścianę
+białych kadrów z tekstem po lewej. Ramy (nagłówek z etykietą, stopka
+z wordmarkiem, kadr 4:5) są wspólne – to one robią serię. Różni się środek
+i tego nie ujednolicaj z powrotem:
+
+- **mit** – dwa slajdy w odwróconej kolejności niż karuzela: 01 negatyw,
+  etykieta `MIT` w mono 120 px, zdanie przekreślone; 02 biel, `FAKT`, teza
+  wpisu, opcjonalne rozwinięcie. Spec:
+  `{ "eyebrow", "mit" (≤110), "fakt" (≤140), "rozwiniecie"? (≤220) }`.
+  Mit ma być zdaniem, które ktoś naprawdę mówi („Wytwórnia szuka talentów”),
+  nie słomianą kukłą. Fakt to teza wpisu, nie jej zaprzeczenie słowo w słowo.
+- **zapisz** – jeden slajd na tle `panel` (krem #f4f2ee), tytuł i 3–6
+  numerowanych wierszy oddzielonych hairline. Spec:
+  `{ "eyebrow", "tytul" (≤60), "punkty": [3–6 × ≤90] }`. Punkty to rzeczy do
+  *zrobienia* albo *sprawdzenia*, wzięte z wpisu – format działa, bo ktoś chce
+  do niego wrócić; opinia bez instrukcji nie nadaje się na listę.
+- **pytanie** – jeden slajd, tekst wyśrodkowany w hairline'owej ramce, wielki
+  `?` w mono. Spec:
+  `{ "eyebrow", "pytanie" (≤120), "podpis"? (≤60, domyślnie „Odpowiedz
+  w komentarzu”) }`. Pytanie ma mieć odpowiedź, którą da się wpisać w jednym
+  słowie albo liczbie – „Ile rolek leży Ci na dysku?” działa, „Co sądzisz
+  o strategii w socialach?” nie. Najlepsze pytanie to takie, które wpis już
+  zadaje na końcu.
+
+Generacja i kontrola jak w krokach 4–5:
+
+```bash
+bun .agents/skills/instagram-carousel/scripts/format.mjs <slug> <mit|zapisz|pytanie>
+```
+
+Opis (`caption.txt`) jak w kroku 6, ale krótszy: pierwsza linia,
+2–3 zdania, adres słowem, 3–5 hashtagów. Dla `pytanie` opis powtarza pytanie
+i zaprasza do komentarza; dla `zapisz` mówi wprost „zapisz tę listę”.
+Te same bramki na cudzysłów i em dash.
+
 ## Pliki i konwencje
 
-- `scripts/generate.mjs` – rysuje slajdy (satori + sharp, zależności już są w
-  devDependencies repo). Layout celowo trzyma się `src/og.ts`: te same kolory,
-  ta sama stopka z wordmarkiem, ta sama para krojów.
+- `scripts/lib.mjs` – wspólne ramy: kadr, paleta, fonty, nagłówek, stopka,
+  walidacja, zapis PNG + alt. Layout celowo trzyma się `src/og.ts`: te same
+  kolory, ta sama stopka z wordmarkiem, ta sama para krojów.
+- `scripts/generate.mjs` – karuzela; `scripts/format.mjs` – formaty
+  pojedyncze. Oba tylko składają środek kadru z klocków `lib.mjs`. Nowy
+  format = nowa gałąź w `format.mjs`, nie nowy skrypt.
 - `assets/Archivo-Regular.ttf` – odmiana do akapitów na slajdach, zvendorowana
   tu, bo `src/assets/fonts/` trzyma tylko to, czego używają karty OG, a satori
   czyta wyłącznie statyczne TTF.
-- `instagram/` w korzeniu repo to katalog wynikowy – po podkatalogu na wpis.
-  Pliki się commituje: są częścią historii promocji wpisu.
+- `instagram/` w korzeniu repo to katalog wynikowy – po podkatalogu na
+  każdy post (`<data>-<slug>-<typ>`). Pliki się commituje: są częścią
+  historii promocji wpisu.

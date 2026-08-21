@@ -219,12 +219,18 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
   `blog-post-factory` and `instagram-carousel` are this repo's own skills and
   are deliberately *not* in `skills-lock.json`: that file pins upstream skills
   by `computedHash`, and a locally authored one would fail every sync.
-- `instagram-carousel` turns a published post into a 1080×1350 (4:5) carousel
-  (cover / 1–4 content slides / CTA) plus a caption and `alt.txt` (one
-  line of alt text per slide, derived from `slides.json`), written to
-  `instagram/YYYY-MM-DD-<slug>/` (the date prefix is copied from the post
-  filename, so the two directories list in the same order). Its `scripts/generate.mjs` mirrors `src/og.ts`
-  (satori + sharp, same palette and footer); it vendors its own
+- `instagram-carousel` turns a published post into Instagram graphics: a
+  1080×1350 (4:5) carousel (cover / 1–4 content slides / CTA) or one of three
+  single-post formats (`mit` / `zapisz` / `pytanie`) whose layouts deliberately
+  differ from the carousel so the feed does not blur into one wall of white
+  cards. Every post gets its own directory `instagram/YYYY-MM-DD-<slug>-<type>/`
+  (`type` = `karuzela` | `mit` | `zapisz` | `pytanie`) holding the same four
+  things: `spec.json`, `NN.png`, `alt.txt` (one line of alt text per slide,
+  derived from the spec) and `caption.txt`. The date prefix is copied from the
+  post filename, so `ls instagram/` lists in the same order as the posts.
+  `scripts/lib.mjs` holds the shared frame and mirrors `src/og.ts` (satori +
+  sharp, same palette and footer); `generate.mjs` draws the carousel,
+  `format.mjs` the single formats. The skill vendors its own
   `Archivo-Regular.ttf` because `src/assets/fonts/` holds only what the OG
   cards use. `instagram/` output is committed – it is the promotion history
   of a post.
