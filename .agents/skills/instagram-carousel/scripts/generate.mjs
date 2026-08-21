@@ -19,7 +19,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
-import { SITE_HOST, WORDMARK } from "../../../../src/consts.ts";
+import { HOME_CITY, PERSON_NAME, SITE_HOST, SITE_TAGLINE, WORDMARK } from "../../../../src/consts.ts";
 
 const SIZE = 1080;
 const PAD = 84;
@@ -106,10 +106,10 @@ slides.forEach((s, i) => {
 });
 
 const ctaLines = cta.lines ?? ["Obserwuj.", "Zapisz.", "Wróć po więcej."];
-if (!Array.isArray(ctaLines) || ctaLines.length < 1 || ctaLines.length > 3) {
-  errors.push("cta.lines: tablica 1–3 linii");
+if (!Array.isArray(ctaLines) || ctaLines.length < 1 || ctaLines.length > 4) {
+  errors.push("cta.lines: tablica 1–4 linii");
 } else {
-  ctaLines.forEach((line, i) => check(`cta.lines[${i}]`, line, 22, { token: 14 }));
+  ctaLines.forEach((line, i) => check(`cta.lines[${i}]`, line, 22, { token: 16 }));
 }
 const ctaUrl = cta.url ?? `${SITE_HOST}/blog/${slug}`;
 check("cta.url", ctaUrl, 60, { token: 60 });
@@ -164,12 +164,21 @@ const footer = (onInk) => el(
   {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: "center",
+    alignItems: "flex-start",
     borderTop: `3px solid ${onInk ? "#ffffff" : INK}`,
     paddingTop: 30,
   },
   [
-    el("div", { fontSize: 30, fontWeight: 600 }, WORDMARK),
+    el("div", { display: "flex", flexDirection: "column" }, [
+      el("div", { fontSize: 30, fontWeight: 600 }, WORDMARK),
+      // Podpis człowieka pod marką: mniejszy stopień i ciaśniejsze rozstrzelenie
+      // niż w `mono`, bo 46 znaków z trackingiem 0.2em nie mieści się obok adresu.
+      el(
+        "div",
+        { ...mono, fontSize: 17, letterSpacing: "0.08em", marginTop: 10, color: onInk ? MUTED_ON_INK : MUTED },
+        `${PERSON_NAME} – ${SITE_TAGLINE} – ${HOME_CITY}`,
+      ),
+    ]),
     el("div", { ...mono, color: onInk ? MUTED_ON_INK : MUTED }, SITE_HOST),
   ],
 );

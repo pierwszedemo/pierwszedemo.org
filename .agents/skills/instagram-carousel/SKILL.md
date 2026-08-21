@@ -89,10 +89,10 @@ Zapisz do `instagram/<slug>/slides.json`:
 - `slides` – 1–4 pozycje; `heading` ≤64 znaki, `body` to string albo tablica
   1–3 akapitów, łącznie ≤440 znaków **licząc spację między akapitami**.
 - `cta` jest opcjonalne – domyślne wartości (powyżej) są dobre w 90% przypadków;
-  `lines` to tablica 1–3 linii po ≤22 znaki, `url` ≤60 znaków. Adres renderuje
+  `lines` to tablica 1–4 linii po ≤22 znaki, `url` ≤60 znaków. Adres renderuje
   się małymi literami – ścieżki na Vercelu rozróżniają wielkość liter.
 - Żadne słowo nie może być dłuższe niż: 17 znaków w hooku, 26 w nagłówku, 30
-  w akapicie, 14 w linii CTA – satori nie dzieli wyrazów i taki token wyjechałby
+  w akapicie, 16 w linii CTA – satori nie dzieli wyrazów i taki token wyjechałby
   poza kadr. Długi adres albo hashtag w treści slajdu to zły pomysł także z
   tego powodu.
 
