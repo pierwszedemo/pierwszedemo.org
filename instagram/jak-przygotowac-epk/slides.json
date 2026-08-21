@@ -1,29 +1,44 @@
 {
   "cover": {
     "eyebrow": "Promocja",
-    "hook": "Nikt nie przeczyta Twojego EPK. Przeleci wzrokiem i zdecyduje."
+    "hook": "Widziałem EPK na czternaście ekranów. Muzyki nie było nigdzie."
   },
   "slides": [
     {
-      "heading": "Press kit to argument, nie teczka",
+      "heading": "EPK to argument, nie archiwum",
       "body": [
-        "Dostałem kiedyś EPK na czternaście ekranów: życiorys od podstawówki, lista koncertów, skan dyplomu. Muzyki nie było nigdzie.",
-        "Wystarczą trzy rzeczy: zdanie o tym, kim jesteś, utwór, który to udowadnia, i jeden numer do kontaktu."
+        "Życiorys od podstawówki, lista wszystkich koncertów, skan dyplomu sprzed ośmiu lat. Zamknąłem po minucie i do dziś nie wiem, jak ten zespół brzmi.",
+        "Bookerka nie przeczyta. Przeleci wzrokiem i zdecyduje."
       ]
     },
     {
-      "heading": "Muzyka na samą górę",
+      "heading": "Pierwszy klik ma być w utwór",
       "body": [
-        "Link do singla ma być pierwszą rzeczą, w którą da się kliknąć. Nie bio, nie zdjęcia, nie historia zespołu.",
-        "Potem trzy odpowiedzi: kto to jest, jak brzmi, skąd pochodzi. Bio w trzech długościach, gotowe do wklejenia bez jednej poprawki."
+        "Nie w bio, nie w zdjęcia, nie w historię zespołu. Obok niego statystyki i obserwujący, bo samo nagranie już się nie obroni.",
+        "Dalej trzy odpowiedzi, zanim ktokolwiek zacznie przewijać: kto, jak brzmi, skąd."
       ]
     },
     {
-      "heading": "EPK to adres strony, nie załącznik",
+      "heading": "Redakcje kopiują to, co dostaną",
       "body": [
-        "Plik ginie w skrzynce i starzeje się w dniu wysłania. Stronę poprawiasz w minutę, a jeden link wklejasz w maila, zgłoszenie i stopkę.",
-        "Na końcu kontakt do managera, nie do artystki. Dlaczego – we wpisie."
+        "Bio w trzech długościach: zdanie do line-upu, akapit do zapowiedzi, pełna wersja do tekstu. Każda gotowa do wklejenia bez jednej poprawki.",
+        "Zdjęcia w pełnej rozdzielczości, z autorką i zasadami użycia. Bez tego nie pójdą do druku."
+      ]
+    },
+    {
+      "heading": "Link, nie załącznik",
+      "body": [
+        "PDF ginie w skrzynce i starzeje się w dniu wysłania. Stronę poprawiasz w minutę.",
+        "A na końcu kontakt do managementu, nie do artystki. Dlaczego – we wpisie."
       ]
     }
-  ]
+  ],
+  "cta": {
+    "lines": [
+      "Obserwuj.",
+      "Zapisz.",
+      "Czytaj więcej na",
+      "pierwszedemo.com"
+    ]
+  }
 }
