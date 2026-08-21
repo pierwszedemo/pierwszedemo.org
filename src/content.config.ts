@@ -1,6 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { CATEGORIES, KINDS } from "./consts";
+import { CATEGORIES, DATE_PREFIX, KINDS } from "./consts";
 
 const blog = defineCollection({
   // Podkreślnik na początku nazwy = szkic: plik zostaje w repo, ale nie wchodzi
@@ -15,6 +15,10 @@ const blog = defineCollection({
   loader: glob({
     base: "./src/content/blog",
     pattern: ["**/*.md", "!**/_*.md"],
+    // Pliki nazywają się `RRRR-MM-DD-slug.md`, żeby `ls` pokazywał chronologię,
+    // ale adresem jest sam slug – data w URL-u postarzałaby wpis i zmuszała do
+    // przekierowań przy każdej zmianie nazwy. Źródłem daty pozostaje frontmatter.
+    generateId: ({ entry }) => entry.replace(/\.md$/, "").replace(DATE_PREFIX, ""),
   }),
   schema: z.object({
     title: z.string(),

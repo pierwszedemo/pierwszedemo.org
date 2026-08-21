@@ -4,7 +4,7 @@ import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import vercel from "@astrojs/vercel";
-import { LAST_CONTENT_UPDATE, SITE_URL } from "./src/consts";
+import { DATE_PREFIX, LAST_CONTENT_UPDATE, SITE_URL } from "./src/consts";
 import { satteri } from "@astrojs/markdown-satteri";
 import { satteriHanging } from "./src/typography";
 
@@ -21,7 +21,7 @@ const postLastmod = Object.fromEntries(
       const updated = raw.match(/^updated:\s*(\S+)/m)?.[1];
       const published = raw.match(/^date:\s*(\S+)/m)?.[1];
       return [
-        `/blog/${file.replace(/\.md$/, "")}`,
+        `/blog/${file.replace(/\.md$/, "").replace(DATE_PREFIX, "")}`,
         updated ?? published ?? LAST_CONTENT_UPDATE,
       ];
     }),
