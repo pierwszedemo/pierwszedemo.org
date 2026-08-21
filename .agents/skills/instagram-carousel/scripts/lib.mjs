@@ -44,7 +44,7 @@ export function requireRepoRoot() {
 
 /**
  * Slug + typ → katalog `instagram/RRRR-MM-DD-slug-typ` (typ: karuzela, mit,
- * zapisz, pytanie). Każdy post na Instagram ma własny katalog z `spec.json`,
+ * zapisz, pytanie, liczba). Każdy post na Instagram ma własny katalog z `spec.json`,
  * `NN.png`, `alt.txt` i `caption.txt` – jedna konwencja plików niezależnie od
  * formatu. Adres wpisu trafia na grafikę jako piksele, więc slug musi
  * wskazywać istniejący, opublikowany wpis; data katalogu jest z nazwy pliku
