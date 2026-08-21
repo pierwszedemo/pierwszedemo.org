@@ -112,6 +112,13 @@ export const KINDS = ["notatka", "przewodnik"] as const;
 
 export type Kind = (typeof KINDS)[number];
 
+/**
+ * Prefiks daty w nazwach plików wpisów (`2026-08-11-slug.md`). Zdejmują go
+ * content.config.ts (id wpisu) i astro.config.mjs (lastmod w sitemapie) –
+ * jedno wyrażenie, żeby oba miejsca nie mogły się rozjechać.
+ */
+export const DATE_PREFIX = /^\d{4}-\d{2}-\d{2}-/;
+
 // ---------------------------------------------------------------------------
 // Polityka prywatności – jedno źródło dla strony /polityka-prywatnosci
 // i dla linków w banerze cookies (src/scripts/consent.ts).

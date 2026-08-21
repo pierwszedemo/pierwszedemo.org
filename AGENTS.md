@@ -63,7 +63,11 @@ sites without a grep.
 
 ### Blog
 
-Posts are markdown in `src/content/blog/`, loaded through a content collection
+Posts are markdown in `src/content/blog/`, named `YYYY-MM-DD-<slug>.md` so the
+directory lists chronologically. The date prefix is **not** part of the URL:
+`generateId` in `content.config.ts` strips it (`DATE_PREFIX` in `consts.ts`,
+shared with the sitemap `lastmod` map in `astro.config.mjs`), so `post.id` is
+the bare slug. Drafts are `_YYYY-MM-DD-<slug>.md`. Posts are loaded through a content collection
 (`src/content.config.ts`) with a zod schema: `title`, `lead` (the "W skrócie"
 column, doubling as the meta description), `category`, `kind`, `date`,
 `updated?`, `keyphrase?`, `readingMinutes`, `spotifyTrackId?` (embeds a Spotify

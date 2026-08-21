@@ -47,8 +47,10 @@ if (!existsSync(resolve(process.cwd(), "src/assets/fonts/Archivo-SemiBold.ttf"))
 }
 // Adres wpisu trafia na slajd CTA jako piksele – literówka w slugu dałaby
 // karuzelę z martwym linkiem, którego nikt już nie poprawi.
-if (!existsSync(resolve(process.cwd(), "src/content/blog", `${slug}.md`))) {
-  console.error(`Nie ma opublikowanego wpisu src/content/blog/${slug}.md.`);
+// Pliki wpisów mają prefiks daty (`RRRR-MM-DD-slug.md`), adres – sam slug.
+const postFile = new RegExp(`^\\d{4}-\\d{2}-\\d{2}-${slug}\\.md$`);
+if (!readdirSync(resolve(process.cwd(), "src/content/blog")).some((f) => postFile.test(f))) {
+  console.error(`Nie ma opublikowanego wpisu src/content/blog/RRRR-MM-DD-${slug}.md.`);
   process.exit(1);
 }
 
