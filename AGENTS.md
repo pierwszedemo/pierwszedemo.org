@@ -219,7 +219,7 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
   `blog-post-factory` and `instagram-carousel` are this repo's own skills and
   are deliberately *not* in `skills-lock.json`: that file pins upstream skills
   by `computedHash`, and a locally authored one would fail every sync.
-- `instagram-carousel` turns a published post into a 1080×1080 carousel
+- `instagram-carousel` turns a published post into a 1080×1350 (4:5) carousel
   (cover / 1–4 content slides / CTA) plus a caption, written to
   `instagram/<slug>/`. Its `scripts/generate.mjs` mirrors `src/og.ts`
   (satori + sharp, same palette and footer); it vendors its own
