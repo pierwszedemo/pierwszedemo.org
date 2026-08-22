@@ -12,6 +12,7 @@
 import { readFileSync } from "node:fs";
 import opentype from "@shuding/opentype.js";
 import sharp from "sharp";
+import { SITE_NAME } from "../src/consts.ts";
 
 const SIZE = 64;
 const GLYPH = "PD";
@@ -19,8 +20,14 @@ const GLYPH = "PD";
 // i cieńsza litera robi się nieczytelną plamą. Wartość jest górnym pułapem –
 // przy dwóch literach spada tyle, żeby monogram zmieścił się w ramce.
 const FONT_SIZE = 54;
-/** Światło między ramką a monogramem, w pikselach viewBoxa. */
-const PADDING = 4;
+/** Grubość ramki; obrys leży na x=2, więc jej wewnętrzna krawędź jest na FRAME. */
+const FRAME = 4;
+/**
+ * Światło między *wewnętrzną* krawędzią ramki a monogramem. Wcześniej padding
+ * liczył się od krawędzi viewBoxa i był równy grubości ramki – litery
+ * dotykały obrysu.
+ */
+const GAP = 7;
 const INK = "#101010";
 
 const font = opentype.parse(
@@ -65,8 +72,8 @@ function monogram(padding) {
 
 const framed = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}">
   <rect width="${SIZE}" height="${SIZE}" fill="#ffffff"/>
-  <rect x="2" y="2" width="${SIZE - 4}" height="${SIZE - 4}" fill="none" stroke="${INK}" stroke-width="4"/>
-  <path d="${monogram(PADDING)}" fill="${INK}"/>
+  <rect x="2" y="2" width="${SIZE - 4}" height="${SIZE - 4}" fill="none" stroke="${INK}" stroke-width="${FRAME}"/>
+  <path d="${monogram(FRAME + GAP)}" fill="${INK}"/>
 </svg>
 `;
 
@@ -98,6 +105,38 @@ for (const [file, size] of [
 ]) {
   await Bun.write(file, await render(size));
 }
+
+// Zdjęcie profilowe na Facebooka / Instagram. Platformy pokazują je w kółku,
+// więc kwadratowa ramka traciłaby rogi – zamiast niej okrąg tej samej
+// grubości, a monogram dostaje szersze światło, bo w okręgu najwięcej miejsca
+// zjada się po przekątnej, czyli tam, gdzie kończą się laski „P" i brzuch „D".
+// Nie trafia do `public/`, bo to nie zasób strony, tylko plik do wgrania.
+const profile = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}">
+  <rect width="${SIZE}" height="${SIZE}" fill="#ffffff"/>
+  <circle cx="${SIZE / 2}" cy="${SIZE / 2}" r="${SIZE / 2 - FRAME / 2}" fill="none" stroke="${INK}" stroke-width="${FRAME}"/>
+  <path d="${monogram(15)}" fill="${INK}"/>
+</svg>
+`;
+await Bun.write("assets/profile-1080.png", await render(1080, profile));
+
+// Logo do BIMI (DMARC). Profil SVG Tiny PS: `version="1.2"`,
+// `baseProfile="tiny-ps"`, `<title>` jako pierwsze dziecko, bez `x`/`y` na
+// korzeniu, bez skryptów, stylów, obrazków i odwołań zewnętrznych – walidator
+// BIMI odrzuca plik za każde z nich. Tło pełne (biel), bo przezroczystość
+// w skrzynkach wychodzi różnie. Gmail i Apple Mail kadrują logo w kółko, więc
+// pierścień jest wciągnięty do środka o własną grubość – przy `r` równym
+// połowie boku kadr ścinałby obrys. Monogram ma szersze światło niż w ikonie,
+// żeby w kółku nie dotykał pierścienia po przekątnej.
+const BIMI_INSET = FRAME * 2;
+const bimi = `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny-ps" viewBox="0 0 ${SIZE} ${SIZE}">
+  <title>${SITE_NAME}</title>
+  <rect width="${SIZE}" height="${SIZE}" fill="#ffffff"/>
+  <circle cx="${SIZE / 2}" cy="${SIZE / 2}" r="${SIZE / 2 - BIMI_INSET - FRAME / 2}" fill="none" stroke="${INK}" stroke-width="${FRAME}"/>
+  <path d="${monogram(BIMI_INSET + 10)}" fill="${INK}"/>
+</svg>
+`;
+await Bun.write("public/bimi.svg", bimi);
 
 // .ico z ładunkiem PNG: 6-bajtowy nagłówek + 16 bajtów na wpis + same PNG-i.
 // `sips -s format ico` daje tu 285 kB śmiecia, stąd ręczne składanie.
