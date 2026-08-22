@@ -161,6 +161,31 @@ keep the mock's frame, the 16/32/48 px entries inside `.ico` drop it. Framed,
 two letters at 16 px leave the stems below a pixel and „PD" smears into a grey
 block — the frame is what has to go, not the second letter.
 
+`public/bimi.svg` (BIMI logo for DMARC) comes out of the same script: SVG Tiny PS
+(`version="1.2"`, `baseProfile="tiny-ps"`, `<title>` first, no `x`/`y` on the
+root, no scripts/styles/images/external refs – validators reject each of these).
+Mail clients crop it to a circle, so the ring sits inside the edge; never hand
+it a transparent background. Referenced from the DNS `default._bimi` TXT record,
+which is outside the repo.
+
+Monogram padding is counted from the frame's *inner* edge (`FRAME + GAP`), not
+the viewBox — the stroke sits at x=2 with width 4, so a padding equal to the
+frame thickness puts the letters flush against it.
+
+### Social assets (`assets/`)
+
+Files uploaded by hand to Facebook/Instagram, not served by the site – hence
+outside `public/`. `generate-favicons.mjs` also writes `assets/profile-1080.png`:
+the monogram in a **circular** ring (platforms show the profile picture as a
+circle, so a square frame would lose its corners) with a wider margin than the
+icons. `scripts/generate-social.mjs` (`bun scripts/generate-social.mjs`) writes
+`assets/facebook-cover-1640x856.png` through `renderOgCard()` – `src/og.ts`
+takes `width`/`height`/`paddingX` for that. Facebook shows two crops of one
+cover: desktop the centre 1640×624 band, mobile the centre ~1522×856 column, so
+the card is drawn at 1640×624 with 200 px side margins and padded to 856 with
+white bands – desktop gets the card pixel-for-pixel, mobile the same card with
+breathing room.
+
 ### Analytics & consent
 
 Three tools, ported from olageppert.pl with the palette inverted (black on white):
