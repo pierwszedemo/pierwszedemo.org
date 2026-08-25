@@ -1,7 +1,8 @@
 # Ola Geppert – dossier
 
-*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-08-09**
-(EPK w wersji 07.2026, plik `ola-geppert-epk-07.2026.pdf`). Poza sekcją „Rebranding"
+*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-08-25**
+(EPK w wersji 08.2026; stały adres `/epk.pdf` przekierowuje na aktualny plik,
+dziś `ola-geppert-epk-08.2026.pdf`). Poza sekcją „Rebranding"
 żaden fakt w tym pliku nie ma zewnętrznego potwierdzenia – bo go nie ma w internecie.*
 
 *Ten plik aktualizuje się sam: krok 0 w `SKILL.md` pobiera strony artystki przy każdym
@@ -76,6 +77,11 @@ Siedem singli, wszystkie wydane pod pseudonimem **Birim**:
 
 Aktualnie promowany singiel: **„Delikatnie"**.
 
+Zapowiedziany singiel: **„To nie ja"**, nagrany z Ioannim, premiera **10.09.2026**
+(ogłoszone na `/bio` i w EPK, stan 2026-08-25). To pierwszy dzień Great September
+2026 – premiera jest ustawiona pod festiwal, o czym mówi wpis
+`poczatkujacy-manager-artysty`.
+
 ## Rebranding
 
 Pseudonim **Birim** funkcjonował od 2020 do lipca 2026, kiedy artystka zaczęła publikować
@@ -115,6 +121,11 @@ i Michał zarządza w praktyce obojgiem, choć w rosterze formalnie jest sama Ol
 2026-08-19 – strona artystki opisuje Ioanniego tylko jako producenta.)*
 Planowane okno wydawnicze: **jesień 2026**. Tytuł nie został ogłoszony.
 
+Czego artystka szuka (sekcja priorytetów w EPK 08.2026, cytuj jako listę celów,
+nie jako osiągnięcia): miejsca na playlistach dark/indie pop, sloty na showcase
+i w klubach na 2026/2027, media (prasa, radio, podcasty), rozmowy z wytwórniami
+o wydaniu EP, booking i suporty, sync do filmu, TV i reklamy.
+
 Pisownia: **Ioanni**, jedna forma w całym blogu. W przypadkach zależnych odmieniaj
 naturalnie („z Ioannim", „nagrana z Ioannim") – to nadal ta sama nazwa, nie „Ioannis".
 
@@ -124,6 +135,7 @@ naturalnie („z Ioannim", „nagrana z Ioannim") – to nadal ta sama nazwa, ni
 - `https://olageppert.pl/bio` – pełne bio
 - `https://olageppert.pl/bio#kontakt` – jedyna działająca kotwica na stronie
 - `https://olageppert.pl/epk` – electronic press kit, stąd bierzesz aktualny link do PDF-a
+- `https://olageppert.pl/epk.pdf` – stały adres PDF-a (302 na plik z datą w nazwie), bezpieczny do linkowania
 
 Skróty (przekierowania, zawsze aktualne): `/spotify`, `/instagram` (`/ig`),
 `/apple-music` (`/apple`), `/youtube` (`/yt`), `/tiktok`, `/tidal`, `/deezer`,

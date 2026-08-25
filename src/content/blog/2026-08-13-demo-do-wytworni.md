@@ -42,7 +42,7 @@ Co tak naprawdę się liczy? Nie liczba obserwujących, wbrew temu, co się mo�
 
 Dlatego skala sama w sobie niczego nie załatwia. Orphiq podaje wprost, że [50 tys. słuchaczy miesięcznie przy proporcji 6:1 w niedoinwestowanym gatunku dostaje więcej uwagi niż 500 tys. przy 2:1 w przepełnionym](https://orphiq.com/resources/a-and-r-in-2026). Dziesięć razy mniej ludzi, a rozmowa poważniejsza. To dla Ciebie nadzieja.
 
-Zanim jednak uznasz, że wszystko sprowadza się do panelu z wykresami: [tylko około połowa odkryć przychodzi z narzędzi cyfrowych](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/), reszta nadal z **sieci kontaktów i poleceń**. Dlatego tak ważny jest udział w wydarzeniach branżowych i showcase'ach. Znajomości nie umarły. Zmieniło się to, że dziś służą do potwierdzenia czegoś, co i tak musi być widać w danych.
+Zanim jednak uznasz, że wszystko sprowadza się do panelu z wykresami: [tylko około połowa odkryć przychodzi z narzędzi cyfrowych](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/), reszta nadal z **sieci kontaktów i poleceń**. Dlatego tak ważny jest [udział w wydarzeniach branżowych i showcase'ach](/blog/pierwszy-raz-na-great-september). Znajomości nie umarły. Zmieniło się to, że dziś służą do potwierdzenia czegoś, co i tak musi być widać w danych.
 
 Te dwie części koegzystują. Polecenie od osoby, której ktoś ufa, sprawia, że otwarty zostaje plik z Twoimi liczbami. Bez polecenia raczej nikt tam nie zajrzy. Natomiast jeśli w tym pliku nie ma liczb, to zostanie zamknięty po dziesięcu sekundach.
 
