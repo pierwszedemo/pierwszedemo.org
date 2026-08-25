@@ -51,6 +51,15 @@ interface CardOptions {
   title: string;
   /** Prawa etykieta w stopce karty – kategoria wpisu albo adres serwisu. */
   badge?: string;
+  /** Wymiary płótna; domyślnie karta OG 1200×630. */
+  width?: number;
+  height?: number;
+  /**
+   * Poziomy margines treści. Okładka na Facebooku jest kadrowana inaczej na
+   * desktopie (820×312) i w telefonie (640×360), więc treść musi siedzieć
+   * w środkowym pasie – stąd większy margines niż w karcie OG.
+   */
+  paddingX?: number;
 }
 
 // Satori bez JSX: element to zwykły obiekt {type, props}. Każdy div z wieloma
@@ -69,6 +78,9 @@ export async function renderOgCard({
   eyebrow = `${PERSON_NAME} – ${SITE_TAGLINE} – ${HOME_CITY}`,
   title,
   badge,
+  width = 1200,
+  height = 630,
+  paddingX = 64,
 }: CardOptions): Promise<Buffer> {
   // Długie tytuły wpisów muszą zmieścić się w trzech wierszach – bez tego
   // satori pozwoliłby im wyjechać poza kartę.
@@ -93,7 +105,7 @@ export async function renderOgCard({
           {
             display: "flex",
             flexDirection: "column",
-            padding: "64px 64px 0",
+            padding: `64px ${paddingX}px 0`,
           },
           [
             el("div", { ...mono, color: MUTED }, eyebrow),
@@ -119,7 +131,7 @@ export async function renderOgCard({
             justifyContent: "space-between",
             alignItems: "center",
             borderTop: `2px solid ${INK}`,
-            padding: "34px 64px",
+            padding: `34px ${paddingX}px`,
           },
           [
             el("div", { fontSize: 26 }, WORDMARK),
@@ -128,7 +140,7 @@ export async function renderOgCard({
         ),
       ],
     ),
-    { width: 1200, height: 630, fonts: FONTS },
+    { width, height, fonts: FONTS },
   );
 
   return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
