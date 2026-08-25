@@ -20,31 +20,46 @@ const blog = defineCollection({
     // przekierowań przy każdej zmianie nazwy. Źródłem daty pozostaje frontmatter.
     generateId: ({ entry }) => entry.replace(/\.md$/, "").replace(DATE_PREFIX, ""),
   }),
-  schema: z.object({
-    title: z.string(),
-    /** Akapit „W skrócie" z lewej kolumny wpisu. Jednocześnie meta description. */
-    lead: z.string(),
-    category: z.enum(CATEGORIES),
-    /** Default trzyma wpisy sprzed wprowadzenia formatów przy życiu bez edycji. */
-    kind: z.enum(KINDS).default("notatka"),
-    date: z.coerce.date(),
-    /** Data rewizji faktów – przewodniki starzeją się na liczbach. Zasila dateModified. */
-    updated: z.coerce.date().optional(),
-    /**
-     * Fraza główna wpisu. Bez niej deduplikacja tematów porównywałaby tytuły,
-     * a dwa różnie zatytułowane wpisy o tym samym konkurują ze sobą w wyszukiwarce.
-     */
-    keyphrase: z.string().optional(),
-    readingMinutes: z.number().int().positive(),
-    /**
-     * ID utworu z open.spotify.com/track/<id> – osadza odtwarzacz w kolumnie
-     * „W skrócie". Pole zamiast iframe'u w markdownie, bo korpus wpisu
-     * dopuszcza tylko akapity, ##, ###, linki, strong i em. Odtwarzacz ładuje
-     * się bez banera – uzasadniony interes, wpis w PRIVACY_TOOLS, ta sama
-     * konwencja co na olageppert.pl.
-     */
-    spotifyTrackId: z.string().optional(),
-  }),
+  schema: ({ image }) =>
+    z
+      .object({
+        title: z.string(),
+        /** Akapit „W skrócie" z lewej kolumny wpisu. Jednocześnie meta description. */
+        lead: z.string(),
+        category: z.enum(CATEGORIES),
+        /** Default trzyma wpisy sprzed wprowadzenia formatów przy życiu bez edycji. */
+        kind: z.enum(KINDS).default("notatka"),
+        date: z.coerce.date(),
+        /** Data rewizji faktów – przewodniki starzeją się na liczbach. Zasila dateModified. */
+        updated: z.coerce.date().optional(),
+        /**
+         * Fraza główna wpisu. Bez niej deduplikacja tematów porównywałaby tytuły,
+         * a dwa różnie zatytułowane wpisy o tym samym konkurują ze sobą w wyszukiwarce.
+         */
+        keyphrase: z.string().optional(),
+        readingMinutes: z.number().int().positive(),
+        /**
+         * ID utworu z open.spotify.com/track/<id> – osadza odtwarzacz w kolumnie
+         * „W skrócie". Pole zamiast iframe'u w markdownie, bo korpus wpisu
+         * dopuszcza tylko akapity, ##, ###, linki, strong i em. Odtwarzacz ładuje
+         * się bez banera – uzasadniony interes, wpis w PRIVACY_TOOLS, ta sama
+         * konwencja co na olageppert.pl.
+         */
+        spotifyTrackId: z.string().optional(),
+        /**
+         * Grafika w kolumnie „W skrócie", pod leadem – ten sam slot co odtwarzacz.
+         * Pole zamiast `![]()` w treści z tego samego powodu co wyżej: korpus
+         * wpisu zostaje tekstowy, a obrazek dostaje własne miejsce w siatce
+         * zamiast łamać dwie łamy notatki. Ścieżka względem pliku wpisu
+         * (`../../assets/blog/…`), Astro optymalizuje ją przy buildzie.
+         */
+        image: image().optional(),
+        imageAlt: z.string().optional(),
+      })
+      .refine((d) => !d.image || d.imageAlt, {
+        message: "Wpis z `image` musi mieć `imageAlt`.",
+        path: ["imageAlt"],
+      }),
 });
 
 export const collections = { blog };
