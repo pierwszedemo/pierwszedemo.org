@@ -43,7 +43,7 @@ export function requireRepoRoot() {
 }
 
 /**
- * Slug + typ → katalog `instagram/RRRR-MM-DD-slug-typ` (typ: karuzela, mit,
+ * Slug + typ → katalog `instagram/_RRRR-MM-DD-slug-typ` (typ: karuzela, mit,
  * zapisz, pytanie, liczba). Każdy post na Instagram ma własny katalog z `spec.json`,
  * `NN.png`, `alt.txt` i `caption.txt` – jedna konwencja plików niezależnie od
  * formatu. Adres wpisu trafia na grafikę jako piksele, więc slug musi
@@ -61,7 +61,11 @@ export function resolvePostDir(slug, type) {
     console.error(`Nie ma opublikowanego wpisu src/content/blog/RRRR-MM-DD-${slug}.md.`);
     return null;
   }
-  const dirName = `${postName.replace(/\.md$/, "")}-${type}`;
+  const base = `${postName.replace(/\.md$/, "")}-${type}`;
+  // Świeże grafiki jeszcze nie poszły na Instagram, więc katalog dostaje `_`
+  // jak szkic wpisu; prefiks znika ręcznie po publikacji posta. Katalog bez
+  // prefiksu to post już opublikowany – regeneracja trafia tam, nie obok.
+  const dirName = existsSync(resolve(process.cwd(), "instagram", base)) ? base : `_${base}`;
   return { dirName, dir: resolve(process.cwd(), "instagram", dirName) };
 }
 

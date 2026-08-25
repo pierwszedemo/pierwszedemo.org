@@ -253,6 +253,11 @@ They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
   things: `spec.json`, `NN.png`, `alt.txt` (one line of alt text per slide,
   derived from the spec) and `caption.txt`. The date prefix is copied from the
   post filename, so `ls instagram/` lists in the same order as the posts.
+  A leading `_` means the same as on a blog post: not published yet. The
+  scripts write fresh output to `_…` and the user drops the underscore by hand
+  once the post is up, so `ls instagram/` doubles as the queue; an existing
+  bare directory is reused on regeneration so a posted post never gets a
+  duplicate next to it.
   `scripts/lib.mjs` holds the shared frame and mirrors `src/og.ts` (satori +
   sharp, same palette and footer); `generate.mjs` draws the carousel,
   `format.mjs` the single formats. The skill vendors its own
