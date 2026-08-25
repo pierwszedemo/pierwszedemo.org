@@ -73,7 +73,12 @@ column, doubling as the meta description), `category`, `kind`, `date`,
 `updated?`, `keyphrase?`, `readingMinutes`, `spotifyTrackId?` (embeds a Spotify
 player under the lead in the "W skrócie" column – a frontmatter field, never an
 iframe in the body; the player loads without the consent banner on legitimate
-interest, same convention as olageppert.pl, and has its row in `PRIVACY_TOOLS`). `src/blog.ts` owns sort order –
+interest, same convention as olageppert.pl, and has its row in `PRIVACY_TOOLS`).
+`image?` + `imageAlt?` put a picture in the same slot, under the lead – again a
+frontmatter field (path relative to the post, `../../assets/blog/…`), never
+`![]()` in the body: `.prose-swiss` styles no `img`, and a notatka renders in two
+columns, which would tear an inline image at the column break. `imageAlt` is
+enforced by a zod refine whenever `image` is set. `src/blog.ts` owns sort order –
 `getSortedPosts()` is the single source for both the list page and the prev/next
 links, so they can't disagree.
 

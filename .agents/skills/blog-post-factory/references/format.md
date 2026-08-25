@@ -142,6 +142,12 @@ readingMinutes: 2
   tematów: bez niej porównywalibyśmy tytuły, a dwa różnie zatytułowane wpisy o pitchingu
   konkurują ze sobą w wyszukiwarce.
 - **`readingMinutes`** – liczba całkowita dodatnia, wzór niżej.
+- **`image`** / **`imageAlt`** – opcjonalna grafika wpisu, renderowana w kolumnie
+  „W skrócie" pod leadem (ten sam slot co odtwarzacz Spotify). Ścieżka względem
+  pliku wpisu: `../../assets/blog/<slug>.png`, plik uprzednio pozbawiony metadanych.
+  `imageAlt` jest obowiązkowy, gdy jest `image` – build to sprawdza. To jedyne
+  miejsce na obrazek: zasada „zero obrazków w treści" dalej obowiązuje, bo dotyczy
+  korpusu, nie siatki strony.
 
 **Pułapka YAML:** wartość zawierająca `: ` (dwukropek ze spacją), zaczynająca się od `-`,
 `#`, `[`, `{` albo `*`, musi być w cudzysłowie – inaczej `getCollection` rzuca błąd przy
