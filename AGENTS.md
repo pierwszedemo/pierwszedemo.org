@@ -22,7 +22,8 @@ collection schema. Type checking otherwise comes from the editor
 Astro 7, `output: "static"`, Vercel adapter, Tailwind v4 via the Vite plugin
 (no `tailwind.config` – theme tokens live in `@theme` inside
 `src/styles/global.css`). Polish-language site of an artist manager:
-`/`, `/blog`, `/blog/<slug>`, `/polityka-prywatnosci`, `/404`.
+`/`, `/o-mnie`, `/manager-muzyczny`, `/blog`, `/blog/<slug>`, `/polityka-prywatnosci`,
+`/404`.
 
 The layout is a transcription of a Claude Design canvas project
 (`380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`),
@@ -287,9 +288,28 @@ replace when a proper shot exists. Anything dropped in there must be
 pre-rotated and metadata-stripped first (the original carried an EXIF
 orientation tag and GPS coordinates).
 
-The nav is four cells (marka / pusta / Blog / Kontakt) – the mock's "Artyści"
-item was dropped but its cell stays, hidden below `md`, so the grid keeps the
-mock's proportions. Outbound links to artists go through `withUtm()`.
+The nav is five cells (marka / Współpraca / O mnie / Blog / Kontakt) – one more
+than the mock. `Nav.astro` derives the desktop column count from `NAV.length`
+and the mobile 2×2 borders from the item index, so a sixth entry in `NAV` lays
+itself out; the mock's proportions were given up for the service page link.
+Outbound links to artists go through `withUtm()`.
+
+### Keyword positioning (2026-08-27)
+
+Target phrases: „manager muzyczny", „manager artystów", „menedżer/menadżer
+muzyczny". Each page owns one form and one intent, so they don't cannibalise:
+the homepage is the entity (name + `SITE_TAGLINE` „Manager muzyczny" in h1 and
+`<title>`), `/manager-muzyczny` is the commercial intent (title „Współpraca z
+managerem muzycznym…", h1 „Manager muzyczny dla artystów alternatywnych", FAQ
+carries „menedżer/menadżer" and „ile kosztuje"), `/o-mnie` is the biography
+(no job title in `<title>` – it used to share the homepage title and dropped
+out of the name query; body uses the Polish spelling „menedżer muzyczny").
+`SERVICES` labels carry the industry word („Wydawnictwa muzyczne", „Booking
+koncertowy") because they land in h3s, `OfferCatalog` and `llms.txt`; the
+catalog is one node (`OFFER_CATALOG_ID`, `offerCatalogJsonLd()` in
+`src/schema.ts`) referenced by both `Person` and `Service`. Say „muzycy i
+zespoły", not „artyści", where the copy allows – „artysta" alone reads as a
+painter to a search engine.
 
 The footer is exactly four cells (`© / LinkedIn / Instagram / Cookies`) and its
 border logic is computed from cell index – adding a fifth entry to `SOCIALS`

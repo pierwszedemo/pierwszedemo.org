@@ -11,17 +11,20 @@ import {
   SERVICES,
   SITE_NAME,
   SITE_TAGLINE,
+  SERVICE_PATH,
   withUtm,
 } from "../consts";
 ---
 
 {
-  /* Tytuł niesie i markę, i nazwisko: „Pierwsze Demo" jest nowe i nikt go
-     jeszcze nie wyszukuje, a zapytania po nazwisku muszą dalej trafiać tutaj. */
+  /* Tytuł: nazwisko i obie frazy zawodowe z przodu, marka na końcu – „Pierwsze
+     Demo" jest nowe i nikt go jeszcze nie wyszukuje, a Google ucina tytuł
+     po ~60 znakach, więc to, co ma rankować, musi być przed kreską. Zapytania
+     po nazwisku muszą dalej trafiać tutaj. */
 }
 <BaseLayout
-  title={`${SITE_NAME} – ${PERSON_NAME}, ${SITE_TAGLINE.toLowerCase()}`}
-  description="Management, wydawnictwa i booking dla artystów alternatywnych. Prowadzę artystów od pierwszego demo do festiwalowych scen – z planem, nie z przypadku."
+  title={`${PERSON_NAME} – ${SITE_TAGLINE.toLowerCase()}, manager artystów | ${SITE_NAME}`}
+  description={`${SITE_TAGLINE} z ${HOME_CITY}a: management artystów, wydawnictwa i booking dla muzyków alternatywnych. Od pierwszego demo do festiwalowych scen – z planem, nie z przypadku.`}
   schemaPageType="ProfilePage"
 >
   <div class="flex min-h-dvh flex-col">
@@ -42,7 +45,7 @@ import {
           <div>
             {
               /* Nagłówkiem strony jest nadtytuł, nie slogan: „Michał
-                 Miszczyszyn – Manager artystów – Gdańsk" niesie frazy, pod
+                 Miszczyszyn – Manager muzyczny – Gdańsk" niesie frazy, pod
                  które ta strona ma się wyświetlać, a „Kariera to strategia."
                  nie niesie żadnej. Wizualnie nic się nie zmienia – h1 zostaje
                  małą etykietą monospace, a slogan dalej jest największym
@@ -60,7 +63,7 @@ import {
 
           <div class="flex flex-col gap-7">
             <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
-              Prowadzę artystów alternatywnych od pierwszego demo do
+              Prowadzę muzyków i zespoły alternatywne od pierwszego demo do
               festiwalowych scen – z planem, nie z przypadku.
             </p>
             <ul
@@ -69,7 +72,12 @@ import {
               {
                 SERVICES.map((service) => (
                   <li>
-                    ({service.no}) {service.label}
+                    <a
+                      href={`${SERVICE_PATH}#${service.id}`}
+                      class="underline decoration-1 underline-offset-4"
+                    >
+                      ({service.no}) {service.label}
+                    </a>
                   </li>
                 ))
               }
@@ -86,7 +94,9 @@ import {
           id="roster"
           class="flex flex-col gap-2.5 border-b border-hairline px-5 py-6 md:border-r md:border-b-0 md:px-8"
         >
-          <h2 class="label text-muted">Roster (01)</h2>
+          <h2 class="label text-muted">
+            Roster ({String(ROSTER.length).padStart(2, "0")})
+          </h2>
           {
             ROSTER.map((artist) => (
               <a
