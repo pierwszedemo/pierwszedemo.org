@@ -10,6 +10,7 @@ import {
   SITE_NAME,
   SITE_TAGLINE,
   SITE_URL,
+  SERVICE_PATH,
 } from "../consts";
 
 export const prerender = true;
@@ -30,9 +31,12 @@ export const GET: APIRoute = async () => {
     "",
     `${PERSON_NAME} – ${SITE_TAGLINE.toLowerCase()} z ${HOME_CITY}a. Kontakt: ${CONTACT_EMAIL}`,
     "",
-    "## Zakres pracy",
+    `## Zakres pracy (${SITE_URL}${SERVICE_PATH})`,
     "",
-    ...SERVICES.map((service) => `- ${service.label}`),
+    ...SERVICES.map(
+      (service) =>
+        `- [${service.label}](${SITE_URL}${SERVICE_PATH}#${service.id}): ${service.description}`,
+    ),
     "",
     "## Artyści",
     "",

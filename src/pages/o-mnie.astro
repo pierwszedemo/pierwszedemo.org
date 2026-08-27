@@ -9,7 +9,7 @@ import {
   PERSON_NAME,
   SERVICES,
   SITE_NAME,
-  SITE_TAGLINE,
+  SERVICE_PATH,
   SITE_URL,
 } from "../consts";
 import { breadcrumbJsonLd } from "../schema";
@@ -24,9 +24,14 @@ const breadcrumb = breadcrumbJsonLd(
 );
 ---
 
+{
+  /* Bez tytułu zawodowego w <title>: frazy usługowe należą do strony głównej
+     i /manager-muzyczny, ta ma rankować na nazwisko – wcześniej obie strony
+     miały ten sam tytuł i /o-mnie wypadła z wyników po nazwisku. */
+}
 <BaseLayout
-  title={`O mnie – ${PERSON_NAME}, ${SITE_TAGLINE.toLowerCase()} | ${SITE_NAME}`}
-  description={`Michał Miszczyszyn – manager artystów prowadzący Pierwsze Demo, a także przedsiębiorca, programista, autor książki i twórca Type of Web.`}
+  title={`O mnie – ${PERSON_NAME} | ${SITE_NAME}`}
+  description={`Michał Miszczyszyn – menedżer muzyczny prowadzący Pierwsze Demo, a także przedsiębiorca, programista, autor książki i twórca Type of Web.`}
   canonicalPath="/o-mnie"
   schemaPageType="ProfilePage"
   extraJsonLd={[breadcrumb]}
@@ -114,7 +119,12 @@ const breadcrumb = breadcrumbJsonLd(
               {
                 SERVICES.map((service) => (
                   <li class="flex items-baseline justify-between gap-4 py-4">
-                    <span class="text-row font-semibold">{service.label}</span>
+                    <a
+                      href={`${SERVICE_PATH}#${service.id}`}
+                      class="text-row font-semibold underline decoration-1 underline-offset-4"
+                    >
+                      {service.label}
+                    </a>
                     <span class="label text-muted">({service.no})</span>
                   </li>
                 ))

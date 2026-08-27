@@ -15,14 +15,13 @@ import {
   PERSON_NAME,
   INSTAGRAM_URL,
   PERSON_PROFILES,
-  SERVICES,
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_TAGLINE,
   SITE_URL,
   WEBSITE_ID,
 } from "../consts";
-import { isoDateTime } from "../schema";
+import { isoDateTime, offerCatalogJsonLd } from "../schema";
 import "../styles/global.css";
 
 interface Props {
@@ -70,24 +69,22 @@ const personJsonLd = {
   email: `mailto:${CONTACT_EMAIL}`,
   image: photoUrl,
   mainEntityOfPage: site.href,
-  // Usługi z pasma hero jako katalog – te trzy pozycje to jedyne, co strona
-  // faktycznie oferuje, więc encja nie obiecuje niczego ponad treść.
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Usługi",
-    itemListElement: SERVICES.map((service) => ({
-      "@type": "Offer",
-      itemOffered: { "@type": "Service", name: service.label },
-    })),
-  },
+  hasOfferCatalog: offerCatalogJsonLd(),
   knowsLanguage: ["pl", "en"],
   knowsAbout: [
+    "management muzyczny",
     "management artystów",
     "wydawnictwa muzyczne",
     "booking koncertowy",
     "promocja muzyki",
   ],
-  hasOccupation: { "@type": "Occupation", name: SITE_TAGLINE },
+  // Warianty pisowni jako alternateName zawodu – w treści każda strona używa
+  // jednej formy, a tu robot dostaje wszystkie trzy naraz.
+  hasOccupation: {
+    "@type": "Occupation",
+    name: SITE_TAGLINE,
+    alternateName: ["manager artystów", "menedżer muzyczny", "menadżer artystów"],
+  },
   homeLocation: {
     "@type": "Place",
     name: HOME_CITY,

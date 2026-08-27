@@ -12,10 +12,17 @@ const { active } = Astro.props;
 // Wewnętrzne linie w pasmie są jasne (hairline), samo pasmo zamyka twarda
 // linia ink – ta różnica trzyma całą siatkę projektu.
 const cell = "px-5 py-4 md:px-8 md:py-[22px]";
+
+// Makieta ma cztery komórki; piąta (Współpraca) doszła ze stroną usługową.
+// Na desktopie pięć równych kolumn, na telefonie marka na całą szerokość,
+// a pod nią trzy pozycje i Kontakt w siatce 2×2 – stąd liczenie obramowań
+// z indeksu: lewa komórka rzędu dostaje border-r, drugi rząd border-t.
+const columns = NAV.length + 2;
 ---
 
 <nav
-  class="grid grid-cols-2 border-b border-ink md:grid-cols-4"
+  class="grid grid-cols-2 border-b border-ink md:grid-cols-[repeat(var(--nav-cols),minmax(0,1fr))]"
+  style={`--nav-cols: ${columns}`}
   aria-label="Główna"
 >
   <a
@@ -29,8 +36,8 @@ const cell = "px-5 py-4 md:px-8 md:py-[22px]";
       <a
         href={item.href}
         class={`${cell} border-hairline text-sm ${
-          index === 0 ? "border-r" : ""
-        } md:border-r ${
+          index % 2 === 0 ? "border-r" : ""
+        } ${index >= 2 ? "border-t" : ""} md:border-t-0 md:border-r ${
           active === item.label ? "font-semibold text-ink" : "text-muted"
         }`}
         aria-current={active === item.label ? "page" : undefined}
@@ -40,7 +47,7 @@ const cell = "px-5 py-4 md:px-8 md:py-[22px]";
     ))
   }
   <EmailLink
-    class={`${cell} col-span-2 flex items-center justify-between gap-3 border-t border-hairline text-sm md:col-span-1 md:border-t-0`}
+    class={`${cell} flex items-center justify-between gap-3 border-t border-hairline text-sm md:border-t-0`}
   >
     <span>Kontakt</span>
     <span aria-hidden="true">↗</span>
