@@ -1,0 +1,33 @@
+{
+  "cover": {
+    "eyebrow": "Finanse",
+    "hook": "Jedno nagranie, trzy źródła pieniędzy. Żadne nie zgłosi Cię samo."
+  },
+  "slides": [
+    {
+      "heading": "Trzy prawa w jednym pliku",
+      "body": [
+        "Utwór, czyli melodia i tekst. Wykonanie, czyli wokal i instrumenty. Fonogram, czyli master.",
+        "Jeśli zapłaciłaś za studio i wydajesz przez dystrybutora, jesteś też producentem. Serio."
+      ]
+    },
+    {
+      "heading": "Kto jest od czego",
+      "body": "ZAiKS zbiera za utwór. STOART albo SAWP za wykonanie, nigdy obie naraz. ZPAV za master. Kawiarnia w Pcimiu Dolnym nie wystawi Ci faktury, organizacja umie się o to upomnieć."
+    },
+    {
+      "heading": "Dystrybutor to połowa rozliczenia",
+      "body": "Ze streamingu rozlicza Ci master. Autorska część tego samego odtworzenia jedzie inną ścieżką i bez umowy z ZAiKS-em nie ma jak do Ciebie dotrzeć."
+    },
+    {
+      "heading": "Kiedy zgłaszać?",
+      "body": [
+        "ZAiKS rejestruje tylko utwory już rozpowszechnione. Ale koncert to też rozpowszechnienie. Piosenka zagrana w klubie może trafić do kartoteki miesiące przed singlem.",
+        "A co z kasą sprzed rejestracji?"
+      ]
+    }
+  ],
+  "cta": {
+    "url": "pierwszedemo.com/blog/zaiks-stoart-sawp-zpav"
+  }
+}
