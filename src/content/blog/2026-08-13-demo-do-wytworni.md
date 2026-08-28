@@ -70,7 +70,7 @@ Załóżmy, że odpowiedź przyszła i jest pozytywna. Gratulacje! Teraz zaczyna
 
 **Bez liczb nie masz lewaru.** Nie masz czym uzasadnić ani wyższego udziału, ani krótszej licencji, ani prawa do własnych nagrań. Zostaje argument, że muzyka jest dobra – a tego argumentu używa każda osoba w tej kolejce.
 
-Podejrzewam, że dlatego pierwsze umowy tak często kończą się oddaniem masterów i licencji na wiele lat, a przychód dzieli strona, która przyszła z pieniędzmi.
+Podejrzewam, że dlatego pierwsze umowy tak często kończą się [oddaniem masterów](/blog/zaiks-stoart-sawp-zpav) i licencji na wiele lat, a przychód dzieli strona, która przyszła z pieniędzmi.
 
 Ale kierunek jest prosty i działa tak samo dla wytwórni i inwestorów. Każdy kolejny miesiąc, w którym rosną Twoje liczby przesuwa środek ciężkości tej rozmowy. Inwestor rozmawiający z firmą, która ma przychody nie dyktuje warunków tak samo jak inwestor rozmawiający z pustym _keynotem_.
 
