@@ -1,0 +1,29 @@
+{
+  "cover": {
+    "eyebrow": "Zarządzanie",
+    "hook": "Sprzedawca, booker, fotograf. A i tak główna robota managera to kopanie artystów w dupę."
+  },
+  "slides": [
+    {
+      "heading": "„360” to nie model biznesowy",
+      "body": [
+        "Na starcie nie stać Cię na agencję do żadnego z tych zadań. Rachunek płacisz czasem, nie przelewem.",
+        "Okładka do singla? Kilka godzin na peronie kolejowym i setki zdjęć do przejrzenia."
+      ]
+    },
+    {
+      "heading": "Nikt nie wymyśli strategii za Ciebie",
+      "body": "Do agencji przychodzi się z gotowym pomysłem i podzleca tylko to, co nie wychodzi. Żeby to wiedzieć, najpierw trzeba spróbować wszystkiego."
+    },
+    {
+      "heading": "„Gotowe na jutro” nigdy nie znaczy jutro",
+      "body": [
+        "„100 tys. słuchaczy po pierwszym singlu”. „Został tylko mastering, a to już proste”. Każde z tych zdań świetnie brzmi i nic z nich nie wynika.",
+        "Więc ostudzam, urealniam, ściągam na ziemię. Jak?"
+      ]
+    }
+  ],
+  "cta": {
+    "url": "pierwszedemo.com/blog/poczatkujacy-manager-artysty"
+  }
+}
