@@ -1,6 +1,6 @@
 # Ola Geppert – dossier
 
-*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-08-25**
+*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-08-28**
 (EPK w wersji 08.2026; stały adres `/epk.pdf` przekierowuje na aktualny plik,
 dziś `ola-geppert-epk-08.2026.pdf`). Poza sekcją „Rebranding"
 żaden fakt w tym pliku nie ma zewnętrznego potwierdzenia – bo go nie ma w internecie.*
@@ -75,7 +75,7 @@ Siedem singli, wszystkie wydane pod pseudonimem **Birim**:
 | Co byś mi zrobił, gdybym nie mogła mówić nie? | 30.01.2025 |
 | Wielkie Nic | 08.08.2025 |
 
-Aktualnie promowany singiel: **„Delikatnie"**.
+Strona główna promuje zapowiedź **„To nie ja”** (od 2026-08-28; wcześniej promowanym singlem było „Delikatnie”).
 
 Zapowiedziany singiel: **„To nie ja"**, nagrany z Ioannim, premiera **10.09.2026**
 (ogłoszone na `/bio` i w EPK, stan 2026-08-25). To pierwszy dzień Great September
@@ -136,6 +136,7 @@ naturalnie („z Ioannim", „nagrana z Ioannim") – to nadal ta sama nazwa, ni
 - `https://olageppert.pl/bio#kontakt` – jedyna działająca kotwica na stronie
 - `https://olageppert.pl/epk` – electronic press kit, stąd bierzesz aktualny link do PDF-a
 - `https://olageppert.pl/epk.pdf` – stały adres PDF-a (302 na plik z datą w nazwie), bezpieczny do linkowania
+- `https://olageppert.pl/tonieja` – strona singla „To nie ja” (użyta we wpisie o Great September)
 
 Skróty (przekierowania, zawsze aktualne): `/spotify`, `/instagram` (`/ig`),
 `/apple-music` (`/apple`), `/youtube` (`/yt`), `/tiktok`, `/tidal`, `/deezer`,
