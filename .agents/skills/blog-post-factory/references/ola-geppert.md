@@ -1,6 +1,6 @@
 # Ola Geppert – dossier
 
-*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-08-28**
+*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-09-03**
 (EPK w wersji 08.2026; stały adres `/epk.pdf` przekierowuje na aktualny plik,
 dziś `ola-geppert-epk-08.2026.pdf`). Poza sekcją „Rebranding"
 żaden fakt w tym pliku nie ma zewnętrznego potwierdzenia – bo go nie ma w internecie.*
@@ -88,10 +88,13 @@ Pseudonim **Birim** funkcjonował od 2020 do lipca 2026, kiedy artystka zaczęł
 pod własnym imieniem i nazwiskiem. Katalog jest ten sam – to ta sama artystka, nie nowy
 projekt.
 
-**Rebranding nie jest domknięty na wszystkich platformach.** Spotify i Deezer pokazują
-już nową nazwę; Apple Music i Amazon Music nadal wyświetlają „Birim". To jedyna
-sprawdzalna, konkretna anegdota, jaką wolno o niej opowiedzieć na blogu – i dobra,
-bo pokazuje realny koszt zmiany nazwy artysty w rozproszonym ekosystemie DSP.
+**Rebranding domykał się na platformach w różnym tempie.** Spotify i Deezer pokazywały
+nową nazwę już w sierpniu 2026; Apple Music jeszcze 28.08.2026 wyświetlało „Birim",
+a 03.09.2026 pokazuje już „Ola Geppert" (sprawdzone przez `/apple-music`, katalog
+siedmiu singli pod nową nazwą). Amazon Music niesprawdzony od 28.08 – nie twierdź
+niczego o jego stanie. To jedyna sprawdzalna, konkretna anegdota, jaką wolno o niej
+opowiedzieć na blogu – i dobra, bo pokazuje realny koszt zmiany nazwy artysty
+w rozproszonym ekosystemie DSP (użyta we wpisie `jak-wybrac-dystrybutora-cyfrowego`).
 
 Zmiana nazwy jest potwierdzona zewnętrznie w bazie MusicBrainz (alias `Birim` ma
 zamkniętą datę końcową), identyfikator artystki:
