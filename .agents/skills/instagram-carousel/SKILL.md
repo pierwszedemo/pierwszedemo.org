@@ -59,17 +59,25 @@ Przeczytaj **cały wpis**, nie sam frontmatter. Z lektury wynoś:
 - **hook** na okładkę – najmocniejsze zdanie albo najbardziej przewrotna teza
   wpisu, przepisana na 40–110 znaków. Dobre hooki tego bloga brzmią jak lead:
   konkret, zaskoczenie, czasem pytanie.
-- **1–4 punkty** na slajdy treści – po jednej myśli na slajd. Notatka zwykle
-  niesie 2–3, przewodnik 3–4 (po jednym na najważniejsze sekcje `##`). Nie
-  upychaj wszystkiego: punkt, który nie mieści się w limicie znaków, jest
-  kandydatem do wycięcia, nie do skrócenia w bełkot.
-- **Slajd = teza + jeden konkret, bez wniosku.** Celuj w 180–250 znaków
-  `body`. Konkret (scena, liczba ze źródłem, kontrast, cytat z panelu) jest
-  obowiązkowy – to on zatrzymuje kciuk; sama teza w jednym zdaniu czyta się
-  jak slogan i nie angażuje. Wniosek, uzasadnienie i „co z tym zrobić”
-  zostają we wpisie – to one są powodem kliknięcia. Limit 440 znaków
-  w walidatorze to geometria kadru, nie cel: karuzela, która go wypełnia,
-  streszcza notatkę i nikt po niej nie wejdzie na blog.
+- **1–4 punkty** na slajdy treści – po jednej myśli na slajd. **Notatka
+  dostaje 1–2 slajdy treści, przewodnik 2–4** (po jednym na najważniejsze
+  sekcje `##`). Liczba slajdów rośnie z długością wpisu, nie z liczbą
+  argumentów: notatka na 400 słów rozpisana na trzy pełne slajdy jest
+  przepisaną notatką, a nie zajawką. Punkt, który nie mieści się w limicie,
+  jest kandydatem do wycięcia, nie do skrócenia w bełkot.
+- **Parafrazuj, nie cytuj.** Zdania na slajdzie mają być krótsze i ostrzejsze
+  niż w tekście – własne streszczenie myśli, nie akapit przeklejony z wpisu.
+  Jeśli `body` da się odnaleźć we wpisie słowo w słowo, przepisz je od nowa.
+- **Slajd = teza + jeden konkret, bez wniosku.** Celuj w 80–160 znaków
+  `body` przy notatce, 120–220 przy przewodniku. Konkret (scena, liczba ze
+  źródłem, kontrast) jest obowiązkowy – to on zatrzymuje kciuk; sama teza
+  w jednym zdaniu czyta się jak slogan i nie angażuje. Wniosek, uzasadnienie
+  i „co z tym zrobić” zostają we wpisie – to one są powodem kliknięcia.
+  Limit 440 znaków w walidatorze to geometria kadru, nie cel.
+- **Test proporcji:** cały tekst karuzeli (hook + wszystkie `body`) ma być
+  wyraźnie krótszy niż jedna czwarta wpisu. Jeśli ktoś po przeczytaniu
+  slajdów nie ma już po co wchodzić na blog, karuzela jest za długa –
+  ma zaciekawić, nie zastąpić tekst.
 - Ostatni slajd treści kończy się niedopowiedzeniem albo pytaniem („Co, jeśli
   przegra?”) – powód, żeby wejść na blog, ma zostać.
 
@@ -106,7 +114,8 @@ Zapisz do `instagram/_<data>-<slug>-karuzela/spec.json`:
   tylko górną); stopień pisma dobiera się do długości, 96→64 px.
 - `slides` – 1–4 pozycje; `heading` ≤64 znaki, `body` to string albo tablica
   1–3 akapitów, łącznie ≤440 znaków **licząc spację między akapitami** (górna
-  granica geometrii; redakcyjnie celuj w 180–250 – patrz krok 2).
+  granica geometrii; redakcyjnie celuj w 80–160 przy notatce, 120–220 przy
+  przewodniku – patrz krok 2).
 - `cta` jest opcjonalne – domyślne wartości (powyżej) są dobre w 90% przypadków;
   `lines` to tablica 1–4 linii po ≤22 znaki, `url` ≤60 znaków. Adres renderuje
   się małymi literami – ścieżki na Vercelu rozróżniają wielkość liter.
