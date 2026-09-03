@@ -45,6 +45,7 @@ z wpisu o EPK link tam, a nie odwrotnie.
 | Kalendarz polskich wydarzeń branżowych | Branża | `konferencje muzyczne polska` |
 | Rider techniczny bez wstydu | Koncerty | `rider techniczny zespół` |
 | Do agencji z gotowym pomysłem – co i kiedy podzlecać | Zarządzanie | `agencja dla artysty` |
+| Waterfall: single, które składają się na EP | Wydawnictwa | `waterfall wydawnictwo` |
 
 Wpis oznaczony frazą `zmiana nazwy artysty` to naturalne miejsce na przykład Oli Geppert –
 niedomknięty rebranding Birim na platformach jest konkretem, nie autopromocją.
@@ -54,6 +55,12 @@ Temat `agencja dla artysty` zamówił autor (2026-08-19) przy pisaniu wpisu
 `poczatkujacy-manager-artysty` – tamten tekst mówi „do agencji przychodzi się z gotowym
 pomysłem" i świadomie tego nie rozwija. Przy pisaniu zostaw stamtąd link zwrotny tutaj.
 Materiał (co realnie podzlecił i jak wyszło) trzeba wziąć od autora – nie zgaduj.
+
+Temat `waterfall wydawnictwo` zamówił autor (2026-09-03) przy wpisie `ep-czy-seria-singli`.
+Tamten tekst kończy się zdaniem „Wtedy wydaj EP albo zrób _waterfall_” i celowo nie
+tłumaczy, czym waterfall jest – przy pisaniu podlinkuj stamtąd to słowo. Waterfall to
+alternatywa wobec tezy tamtego wpisu (single osobno, EP jako nowy materiał), nie jej
+rozwinięcie: EP na końcu zbiera wcześniejsze single i dokłada jeden czy dwa nowe utwory.
 
 ## Tematy odrzucone
 
