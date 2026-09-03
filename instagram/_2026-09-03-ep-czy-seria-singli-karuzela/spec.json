@@ -1,0 +1,22 @@
+{
+  "cover": {
+    "eyebrow": "Wydawnictwa",
+    "hook": "Pięć singli to pięć losów na loterię. EP to jeden los."
+  },
+  "slides": [
+    {
+      "heading": "EP ma jeden dzień premiery",
+      "body": "Release Radar pokazuje jeden utwór artysty na tydzień. Pięć singli to pięć wejść. EP to jedno."
+    },
+    {
+      "heading": "Regularność wymusza kończenie",
+      "body": [
+        "Data singla w kalendarzu kończy miks. EP „na jesień” ma jesień co roku.",
+        "A kiedy EP ma sens?"
+      ]
+    }
+  ],
+  "cta": {
+    "url": "pierwszedemo.com/blog/ep-czy-seria-singli"
+  }
+}
