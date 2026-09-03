@@ -62,7 +62,7 @@ Liczmy koszta uczciwie. To nie jest kwadrans na napisanie maila. To kwadrans plu
 
 Zresztą [rachunek za pierwsze wydawnictwa i tak płacisz czasem, nie przelewem](/blog/ile-kosztuje-niezalezny-singiel). Szkoda dokładać do tego miesiące bez odsłuchów od nikogo.
 
-Do tego dochodzi rzecz, której nie widać w kalendarzu. Materiał trzymany w szufladzie starzeje się w Twojej głowie: po kilku miesiącach przestaje Ci się podobać własny singiel i zaczynasz go poprawiać zamiast wydać. Nie mam na to dobrej rady poza jedną – wydaj, zanim zdążysz się rozmyślić.
+Do tego dochodzi rzecz, której nie widać w kalendarzu. Materiał trzymany w szufladzie starzeje się w Twojej głowie: po kilku miesiącach przestaje Ci się podobać własny singiel i zaczynasz go poprawiać zamiast wydać. Nie mam na to dobrej rady poza jedną – [wydaj, zanim zdążysz się rozmyślić](/blog/ep-czy-seria-singli).
 
 ## Negocjacja z pozycji zero
 
