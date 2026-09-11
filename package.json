@@ -21,7 +21,7 @@
     "@tailwindcss/vite": "4.3.3",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
     "satori": "0.29.0",
-    "sharp": "0.35.3",
+    "sharp": "0.35.4",
     "tailwindcss": "4.3.3"
   },
   "engines": {
