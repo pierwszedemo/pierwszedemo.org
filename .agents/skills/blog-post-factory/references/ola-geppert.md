@@ -1,8 +1,8 @@
 # Ola Geppert – dossier
 
-*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-09-03**
-(EPK w wersji 08.2026; stały adres `/epk.pdf` przekierowuje na aktualny plik,
-dziś `ola-geppert-epk-08.2026.pdf`). Poza sekcją „Rebranding"
+*Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-09-15**
+(EPK w wersji 09.2026; stały adres `/epk.pdf` przekierowuje na aktualny plik,
+dziś `ola-geppert-epk-09.2026.pdf`). Poza sekcją „Rebranding"
 żaden fakt w tym pliku nie ma zewnętrznego potwierdzenia – bo go nie ma w internecie.*
 
 *Ten plik aktualizuje się sam: krok 0 w `SKILL.md` pobiera strony artystki przy każdym
@@ -59,11 +59,12 @@ Rozróżnienie jest proste: **strony artystki czytasz zawsze, internetu o niej n
 - Songwriterka i wokalistka. Sama pisze teksty.
 - Gatunek: dark pop, indie pop, retro pop, pop alternatywny.
 - Jednozdaniowy opis z EPK: *„Mroczny alternatywny pop spotyka retro i intymny wokal."*
-- Manager: Michał Miszczyszyn. Kontakt bookingowy i prasowy: `czesc@olageppert.pl`.
+- Manager: Michał Miszczyszyn. Kontakt bookingowy i prasowy podany na stronie:
+  `michal@pierwszedemo.com` (od 2026-09; wcześniej `czesc@olageppert.pl`).
 
 ## Dyskografia
 
-Siedem singli, wszystkie wydane pod pseudonimem **Birim**:
+Osiem singli. Siedem wydanych pod pseudonimem **Birim**:
 
 | Utwór | Data |
 |---|---|
@@ -75,12 +76,20 @@ Siedem singli, wszystkie wydane pod pseudonimem **Birim**:
 | Co byś mi zrobił, gdybym nie mogła mówić nie? | 30.01.2025 |
 | Wielkie Nic | 08.08.2025 |
 
-Strona główna promuje zapowiedź **„To nie ja”** (od 2026-08-28; wcześniej promowanym singlem było „Delikatnie”).
+Ósmy, pierwszy pod własnym nazwiskiem: **„To nie ja"**, duet Ola Geppert / Ioanni,
+wydany **10.09.2026** (pierwszy dzień Great September 2026 – premiera była ustawiona
+pod festiwal, o czym mówią wpisy `poczatkujacy-manager-artysty`
+i `pierwszy-raz-na-great-september`). Strona główna promuje ten singiel od 2026-08-28.
 
-Zapowiedziany singiel: **„To nie ja"**, nagrany z Ioannim, premiera **10.09.2026**
-(ogłoszone na `/bio` i w EPK, stan 2026-08-25). To pierwszy dzień Great September
-2026 – premiera jest ustawiona pod festiwal, o czym mówi wpis
-`poczatkujacy-manager-artysty`.
+**Prasa o „To nie ja”** (stan 2026-09-15, wylistowana w JSON-LD `/bio` jako `subjectOf`;
+to pierwsze wzmianki prasowe o artystce, więc zakaz nr 2 wyżej przestał być zgodny
+ze stanem faktycznym – decyzję o jego zmianie podejmuje Michał, nie skill):
+Polska Płyta / Polska Muzyka (2026-09-10), Czarno na Czarnym (2026-09-09),
+¿Dlaczego Nie Gra? (2026-09-13), Kultura i Sztuka (2026-09-14). Nie cytuj ich treści
+z pamięci – nie były czytane.
+
+W 2026 jej głos zabrzmiał w filmie dokumentalnym **„Sędzia z Auschwitz”** z muzyką
+Ioanniego (zdanie z `/bio`, cytuj tak, jak stoi).
 
 ## Rebranding
 
@@ -124,10 +133,11 @@ i Michał zarządza w praktyce obojgiem, choć w rosterze formalnie jest sama Ol
 2026-08-19 – strona artystki opisuje Ioanniego tylko jako producenta.)*
 Planowane okno wydawnicze: **jesień 2026**. Tytuł nie został ogłoszony.
 
-Czego artystka szuka (sekcja priorytetów w EPK 08.2026, cytuj jako listę celów,
-nie jako osiągnięcia): miejsca na playlistach dark/indie pop, sloty na showcase
-i w klubach na 2026/2027, media (prasa, radio, podcasty), rozmowy z wytwórniami
-o wydaniu EP, booking i suporty, sync do filmu, TV i reklamy.
+Czego artystka szuka (sekcja priorytetów w EPK 09.2026, cytuj jako listę celów,
+nie jako osiągnięcia): 1) playlisty kuratorskie i redakcyjne (dark/indie pop),
+2) festiwale i showcase'y klubowe (line-upy 2026/2027), 3) wywiady (prasa, radio,
+podcasty, media online); ponadto wydawca, booking koncertów, sync do filmu, seriali
+i reklam.
 
 Pisownia: **Ioanni**, jedna forma w całym blogu. W przypadkach zależnych odmieniaj
 naturalnie („z Ioannim", „nagrana z Ioannim") – to nadal ta sama nazwa, nie „Ioannis".
