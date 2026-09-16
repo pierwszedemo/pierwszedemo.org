@@ -71,12 +71,18 @@ const coverSlide = () => {
   const hook = glue(cover.hook);
   // Progi dobrane tak, żeby hook mieścił się w 2–4 wierszach przy 912 px.
   const size = hook.length > 90 ? 64 : hook.length > 70 ? 72 : hook.length > 40 ? 84 : 96;
+  // `\n` w hooku to twarde łamanie wiersza (np. nazwa wydarzenia w osobnej
+  // linii). Satori nie honoruje znaku nowej linii w tekście, więc każda linia
+  // idzie w osobnym divie.
+  const lines = hook.split("\n").map((line) =>
+    el("div", { fontSize: size, fontWeight: 600, lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: 912 }, line),
+  );
   return frame(false, [
     header(cover.eyebrow ?? "Blog", no(1)),
     el(
       "div",
       { display: "flex", flexGrow: 1, flexDirection: "column", justifyContent: "flex-end", paddingBottom: 56 },
-      el("div", { fontSize: size, fontWeight: 600, lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: 912 }, hook),
+      lines,
     ),
     footer(false),
   ]);
@@ -126,7 +132,7 @@ await render({
   dirName,
   nodes: [coverSlide(), ...slides.map(contentSlide), ctaSlide()],
   altLines: [
-    `${cover.eyebrow ?? "Blog"}. ${cover.hook}`,
+    `${cover.eyebrow ?? "Blog"}. ${cover.hook.replace(/\n/g, " ")}`,
     ...slides.map((s) => `${s.heading}. ${paragraphs(s.body).join(" ")}`),
     `${ctaLines.join(" ")} ${ctaUrl}`,
   ],

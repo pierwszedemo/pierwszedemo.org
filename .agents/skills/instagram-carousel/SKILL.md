@@ -111,7 +111,10 @@ Zapisz do `instagram/_<data>-<slug>-karuzela/spec.json`:
 - `cover.eyebrow` – kategoria wpisu z frontmattera; ≤40 znaków. Bez niej
   skrypt wstawi „Blog”, ale kategoria mówi więcej – podawaj ją zawsze.
 - `cover.hook` – 40–110 znaków (dolną granicę pilnujesz sam, skrypt egzekwuje
-  tylko górną); stopień pisma dobiera się do długości, 96→64 px.
+  tylko górną); stopień pisma dobiera się do długości, 96→64 px. `\n` w hooku
+  to twarde łamanie wiersza – przydaje się, gdy nazwa wydarzenia albo
+  produktu ma stać w osobnej linii („Great September 2026.\nKoncerty…”).
+  W `alt.txt` zamienia się na spację.
 - `slides` – 1–4 pozycje; `heading` ≤64 znaki, `body` to string albo tablica
   1–3 akapitów, łącznie ≤440 znaków **licząc spację między akapitami** (górna
   granica geometrii; redakcyjnie celuj w 80–160 przy notatce, 120–220 przy
