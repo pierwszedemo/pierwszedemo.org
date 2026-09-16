@@ -26,4 +26,4 @@ Trzecia, najgorsza: jak sprzedawać i nie być nachalnym. Nie znoszę, gdy ktoś
 
 Całe szczęście przez większość czasu będzie ze mną Ola. Rozmowa z artystką o jej piosenkach zawsze pójdzie lepiej niż rozmowa z managerem o cudzych. A ja mogę wtedy robić to, co do mnie należy: pilnować, z kim jeszcze mamy pogadać, zanim zamkną klub i chwalić Olę przed innymi, gdy jej skromność na to nie pozwala.
 
-Po powrocie napiszę, jak było naprawdę. A jeśli byłaś albo byłeś już na showcasie jako delegat, to powiedz mi, na co uważać, zanim sam się przekonam. Śmiało napisz do mnie.
+[Po powrocie napiszę, jak było naprawdę](/blog/relacja-z-great-september). A jeśli byłaś albo byłeś już na showcasie jako delegat, to powiedz mi, na co uważać, zanim sam się przekonam. Śmiało napisz do mnie.
