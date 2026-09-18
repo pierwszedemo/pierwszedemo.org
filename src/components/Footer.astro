@@ -3,12 +3,12 @@ import { INSTAGRAM_URL } from "../consts";
 
 // Profile osobiste są tylko w schema.org. Widoczna stopka zostawia niezbędne
 // minimum: podpis, Instagram marki i równie łatwy jak zgoda dostęp do
-// ustawień cookies.
+// ustawień cookies. Tory 5/3/3/5 jak w nawigacji – te same linie siatki.
 const cell = "px-5 py-4 md:py-[19px] lg:px-8";
 ---
 
 <footer
-  class="grid grid-cols-2 border-t border-ink text-[13px] text-muted md:grid-cols-4"
+  class="grid grid-cols-2 border-t border-ink text-[13px] text-muted md:grid-cols-[5fr_3fr_3fr_5fr]"
 >
   <div
     class={`${cell} border-r border-b border-hairline md:border-b-0`}

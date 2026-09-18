@@ -92,7 +92,9 @@ const breadcrumb = breadcrumbJsonLd(
               <a
                 href={`/blog/${post.id}`}
                 class:list={[
-                  "group grid grid-cols-1 items-center gap-y-2 px-5 py-6 transition-colors md:grid-cols-[150px_1fr_190px_70px] md:gap-0 md:px-0 md:py-0",
+                  // Tory 5 / 7 / 3 / 1 z 16 modułów: tytuł zaczyna się na tej
+                  // samej linii co tytuł i treść pojedynczego wpisu.
+                  "group grid grid-cols-1 items-center gap-y-2 px-5 py-6 transition-colors md:grid-cols-[var(--aside)_minmax(0,1fr)_calc(var(--col)*3)_var(--col)] md:gap-0 md:px-0 md:py-0",
                   // Wiersz przy focusie robi się czarny, więc domyślny czarny
                   // kontur znika – na inwersji musi być biały, do środka.
                   "hover:bg-ink hover:text-white focus-visible:bg-ink focus-visible:text-white focus-visible:outline-white focus-visible:outline-offset-[-4px]",
@@ -108,7 +110,7 @@ const breadcrumb = breadcrumbJsonLd(
                   </time>
                   <span class="md:hidden"> – {post.data.category}</span>
                 </span>
-                <span class="order-1 text-row font-semibold text-balance md:order-none md:py-7">
+                <span class="order-1 text-row font-semibold text-balance md:order-none md:py-7 md:pr-6 md:pl-8">
                   {fixHanging(post.data.title)}
                 </span>
                 <span class="order-3 hidden text-[13px] tracking-[0.14em] text-muted uppercase group-hover:text-white/70 group-focus-visible:text-white/70 md:order-none md:block md:py-7">
@@ -116,7 +118,7 @@ const breadcrumb = breadcrumbJsonLd(
                 </span>
                 <span
                   aria-hidden="true"
-                  class="hidden text-[22px] md:block md:px-8 md:py-7 md:text-right"
+                  class="hidden text-[22px] md:block md:py-7 md:pr-8 md:text-right"
                 >
                   →
                 </span>

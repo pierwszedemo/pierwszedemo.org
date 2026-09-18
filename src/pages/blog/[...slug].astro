@@ -80,13 +80,17 @@ const breadcrumb = breadcrumbJsonLd(
     <Nav active="Blog" />
 
     <main class="flex flex-1 flex-col">
-      <article class="flex flex-1 flex-col">
-        <!-- Pasek metadanych: data / kategoria / czas czytania -->
+      {/* Kolumna „W skrócie" = kolumna boczna siatki, ale nie węższa niż
+            21.5 rem: odtwarzacz Spotify potrzebuje 280 px, a padding kolumny
+            zabiera 2 × 32 px, a border-r jeszcze 1 px. Od ~1100 px wygrywa siatka. */}
+      <article class="flex flex-1 flex-col md:[--post-aside:max(calc(21.5rem_+_1px),var(--aside))]">
+        <!-- Pasek metadanych: data / kategoria / czas czytania. Tory 5 / 6 / 5
+             z 16 modułów – te same linie co w nawigacji. -->
         <div
-          class="label grid grid-cols-2 border-b border-ink text-muted md:grid-cols-[160px_1fr_160px]"
+          class="label grid grid-cols-2 border-b border-ink text-muted md:grid-cols-[var(--aside)_minmax(0,1fr)_var(--aside)]"
         >
           <div
-            class="border-r border-b border-hairline px-5 py-[18px] md:border-b-0"
+            class="border-r border-b border-hairline px-5 py-[18px] md:border-b-0 md:px-8"
           >
             <time datetime={isoDate(post.data.date)}>
               {isoDate(post.data.date)}
@@ -97,18 +101,16 @@ const breadcrumb = breadcrumbJsonLd(
           >
             {post.data.category}
           </div>
-          <div class="col-span-2 px-5 py-[18px] md:col-span-1">
+          <div class="col-span-2 px-5 py-[18px] md:col-span-1 md:px-8">
             {post.data.readingMinutes} min czyt.
           </div>
         </div>
 
         <!-- Tytuł jest wcięty tak, żeby zaczynał się w osi kolumny z tekstem. -->
         <!-- Wcięcie = szerokość kolumny „W skrócie" + 32 px, żeby tytuł
-             zaczynał się w osi tekstu wpisu. Od lg kolumna ma 25 %, a nie
-             makietowe 400 px – wtedy jej prawa krawędź pokrywa się z pierwszą
-             komórką nagłówka i stopki (4 równe kolumny). -->
+             zaczynał się w osi tekstu wpisu. -->
         <header
-          class="border-b border-ink px-5 py-10 md:px-8 md:pl-[22rem] lg:pl-[calc(25%+2rem)]"
+          class="border-b border-ink px-5 py-10 md:px-8 md:pl-[calc(var(--post-aside)_+_2rem)]"
         >
           <h1
             class="max-w-[18ch] text-post leading-[1.02] font-semibold tracking-[-0.03em] text-balance"
@@ -126,7 +128,7 @@ const breadcrumb = breadcrumbJsonLd(
              pogrubienie nie robi, bo `strong` to tu tylko waga 600.
              Wcięcie jak w nagłówku, żeby cytat stał w osi tekstu wpisu. */
           post.data.pullquote && (
-            <aside class="border-b border-ink px-5 py-10 md:px-8 md:pl-[22rem] lg:pl-[calc(25%+2rem)]">
+            <aside class="border-b border-ink px-5 py-10 md:px-8 md:pl-[calc(var(--post-aside)_+_2rem)]">
               <p class="text-row leading-[1.3] font-medium tracking-[-0.01em] text-pretty text-ink">
                 {fixHanging(`„${post.data.pullquote}”`)}
               </p>
@@ -140,7 +142,7 @@ const breadcrumb = breadcrumbJsonLd(
         }
 
         <div
-          class="grid flex-1 md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25%_minmax(0,1fr)]"
+          class="grid flex-1 md:grid-cols-[var(--post-aside)_minmax(0,1fr)]"
         >
           <aside
             class="border-b border-hairline px-5 py-9 md:border-r md:border-b-0 md:px-8"
@@ -159,14 +161,14 @@ const breadcrumb = breadcrumbJsonLd(
               /* Grafika wpisu siedzi pod leadem, nie w treści: kolumna „W skrócie"
                  ma już stałą szerokość i sticky, a korpus w dwóch łamach
                  rozerwałby obrazek na granicy kolumny. sizes odpowiada
-                 szerokościom aside z siatki niżej: 25 % od lg, 20 rem od md,
-                 pełna szerokość poniżej. */
+                 szerokościom aside: 5 modułów siatki, poniżej ~1100 px 21.5 rem,
+                 pełna szerokość poniżej md. */
               post.data.image && (
                 <Image
                   src={post.data.image}
                   alt={post.data.imageAlt ?? ""}
                   widths={[320, 480, 640, 960]}
-                  sizes="(min-width: 1024px) 25vw, (min-width: 768px) 20rem, 100vw"
+                  sizes="(min-width: 1101px) 31.25vw, (min-width: 768px) 21.5rem, 100vw"
                   class="h-auto w-full"
                 />
               )
@@ -208,7 +210,7 @@ const breadcrumb = breadcrumbJsonLd(
     </main>
 
     <div
-      class="grid border-t border-ink text-sm md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25%_minmax(0,1fr)]"
+      class="grid border-t border-ink text-sm md:grid-cols-[max(calc(21.5rem_+_1px),31.25%)_minmax(0,1fr)]"
     >
       <a
         href="/blog"

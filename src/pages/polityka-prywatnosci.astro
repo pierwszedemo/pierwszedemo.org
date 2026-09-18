@@ -43,7 +43,7 @@ const headers = [
 
       {
         PRIVACY_SECTIONS.map((section) => (
-          <section class="grid border-b border-hairline md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25rem_minmax(0,1fr)]">
+          <section class="grid border-b border-hairline md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-aside-left">
             <h2 class="label px-5 pt-6 text-muted md:border-r md:border-hairline md:px-8 md:py-9">
               {section.title}
             </h2>
@@ -59,7 +59,7 @@ const headers = [
       <!-- Tabela narzędzi – te same wpisy, które opisuje panel ustawień
            cookies (src/scripts/consent.ts). -->
       <section
-        class="grid border-b border-hairline md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-cols-[25rem_minmax(0,1fr)]"
+        class="grid border-b border-hairline md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-aside-left"
       >
         <h2 class="label px-5 pt-6 text-muted md:border-r md:border-hairline md:px-8 md:py-9">
           Narzędzia zewnętrzne

@@ -23,12 +23,33 @@
 /* Siatka projektu jest zbudowana na twardych krawędziach – żadnych zaokrągleń. */
 :root {
   scrollbar-gutter: stable;
+
+  /* Siatka 16 kolumn: makieta 1280 px dzieli się na moduły po 80 px
+     (160 = 2, 400 = 5, 640 = 8). Jednostką jest cqw, nie % ani vw: procent
+     w zagnieżdżonej siatce liczy się od rodzica, a vw wlicza pasek przewijania,
+     więc tylko cqw daje tę samą kolumnę na każdym poziomie zagnieżdżenia.
+     Działa wewnątrz <main> (kontener niżej); poza nim – nawigacja, stopka,
+     pasek prev/next – pasma są na pełną szerokość i wystarcza im fr albo %. */
+  --col: 6.25cqw;
+  /* Kolumna boczna = 5 modułów, makietowe 400 px. Nawigacja i stopka dzielą
+     się 5/3/3/5, więc ta sama linia biegnie przez całą stronę – z lewej
+     (wpis, polityka, /o-mnie, współpraca) albo z prawej (zdjęcie w hero).
+     Cztery moduły byłyby równą ćwiartką, ale 320 px minus padding to 256 px,
+     a odtwarzacz Spotify potrzebuje 280. */
+  --aside: calc(var(--col) * 5);
 }
 
 /* Widoczny focus w całym serwisie. Musi siedzieć w warstwie `base`,
    inaczej reguła bez warstwy wygrywa z utilities Tailwinda i nie da się
    jej nadpisać tam, gdzie tło jest czarne (wiersze bloga). */
 @layer base {
+  /* Punkt odniesienia dla --col. Na <main>, nie na <body>: container-type
+     zakłada layout containment, a ten zrobiłby z body blok odniesienia dla
+     position: fixed – baner cookies zjechałby na koniec dokumentu. */
+  main {
+    container-type: inline-size;
+  }
+
   :focus-visible {
     outline: 2px solid var(--color-ink);
     outline-offset: 2px;
@@ -37,6 +58,16 @@
 
 /* Etykiety monospace: wielkie litery + rozstrzelenie, powtarzane w całym
    projekcie. Jedna klasa zamiast pięciu utilities przy każdym użyciu. */
+/* Pasmo z kolumną boczną po lewej / po prawej. Jedna definicja zamiast
+   szerokości wpisywanej na każdej stronie osobno – tak rozjechały się 400 px
+   zdjęcia i 320 px nawigacji. */
+@utility grid-aside-left {
+  grid-template-columns: var(--aside) minmax(0, 1fr);
+}
+@utility grid-aside-right {
+  grid-template-columns: minmax(0, 1fr) var(--aside);
+}
+
 @utility label {
   font-family: var(--font-mono);
   font-weight: 500;

@@ -33,11 +33,11 @@ import {
     <main class="flex flex-1 flex-col">
       <!-- Pasmo hero: tekst + zdjęcie. W makiecie prawa kolumna ma stałe
            400 px; poniżej `md` zdjęcie schodzi pod tekst. -->
-      <!-- 400 px z makiety to 31.25% szerokości 1280 – przy węższych ekranach
-           kolumna ze zdjęciem musi zjeżdżać razem z resztą, inaczej lewa
-           kolumna nie mieści monospace'owego nadtytułu i strona się rozjeżdża. -->
+      <!-- Zdjęcie stoi w kolumnie bocznej siatki (5 z 16 modułów), nie
+           w makietowych 400 px: jej krawędź jest przedłużeniem ostatniej linii
+           nawigacji. Szerokość – `--aside` w global.css. -->
       <div
-        class="grid flex-1 md:grid-cols-[minmax(0,1fr)_clamp(15rem,31.25%,25rem)]"
+        class="grid flex-1 md:grid-aside-right"
       >
         <div
           class="flex min-w-0 flex-col justify-between gap-14 border-b border-ink px-5 py-12 md:border-r md:border-b-0 md:px-8 md:pt-16 md:pb-11"
