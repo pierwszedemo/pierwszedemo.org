@@ -55,7 +55,12 @@ Vertical lines may only fall on **5, 8 and 11**:
   dividers continue down the page as the aside line – on the left or the right.
 - Line 8 is the page middle: roster/contact on `/`, label/body on `/o-mnie`,
   title/description in the lists on `/manager-muzyczny`.
-- Blog list rows are 5 / 7 / 3 / 1, the post meta bar 5 / 6 / 5.
+- The post meta bar is 5 / 6 / 5.
+- **Exception:** blog list rows keep the mock's content-sized tracks
+  (`150px 1fr 190px 70px`). A row is a list item, not a band with a side column;
+  on 5 / 7 / 3 / 1 the date sat in 400 px of emptiness and the title lost a
+  third of its width. The rows have no vertical rules, so nothing visibly
+  misses a line.
 
 Four modules would be a tidy quarter, but 320 px minus the column padding is
 256 px and the Spotify player needs 280. For the same reason the post's aside
