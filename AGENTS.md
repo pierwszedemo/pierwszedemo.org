@@ -288,10 +288,12 @@ replace when a proper shot exists. Anything dropped in there must be
 pre-rotated and metadata-stripped first (the original carried an EXIF
 orientation tag and GPS coordinates).
 
-The nav is five cells (marka / Współpraca / O mnie / Blog / Kontakt) – one more
-than the mock. `Nav.astro` derives the desktop column count from `NAV.length`
-and the mobile 2×2 borders from the item index, so a sixth entry in `NAV` lays
-itself out; the mock's proportions were given up for the service page link.
+The nav is four cells (marka / Współpraca / O mnie / Blog), same count as the
+mock. There is no Kontakt cell: a fifth column broke the quarter grid that the
+25 % „W skrócie" column, the footer and the post's prev/next bar all stand on.
+The address is shown verbatim in the „Kontakt" sections of `/`, `/o-mnie` and
+`/manager-muzyczny` instead. `Nav.astro` lays out 2×2 on mobile with borders
+computed from the item index – a fourth entry in `NAV` means reworking it.
 Outbound links to artists go through `withUtm()`.
 
 ### Keyword positioning (2026-08-27)

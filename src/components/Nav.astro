@@ -1,5 +1,4 @@
 ---
-import EmailLink from "./EmailLink.astro";
 import { NAV, WORDMARK } from "../consts";
 
 interface Props {
@@ -13,11 +12,12 @@ const { active } = Astro.props;
 // linia ink – ta różnica trzyma całą siatkę projektu.
 const cell = "px-5 py-4 md:px-8 md:py-[22px]";
 
-// Makieta ma cztery komórki; piąta (Współpraca) doszła ze stroną usługową.
-// Na desktopie pięć równych kolumn, na telefonie marka na całą szerokość,
-// a pod nią trzy pozycje i Kontakt w siatce 2×2 – stąd liczenie obramowań
-// z indeksu: lewa komórka rzędu dostaje border-r, drugi rząd border-t.
-const columns = NAV.length + 2;
+// Cztery komórki jak w makiecie: marka i trzy pozycje menu. Kontaktu tu nie ma –
+// piąta komórka rozbijała podział na ćwiartki, na którym stoją kolumna
+// „W skrócie" (25 %), stopka i pasek pod wpisem, więc adres e-mail mieszka
+// w sekcjach „Kontakt" na stronach. Na telefonie siatka 2×2, stąd liczenie
+// obramowań z indeksu: lewa komórka rzędu dostaje border-r, drugi rząd border-t.
+const columns = NAV.length + 1;
 ---
 
 <nav
@@ -27,7 +27,7 @@ const columns = NAV.length + 2;
 >
   <a
     href="/"
-    class={`${cell} col-span-2 border-b border-hairline text-[15px] font-bold tracking-[0.02em] md:col-span-1 md:border-r md:border-b-0`}
+    class={`${cell} border-r border-hairline text-[15px] font-bold tracking-[0.02em]`}
   >
     {WORDMARK}
   </a>
@@ -36,20 +36,14 @@ const columns = NAV.length + 2;
       <a
         href={item.href}
         class={`${cell} border-hairline text-sm ${
-          index % 2 === 0 ? "border-r" : ""
-        } ${index >= 2 ? "border-t" : ""} md:border-t-0 md:border-r ${
-          active === item.label ? "font-semibold text-ink" : "text-muted"
-        }`}
+          index % 2 === 1 ? "border-r" : ""
+        } ${index >= 1 ? "border-t" : ""} md:border-t-0 ${
+          index < NAV.length - 1 ? "md:border-r" : "md:border-r-0"
+        } ${active === item.label ? "font-semibold text-ink" : "text-muted"}`}
         aria-current={active === item.label ? "page" : undefined}
       >
         {item.label}
       </a>
     ))
   }
-  <EmailLink
-    class={`${cell} flex items-center justify-between gap-3 border-t border-hairline text-sm md:border-t-0`}
-  >
-    <span>Kontakt</span>
-    <span aria-hidden="true">↗</span>
-  </EmailLink>
 </nav>
