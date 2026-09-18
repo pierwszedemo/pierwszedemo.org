@@ -126,7 +126,7 @@ const breadcrumb = breadcrumbJsonLd(
              pogrubienie nie robi, bo `strong` to tu tylko waga 600.
              Wcięcie jak w nagłówku, żeby cytat stał w osi tekstu wpisu. */
           post.data.pullquote && (
-            <aside class="border-b border-ink px-5 py-10 md:px-8 md:pl-[22rem] lg:pl-[27rem]">
+            <aside class="border-b border-ink px-5 py-10 md:px-8 md:pl-[22rem] lg:pl-[calc(25%+2rem)]">
               <p class="text-row leading-[1.3] font-medium tracking-[-0.01em] text-pretty text-ink">
                 {fixHanging(`„${post.data.pullquote}”`)}
               </p>
