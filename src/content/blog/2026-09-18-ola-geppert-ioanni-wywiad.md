@@ -3,17 +3,15 @@ title: Trzy tygodnie i dwa lata. Wywiad z Olą Geppert i Ioannim
 lead: 'Singiel „To nie ja” powstawał prawie dwa lata. Samo komponowanie i produkcja zajęły z tego dwa, trzy tygodnie. Więc co działo się przez resztę czasu?'
 category: Wydawnictwa
 kind: przewodnik
-date: 2026-09-10
+date: 2026-09-18
 keyphrase: ola geppert ioanni
 pullquote: 'Zamiast uchwycić jakiś moment, przedłużamy tę chwilę i jest takie ryzyko, że gdzieś straci się ten impet, i to, co pierwotnie było świeże i lekkie, może być gorsze albo nawet wcale nie wyjść. Zakurzyć się w szufladzie.'
 pullquoteAuthor: Ola Geppert
 readingMinutes: 11
-# Po premierze wstaw ID z open.spotify.com/track/<id> – osadzi odtwarzacz
-# w kolumnie „W skrócie".
-spotifyTrackId: 48QYx4OrlDe4tLGTOWuyaw
+spotifyTrackId: 4D8BnzwJPmyrVAYIzOxCZk
 ---
 
-Singiel „To nie ja” [ukazuje się dziś](SPOTIFY-URL-DO-UZUPELNIENIA), a jesienią wyjdzie debiutancka EP Oli Geppert i Ioanniego. Ona pisze teksty i śpiewa, on komponuje, produkuje, miksuje i masteruje. Ola wydała wcześniej [siedem singli, od debiutu w 2022 roku](https://olageppert.pl/bio), jeszcze jako Birim.
+Singiel „To nie ja” [ukazał się 10 września](https://open.spotify.com/track/4D8BnzwJPmyrVAYIzOxCZk), a jesienią wyjdzie debiutancka EP Oli Geppert i Ioanniego. Ona pisze teksty i śpiewa, on komponuje, produkuje, miksuje i masteruje. Ola wydała wcześniej [siedem singli, od debiutu w 2022 roku](https://olageppert.pl/bio), jeszcze jako Birim.
 
 Rozmawiałem z obojgiem osobno i żadne z nich nie znało odpowiedzi drugiego. Prowadzę management Oli Geppert, więc nie jestem tu bezstronny, ale nic z tego, co powiedzieli, nie zostało wygładzone.
 
@@ -73,7 +71,7 @@ Rozmawiałem z obojgiem osobno i żadne z nich nie znało odpowiedzi drugiego. P
 
 ### Gdzie się uczyłeś grać i kiedy?
 
-**Ioanni:** W rodzinnym domu stało pianino, bo uczyła się na nim moja siostra, ale nigdy go nie dotknąłem. Uważałem je bardziej za mebel niż za instrument. Największą pasję poczułem, gdy usłyszałem piękne wykonanie już w dorosłym życiu. To było w styczniu 2023 roku. Nauczyłem się grać z YouTube'a, z super kursu, który znalazłem. Po roku poszedłem na lekcje do szkółki, chodziłem przez dwa lata i przestałem. Odkąd nie chodzę, czuję się wolny.
+**Ioanni:** W rodzinnym domu stało pianino, bo uczyła się na nim moja siostra, ale nigdy go nie dotknąłem. Uważałem je bardziej za mebel niż za instrument. Największą pasję poczułem, gdy usłyszałem piękne wykonanie już w dorosłym życiu. To było w styczniu 2023 roku. Nauczyłem się grać z YouTube'a, z super kursu, który znalazłem. Po roku poszedłem na lekcje do szkółki, chodziłem przez dwa lata i przestałem.
 
 ### Wyprodukowałeś „Malwę” [Sebastiana Muntowskiego, znanego z „Mam Talent”](https://dziendobry.tvn.pl/gwiazdy/mam-talent-sebastian-muntowski-oswiadczyl-sie-swojej-dziewczynie-st8983787). Co tam robiłeś?
 
@@ -81,7 +79,7 @@ Rozmawiałem z obojgiem osobno i żadne z nich nie znało odpowiedzi drugiego. P
 
 ### Nad czym teraz pracujesz?
 
-**Ioanni:** Nad filmem „Sędzia z Auschwitz” w reżyserii Mirosława Ganobisa. Jestem kompozytorem, jestem odpowiedzialny za całą ścieżkę dźwiękową i to jest wielki zaszczyt. Ten film miał premierę wczoraj w Oświęcimiu.
+**Ioanni:** Nad filmem „Sędzia z Auschwitz” w reżyserii Mirosława Ganobisa. Jestem kompozytorem, jestem odpowiedzialny za całą ścieżkę dźwiękową i to jest wielki zaszczyt. Ten film miał premierę 9 września w Oświęcimiu.
 
 ### Skąd wzięła się ta EP-ka? Skąd pomysł, żeby wydać EP-kę, a nie singla?
 
