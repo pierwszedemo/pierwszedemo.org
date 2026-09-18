@@ -4,6 +4,7 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import EmailLink from "../components/EmailLink.astro";
 import {
+  CONTACT_EMAIL,
   HOME_CITY,
   OFFER_CATALOG_ID,
   PERSON_ID,
@@ -251,10 +252,13 @@ const link = "underline decoration-1 underline-offset-4";
             Masz materiał i chcesz o nim porozmawiać?
           </p>
         </div>
+        {/* Adres dosłownie, nie „Napisz do mnie": nawigacja nie ma już komórki
+            Kontakt, więc to tutaj ktoś szuka adresu. Wersaliki robi CSS –
+            w DOM-ie i po skopiowaniu adres zostaje małymi literami. */}
         <EmailLink
           class="label self-start border border-ink px-5 py-4 transition-colors hover:bg-ink hover:text-white md:self-auto"
         >
-          Napisz do mnie <span aria-hidden="true">↗</span>
+          {CONTACT_EMAIL} <span aria-hidden="true">↗</span>
         </EmailLink>
       </section>
     </main>
