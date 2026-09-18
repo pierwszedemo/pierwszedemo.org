@@ -77,7 +77,7 @@ Rozmawiałem z obojgiem osobno i żadne z nich nie znało odpowiedzi drugiego. P
 
 **Ioanni:** Sebastian przyszedł i zaczął grać akordy „Malwy” na gitarze. Usłyszałem to i mi się spodobało, on też zaczął od razu śpiewać do tego, bo on taki jest, szybko bardzo wszystko wymyśla. Ja wziąłem te akordy i skomponowałem je na pianino, już w programie, a nie na gitarze. Dodałem linię melodyczną, która jest w intrze piosenki, dodałem różne instrumenty smyczkowe, dodałem bas. Jestem odpowiedzialny za produkcję, miks, mastering i w większości kompozycję.
 
-### Nad czym teraz pracujesz?
+### Nad czym ostatnio pracowałeś poza singlem?
 
 **Ioanni:** Nad filmem „Sędzia z Auschwitz” w reżyserii Mirosława Ganobisa. Jestem kompozytorem, jestem odpowiedzialny za całą ścieżkę dźwiękową i to jest wielki zaszczyt. Ten film miał premierę 9 września w Oświęcimiu.
 
