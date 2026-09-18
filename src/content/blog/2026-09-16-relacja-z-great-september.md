@@ -20,6 +20,6 @@ Balansu między koncertem a pracą nie złapałem. Zmęczenie? Duże. Wróciłem
 
 Najwięcej wywiozłem jednak z kuluarów. Poznałem wiele młodych artystek i artystów oraz osób, które dopiero wchodzą w tę branżę. Miło było połączyć awatary ludzi znanych mi dotąd tylko z Instagrama z twarzami: Daria Brzezińska znana jako [@kolekcjonerka_ dzwiekow_na_zywo](https://www.instagram.com/kolekcjonerka_dzwiekow_na_zywo/), Mateusz Kredens z [Misja Muzyka](https://www.instagram.com/misja.muzyka/) i inni. Z tych rozmów wyszedł konkretny feedback: utwór Oli spodobał się na tyle, że wiele osób chciało go z chęcią podać dalej w świat.
 
-[„To nie ja” wyszło 10 września](https://olageppert.pl/tonieja), w dniu otwarcia festiwalu, dokładnie tak, jak zapisaliśmy w kalendarzu. Ola była ze mną przez cały czas, bo oprócz udziału w konferencji, mieliśmy do ogarnięcia też sporo marketingu samego singla.
+[„To nie ja” wyszło 10 września](https://olageppert.pl/tonieja), w dniu otwarcia festiwalu, dokładnie tak, jak zapisaliśmy w kalendarzu. Ola była ze mną przez cały czas, bo oprócz udziału w konferencji, mieliśmy do ogarnięcia też sporo marketingu samego singla. O tym, dlaczego powstawał prawie dwa lata, [rozmawiałem z Olą i Ioannim osobno](/blog/ola-geppert-ioanni-wywiad).
 
 Za rok znowu [Łódź](https://greatseptember.pl/), a do tego czasu kolejne showcase'y. Koncert jest pretekstem i panel też. Celem jest networking w czasie śniadania przed nimi i kwadrans po tym, jak wystąpienia się zakończą. Krótką [wideo-foto relację wrzuciłem na Instagrama](https://www.instagram.com/p/DdQgYeaiI8U/).
