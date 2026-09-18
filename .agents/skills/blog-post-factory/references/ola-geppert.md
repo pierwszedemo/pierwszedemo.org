@@ -2,8 +2,7 @@
 
 *Zapis stanu olageppert.pl. Ostatnio zweryfikowany z `/bio` i `/epk`: **2026-09-15**
 (EPK w wersji 09.2026; stały adres `/epk.pdf` przekierowuje na aktualny plik,
-dziś `ola-geppert-epk-09.2026.pdf`). Lokalne repo `../olageppert.pl` zinwentaryzowane
-2026-08-12 – patrz „Stan niepubliczny". Poza sekcją „Rebranding"
+dziś `ola-geppert-epk-09.2026.pdf`). Poza sekcją „Rebranding"
 żaden fakt w tym pliku nie ma zewnętrznego potwierdzenia – bo go nie ma w internecie.*
 
 *Ten plik aktualizuje się sam: krok 0 w `SKILL.md` pobiera strony artystki przy każdym
@@ -156,7 +155,8 @@ Czego artystka szuka (sekcja priorytetów w EPK 09.2026, cytuj jako listę celó
 nie jako osiągnięcia): 1) playlisty kuratorskie i redakcyjne (dark/indie pop),
 2) festiwale i showcase'y klubowe (line-upy 2026/2027), 3) wywiady (prasa, radio,
 podcasty, media online); ponadto wydawca, booking koncertów, sync do filmu, seriali
-i reklam.
+i reklam. To najkonkretniejsza rzecz w tym pliku – lista, pod którą podpina się każdy
+tekst i każda wysyłka.
 
 Liczba utworów: Ola mówi „wydaje mi się, że jest sześć, bo początkowo było siedem, ale
 jeden wypadł". **Cytuj razem z tym wahaniem** – w repo artystki nie ma track-listingu,
@@ -189,25 +189,6 @@ Obowiązuje zakaz twardy nr 8.
 - **Nie ujawnia tytułu drugiego singla** z EP-ki.
 - Poza dwoma wydarzeniami szkółek i koncertem w Toruniu nie grał publicznie. Trasa z Olą
   byłaby jego pierwszą.
-
-## Czego artystka szuka (slajd „Szukamy" z EPK)
-
-Najkonkretniejsza rzecz w tym pliku – to jest lista, pod którą podpina się każdy tekst
-i każda wysyłka.
-
-Priorytet: **playlisty** kuratorskie i redakcyjne dark/indie pop; **festiwale** – showcase'y
-i festiwale klubowe, line-upy 2026/2027; **wywiady** – prasa, radio, podcasty, media online.
-Ponadto: rozmowy o wydaniu EP, booking klubowy i supporty, sync (film, serial, reklama).
-
-## Stan niepubliczny (na 2026-08-12)
-
-Repo `../olageppert.pl` stoi na branchu `feat/presave-to-nie-ja` z commitami, których nie
-ma na produkcji. **Nie traktuj tego jako faktów publicznych, dopóki branch nie zostanie
-zmergowany.**
-
-- Singiel „To nie ja" i kampania pre-save – `/presave` daje na produkcji 404.
-- EPK w wersji **08.2026** gotowe; live wciąż 07.2026. Nowy stały adres `/epk.pdf` – 404.
-- `/l` ma wciąż nadtytuł „Singiel «Delikatnie»".
 
 ## Bezpieczne linki
 
