@@ -81,6 +81,8 @@ Rozmawiałem z obojgiem osobno i żadne z nich nie znało odpowiedzi drugiego. P
 
 **Ioanni:** Nad filmem „Sędzia z Auschwitz” w reżyserii Mirosława Ganobisa. Jestem kompozytorem, jestem odpowiedzialny za całą ścieżkę dźwiękową i to jest wielki zaszczyt. Ten film miał premierę 9 września w Oświęcimiu.
 
+_Przypis: Ola Geppert użyczyła głosu do ścieżki dźwiękowej filmu „Sędzia z Auschwitz”._
+
 ### Skąd wzięła się ta EP-ka? Skąd pomysł, żeby wydać EP-kę, a nie singla?
 
 **Ola:** Po tym jednym singlu zobaczyliśmy, że mamy podobną wrażliwość, i chcieliśmy zbudować większą historię, jakoś obudować ten jeden singiel, który nam wyszedł. I mieć zapas materiału.
