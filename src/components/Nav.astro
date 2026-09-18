@@ -13,16 +13,16 @@ const { active } = Astro.props;
 const cell = "px-5 py-4 md:px-8 md:py-[22px]";
 
 // Cztery komórki jak w makiecie: marka i trzy pozycje menu. Kontaktu tu nie ma –
-// piąta komórka rozbijała podział na ćwiartki, na którym stoją kolumna
-// „W skrócie" (25 %), stopka i pasek pod wpisem, więc adres e-mail mieszka
-// w sekcjach „Kontakt" na stronach. Na telefonie siatka 2×2, stąd liczenie
-// obramowań z indeksu: lewa komórka rzędu dostaje border-r, drugi rząd border-t.
-const columns = NAV.length + 1;
+// adres e-mail mieszka w sekcjach „Kontakt" na stronach. Tory 5/3/3/5 z 16
+// modułów siatki, nie cztery równe: skrajne komórki mają szerokość kolumny
+// bocznej (`--aside`), więc ich linie biegną dalej przez stronę – lewa przez
+// „W skrócie" i etykiety sekcji, prawa przez zdjęcie w hero. Na telefonie
+// siatka 2×2, stąd liczenie obramowań z indeksu: lewa komórka rzędu dostaje
+// border-r, drugi rząd border-t.
 ---
 
 <nav
-  class="grid grid-cols-2 border-b border-ink md:grid-cols-[repeat(var(--nav-cols),minmax(0,1fr))]"
-  style={`--nav-cols: ${columns}`}
+  class="grid grid-cols-2 border-b border-ink md:grid-cols-[5fr_3fr_3fr_5fr]"
   aria-label="Główna"
 >
   <a

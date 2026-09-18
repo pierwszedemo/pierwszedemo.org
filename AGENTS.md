@@ -32,6 +32,37 @@ turn 2 – the "Swiss" direction: `2a` strona główna, `2b` lista wpisów,
 everything here is the responsive rebuild of it. When changing layout, compare
 against that file – it is the spec.
 
+### One 16-column grid
+
+The mock is 1280 px wide and every measure in it is a multiple of 80 px, so the
+site runs on 16 modules: `--col: 6.25cqw` in `global.css`, with `<main>` as the
+container. `cqw` and not `%`/`vw`: a percentage inside a nested grid resolves
+against the parent, and `vw` includes the scrollbar gutter, so only `cqw` gives
+the same module at every nesting depth. The container is `<main>`, never
+`<body>` – `container-type` implies layout containment, which would turn body
+into the containing block for the fixed cookie banner. Nav, footer and the
+post's prev/next bar sit outside `<main>`; they are full-width bands, so `fr`
+and `%` are exact there.
+
+Vertical lines may only fall on **5, 8 and 11**:
+
+- `--aside` = 5 modules (the mock's 400 px) is the one side column – photo on
+  `/` and `/o-mnie`, section labels on `/manager-muzyczny` and the privacy
+  policy, „W skrócie" on a post. Use `grid-aside-left` / `grid-aside-right`,
+  never a width typed in place; that is how a 400 px photo column and a 320 px
+  nav cell ended up 80 px apart on the same page.
+- Nav and footer are `5fr 3fr 3fr 5fr`, not four equal cells, so their outer
+  dividers continue down the page as the aside line – on the left or the right.
+- Line 8 is the page middle: roster/contact on `/`, label/body on `/o-mnie`,
+  title/description in the lists on `/manager-muzyczny`.
+- Blog list rows are 5 / 7 / 3 / 1, the post meta bar 5 / 6 / 5.
+
+Four modules would be a tidy quarter, but 320 px minus the column padding is
+256 px and the Spotify player needs 280. For the same reason the post's aside
+has a floor (`--post-aside: max(21.5rem + 1px, --aside)`): below ~1100 px the
+player wins over the grid. Text starts 2 rem (2.5 rem in body columns) after
+its line – title, pullquote and list titles all share that axis.
+
 ### Two rule weights hold the grid together
 
 Structural borders between major bands are `border-ink` (#101010). Borders
@@ -233,9 +264,8 @@ The global `:focus-visible` outline is inside `@layer base` on purpose: unlayere
 rules beat Tailwind utilities, and the blog rows need to override the outline
 colour to white on their inverted background.
 
-Fixed pixel columns from the mock (the 400 px photo column, the 432 px title
-indent) must not be applied below `lg` – at 768 px they overflow the viewport.
-They are expressed as `clamp()`/`minmax()` or gated behind `lg:`.
+The mock's fixed pixel columns (the 400 px photo column, the 432 px title
+indent) are never typed as pixels – they are multiples of the grid module below.
 
 ## Conventions
 
@@ -289,10 +319,9 @@ pre-rotated and metadata-stripped first (the original carried an EXIF
 orientation tag and GPS coordinates).
 
 The nav is four cells (marka / Współpraca / O mnie / Blog), same count as the
-mock. There is no Kontakt cell: a fifth column broke the quarter grid that the
-25 % „W skrócie" column, the footer and the post's prev/next bar all stand on.
-The address is shown verbatim in the „Kontakt" sections of `/`, `/o-mnie` and
-`/manager-muzyczny` instead. `Nav.astro` lays out 2×2 on mobile with borders
+mock, on 5/3/3/5 tracks (see the 16-column grid above). There is no Kontakt
+cell; the address is shown verbatim in the „Kontakt" sections of `/`, `/o-mnie`
+and `/manager-muzyczny` instead. `Nav.astro` lays out 2×2 on mobile with borders
 computed from the item index – a fourth entry in `NAV` means reworking it.
 Outbound links to artists go through `withUtm()`.
 

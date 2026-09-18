@@ -42,7 +42,7 @@ const breadcrumb = breadcrumbJsonLd(
 
     <main class="flex-1">
       <header
-        class="grid border-b border-ink lg:grid-cols-[minmax(0,1fr)_clamp(15rem,31.25%,25rem)]"
+        class="grid border-b border-ink lg:grid-aside-right"
       >
         <div class="px-5 pt-10 pb-9 md:px-8 md:pt-13 lg:border-r lg:border-hairline">
           <p class="label text-muted">({PERSON_NAME} – {HOME_CITY})</p>
@@ -60,13 +60,13 @@ const breadcrumb = breadcrumbJsonLd(
       </header>
 
       <div
-        class="grid border-b border-ink md:grid-cols-[clamp(15rem,31.25%,25rem)_minmax(0,1fr)]"
+        class="grid border-b border-ink md:grid-aside-left"
       >
         <HeroPhoto class="aspect-[4/5] border-b border-ink md:aspect-auto md:min-h-[38rem] md:border-r md:border-b-0" />
 
         <div class="flex flex-col">
           <section
-            class="grid flex-1 border-b border-hairline lg:grid-cols-[minmax(10rem,0.38fr)_minmax(0,1fr)]"
+            class="grid flex-1 border-b border-hairline lg:grid-cols-[calc(var(--col)*3)_minmax(0,1fr)]"
           >
             <h2 class="label px-5 pt-7 text-muted md:px-8 lg:border-r lg:border-hairline lg:py-10">
               Kim jestem
@@ -112,7 +112,7 @@ const breadcrumb = breadcrumbJsonLd(
             </div>
           </section>
 
-          <section class="grid lg:grid-cols-[minmax(10rem,0.38fr)_minmax(0,1fr)]">
+          <section class="grid lg:grid-cols-[calc(var(--col)*3)_minmax(0,1fr)]">
             <h2 class="label px-5 pt-7 text-muted md:px-8 lg:border-r lg:border-hairline lg:py-9">
               Zakres
             </h2>
