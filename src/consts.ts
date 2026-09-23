@@ -39,7 +39,7 @@ export const ORGANIZATION_ID = `${SITE_URL}/#firma`;
 export const OFFER_CATALOG_ID = `${SITE_URL}/#uslugi`;
 
 /** Data ostatniej zmiany treści – trafia do sitemap.lastmod i dateModified. */
-export const LAST_CONTENT_UPDATE = "2026-09-18";
+export const LAST_CONTENT_UPDATE = "2026-09-23";
 
 /**
  * Identyfikator pomiaru GA4 (G-XXXXXXXXXX). Pusty łańcuch = gtag.js w ogóle
