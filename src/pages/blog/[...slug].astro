@@ -262,7 +262,11 @@ const breadcrumb = breadcrumbJsonLd(
      mają. Selektor `p + h2` zamiast `:not(:first-child)` omija wojnę
      o specyficzność i nie rozdziela pary h2 + h3. */
   .prose-swiss :global(p + h2),
-  .prose-swiss :global(p + h3) {
+  .prose-swiss :global(p + h3),
+  .prose-swiss :global(ul + h2),
+  .prose-swiss :global(ul + h3),
+  .prose-swiss :global(ol + h2),
+  .prose-swiss :global(ol + h3) {
     margin-top: 30px;
   }
   /* h2 i h3 miały ten sam stopień pisma, więc podział na sekcje i pytania
@@ -274,7 +278,9 @@ const breadcrumb = breadcrumbJsonLd(
     letter-spacing: -0.02em;
     margin-bottom: 14px;
   }
-  .prose-swiss :global(p + h2) {
+  .prose-swiss :global(p + h2),
+  .prose-swiss :global(ul + h2),
+  .prose-swiss :global(ol + h2) {
     margin-top: 44px;
     padding-top: 30px;
     border-top: 1px solid var(--color-hairline);
@@ -293,6 +299,45 @@ const breadcrumb = breadcrumbJsonLd(
      stylów treści. */
   .prose-swiss :global(em) {
     font-style: italic;
+  }
+  /* Listy. Preflight zeruje punktory i marginesy, więc bez tej reguły `- `
+     w markdownie renderuje się jako zlepione linijki. Punktor to półpauza,
+     nie kropka – ta sama kreska, którą tekst i tak stawia we wtrąceniach,
+     więc lista wygląda jak ciąg dalszy akapitu, a nie jak slajd. Wcięcie
+     liczone w em, żeby trzymało się stopnia pisma akapitu. */
+  .prose-swiss :global(ul),
+  .prose-swiss :global(ol) {
+    margin: 0 0 18px;
+    padding-left: 1.4em;
+    font-size: 15.5px;
+    line-height: 1.7;
+  }
+  .prose-swiss :global(ul:last-child),
+  .prose-swiss :global(ol:last-child) {
+    margin-bottom: 0;
+  }
+  .prose-swiss :global(ul) {
+    list-style: none;
+  }
+  .prose-swiss :global(ul > li) {
+    position: relative;
+  }
+  .prose-swiss :global(ul > li)::before {
+    content: "–";
+    position: absolute;
+    left: -1.4em;
+    color: var(--color-muted);
+  }
+  .prose-swiss :global(ol) {
+    list-style: decimal;
+  }
+  .prose-swiss :global(li) {
+    margin: 0 0 6px;
+    /* Pozycja listy nie może pęknąć między łamami notatki. */
+    break-inside: avoid;
+  }
+  .prose-swiss :global(li:last-child) {
+    margin-bottom: 0;
   }
   .prose-swiss :global(a) {
     text-decoration: underline;
