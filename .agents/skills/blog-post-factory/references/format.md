@@ -5,12 +5,16 @@
 Ograniczenia w tym pliku nie są preferencją redakcyjną. Wynikają z tego, jak
 `src/pages/blog/[...slug].astro` renderuje treść.
 
-Blok `<style>` w tym pliku stylizuje **wyłącznie** `p`, `h2`, `h3`, `a`, `strong` i `em`.
+Blok `<style>` w tym pliku stylizuje **wyłącznie** `p`, `h2`, `h3`, `a`, `strong`, `em`,
+`ul`, `ol` i `li`.
 Wszystko inne
-wpada w Tailwind Preflight, który kasuje punktory i marginesy list, zeruje marginesy
-`blockquote`, `pre` i `hr`. Lista markdownowa **nie zepsuje buildu** – wyrenderuje się jako
-ciąg linijek bez punktorów i bez odstępów, czyli jako coś, co wygląda na błąd. Dlatego
-zakaz jest egzekwowany grepem z sekcji „Weryfikacja" w `SKILL.md`, a nie nadzieją.
+wpada w Tailwind Preflight, który zeruje marginesy `blockquote`, `pre` i `hr`. Tabela
+czy cytat **nie zepsują buildu** – wyrenderują się jako zwykłe linijki, czyli jako coś,
+co wygląda na błąd. Dlatego zakaz jest egzekwowany grepem z sekcji „Weryfikacja"
+w `SKILL.md`, a nie nadzieją. Listy dostały style we wrześniu 2026 (punktor to
+półpauza, `li` nie pęka między łamami) – są dozwolone, ale tylko na dane, nie na
+argumentację: kalendarz naborów, terminy, ceny. Lista punktowana zamiast akapitów
+jest najsilniejszym sygnałem tekstu pisanego przez model.
 
 Drugie sprzężenie: pole `kind` steruje układem łamów.
 
@@ -62,7 +66,7 @@ tekst to 600; `font-bold` ma wyłącznie wordmark w nawigacji.
 | Długość | **300–500 słów** treści (bez frontmattera) |
 | Struktura | 5–10 akapitów po 1–4 zdania, **zero śródtytułów** |
 | Rytm | co najmniej jeden akapit jednozdaniowy; co piąte zdanie ≤5 słów; co najmniej jedno ≥20 słów |
-| Markdown | akapity, `[tekst](url)`, `**pogrubienie**`, `_kursywa_` |
+| Markdown | akapity, `[tekst](url)`, `**pogrubienie**`, `_kursywa_`, wyjątkowo lista na dane |
 | Linki | 1–3 wewnętrzne; linkowanie do własnych wpisów jest pożądane |
 | `readingMinutes` | 2–3 |
 
@@ -77,7 +81,7 @@ modelu i nie oddają stylu autora. Wzorzec głosu i rytmu jest wyłącznie w `st
 | Długość | **1200–2000 słów** treści |
 | Struktura | 2–3 akapity wstępu bez śródtytułu → 4–6 sekcji `##` po 200–350 słów → `## Najczęstsze pytania` → `## Podsumowanie` |
 | FAQ | 3–5 pytań jako `###`, odpowiedź 40–70 słów |
-| Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**`, `_kursywa_` |
+| Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**`, `_kursywa_`, lista na dane |
 | Linki | 3–6 wewnętrznych + źródło przy pierwszym wystąpieniu każdej liczby |
 | `readingMinutes` | 7–11 |
 
@@ -178,7 +182,9 @@ z liczbami i nazwami instytucji, których się nie przelatuje wzrokiem. Podłoga
 ## Dozwolony i zakazany markdown
 
 **Dozwolone:** akapity oddzielone pustą linią, `##`, `###`, `[tekst](url)`,
-`**pogrubienie**`, `_kursywa_`.
+`**pogrubienie**`, `_kursywa_` oraz lista `- ` / `1. ` – ale wyłącznie na dane
+(kalendarz, terminy, kwoty), najwyżej jedna na wpis, nigdy jako zastępstwo akapitów
+z argumentacją.
 
 Pogrubienie ma własną regułę, bo łatwo je przedawkować: **jedno lub dwa całe zdania na
 200 słów**. Nigdy pojedyncze słowo – wygląda jak zaznaczenie w podręczniku. Nigdy
@@ -202,7 +208,6 @@ przy anglicyzmach, które odmieniają się normalnie (`pre-save'u`, `na showcase
 
 | Element | Dlaczego |
 |---|---|
-| `- ` / `1. ` (listy) | Preflight kasuje punktory i marginesy – renderuje się jako zlepione linijki. Do tego lista punktowana jest najsilniejszym sygnałem tekstu pisanego przez model. |
 | tabele | brak stylów; w łamie 15,5 px i tak nie mieszczą się szerokością |
 | `>` (cytat blokowy) | Preflight zeruje marginesy – cytat wygląda jak zwykły akapit z wciętym tekstem |
 | ` ``` ` i `` ` `` | brak stylów `pre`/`code`; to nie jest blog techniczny |

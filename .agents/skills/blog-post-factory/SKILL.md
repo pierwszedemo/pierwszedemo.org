@@ -229,9 +229,10 @@ Załaduj `references/styl.md` i `references/format.md`.
   referat. Pytanie retoryczne jest w domu, może być całym akapitem. „Ty", „Ci", „Twój"
   zawsze wielką literą. Opinię wypowiadaj oznajmująco, bez „moim zdaniem".
 - **Dozwolony markdown, wyczerpująco:** akapity, `##`, `###`, `[tekst](url)`,
-  `**pogrubienie**`, `_kursywa_`. Nic więcej. Powody są w `format.md` – krótko:
-  `.prose-swiss` stylizuje tylko te elementy, a lista punktowana jest jednocześnie
-  najsilniejszym sygnałem tekstu pisanego przez model.
+  `**pogrubienie**`, `_kursywa_` i lista `- ` – ta ostatnia tylko na dane (kalendarz,
+  terminy, kwoty), najwyżej jedna na wpis. Nic więcej. Powody są w `format.md` –
+  krótko: `.prose-swiss` stylizuje tylko te elementy, a lista punktowana zamiast
+  akapitów jest najsilniejszym sygnałem tekstu pisanego przez model.
 - **Pogrubienie**: jedno lub dwa całe zdania na 200 słów, nigdy pojedyncze słowo.
   Wyróżnia się zdanie, które czytelnik ma zapamiętać, gdy przeleci wpis wzrokiem.
   Akapit jednozdaniowy wolno pogrubić w całości; wielozdaniowego nie. Nie pogrubia się
@@ -256,7 +257,12 @@ Załaduj `references/styl.md` i `references/format.md`.
    Reguły są dwie i obie łatwo sprawdzić:
    - link wychodzi ze **zdania, które i tak trzeba było napisać** – zamiast rozwijać
      wątek należący do innego wpisu, mówisz jedno zdanie i linkujesz;
-   - anchor to **fragment zdania**, nigdy tytuł wpisu ani „tutaj".
+   - anchor to **fragment zdania**, nigdy tytuł wpisu ani „tutaj";
+   - **anchor ma 2–5 słów**: sama liczba, termin, nazwa („do 10 000 zł", „zamknął się
+     18 września", „wszystko oprócz muzyki"). Nigdy całe zdanie ani pół zdania z liczbą
+     i kontekstem – podkreślony wiersz wygląda jak spam SEO. Dotyczy tak samo linków
+     do źródeł i do własnych wpisów. Autor zgłaszał to wielokrotnie; bramka nr 6 niżej
+     wyłapuje anchory dłuższe niż 5 słów.
 
    **Zakaz sekcji „Powiązane wpisy"** na końcu – to widoczny szkielet SEO, a nie tekst.
    Linki mają siedzieć w akapitach.
@@ -307,9 +313,12 @@ BODY | wc -w
 
 # 2. Zakazany markdown i em dash – ma nie być żadnego trafienia.
 #    `**` jest wycinane przed sprawdzeniem, bo pogrubienie jest dozwolone; każda
-#    gwiazdka, która zostanie, to kursywa albo punktor.
+#    gwiazdka, która zostanie, to kursywa albo punktor `*` (lista używa `-`).
 BODY | sed 's/\*\*//g' \
-  | grep -nE '^[[:space:]]*([-+]|[0-9]+\.)[ ]|^[[:space:]]*>|^[[:space:]]*\||^#[^#]|^####|`|!\[|<[a-zA-Z]|^---$|"|—|\*'
+  | grep -nE '^[[:space:]]*>|^[[:space:]]*\||^#[^#]|^####|`|!\[|<[a-zA-Z]|^---$|"|—|\*'
+
+# 2a. Listy – dozwolona najwyżej jedna na wpis i tylko na dane; liczy bloki list
+BODY | awk '/^[[:space:]]*(-|[0-9]+\.) /{if(!in_l){n++;in_l=1}; next} {in_l=0} END{print n+0}'
 
 # 3. Frazy zakazane – ma nie być żadnego trafienia
 BODY | grep -niE 'w dzisiejszych czasach|nie od dziś|w dobie|warto (pamiętać|zaznaczyć|wiedzieć)|należy pamiętać|podsumowując|reasumując|w tym (artykule|wpisie)|dowiesz się|czy zastanawiał|zanurz|przyjrzyjmy|zapraszam do lektury|kluczem do sukcesu|na koniec dnia|must-have|gamechanger|przełomow|rewolucj'
@@ -319,6 +328,9 @@ BODY | grep -o '\*\*' | wc -l   # podziel przez 2
 
 # 5. Deduplikacja fraz między wpisami – ma być pusto
 grep -h '^keyphrase:' src/content/blog/*.md | sort | uniq -d
+
+# 6. Anchory linków – każdy 2–5 słów; wypisuje dłuższe, ma być pusto
+BODY | grep -o '\[[^]]*\]([^)]*)' | sed 's/\](.*//; s/^\[//' | awk 'NF>5'
 ```
 
 Kolejność w punkcie 2 jest istotna: `sed` wycina pary `**`, więc grep widzi tylko
@@ -337,6 +349,8 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
       tekstem, który już go rozwija – zamiast tego jedno zdanie i link.
 - [ ] Notatka ma 1–3 linki wewnętrzne, przewodnik 3–6; każdy wychodzi ze zdania, a anchor
       jest fragmentem zdania, nie tytułem ani „tutaj".
+- [ ] Żaden anchor nie ma więcej niż 5 słów – link siedzi na liczbie, terminie albo nazwie,
+      nie na całym zdaniu (bramka nr 6).
 - [ ] Do nowego wpisu prowadzi link zwrotny z co najmniej jednego starego – o ile jest
       akapit, który i tak o tym mówi.
 - [ ] Każda liczba w tekście ma link do źródła pierwotnego przy pierwszym wystąpieniu.
@@ -344,7 +358,7 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
 - [ ] Krok 0 wykonany: strony artystki pobrane, dossier zgodne albo zaktualizowane.
 - [ ] Żaden fakt o Oli Geppert nie wyszedł poza dossier.
 - [ ] Tekst nie przeczy temu, co mówi o serwisie `src/consts.ts`.
-- [ ] Zero obrazków, list, tabel i cytatów blokowych.
+- [ ] Zero obrazków, tabel i cytatów blokowych; najwyżej jedna lista i tylko na dane.
 - [ ] Kursywa (jeśli jest) niesie termin obcy, nie emfazę.
 - [ ] Pogrubienia: 1–2 całe zdania na 200 słów, żadnego w ostatnim akapicie; pogrubiony
       w całości bywa tylko akapit jednozdaniowy.
