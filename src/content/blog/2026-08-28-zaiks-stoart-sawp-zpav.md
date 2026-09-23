@@ -72,7 +72,7 @@ Po pierwszym rozpowszechnieniu, ale to niekoniecznie premiera. Publiczne wykonan
 
 ### Czy zgłoszenie chroni przed plagiatem?
 
-Nie, i nie musi. Prawo do piosenki masz od chwili jej powstania, a art. 8 wskazuje, że autorem jest osoba podana jako autor przy rozpowszechnianiu: w creditsach u dystrybutora, na okładce, w opisie. Pseudonim wystarczy, byle było wiadomo, kto za nim stoi. Gdy dwie osoby wydały to samo pod swoim nazwiskiem, decyduje, która była pierwsza. Wtedy liczy się wszystko z datą: premiera, wystąpienia, pliki, maile z demo. Zgłoszenie ustawia Cię w kartotece jako osobę, której ZAiKS płaci. Kto zgłosi cudzy, już zarejestrowany utwór, wpada na rzeczoznawcę. Kto zgłosi utwór, którego w kartotece nie ma, może przejść. Rozstrzygnięcie i tak będzie prawdopodobnie na Twoją korzyść, ale po co sobie robić problemy – zgłaszaj, jak tylko się da.
+Nie, i nie musi. Prawo do piosenki masz od chwili jej powstania, a art. 8 wskazuje, że autorem jest osoba podana jako autor przy rozpowszechnianiu: w creditsach u dystrybutora, na okładce, w opisie. Pseudonim wystarczy, byle było wiadomo, kto za nim stoi. Gdy dwie osoby wydały to samo pod swoim nazwiskiem, decyduje, która była pierwsza. Wtedy liczy się wszystko z datą: premiera, wystąpienia, pliki, maile z demo. Zgłoszenie ustawia Cię w kartotece jako osobę, której ZAiKS płaci. Kto zgłosi cudzy, już zarejestrowany utwór, wpada na rzeczoznawcę. Kto zgłosi utwór, którego w kartotece nie ma, może przejść. Rozstrzygnięcie i tak będzie prawdopodobnie na Twoją korzyść, ale po co sobie robić problemy – [zgłaszaj, jak tylko się da](/blog/skad-wziac-pieniadze-na-muzyke).
 
 ## Podsumowanie
 
