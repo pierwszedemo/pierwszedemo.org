@@ -12,7 +12,8 @@ wpada w Tailwind Preflight, który zeruje marginesy `blockquote`, `pre` i `hr`. 
 czy cytat **nie zepsują buildu** – wyrenderują się jako zwykłe linijki, czyli jako coś,
 co wygląda na błąd. Dlatego zakaz jest egzekwowany grepem z sekcji „Weryfikacja"
 w `SKILL.md`, a nie nadzieją. Listy i tabele dostały style we wrześniu 2026 (punktor
-to półpauza, `li` nie pęka między łamami, tabela przewija się w poziomie na telefonie)
+to półpauza, `li` nie pęka między łamami, tabela poniżej 800 px łamu rozkłada się na bloki „etykieta: wartość”, więc
+pierwsza kolumna musi być nazwą wiersza, a nagłówki kolumn krótkie)
 – są dozwolone, ale tylko na dane, nie na argumentację: kalendarz naborów, terminy,
 ceny, ściąga porównawcza na końcu przewodnika. Lista punktowana zamiast akapitów jest
 najsilniejszym sygnałem tekstu pisanego przez model, a tabela w dwułamowej notatce
