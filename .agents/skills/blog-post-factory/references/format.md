@@ -6,15 +6,17 @@ Ograniczenia w tym pliku nie są preferencją redakcyjną. Wynikają z tego, jak
 `src/pages/blog/[...slug].astro` renderuje treść.
 
 Blok `<style>` w tym pliku stylizuje **wyłącznie** `p`, `h2`, `h3`, `a`, `strong`, `em`,
-`ul`, `ol` i `li`.
+`ul`, `ol`, `li`, `table`, `th` i `td`.
 Wszystko inne
 wpada w Tailwind Preflight, który zeruje marginesy `blockquote`, `pre` i `hr`. Tabela
 czy cytat **nie zepsują buildu** – wyrenderują się jako zwykłe linijki, czyli jako coś,
 co wygląda na błąd. Dlatego zakaz jest egzekwowany grepem z sekcji „Weryfikacja"
-w `SKILL.md`, a nie nadzieją. Listy dostały style we wrześniu 2026 (punktor to
-półpauza, `li` nie pęka między łamami) – są dozwolone, ale tylko na dane, nie na
-argumentację: kalendarz naborów, terminy, ceny. Lista punktowana zamiast akapitów
-jest najsilniejszym sygnałem tekstu pisanego przez model.
+w `SKILL.md`, a nie nadzieją. Listy i tabele dostały style we wrześniu 2026 (punktor
+to półpauza, `li` nie pęka między łamami, tabela przewija się w poziomie na telefonie)
+– są dozwolone, ale tylko na dane, nie na argumentację: kalendarz naborów, terminy,
+ceny, ściąga porównawcza na końcu przewodnika. Lista punktowana zamiast akapitów jest
+najsilniejszym sygnałem tekstu pisanego przez model, a tabela w dwułamowej notatce
+nie ma gdzie się zmieścić – tabela tylko w przewodniku.
 
 Drugie sprzężenie: pole `kind` steruje układem łamów.
 
@@ -81,7 +83,7 @@ modelu i nie oddają stylu autora. Wzorzec głosu i rytmu jest wyłącznie w `st
 | Długość | **1200–2000 słów** treści |
 | Struktura | 2–3 akapity wstępu bez śródtytułu → 4–6 sekcji `##` po 200–350 słów → `## Najczęstsze pytania` → `## Podsumowanie` |
 | FAQ | 3–5 pytań jako `###`, odpowiedź 40–70 słów |
-| Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**`, `_kursywa_`, lista na dane |
+| Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**`, `_kursywa_`, lista i tabela na dane |
 | Linki | 3–6 wewnętrznych + źródło przy pierwszym wystąpieniu każdej liczby |
 | `readingMinutes` | 7–11 |
 
@@ -182,9 +184,11 @@ z liczbami i nazwami instytucji, których się nie przelatuje wzrokiem. Podłoga
 ## Dozwolony i zakazany markdown
 
 **Dozwolone:** akapity oddzielone pustą linią, `##`, `###`, `[tekst](url)`,
-`**pogrubienie**`, `_kursywa_` oraz lista `- ` / `1. ` – ale wyłącznie na dane
-(kalendarz, terminy, kwoty), najwyżej jedna na wpis, nigdy jako zastępstwo akapitów
-z argumentacją.
+`**pogrubienie**`, `_kursywa_` oraz lista `- ` / `1. ` i tabela `|` – ale wyłącznie na
+dane (kalendarz, terminy, kwoty, ściąga porównawcza), najwyżej jedna lista i jedna
+tabela na wpis, tabela tylko w przewodniku, nigdy jako zastępstwo akapitów
+z argumentacją. Komórka tabeli nie powtarza źródła – liczba ma link przy pierwszym
+wystąpieniu w treści, tabela jest jej powtórzeniem.
 
 Pogrubienie ma własną regułę, bo łatwo je przedawkować: **jedno lub dwa całe zdania na
 200 słów**. Nigdy pojedyncze słowo – wygląda jak zaznaczenie w podręczniku. Nigdy
@@ -208,7 +212,6 @@ przy anglicyzmach, które odmieniają się normalnie (`pre-save'u`, `na showcase
 
 | Element | Dlaczego |
 |---|---|
-| tabele | brak stylów; w łamie 15,5 px i tak nie mieszczą się szerokością |
 | `>` (cytat blokowy) | Preflight zeruje marginesy – cytat wygląda jak zwykły akapit z wciętym tekstem |
 | ` ``` ` i `` ` `` | brak stylów `pre`/`code`; to nie jest blog techniczny |
 | `—` (em dash, U+2014) | jedyna dozwolona kreska w tekście to półpauza `–`; szczegóły w `styl.md` |

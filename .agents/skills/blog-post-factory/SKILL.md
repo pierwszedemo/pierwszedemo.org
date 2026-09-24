@@ -229,8 +229,9 @@ Załaduj `references/styl.md` i `references/format.md`.
   referat. Pytanie retoryczne jest w domu, może być całym akapitem. „Ty", „Ci", „Twój"
   zawsze wielką literą. Opinię wypowiadaj oznajmująco, bez „moim zdaniem".
 - **Dozwolony markdown, wyczerpująco:** akapity, `##`, `###`, `[tekst](url)`,
-  `**pogrubienie**`, `_kursywa_` i lista `- ` – ta ostatnia tylko na dane (kalendarz,
-  terminy, kwoty), najwyżej jedna na wpis. Nic więcej. Powody są w `format.md` –
+  `**pogrubienie**`, `_kursywa_`, lista `- ` i tabela `|` – dwie ostatnie tylko na dane
+  (kalendarz, terminy, kwoty, ściąga porównawcza), najwyżej jedna lista i jedna tabela
+  na wpis, tabela tylko w przewodniku. Nic więcej. Powody są w `format.md` –
   krótko: `.prose-swiss` stylizuje tylko te elementy, a lista punktowana zamiast
   akapitów jest najsilniejszym sygnałem tekstu pisanego przez model.
 - **Pogrubienie**: jedno lub dwa całe zdania na 200 słów, nigdy pojedyncze słowo.
@@ -315,10 +316,13 @@ BODY | wc -w
 #    `**` jest wycinane przed sprawdzeniem, bo pogrubienie jest dozwolone; każda
 #    gwiazdka, która zostanie, to kursywa albo punktor `*` (lista używa `-`).
 BODY | sed 's/\*\*//g' \
-  | grep -nE '^[[:space:]]*>|^[[:space:]]*\||^#[^#]|^####|`|!\[|<[a-zA-Z]|^---$|"|—|\*'
+  | grep -nE '^[[:space:]]*>|^#[^#]|^####|`|!\[|<[a-zA-Z]|^---$|"|—|\*'
 
 # 2a. Listy – dozwolona najwyżej jedna na wpis i tylko na dane; liczy bloki list
 BODY | awk '/^[[:space:]]*(-|[0-9]+\.) /{if(!in_l){n++;in_l=1}; next} {in_l=0} END{print n+0}'
+
+# 2b. Tabele – najwyżej jedna, tylko w przewodniku; liczy bloki tabel
+BODY | awk '/^[[:space:]]*\|/{if(!in_t){n++;in_t=1}; next} {in_t=0} END{print n+0}'
 
 # 3. Frazy zakazane – ma nie być żadnego trafienia
 BODY | grep -niE 'w dzisiejszych czasach|nie od dziś|w dobie|warto (pamiętać|zaznaczyć|wiedzieć)|należy pamiętać|podsumowując|reasumując|w tym (artykule|wpisie)|dowiesz się|czy zastanawiał|zanurz|przyjrzyjmy|zapraszam do lektury|kluczem do sukcesu|na koniec dnia|must-have|gamechanger|przełomow|rewolucj'
@@ -358,7 +362,7 @@ każdym `**pogrubieniu**`, bo druga gwiazdka pary też stoi przed literą.
 - [ ] Krok 0 wykonany: strony artystki pobrane, dossier zgodne albo zaktualizowane.
 - [ ] Żaden fakt o Oli Geppert nie wyszedł poza dossier.
 - [ ] Tekst nie przeczy temu, co mówi o serwisie `src/consts.ts`.
-- [ ] Zero obrazków, tabel i cytatów blokowych; najwyżej jedna lista i tylko na dane.
+- [ ] Zero obrazków i cytatów blokowych; najwyżej jedna lista i jedna tabela, tylko na dane, tabela tylko w przewodniku.
 - [ ] Kursywa (jeśli jest) niesie termin obcy, nie emfazę.
 - [ ] Pogrubienia: 1–2 całe zdania na 200 słów, żadnego w ostatnim akapicie; pogrubiony
       w całości bywa tylko akapit jednozdaniowy.
