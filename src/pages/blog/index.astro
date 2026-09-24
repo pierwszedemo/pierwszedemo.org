@@ -111,13 +111,8 @@ const breadcrumb = breadcrumbJsonLd(
                   <time datetime={isoDate(post.data.date)}>
                     {isoDate(post.data.date)}
                   </time>
-                  <span class="md:hidden"> – {post.data.category}</span>
-                  {/* Notatka i przewodnik różnią się długością trzy-, czterokrotnie,
-                      a sam tytuł tego nie zdradza – etykieta z czasem czytania
-                      mówi, czy to dwie minuty w tramwaju, czy kwadrans przy biurku.
-                      Pod datą, nie przy tytule: pierwsza kolumna i tak jest mono. */}
-                  <span class="block text-[11px] tracking-[0.14em] uppercase">
-                    {post.data.kind} · {post.data.readingMinutes} min czyt.
+                  <span class="md:hidden">
+                    {" "}– {post.data.category} · {post.data.kind} · {post.data.readingMinutes} min
                   </span>
                 </span>
                 <span class="order-1 text-row font-semibold text-balance md:order-none md:py-7">
@@ -125,6 +120,13 @@ const breadcrumb = breadcrumbJsonLd(
                 </span>
                 <span class="order-3 hidden text-[13px] tracking-[0.14em] text-muted uppercase group-hover:text-white/70 group-focus-visible:text-white/70 md:order-none md:block md:py-7">
                   {post.data.category}
+                  {/* Notatka i przewodnik różnią się długością trzy-, czterokrotnie,
+                      a tytuł tego nie zdradza. Etykieta siedzi tu, a nie pod datą:
+                      kolumna daty ma po paddingu 86 px i „przewodnik · 12 min”
+                      łamało się na dwie linie. Tu jest 190 px bez paddingu. */}
+                  <span class="mt-1.5 block font-mono text-[11px] tracking-[0.1em] whitespace-nowrap">
+                    {post.data.kind} · {post.data.readingMinutes} min
+                  </span>
                 </span>
                 <span
                   aria-hidden="true"
