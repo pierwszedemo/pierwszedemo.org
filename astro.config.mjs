@@ -7,7 +7,7 @@ import vercel from "@astrojs/vercel";
 import { DATE_PREFIX, LAST_CONTENT_UPDATE, SITE_URL } from "./src/consts";
 import { satteri } from "@astrojs/markdown-satteri";
 import { satteriHanging } from "./src/typography";
-import { tableScroll } from "./src/table-scroll";
+import { tableLabels, tableScroll } from "./src/table-scroll";
 
 // Data rewizji każdego wpisu, czytana wprost z frontmattera. Kolekcji treści
 // nie da się zaimportować w configu, a bez tego wszystkie adresy w sitemapie
@@ -64,7 +64,7 @@ export default defineConfig({
   markdown: {
     processor: satteri({
       mdastPlugins: [satteriHanging],
-      hastPlugins: [tableScroll],
+      hastPlugins: [tableLabels, tableScroll],
     }),
   },
   vite: { plugins: [tailwindcss()] },
