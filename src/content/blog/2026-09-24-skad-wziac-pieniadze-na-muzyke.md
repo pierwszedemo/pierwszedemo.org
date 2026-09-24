@@ -5,7 +5,7 @@ category: Finanse
 kind: przewodnik
 date: 2026-09-24
 keyphrase: dofinansowanie muzyki
-readingMinutes: 11
+readingMinutes: 12
 ---
 
 Nabór na stypendia twórcze ministra kultury na 2027 rok [zamknął się 18 września 2026](https://www.gov.pl/web/kultura/rozpoczynamy-nabor-na-stypendia-ministra-kultury-i-dziedzictwa-narodowego-2027), miesiąc po otwarciu. Młoda Polska zbiera wnioski [do końca września](https://www.gov.pl/web/kultura/rozpoczynamy-nabor-wnioskow-do-programu-stypendialnego-mloda-polska-2027). ZAiKS [do połowy października](https://zaiks.org.pl/dla-autorow/fundusz-popierania-tworczosci), z decyzją w grudniu. Jeśli jesienią szukasz pieniędzy na EP, która wychodzi przed końcem roku, to ich nie znajdziesz. **Spóźnienie wynosi od kilku miesięcy do roku.**
@@ -36,7 +36,7 @@ Zacznijmy od ZAiKS-u, bo tu nabór jest najczęściej otwarty. Fundusz Popierani
 
 **Stypendium nie pokryje produkcji muzycznej, muzyków sesyjnych, wydania i promocji gotowego utworu, koncertu ani wideoklipu.** Zostaje samo pisanie: tekst, kompozycja, aranżacja. Nie można też wstecz finansować utworów, które już powstały.
 
-Konkretnej kwoty nie znajdziesz w regulaminie, bo o wysokości każdorazowo decyduje Zarząd, a formularz nie ma [pola na kosztorys](https://zaiks.org.pl/dla-autorow/fundusz-popierania-tworczosci/instrukcja-wypelniania-wniosku-o-stypendium-fpt) ani na wnioskowaną kwotę. **Składasz pomysł i czekasz.** Za to wyniki są jawne: w naborze styczeń–luty 2026 ZAiKS zebrał [1232 wnioski](https://www.zaiks.org.pl/dla-autorow/fundusz-popierania-tworczosci/wyniki-naboru-wnioskow-o-stypendium-z-fpt-styczen-luty-2026), przyznał 305 stypendiów i każde po 5000 zł. Jedno na cztery wnioski, zawsze ta sama kwota. Brzmi jak oczywisty pierwszy wybór.
+Konkretnej kwoty nie znajdziesz w regulaminie, bo o wysokości każdorazowo decyduje Zarząd, a formularz nie ma [pola na kosztorys](https://zaiks.org.pl/dla-autorow/fundusz-popierania-tworczosci/instrukcja-wypelniania-wniosku-o-stypendium-fpt) ani na wnioskowaną kwotę. **Składasz pomysł i czekasz.** Za to wyniki są jawne: w naborze styczeń–luty 2026 ZAiKS zebrał [1232 wnioski](https://www.zaiks.org.pl/dla-autorow/fundusz-popierania-tworczosci/wyniki-naboru-wnioskow-o-stypendium-z-fpt-styczen-luty-2026), przyznał 305 stypendiów (25%) i każde po 5000 zł. Jedno na cztery wnioski, zawsze ta sama kwota, jednorazowy przelew po decyzji. Brzmi jak oczywisty pierwszy wybór.
 
 Rozliczenie jest za to łagodne: sprawozdanie merytoryczne bez zestawienia wydatków, do dwóch lat od przyznania środków.
 
@@ -48,13 +48,13 @@ Stypendium ministra kultury to inna liga i inny kalendarz. [5000 zł brutto mies
 
 ### Młoda Polska
 
-Młoda Polska jest najhojniejsza i najbardziej konkurencyjna. Od 35000 [do 55000 zł](https://www.gov.pl/attachment/efb6e673-8cdc-4924-a9f6-e9143f4e3b21) brutto na projekt, dla urodzonych w 1991 roku lub młodszych, z polskim obywatelstwem i „wybitnymi osiągnięciami artystycznymi”. Młoda Polska ma też dwie rzeczy, których nie ma nigdzie indziej: wolno kupić za nią instrumenty i sprzęt, a nagranie i wydanie płyty jest osobną kategorią, wycenioną na równe minimum, czyli 35000 zł. Duet składa dwa osobne wnioski na jeden projekt grupowy i dzieli tę kwotę między siebie. Potrzebujesz co najmniej dwóch rekomendacji, a nabór na 2027 zamyka się 30 września 2026.
+Młoda Polska jest najhojniejsza i najbardziej konkurencyjna. Od 35000 [do 55000 zł](https://www.gov.pl/attachment/efb6e673-8cdc-4924-a9f6-e9143f4e3b21) brutto na projekt, dla urodzonych w 1991 roku lub młodszych, z polskim obywatelstwem i „wybitnymi osiągnięciami artystycznymi”. Młoda Polska ma też dwie rzeczy, których nie ma nigdzie indziej: wolno kupić za nią instrumenty i sprzęt, a nagranie i wydanie płyty jest osobną kategorią, wycenioną na równe minimum, czyli 35000 zł. Duet składa dwa osobne wnioski na jeden projekt grupowy i dzieli tę kwotę między siebie. Potrzebujesz co najmniej dwóch rekomendacji od osób uznanych za autorytety w swojej dziedzinie, wystawionych w roku składania wniosku, nie od rodziny ani od kogoś, kto startuje w tym samym konkursie. Nabór na 2027 zamyka się 30 września 2026.
 
 ### Gdańsk i Pomorze
 
-Do tego dwa programy, o których wiedzą głównie osoby z Trójmiasta. Gdańskie Stypendium Kulturalne wypłaca co miesiąc [równowartość minimalnego wynagrodzenia](https://download.cloudgdansk.pl/gdansk-pl/d/202402224885/regulamingdanskie-stypendium-kulturalne-fundusz-tworczy.pdf), czyli w 2026 roku [4806 zł](https://www.gov.pl/web/rodzina/minimalne-wynagrodzenie-za-prace), przez okres od jednego do sześciu miesięcy. Warunek: pełnoletnia osoba, która mieszka w Gdańsku i tu płaci podatki; konieczne są też dwie imienne rekomendacje. Wnioski składa się do 10 stycznia i do 10 maja, a na 2026 rok miasto przeznaczyło na cały program, sześć dziedzin sztuki, [2 mln zł](https://www.gdansk.pl/wiadomosci/Druga-edycja-Gdanskiego-Stypendium-Kulturalnego-Fundusz-Tworczy-2026,a,309305).
+Do tego dwa programy, o których wiedzą głównie osoby z Trójmiasta. Gdańskie Stypendium Kulturalne wypłaca co miesiąc [równowartość minimalnego wynagrodzenia](https://download.cloudgdansk.pl/gdansk-pl/d/202402224885/regulamingdanskie-stypendium-kulturalne-fundusz-tworczy.pdf), czyli w 2026 roku [4806 zł](https://www.gov.pl/web/rodzina/minimalne-wynagrodzenie-za-prace), przez okres od jednego do sześciu miesięcy. Warunek: pełnoletnia osoba, która mieszka w Gdańsku i tu płaci podatki. Osoba debiutująca dołącza obowiązkowo dwie imienne rekomendacje od ludzi z dorobkiem w tej dziedzinie: z instytucji kultury, związków twórczych, od wydawców, wykładowców. Dla pozostałych rekomendacje są opcjonalne. Wnioski składa się do 10 stycznia i do 10 maja, a na 2026 rok miasto przeznaczyło na cały program, sześć dziedzin sztuki, [2 mln zł](https://www.gdansk.pl/wiadomosci/Druga-edycja-Gdanskiego-Stypendium-Kulturalnego-Fundusz-Tworczy-2026,a,309305).
 
-Marszałek województwa pomorskiego daje [do 10000 zł brutto](https://pomorskie.eu/ogloszenia-komunikaty/stypendia-dla-tworcow-kultury-nabor-wnioskow-na-2026-rok/), jednorazowo, osobom mieszkającym albo tworzącym na Pomorzu, a także realizującym projekt o Pomorzu. Nabór na 2026 otwarto 21 października i zamknięto 1 grudnia 2025, więc kolejnego wypatruj w drugiej połowie października. Konkurencja jest mniejsza niż w ZAiKS-ie, ale nie mała: [w 2025 roku wpłynęło 365 wniosków, stypendia dostało 116 osób](https://pomorskie.eu/juz-po-raz-25-marszalek-wreczyl-stypendia-dla-tworcow-kultury-laczna-pula-srodkow-wyniosla-900-tys-zl/), średnio po 7759 zł. Mieszkasz gdzie indziej? Sprawdź swój urząd.
+Marszałek województwa pomorskiego daje [do 10000 zł brutto](https://pomorskie.eu/ogloszenia-komunikaty/stypendia-dla-tworcow-kultury-nabor-wnioskow-na-2026-rok/), jednorazowo, osobom mieszkającym albo tworzącym na Pomorzu, a także realizującym projekt o Pomorzu. Nabór na 2026 otwarto 21 października i zamknięto 1 grudnia 2025, więc kolejnego wypatruj w drugiej połowie października. Konkurencja jest mniejsza niż w ZAiKS-ie, ale nie mała: [w 2025 roku wpłynęło 365 wniosków, stypendia dostało 116 osób](https://pomorskie.eu/juz-po-raz-25-marszalek-wreczyl-stypendia-dla-tworcow-kultury-laczna-pula-srodkow-wyniosla-900-tys-zl/) (32%), średnio po 7759 zł. Mieszkasz gdzie indziej? Sprawdź swój urząd.
 
 ## Dotacje
 
@@ -66,7 +66,7 @@ Ten sam Fundusz Popierania Twórczości ma drugi instrument, dotację, z tymi sa
 
 ### Programy ministra
 
-Są też programy ministra, czyli „Muzyka” i „Muzyczny ślad”. „Muzyczny ślad” na 2026 rok dofinansował [63 projekty z 257 wniosków](https://nimit.pl/aktualnosci/wyniki-naboru-do-programu-ministra-muzyczny-slad/). Składały je organizacje, uczelnie i firmy, ale z jednoosobową działalnością też się da. Nabór na 2026 [ruszył 30 października 2025](https://nimit.pl/aktualnosci/programy-ministra-2026-startuje-nabor-wnioskow/) i zamknął się 1 grudnia. Kolejnego wypatruj pod koniec października.
+Są też programy ministra, czyli „Muzyka” i „Muzyczny ślad”. „Muzyczny ślad” na 2026 rok dofinansował [63 projekty z 257 wniosków](https://nimit.pl/aktualnosci/wyniki-naboru-do-programu-ministra-muzyczny-slad/) (25%). Składały je organizacje, uczelnie i firmy, ale z jednoosobową działalnością też się da. Nabór na 2026 [ruszył 30 października 2025](https://nimit.pl/aktualnosci/programy-ministra-2026-startuje-nabor-wnioskow/) i zamknął się 1 grudnia. Kolejnego wypatruj pod koniec października.
 
 ### STOART
 
@@ -86,7 +86,7 @@ Showcase za granicą to osobna szuflada, bo żaden z powyższych programów nie 
 
 Od tego jest NetWorks Instytutu Adama Mickiewicza. [Do 8000 zł](https://iam.pl/sites/default/files/media/documents/2025-09/Regulamin%20programu%20NetWorks%20.pdf) dla jednej osoby, do 25000 zł na całą grupę do pięciu osób w Europie. Dla artystów, producentów i managerów z polskim obywatelstwem, na targi, showcase'y i mentoring. Pokrywa nocleg, transport, akredytacje, wpisowe i przewóz instrumentów. Nie pokrywa diet, honorariów, wiz, ubezpieczeń ani promocji. I najważniejsze: to refundacja. Zaliczek nie ma, zwracane są tylko wydatki poniesione po decyzji, sprawozdanie składasz do 14 dni od powrotu, a zwrot przychodzi do pięciu tygodni. **Poza biletami lotniczymi, które kupuje Instytut, płacisz z własnej kieszeni i dostajesz z powrotem.** **Grupy mają trzy razy wyższy limit niż pojedyncze osoby, więc duet składa jeden wniosek, a nie dwa.**
 
-Popyt widać w liczbach. Do końca kwietnia 2026 Instytut dostał [968 wniosków](https://iam.pl/pl/wazna-informacja-o-naborach-do-programow-iam), sfinansował 369, po czym 1 maja zawiesił dwa z trzech programów, bo skończyły się pieniądze. Konkursy NetWorks są krótkie: szósty w 2026 trwał [od 26 sierpnia do 15 września](https://iam.pl/pl/wsparcie-kultury/networks), a kolejne terminy zależą „od dostępności środków finansowych”.
+Popyt widać w liczbach. Do końca kwietnia 2026 Instytut dostał [968 wniosków](https://iam.pl/pl/wazna-informacja-o-naborach-do-programow-iam), sfinansował 369 (38%), po czym 1 maja zawiesił dwa z trzech programów, bo skończyły się pieniądze. Konkursy NetWorks są krótkie: szósty w 2026 trwał [od 26 sierpnia do 15 września](https://iam.pl/pl/wsparcie-kultury/networks), a kolejne terminy zależą „od dostępności środków finansowych”.
 
 ### Culture Moves Europe i Music Export Poland
 
@@ -130,3 +130,18 @@ Dwie szuflady. Stypendium dla osoby, na pisanie, bez faktur. Dotacja dla podmiot
 Minister i Młoda Polska płacą dopiero w przyszłym roku, ZAiKS i STOART najwcześniej kilka miesięcy po naborze. Za to, co wydajesz w tym miesiącu, nie zapłaci nikt.
 
 Zgłoś utwory do ZAiKS-u. Załóż konto w Cantilenie. I wpisuj terminy naborów do kalendarza nawet rok wcześniej niż premiery.
+
+Ściąga do porównania:
+
+| Program | Dla kogo | Ile | Jak wypłacane | Ile wniosków przechodzi |
+|---|---|---|---|---|
+| ZAiKS, stypendium | osoba fizyczna | uznaniowo, w I/2026 po 5000 zł | jednorazowo | 25% (I/2026) |
+| ZAiKS, dotacja | podmiot | wg kosztorysu | jednorazowo | brak danych |
+| Stypendium ministra | osoba fizyczna, nie student poniżej 35 lat | 5000 zł miesięcznie | 3–12 miesięcy | brak danych |
+| Młoda Polska | osoba fizyczna do 35 lat | 35–55 tys. zł na projekt | projekt do końca roku | brak danych |
+| Gdańsk | osoba fizyczna płacąca PIT w Gdańsku | minimalne wynagrodzenie miesięcznie | 1–6 miesięcy | brak danych |
+| Marszałek pomorski | osoba fizyczna z Pomorza | do 10 tys. zł, średnio 7759 zł | jednorazowo | 32% (2025) |
+| STOART Scherzo | osoba fizyczna albo podmiot | do 10 tys. zł | jednorazowo, 14 dni od umowy | brak danych, ok. 20 projektów na turę |
+| STOART Symfonia | osoba fizyczna albo podmiot | 10–75 tys. zł | jednorazowo, 14 dni od umowy | brak danych |
+| NIMiT, „Muzyka” i „Muzyczny ślad” | podmiot, także JDG | wg kosztorysu | wg umowy | 25% („Muzyczny ślad” 2026) |
+| IAM NetWorks | osoba fizyczna albo grupa do 5 osób | do 8 tys. zł osoba, 25 tys. zł grupa | refundacja po wyjeździe | 38% (wszystkie programy IAM, do IV 2026) |
