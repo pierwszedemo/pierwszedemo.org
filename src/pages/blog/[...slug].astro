@@ -266,7 +266,9 @@ const breadcrumb = breadcrumbJsonLd(
   .prose-swiss :global(ul + h2),
   .prose-swiss :global(ul + h3),
   .prose-swiss :global(ol + h2),
-  .prose-swiss :global(ol + h3) {
+  .prose-swiss :global(ol + h3),
+  .prose-swiss :global(table + h2),
+  .prose-swiss :global(table + h3) {
     margin-top: 30px;
   }
   /* h2 i h3 miały ten sam stopień pisma, więc podział na sekcje i pytania
@@ -338,6 +340,45 @@ const breadcrumb = breadcrumbJsonLd(
   }
   .prose-swiss :global(li:last-child) {
     margin-bottom: 0;
+  }
+  /* Tabela na dane (ściąga, cennik). Preflight zeruje jej style, a łam
+     ma 15,5 px, więc stopień pisma schodzi o krok, nagłówek dostaje mono
+     etykietę jak reszta serwisu, a poziome linie są hairline – to linie
+     WEWNĄTRZ pasma treści, nie krawędzie pasm. `display: block` z przewijaniem
+     w poziomie, bo pięć kolumn nie zmieści się w telefonie i tabela wypchnęłaby
+     stronę poza szerokość ekranu. */
+  .prose-swiss :global(table) {
+    display: block;
+    overflow-x: auto;
+    margin: 0 0 18px;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    line-height: 1.5;
+    border-top: 1px solid var(--color-ink);
+  }
+  .prose-swiss :global(table:last-child) {
+    margin-bottom: 0;
+  }
+  .prose-swiss :global(th),
+  .prose-swiss :global(td) {
+    padding: 8px 12px 8px 0;
+    text-align: left;
+    vertical-align: top;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+  .prose-swiss :global(th) {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+  .prose-swiss :global(td:first-child) {
+    color: var(--color-ink);
+    font-weight: 600;
+    white-space: nowrap;
   }
   .prose-swiss :global(a) {
     text-decoration: underline;
