@@ -349,14 +349,13 @@ const breadcrumb = breadcrumbJsonLd(
      ma 15,5 px, więc stopień pisma schodzi o krok, nagłówek dostaje mono
      etykietę jak reszta serwisu, a poziome linie są hairline – to linie
      WEWNĄTRZ pasma treści, nie krawędzie pasm.
-     Przewija się wrapper `.table-scroll` (dokłada go wtyczka
-     `src/table-scroll.ts`), a tabela pod nim ma `min-width` – bez tego pięć
-     kolumn ściskało się w telefonie do nieczytelnych słupków i nic nie wystawało,
-     więc nie było czego przewijać. */
+     Wrapper `.table-scroll` dokłada wtyczka `src/table-scroll.ts`. Jest
+     kontenerem dla zapytania niżej; `overflow-x: auto` zostaje wyłącznie jako
+     wyjście awaryjne dla przeglądarek bez container queries. */
   .prose-swiss :global(.table-scroll) {
+    container-type: inline-size;
     margin: 0 0 18px;
     overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
   }
   .prose-swiss :global(.table-scroll:last-child) {
     margin-bottom: 0;
@@ -389,6 +388,58 @@ const breadcrumb = breadcrumbJsonLd(
     color: var(--color-ink);
     font-weight: 600;
     white-space: nowrap;
+  }
+  /* Poniżej 800 px łamu (telefon, tablet, wąskie okno) pięć kolumn nie ma
+     szans i przewijana tabela wygląda jak ucięta – na Macu pasek przewijania
+     jest niewidoczny. Zamiast tego każdy wiersz staje się blokiem: nazwa
+     programu jako nagłówek, pod nią pary „etykieta: wartość". Etykieta
+     pochodzi z `data-label`, które wtyczka kopiuje z nagłówka kolumny,
+     bo `thead` jest tu ukryty. */
+  @container (max-width: 799px) {
+    .prose-swiss :global(table) {
+      min-width: 0;
+      display: block;
+      border-top: 0;
+    }
+    .prose-swiss :global(thead) {
+      display: none;
+    }
+    .prose-swiss :global(tbody),
+    .prose-swiss :global(tr) {
+      display: block;
+    }
+    .prose-swiss :global(tr) {
+      padding: 12px 0 14px;
+      border-top: 1px solid var(--color-hairline);
+    }
+    .prose-swiss :global(tr:first-child) {
+      border-top-color: var(--color-ink);
+    }
+    .prose-swiss :global(td) {
+      display: grid;
+      grid-template-columns: 7.5em minmax(0, 1fr);
+      gap: 0 12px;
+      padding: 3px 0;
+      border-bottom: 0;
+    }
+    .prose-swiss :global(td)::before {
+      content: attr(data-label);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      padding-top: 3px;
+    }
+    .prose-swiss :global(td:first-child) {
+      display: block;
+      padding: 0 0 6px;
+      white-space: normal;
+      font-size: 15.5px;
+    }
+    .prose-swiss :global(td:first-child)::before {
+      content: none;
+    }
   }
   .prose-swiss :global(a) {
     text-decoration: underline;
