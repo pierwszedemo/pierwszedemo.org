@@ -26,7 +26,7 @@ Większość dotacji chce podmiotu: instytucji, fundacji, firmy. Programy minist
 
 Jest na to obejście. Artystka składa stypendia jako osoba fizyczna, a dotacje składa podmiot, który z nią pracuje: manager z jednoosobową działalnością, fundacja, stowarzyszenie. Manager przecież i tak robi [wszystko oprócz muzyki](/blog/poczatkujacy-manager-artysty), więc pisanie wniosków wchodzi w skład. Dwa tory, dwa terminarze, a _de facto_ jeden projekt. I dokładnie tak robię ja.
 
-Od tej reguły jest jeden wyjątek i to najciekawsze źródło finansowania na liście. Do niego za chwilę.
+Od tej reguły jest jeden wyjątek, przynajmniej na papierze. Do niego za chwilę.
 
 ## Stypendia
 
@@ -70,7 +70,7 @@ Są też programy ministra, czyli „Muzyka” i „Muzyczny ślad”. „Muzycz
 
 ### STOART
 
-STOART to obiecany wyjątek. [Aktualny regulamin](https://stoart.org.pl/upload/2026/07/regulamin-funduszu-promocyjnego-zaw-stoart_1.pdf) Funduszu Promocyjnego dopuszcza wnioski od osoby fizycznej, „w tym osoby fizycznej prowadzącej jednoosobową działalność gospodarczą”. Bez firmy, bez fundacji. Własne ogłoszenie naboru STOART mówi jeszcze o „podmiotach posiadających osobowość prawną”, więc przed złożeniem wniosku bez firmy warto to potwierdzić mailem.
+STOART to obiecany wyjątek. [Aktualny regulamin](https://stoart.org.pl/upload/2026/07/regulamin-funduszu-promocyjnego-zaw-stoart_1.pdf) Funduszu Promocyjnego dopuszcza wnioski od osoby fizycznej, „w tym osoby fizycznej prowadzącej jednoosobową działalność gospodarczą”. Bez firmy, bez fundacji. Tyle regulamin. Własne ogłoszenie naboru STOART mówi o „podmiotach posiadających osobowość prawną”, a w Cantilenie lista „Forma prawna” ma z osób fizycznych tylko „osobę fizyczną prowadzącą jednoosobową działalność gospodarczą”. Papier i formularz się rozjeżdżają, więc bez firmy napisz najpierw do STOART i nie licz na te pieniądze, dopóki nie odpiszą.
 
 Program Scherzo daje do 10000 zł na projekt, a wnioski „mogą dotyczyć w szczególności nagrania lub wydania singla lub płyty”. **Ktoś napisał to zdanie z myślą o Tobie.** Regulamin mówi, że fundusz ma promować „artystyczną działalność członków ZAW STOART i osób, które powierzyły ZAW STOART zarządzanie” prawami, więc podejrzewam, że [powierzenie praw STOART-owi](/blog/zaiks-stoart-sawp-zpav) przed wnioskiem pomaga. Nabór jest ciągły, w dwumiesięcznych turach. Projekt może ruszyć najwcześniej dwa miesiące po zamknięciu tury, a jesienna tura 2026 zamyka się [30 września](https://stoart.org.pl/o-nas/aktualnosci/nowy-nabor-do-programu-scherzo).
 
@@ -113,7 +113,7 @@ Załóżmy, że EP jest już nagrana. O dotację na nią nie ma nawet co pytać,
 
 ### Nie mam działalności gospodarczej. O co mogę się starać?
 
-Wszystkie stypendia: ZAiKS, minister, Młoda Polska, miasto i marszałek. Z dotacji STOART, bo jego regulamin dopuszcza osoby fizyczne. NetWorks, bo jest dla osób, nie dla firm. Reszta dotacji chce podmiotu, więc albo zakładasz działalność, albo wniosek składa manager, fundacja lub stowarzyszenie, z którym pracujesz.
+Wszystkie stypendia: ZAiKS, minister, Młoda Polska, miasto i marszałek. Z dotacji STOART na papierze: regulamin dopuszcza osoby fizyczne, ale formularz w Cantilenie takiej opcji dziś nie ma, więc najpierw zapytaj. NetWorks, bo jest dla osób, nie dla firm. Reszta dotacji chce podmiotu, więc albo zakładasz działalność, albo wniosek składa manager, fundacja lub stowarzyszenie, z którym pracujesz.
 
 ### Studiuję. Czy to mnie wyklucza?
 
@@ -125,7 +125,7 @@ Sprzęt, prawie nikt. ZAiKS wyklucza środki trwałe, minister zakup instrument�
 
 ## Podsumowanie
 
-Dwie szuflady. Stypendium dla osoby, na pisanie, bez faktur. Dotacja dla podmiotu, na nagranie, koncert i promocję, z kosztorysem. STOART jako jedyny wpuszcza do drugiej szuflady osobę bez firmy.
+Dwie szuflady. Stypendium dla osoby, na pisanie, bez faktur. Dotacja dla podmiotu, na nagranie, koncert i promocję, z kosztorysem. STOART jako jedyny wpuszcza do drugiej szuflady osobę bez firmy, na razie tylko w regulaminie, nie w formularzu.
 
 Minister i Młoda Polska płacą dopiero w przyszłym roku, ZAiKS i STOART najwcześniej kilka miesięcy po naborze. Za to, co wydajesz w tym miesiącu, nie zapłaci nikt.
 
@@ -141,7 +141,7 @@ Zgłoś utwory do ZAiKS-u. Załóż konto w Cantilenie. I wpisuj terminy naboró
 | Młoda Polska | osoba fizyczna do 35 lat | 35–55 tys. zł na projekt | projekt do końca roku | brak danych |
 | Gdańsk | osoba fizyczna płacąca PIT w Gdańsku | minimalne wynagrodzenie miesięcznie | 1–6 miesięcy | brak danych |
 | Marszałek pomorski | osoba fizyczna z Pomorza | do 10 tys. zł, średnio 7759 zł | jednorazowo | 32% (2025) |
-| STOART Scherzo | osoba fizyczna albo podmiot | do 10 tys. zł | jednorazowo, 14 dni od umowy | brak danych, ok. 20 projektów na turę |
-| STOART Symfonia | osoba fizyczna albo podmiot | 10–75 tys. zł | jednorazowo, 14 dni od umowy | brak danych |
+| STOART Scherzo | podmiot; osoba fizyczna wg regulaminu, nie wg formularza | do 10 tys. zł | jednorazowo, 14 dni od umowy | brak danych, ok. 20 projektów na turę |
+| STOART Symfonia | podmiot; osoba fizyczna wg regulaminu, nie wg formularza | 10–75 tys. zł | jednorazowo, 14 dni od umowy | brak danych |
 | NIMiT, „Muzyka” i „Muzyczny ślad” | podmiot, także JDG | wg kosztorysu | wg umowy | 25% („Muzyczny ślad” 2026) |
 | IAM NetWorks | osoba fizyczna albo grupa do 5 osób | do 8 tys. zł osoba, 25 tys. zł grupa | refundacja po wyjeździe | 38% (wszystkie programy IAM, do IV 2026) |
