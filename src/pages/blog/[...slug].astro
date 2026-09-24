@@ -141,8 +141,12 @@ const breadcrumb = breadcrumbJsonLd(
           )
         }
 
+        {/* Poniżej md siatka nie ma zadeklarowanych kolumn, a niejawna kolumna
+            `auto` rośnie do min-content treści – przy tabeli 800 px wypychała
+            całą stronę poza ekran zamiast pozwolić wrapperowi ją przewinąć.
+            Stąd jawne `minmax(0, 1fr)` w obu układach i `min-w-0` na komórce. */}
         <div
-          class="grid flex-1 md:grid-cols-[var(--post-aside)_minmax(0,1fr)]"
+          class="grid flex-1 grid-cols-[minmax(0,1fr)] md:grid-cols-[var(--post-aside)_minmax(0,1fr)]"
         >
           <aside
             class="border-b border-hairline px-5 py-9 md:border-r md:border-b-0 md:px-8"
@@ -195,7 +199,7 @@ const breadcrumb = breadcrumbJsonLd(
 
           <div
             class:list={[
-              "prose-swiss px-5 py-9 text-body md:px-10",
+              "prose-swiss min-w-0 px-5 py-9 text-body md:px-10",
               // Dwie łamy działają tylko na krótkiej notatce. Przy przewodniku
               // łama jest wyższa niż ekran, więc czytelnik musiałby zjechać na
               // sam dół strony i wrócić na górę po drugą.
