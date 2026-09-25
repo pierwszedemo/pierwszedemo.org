@@ -116,7 +116,7 @@ Zapisz do `instagram/_<data>-<slug>-karuzela/spec.json`:
   produktu ma stać w osobnej linii („Great September 2026.\nKoncerty…”).
   W `alt.txt` zamienia się na spację.
 - `slides` – 1–4 pozycje; `heading` ≤64 znaki, `body` to string albo tablica
-  1–3 akapitów, łącznie ≤440 znaków **licząc spację między akapitami** (górna
+  1–6 akapitów, łącznie ≤440 znaków **licząc spację między akapitami** (górna
   granica geometrii; redakcyjnie celuj w 80–160 przy notatce, 120–220 przy
   przewodniku – patrz krok 2).
 - `cta` jest opcjonalne – domyślne wartości (powyżej) są dobre w 90% przypadków;

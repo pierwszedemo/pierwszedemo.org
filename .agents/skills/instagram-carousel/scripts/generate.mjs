@@ -45,7 +45,7 @@ const paragraphs = (body) => (Array.isArray(body) ? body : typeof body === "stri
 slides.forEach((s, i) => {
   check(`slides[${i}].heading`, s.heading, 64);
   const ps = paragraphs(s.body);
-  if (ps.length < 1 || ps.length > 3) errors.push(`slides[${i}].body: 1–3 akapity`);
+  if (ps.length < 1 || ps.length > 6) errors.push(`slides[${i}].body: 1–6 akapitów`);
   ps.forEach((p, j) => check(`slides[${i}].body[${j}]`, p, 440, { token: 30 }));
   const total = ps.join(" ").length;
   if (total > 440) errors.push(`slides[${i}].body ma łącznie ${total} znaków, limit 440`);
