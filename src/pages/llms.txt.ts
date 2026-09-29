@@ -1,6 +1,7 @@
 import type { APIRoute } from "astro";
 import { getSortedPosts, isoDate } from "../blog";
 import {
+  CONCERT_SERIES_PATH,
   CONTACT_EMAIL,
   HOME_CITY,
   PERSON_NAME,
@@ -41,6 +42,10 @@ export const GET: APIRoute = async () => {
     "## Artyści",
     "",
     ...ROSTER.map((artist) => `- [${artist.name}](${artist.href}) – ${artist.genres}`),
+    "",
+    "## Koncerty",
+    "",
+    `- [dźwięki efemeryczne](${SITE_URL}${CONCERT_SERIES_PATH}): cykl trzech kameralnych koncertów piosenki autorskiej w Trójmieście (Gdańsk, Sopot, Gdynia), kwiecień–wrzesień 2027, wstęp wolny.`,
     "",
     "## Blog",
     "",

@@ -1,0 +1,379 @@
+---
+import { Image } from "astro:assets";
+import kasoil from "../assets/dzwieki-efemeryczne/kasoil.jpg";
+import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Footer from "../components/Footer.astro";
+import EmailLink from "../components/EmailLink.astro";
+import {
+  CONCERT_SERIES_PATH,
+  CONTACT_EMAIL,
+  ORGANIZATION_ID,
+  PERSON_NAME,
+  ROSTER,
+  SITE_NAME,
+  SITE_URL,
+  withUtm,
+} from "../consts";
+import { breadcrumbJsonLd } from "../schema";
+
+/*
+ * Strona cyklu koncertów. Wchodzi się na nią z linku (wniosek, plakat, social
+ * media), nie z menu serwisu, i sama też menu nie pokazuje: to strona
+ * wydarzenia, nie managera, a pasmo „Współpraca / O mnie / Blog” nad nazwą
+ * cyklu robiło z niej podstronę oferty. Do serwisu prowadzi link w sekcji
+ * organizatorów. Sale i dokładne daty są jeszcze w uzgodnieniu: strona
+ * podaje tylko to, co ustalone, bez nazw instytucji „na zapas”.
+ */
+
+const NAME = "dźwięki efemeryczne.";
+const EDITION = "edycja I";
+
+const canonical = new URL(CONCERT_SERIES_PATH, SITE_URL).href;
+const description =
+  "Cykl trzech kameralnych koncertów piosenki autorskiej w Trójmieście: Gdańsk, Sopot i Gdynia, kwiecień–wrzesień 2027. Trzy równe sety każdego wieczoru, wstęp wolny.";
+
+const RULES = [
+  {
+    no: "01",
+    title: "Autorstwo",
+    text: "Warunkiem udziału jest własny repertuar: tekst i muzyka autorstwa wykonawcy lub wykonawczyni.",
+  },
+  {
+    no: "02",
+    title: "Równe sety",
+    text: "Około 30 minut. Bez podziału na gwiazdę i support.",
+  },
+  {
+    no: "03",
+    title: "Trzy miasta",
+    text: "Gdańsk, Sopot i Gdynia – kameralne sale na 40–60 osób.",
+  },
+  {
+    no: "04",
+    title: "Wstęp wolny",
+    text: "Bezpłatne wejściówki; około 50 osób na koncert.",
+  },
+  {
+    no: "05",
+    title: "Rejestracja",
+    text: "Audio i wideo z każdego koncertu.",
+  },
+] as const;
+
+const CONCERTS = [
+  { no: "01", city: "Gdańsk", when: "Kwiecień 2027", start: "2027-04" },
+  { no: "02", city: "Sopot", when: "Czerwiec 2027", start: "2027-06" },
+  { no: "03", city: "Gdynia", when: "Wrzesień 2027", start: "2027-09" },
+] as const;
+
+/*
+ * Zdjęcia w src/assets/dzwieki-efemeryczne/ są zmniejszone do najwyżej
+ * 1600 px i pozbawione metadanych – ta sama zasada co przy michal.jpg.
+ */
+const ARTISTS = [
+  {
+    // Wycięta sylwetka z kliszy, spłaszczona na --color-ink z marginesem nad
+    // głową; źródło ma 670 px szerokości i nie ma z czego zrobić większego.
+    image: ola,
+    imageAlt:
+      "Ola Geppert na scenie – czarno-białe zdjęcie: chustka na głowie, długie czarne rękawiczki, mikrofon trzymany oburącz przy ustach",
+    imagePosition: "object-top",
+    role: "Artystka i host",
+    name: "Ola Geppert",
+    city: "Gdańsk",
+    genres: "alt-pop / indie / dark pop",
+    bio: "Songwriterka, wokalistka i performerka z Gdańska. Siedem singli od 2022 r.\n\nOd 2026 w duecie z Ioannim: „To nie ja” (10.09.2026), „Do nieba” i „Szkło” (16.10.2026), i sześcioutworowa EP-ka (27.11.2026).\n\nAbsolwentka projektowania graficznego ASP w Łodzi.",
+    href: withUtm(ROSTER[0].href + "/l", "dzwieki-efemeryczne"),
+    linkLabel: "olageppert.pl",
+  },
+  {
+    image: kasoil,
+    imageAlt:
+      "Kasoil – portret: długie, falowane włosy z grzywką, dłonie w srebrnych pierścieniach wyciągnięte w stronę obiektywu",
+    // Twarz siedzi w górnej tercji kadru 2:3.
+    imagePosition: "object-[center_25%]",
+    role: "Artystka",
+    name: "Kasoil",
+    city: "Gdańsk",
+    genres: "R&B / neosoul",
+    bio: "Kasoil, czyli Kasia Nurczyk, to wokalistka i autorka tekstów z trójmiejskiej sceny, która tworzy solowo z producentem Ajzeją. Łączy R&B i neosoul z elektroniką.\n\nPo debiutanckim albumie „Głód” (2024) trafiła do finału „Będzie Głośno” radiowej Czwórki.\n\nW 2026 roku z zespołem znalazła się w line-upach Great September, NEXT FEST i SEA YOU.",
+    href: "https://open.spotify.com/artist/6irQVvdoIUnHCFUQWBnMRK",
+    linkLabel: "Spotify",
+  },
+] as const;
+
+const breadcrumb = breadcrumbJsonLd(
+  [
+    { name: "Start", path: "/" },
+    { name: NAME, path: CONCERT_SERIES_PATH },
+  ],
+  canonical,
+);
+
+/*
+ * EventSeries, nie trzy węzły Event: Google wymaga od Event dokładnej daty
+ * i adresu, a tych jeszcze nie ma. Kiedy sale i dni będą potwierdzone, każdy
+ * koncert dostaje własny Event z `superEvent` wskazującym na ten węzeł.
+ */
+const seriesJsonLd = {
+  "@type": "EventSeries",
+  "@id": `${canonical}#cykl`,
+  name: `${NAME}. ${EDITION}`,
+  description,
+  url: canonical,
+  startDate: CONCERTS[0].start,
+  endDate: CONCERTS[CONCERTS.length - 1].start,
+  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+  isAccessibleForFree: true,
+  inLanguage: "pl",
+  organizer: { "@id": ORGANIZATION_ID },
+  location: CONCERTS.map((concert) => ({
+    "@type": "City",
+    name: concert.city,
+  })),
+  performer: ARTISTS.map((artist) => ({
+    "@type": "MusicGroup",
+    name: artist.name,
+  })),
+};
+
+// Ten sam szkielet pasm co /manager-muzyczny: etykieta w kolumnie bocznej
+// (5 modułów), treść od linii 5, tytuły pozycji w torze `3 moduły − 2 rem`,
+// żeby opisy startowały na osi linii 8.
+const row = "grid border-b border-hairline md:grid-aside-left";
+const rowLabel =
+  "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
+const rowBody = "px-5 py-7 md:px-8 md:py-10 lg:px-10";
+const prose =
+  "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
+const list = "divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10";
+const item =
+  "grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
+// Wiersz artystki ma dwa rzędy, więc odstęp pionowy nie może być tym samym
+// 2 rem co odstęp między torami – nazwa odkleiłaby się od własnego zdjęcia.
+const artistItem = `${item} gap-y-4 md:gap-x-8 md:gap-y-4`;
+const itemText =
+  "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
+const link = "underline decoration-1 underline-offset-4";
+---
+
+<BaseLayout
+  title={`${NAME} – cykl koncertów piosenki autorskiej w Trójmieście | ${SITE_NAME}`}
+  description={description}
+  canonicalPath={CONCERT_SERIES_PATH}
+  extraJsonLd={[seriesJsonLd, breadcrumb]}
+>
+  <div class="flex min-h-dvh flex-col">
+    <main class="flex-1">
+      <header class="grid border-b border-ink lg:grid-aside-right">
+        <div
+          class="px-5 pt-10 pb-9 md:px-8 md:pt-13 lg:border-r lg:border-hairline"
+        >
+          <p class="label text-muted">
+            (Cykl kameralnych koncertów piosenki autorskiej – Trójmiasto 2027)
+          </p>
+          {/* Nazwa małymi literami i z kropką – tak jest zapisana na plakacie
+              i we wniosku; to zapis nazwy własnej, nie literówka. */}
+          <h1
+            class="mt-5 text-page leading-[0.95] font-semibold tracking-[-0.035em] text-balance"
+          >
+            {NAME}
+          </h1>
+          <p class="label mt-5 text-muted">({EDITION} ⋅ by pierwszedemo.com)</p>
+        </div>
+        <p
+          class="flex items-end bg-ink px-5 py-7 text-[clamp(1.35rem,2.4vw,2rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white text-balance md:px-8 lg:bg-white lg:text-ink"
+        >
+          Trzech artystów, <br class="max-lg:hidden" />
+          trzy wieczory, <br class="max-lg:hidden" />
+          trzy miasta, <br class="max-lg:hidden" />
+          piosenka autorska, <br class="max-lg:hidden" />
+          wstęp wolny.
+        </p>
+      </header>
+
+      <section class={row} aria-labelledby="o-cyklu">
+        <h2 id="o-cyklu" class={rowLabel}>O cyklu</h2>
+        <div class={`${rowBody} ${prose}`}>
+          <p>
+            <strong>
+              {NAME}</strong> to cykl kameralnych koncertów piosenki autorskiej
+              młodych wykonawców i wykonawczyń z Trójmiasta.
+            
+          </p>
+          <p>
+            <strong>Konfrontacja różnych języków</strong> –
+            fortepianowy dark pop, R&amp;B, neosoul, radosny pop i inne.
+          </p>
+          <p>
+            <strong>Kameralny format</strong>
+            {' '} – mała sala, bliskość publiczności, intymne teksty,
+            minimalne instrumentarium Sale na 40–60 osób. Wstęp wolny.
+          </p>
+          <p>
+            <strong>Trzy autorskie sety</strong> – gospodyni cyklu
+            i dwoje zaproszonych artystek i artystów.
+            Wykonawcy i wykonawczynie są autorami i autorkami
+            tekstów i muzyki utworów.
+          </p>
+        </div>
+      </section>
+
+      <section class={row} aria-labelledby="zasady">
+        <h2 id="zasady" class={rowLabel}>Zasady</h2>
+        <ul class={list}>
+          {
+            RULES.map((rule) => (
+              <li class={item}>
+                <h3 class="flex items-baseline justify-between gap-4 text-row font-semibold md:flex-col md:items-start md:gap-2">
+                  <span>{rule.title}</span>
+                  <span class="label text-muted">({rule.no})</span>
+                </h3>
+                <p class={itemText}>{rule.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class={row} aria-labelledby="terminy">
+        <h2 id="terminy" class={rowLabel}>Terminy</h2>
+        <ol class={list}>
+          {
+            CONCERTS.map((concert) => (
+              <li class={item}>
+                <h3 class="flex items-baseline gap-4 text-row font-semibold">
+                  <span class="label text-muted">({concert.no})</span>
+                  <span>{concert.city}</span>
+                </h3>
+                <div>
+                <p class={itemText}>
+                  <time datetime={concert.start}>{concert.when}</time>.
+                </p>
+                <p>Więcej szczegółów wkrótce. Wstęp wolny.</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section class={row} aria-labelledby="na-scenie">
+        <h2 id="na-scenie" class={rowLabel}>Na scenie</h2>
+        <ul class={list}>
+          {
+            ARTISTS.map((artist) => (
+              <li class={artistItem}>
+                {/* Siatka 2×2: nazwa | miasto i gatunek, pod nimi zdjęcie |
+                    bio. Cztery komórki jednego grida, nie dwie kolumny
+                    flexów – tylko wspólny wiersz stawia pierwszy akapit bio
+                    na górnej krawędzi zdjęcia niezależnie od tego, w ilu
+                    liniach łamie się nazwa. */}
+                <h3 class="flex flex-col gap-2 text-row font-semibold">
+                  <span>{artist.name}</span>
+                  <span class="label text-muted">({artist.role})</span>
+                </h3>
+                <p class="label text-muted md:self-end">
+                  {artist.city} – {artist.genres}
+                </p>
+                {/* Kadr 3:4 jak slot „zdjęcie prasowe” w portfolio; źródła są
+                    wyższe, więc `object-cover` ścina dół, a pozycję kadru
+                    niesie każde zdjęcie osobno. Szerokości przycięte do
+                    źródła – Astro nie powiększa, tylko rzuca błędem. */}
+                <Image
+                  src={artist.image}
+                  alt={artist.imageAlt}
+                  format="webp"
+                  widths={[320, 640, 960].filter(
+                    (width) => width <= artist.image.width,
+                  )}
+                  sizes="(min-width: 1024px) 17vw, (min-width: 768px) 22vw, 20rem"
+                  loading="lazy"
+                  decoding="async"
+                  class:list={[
+                    "aspect-[3/4] w-full max-w-[20rem] bg-ink object-cover",
+                    artist.imagePosition,
+                  ]}
+                />
+                {/* -mt: interlinia 1.6 zostawia nad wersalikami pierwszej
+                    linii ok. 0.35 em powietrza, przez co tekst wyglądał na
+                    opuszczony względem krawędzi zdjęcia. */}
+                <div class={`flex flex-col gap-3 md:-mt-[0.35em] ${itemText}`}>
+                  {artist.bio.split("\n\n").map(text=> <p>{text}</p>)}
+                  <p>
+                    <a
+                      href={artist.href}
+                      target="_blank"
+                      rel="noopener"
+                      data-social={artist.name}
+                      class={link}
+                    >
+                      Posłuchaj: {artist.linkLabel}
+                      <span class="sr-only"> (otwiera się w nowej karcie)</span>
+                    </a>
+                  </p>
+                </div>
+              </li>
+            ))
+          }
+          {/* Ta sama siatka co wiersze artystek, choć zdjęcia tu nie ma:
+              tekst stoi w drugim rzędzie prawego toru, żeby wszystkie
+              pozycje listy zaczynały opis na tej samej wysokości względem
+              tytułu. */}
+          <li class={artistItem}>
+            <h3 class="text-row font-semibold">Kolejne nazwiska</h3>
+            <div
+              class={`flex flex-col gap-3 md:col-start-2 md:row-start-2 md:-mt-[0.35em] ${itemText}`}
+            >
+              <p>
+                Wkrótce opublikujemy kolejnych wykonawców i wykonawczynie.
+              </p>
+              <p>
+                <strong>Chcesz wystąpić? Odezwij się na <EmailLink class={link} /></strong>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class={`${row} border-b-ink`} aria-labelledby="organizator">
+        <h2 id="organizator" class={rowLabel}>Organizatorzy</h2>
+        <div class={`${rowBody} ${prose}`}>
+          {/* Bez nazw wydarzeń: to konferencje z innej branży, a czytelnikowi
+              tej strony mówią coś dopiero liczby osób i miasta. */}
+          <p>
+            <a href="/o-mnie" class={link}
+              >{PERSON_NAME}</a
+            >: twórca <a href="/" class={link}>{SITE_NAME}</a>, manager muzyczny; od 2013 roku organizator eventów:
+            bezpłatnych międzynarodowych konferencji w Gdańsku (łącznie ok. 600 osób),
+            i Warszawie (250 osób) oraz ponad 25 bezpłatnych
+            branżowych spotkań w Gdańsku (do 120 osób).
+          </p>
+          <p>
+            <a href="https://olageppert.pl" class={link}>Ola
+            Geppert</a>: współorganizatorka cyklu i autorka jego oprawy; tekstwriterka, wokalistka i performerka; absolwentka projektowania graficznego ASP w Łodzi.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="flex flex-col gap-5 px-5 py-8 md:flex-row md:items-center md:justify-between md:px-8"
+      >
+        <div>
+          <h2 class="label text-muted">Kontakt</h2>
+          <p class="mt-3 text-xl font-semibold">
+            Chcesz wystąpić albo chcesz, żebyśmy wystąpili u Ciebie?
+          </p>
+        </div>
+        <EmailLink
+          class="label self-start border border-ink px-5 py-4 transition-colors hover:bg-ink hover:text-white md:self-auto"
+        >
+          {CONTACT_EMAIL} <span aria-hidden="true">↗</span>
+        </EmailLink>
+      </section>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

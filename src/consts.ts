@@ -39,7 +39,7 @@ export const ORGANIZATION_ID = `${SITE_URL}/#firma`;
 export const OFFER_CATALOG_ID = `${SITE_URL}/#uslugi`;
 
 /** Data ostatniej zmiany treści – trafia do sitemap.lastmod i dateModified. */
-export const LAST_CONTENT_UPDATE = "2026-09-24";
+export const LAST_CONTENT_UPDATE = "2026-09-29";
 
 /**
  * Identyfikator pomiaru GA4 (G-XXXXXXXXXX). Pusty łańcuch = gtag.js w ogóle
@@ -54,6 +54,9 @@ export const WORDMARK = `${SITE_NAME}®`;
 
 /** Strona usługowa – cel linków z listy usług w hero i z nawigacji. */
 export const SERVICE_PATH = "/manager-muzyczny";
+
+/** Strona cyklu koncertów „dźwięki efemeryczne” – poza nawigacją, linkowana z zewnątrz. */
+export const CONCERT_SERIES_PATH = "/dzwieki-efemeryczne";
 
 /**
  * Nawigacja. Makieta ma cztery komórki (marka, dwie pozycje, Kontakt); piąta –
