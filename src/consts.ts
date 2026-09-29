@@ -57,6 +57,10 @@ export const SERVICE_PATH = "/manager-muzyczny";
 
 /** Strona cyklu koncertów „dźwięki efemeryczne” – poza nawigacją, linkowana z zewnątrz. */
 export const CONCERT_SERIES_PATH = "/dzwieki-efemeryczne";
+/** Nazwa własna cyklu: małymi literami i z kropką, jak na plakacie. */
+export const CONCERT_SERIES_NAME = "dźwięki efemeryczne.";
+/** Karta OG strony cyklu – osobny plik obok kart wpisów w /og/. */
+export const CONCERT_SERIES_OG = `/og${CONCERT_SERIES_PATH}.png`;
 
 /**
  * Nawigacja. Makieta ma cztery komórki (marka, dwie pozycje, Kontakt); piąta –

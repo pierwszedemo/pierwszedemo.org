@@ -6,6 +6,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Footer from "../components/Footer.astro";
 import EmailLink from "../components/EmailLink.astro";
 import {
+  CONCERT_SERIES_NAME,
+  CONCERT_SERIES_OG,
   CONCERT_SERIES_PATH,
   CONTACT_EMAIL,
   ORGANIZATION_ID,
@@ -26,7 +28,7 @@ import { breadcrumbJsonLd } from "../schema";
  * podaje tylko to, co ustalone, bez nazw instytucji „na zapas”.
  */
 
-const NAME = "dźwięki efemeryczne.";
+const NAME = CONCERT_SERIES_NAME;
 const EDITION = "edycja I";
 
 const canonical = new URL(CONCERT_SERIES_PATH, SITE_URL).href;
@@ -162,6 +164,7 @@ const link = "underline decoration-1 underline-offset-4";
   title={`${NAME} – cykl koncertów piosenki autorskiej w Trójmieście | ${SITE_NAME}`}
   description={description}
   canonicalPath={CONCERT_SERIES_PATH}
+  ogImage={CONCERT_SERIES_OG}
   extraJsonLd={[seriesJsonLd, breadcrumb]}
 >
   <div class="flex min-h-dvh flex-col">
