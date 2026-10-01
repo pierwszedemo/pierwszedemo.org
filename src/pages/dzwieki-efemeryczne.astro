@@ -31,6 +31,52 @@ import { breadcrumbJsonLd } from "../schema";
 const NAME = CONCERT_SERIES_NAME;
 const EDITION = "edycja I";
 
+/*
+ * Animacja tytułu: litery gasną jak dźwięk i wracają, każda w swoim momencie
+ * i we własnym rytmie; kropka nie gaśnie nigdy. Pętla bez końca i bez
+ * przycisku pauzy – świadoma decyzja Michała, mimo że WCAG 2.2.2 chce
+ * kontrolki przy ruchu dłuższym niż 5 s. Furtką zostaje
+ * `prefers-reduced-motion`, które animację wyłącza. Każda litera ma inną
+ * długość cyklu, więc układ dziur w nazwie nie powtarza się w widoczny sposób.
+ * Wartości są pseudolosowe, ale liczone z indeksu, nie z Math.random(): strona
+ * jest statyczna, więc los z builda i tak byłby jeden dla wszystkich, a tak
+ * HTML nie zmienia się między buildami.
+ */
+const noise = (seed: number) => {
+  const value = Math.sin(seed * 12.9898) * 43758.5453;
+  return value - Math.floor(value);
+};
+const FADE_SPREAD = 2.3;
+// Szum rozciągnięty do pełnego zakresu 0–1: pierwsza litera rusza w zerowej
+// sekundzie, razem z pierwszą klatką. Surowy szum nie schodzi do zera i razem
+// ze stałym opóźnieniem dawał prawie sekundę stojącego tytułu – ruch wyglądał
+// na spóźniony, a nie na zamierzony.
+const letterCount = [...NAME].filter((char) => /\p{L}/u.test(char)).length;
+const samples = Array.from({ length: letterCount }, (_, index) =>
+  noise(index + 1),
+);
+const low = Math.min(...samples);
+const span = Math.max(...samples) - low;
+// Cykl jednej litery: 5–10 s, z czego gaśnięcie i powrót zajmują pierwsze
+// 28 % (patrz @keyframes). Przy osiemnastu literach daje to naraz dwie–trzy
+// litery w ruchu – nazwa jest stale niepełna, ale zawsze czytelna.
+const CYCLE_MIN = 5;
+const CYCLE_RANGE = 5;
+let letterIndex = 0;
+const titleWords = NAME.split(" ").map((word) =>
+  [...word].map((char) => {
+    // Kropka kończąca nazwę zostaje – to jedyny stały punkt tytułu.
+    if (char === ".") return { char, style: null };
+    const index = letterIndex++;
+    const delay = ((samples[index] - low) / span) * FADE_SPREAD;
+    const cycle = CYCLE_MIN + noise(index + 101) * CYCLE_RANGE;
+    return {
+      char,
+      style: `animation-delay:${delay.toFixed(2)}s;animation-duration:${cycle.toFixed(2)}s`,
+    };
+  }),
+);
+
 const canonical = new URL(CONCERT_SERIES_PATH, SITE_URL).href;
 const description =
   "Cykl trzech kameralnych koncertów piosenki autorskiej w Trójmieście: Gdańsk, Sopot i Gdynia, kwiecień–wrzesień 2027. Trzy równe sety każdego wieczoru, wstęp wolny.";
@@ -178,10 +224,18 @@ const link = "underline decoration-1 underline-offset-4";
           </p>
           {/* Nazwa małymi literami i z kropką – tak jest zapisana na plakacie
               i we wniosku; to zapis nazwy własnej, nie literówka. */}
+          {/* Litery w osobnych spanach są ukryte przed czytnikami, a nazwę
+              niesie aria-label – inaczej część czytników literuje nagłówek.
+              textContent zostaje jedną kopią nazwy, więc robot czyta h1 tak
+              samo jak przed animacją. Słowo jest nierozdzielne, żeby łamanie
+              wiersza nie weszło między litery. */}
           <h1
+            aria-label={NAME}
             class="mt-5 text-page leading-[0.95] font-semibold tracking-[-0.035em] text-balance"
           >
-            {NAME}
+            {titleWords.map((word, wordIndex) => (
+              <>{wordIndex > 0 && " "}<span aria-hidden="true" class="whitespace-nowrap">{word.map((letter) => letter.style === null ? letter.char : <span class="nuta" style={letter.style}>{letter.char}</span>)}</span></>
+            ))}
           </h1>
           <p class="label mt-5 text-muted">({EDITION} ⋅ by pierwszedemo.com)</p>
         </div>
@@ -380,3 +434,34 @@ const link = "underline decoration-1 underline-offset-4";
     <Footer />
   </div>
 </BaseLayout>
+
+<style>
+  /* Stan spoczynkowy to zwykła, pełna litera: animacja niczego nie ukrywa
+     przed startem (brak fill-mode), więc tytuł jest czytelny od pierwszej
+     klatki i liczy się jako LCP bez czekania na koniec ruchu. */
+  .nuta {
+    /* Długość cyklu i opóźnienie niesie każda litera w atrybucie style. */
+    animation: zanik ease-in-out infinite;
+  }
+
+  /* Ruch zajmuje pierwsze 28 % cyklu, reszta to cisza z pełną literą –
+     dzięki temu przy cyklach 5–10 s większość nazwy zawsze stoi. */
+  @keyframes zanik {
+    0%,
+    28%,
+    100% {
+      opacity: 1;
+      filter: blur(0);
+    }
+    13% {
+      opacity: 0.06;
+      filter: blur(0.09em);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nuta {
+      animation: none;
+    }
+  }
+</style>
