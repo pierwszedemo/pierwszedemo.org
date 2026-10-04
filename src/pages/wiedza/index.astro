@@ -7,7 +7,6 @@ import SupportBand from "../../components/SupportBand.astro";
 import { getSortedArticles, isoDate } from "../../collections";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import {
-  CATEGORIES,
   KNOWLEDGE_PATH,
   ORGANIZATION_ID,
   PERSON_ID,
@@ -20,14 +19,6 @@ const entries = await getSortedArticles();
 const count = String(entries.length).padStart(2, "0");
 const canonical = new URL(KNOWLEDGE_PATH, SITE_URL).href;
 const entryUrl = (id: string) => new URL(`${KNOWLEDGE_PATH}/${id}`, SITE_URL).href;
-
-// Baza wiedzy jest grupowana kategorią, nie datą: poradnik o ZAiKS-ie nie
-// starzeje się od tego, że wyszedł w sierpniu. Kolejność grup = kolejność
-// w CATEGORIES, puste grupy znikają.
-const groups = CATEGORIES.map((category) => ({
-  category,
-  entries: entries.filter((entry) => entry.data.category === category),
-})).filter((group) => group.entries.length > 0);
 
 const description =
   "Baza wiedzy o branży muzycznej dla początkujących artystów: tantiemy i organizacje zbiorowego zarządzania, dystrybucja, wydawnictwa, booking, press kit, stypendia i dotacje.";
@@ -104,34 +95,25 @@ const breadcrumb = breadcrumbJsonLd(
         </p>
       </div>
 
-      {
-        groups.map((group, groupIndex) => (
-          <section aria-labelledby={`kat-${groupIndex}`}>
-            {/* Nagłówek grupy to pasmo z twardą linią – kategorie są działami
-                bazy, nie wierszami listy. */}
-            <h2
-              id={`kat-${groupIndex}`}
-              class="label border-t border-ink px-5 pt-7 pb-4 text-muted md:px-8"
-            >
-              {group.category} ({String(group.entries.length).padStart(2, "0")})
-            </h2>
-            <ul>
-              {group.entries.map((entry, index) => (
-                <ListRow
-                  href={`${KNOWLEDGE_PATH}/${entry.id}`}
-                  title={entry.data.title}
-                  left={isoDate(entry.data.updated ?? entry.data.date)}
-                  leftDatetime={isoDate(entry.data.updated ?? entry.data.date)}
-                  label={entry.data.kind}
-                  sub={`${entry.data.readingMinutes} min`}
-                  first={index === 0}
-                  last={index === group.entries.length - 1 && groupIndex === groups.length - 1}
-                />
-              ))}
-            </ul>
-          </section>
-        ))
-      }
+      {/* Jedna lista od najnowszego, jak aktualności. Grupy kategorii
+          stawiały starszy wpis nad nowszym, bo kolejność grup szła za
+          CATEGORIES, nie za datą – kategoria została etykietą wiersza. */}
+      <ul>
+        {
+          entries.map((entry, index) => (
+            <ListRow
+              href={`${KNOWLEDGE_PATH}/${entry.id}`}
+              title={entry.data.title}
+              left={isoDate(entry.data.date)}
+              leftDatetime={isoDate(entry.data.date)}
+              label={entry.data.category}
+              sub={`${entry.data.kind} · ${entry.data.readingMinutes} min`}
+              first={index === 0}
+              last={index === entries.length - 1}
+            />
+          ))
+        }
+      </ul>
     </main>
 
     <SupportBand />
