@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 bun install       # bun.lock is the lockfile
 bun run dev       # tinacms dev + astro dev; the CMS is at /admin/index.html, editing local files
-bun run build     # tinacms build + astro build (needs PUBLIC_TINA_CLIENT_ID and TINA_TOKEN)
+bun run build     # Tina admin (cached, scripts/build-tina.mjs) + astro build (needs PUBLIC_TINA_CLIENT_ID and TINA_TOKEN)
 bun run build:local  # the same without TinaCloud – for a build on a machine without the keys
 bun run preview   # astro preview
 bun run deploy    # astro build + wrangler deploy (Workers Builds does the same on push)
@@ -253,6 +253,15 @@ files; React exists only there.
   posts are edited through the form only, by design – their body renders
   through `render()` and the satteri plugins, which `TinaMarkdown` would
   replace.
+- `bun run build` goes through `scripts/build-tina.mjs`: the admin app and the
+  generated client depend only on the Tina config, `consts.ts`, the packages,
+  the branch and the project – not on content – so they are cached in
+  `node_modules/.astro/tina-admin/<hash>` (the only directory Workers Builds
+  carries between Astro builds) and rebuilt only when one of those changes.
+  `--skip-cloud-checks` because the check waits ~45 s for TinaCloud to index
+  the commit just pushed, and nothing in the site build queries TinaCloud.
+  Workers Builds runs Bun from `BUN_VERSION` (a build variable, 1.4.0) – the
+  image default was 1.2.15.
 - `astro dev` backgrounds itself when there is no TTY (an agent's shell), and
   `tinacms dev -c` then sees its child exit and shuts down. In a terminal it
   runs in the foreground and works.
