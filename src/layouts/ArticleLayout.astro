@@ -4,7 +4,7 @@ import { Image } from "astro:assets";
 import BaseLayout from "./BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import { isoDate, readingMinutes, type Article, type News } from "../collections";
+import { hasBodyImage, isoDate, readingMinutes, type Article, type News } from "../collections";
 import { breadcrumbJsonLd, isoDateTime, wordCount } from "../schema";
 import { fixHanging } from "../typography";
 import {
@@ -219,7 +219,8 @@ const breadcrumb = breadcrumbJsonLd(
               // Dwie łamy działają tylko na krótkiej notatce. Przy przewodniku
               // łama jest wyższa niż ekran, więc czytelnik musiałby zjechać na
               // sam dół strony i wrócić na górę po drugą.
-              twoColumns && "lg:[column-count:2] lg:[column-gap:40px]",
+              // Obrazek w treści też wyłącza łamy (patrz hasBodyImage).
+              twoColumns && !hasBodyImage(entry) && "lg:[column-count:2] lg:[column-gap:40px]",
             ]}
           >
             <Content />

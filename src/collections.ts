@@ -45,3 +45,10 @@ export const plDate = (date: Date) =>
     year: "numeric",
     timeZone: "UTC",
   }).format(date);
+
+/**
+ * Czy w treści stoi obrazek (`![alt](ścieżka)`). Wpis z obrazkiem nie dostaje
+ * dwóch łam: obrazek w łamie notatki pękałby na przełomie kolumn albo
+ * zostawiał dziurę na dole pierwszej.
+ */
+export const hasBodyImage = (entry: Article | News) => /!\[[^\]]*\]\(/.test(entry.body ?? "");

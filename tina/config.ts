@@ -109,10 +109,12 @@ const tailFields: TinaField[] = [
     // escapowanie zostaje: Tina zapisze `A\&R` i `\[…]`, co renderuje się
     // tak samo, a wpisany w edytorze `_` czy `*` nie zamieni się w kursywę.
     parser: { type: "markdown" },
-    // Korpus wpisu to tylko akapity, ##, ###, linki, pogrubienie i kursywa –
-    // .prose-swiss nie styluje niczego więcej (patrz AGENTS.md).
+    // Korpus wpisu to akapity, ##, ###, linki, pogrubienie, kursywa, listy,
+    // tabele, cytaty i obrazki – .prose-swiss nie styluje niczego więcej
+    // (patrz AGENTS.md). Obrazek idzie przez media manager do src/assets/blog,
+    // a pole „Caption” zostaje podpisem pod nim (src/images.ts).
     overrides: {
-      toolbar: ["heading", "link", "bold", "italic"],
+      toolbar: ["heading", "link", "bold", "italic", "ul", "ol", "quote", "table", "image"],
       headingLevels: ["h2", "h3"],
     },
   },

@@ -30,7 +30,11 @@
 .prose-swiss ol + h2,
 .prose-swiss ol + h3,
 .prose-swiss .table-scroll + h2,
-.prose-swiss .table-scroll + h3 {
+.prose-swiss .table-scroll + h3,
+.prose-swiss figure + h2,
+.prose-swiss figure + h3,
+.prose-swiss blockquote + h2,
+.prose-swiss blockquote + h3 {
   margin-top: 30px;
 }
 /* h2 i h3 miały ten sam stopień pisma, więc podział na sekcje i pytania
@@ -44,7 +48,9 @@
 }
 .prose-swiss p + h2,
 .prose-swiss ul + h2,
-.prose-swiss ol + h2 {
+.prose-swiss ol + h2,
+.prose-swiss figure + h2,
+.prose-swiss blockquote + h2 {
   margin-top: 44px;
   padding-top: 30px;
   border-top: 1px solid var(--color-hairline);
@@ -202,4 +208,56 @@
 .prose-swiss a {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+/* Obrazek w treści. Akapit z samym obrazkiem zamienia się w <figure> we
+   wtyczce src/images.ts, a tytuł obrazka – w <figcaption>. Szerokość łamu
+   tekstu, nie wyjście poza nią: tekst i obrazek zaczynają się na tej samej
+   osi. Wpis z obrazkiem nie dostaje dwóch łam (ArticleLayout), więc
+   `break-inside` jest tu tylko zabezpieczeniem. Podpis ma styl podpisów zdjęć
+   z /fundacja – mono, wersaliki – tylko z interlinią na kilka linijek. */
+.prose-swiss figure {
+  margin: 26px 0;
+  break-inside: avoid;
+}
+.prose-swiss figure:first-child {
+  margin-top: 0;
+}
+.prose-swiss figure:last-child {
+  margin-bottom: 0;
+}
+.prose-swiss figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.prose-swiss figcaption {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.6;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Cytat (`>`) – cudze słowa w środku tekstu: wypowiedź, fragment regulaminu.
+   Ciszej niż wyimek (pole `pullquote`, pasmo nad treścią), żeby z nim nie
+   konkurował: ten sam stopień co akapit, tylko kolor ink i średnia waga.
+   Linia hairline, nie ink – to linia WEWNĄTRZ pasma treści. Bez kursywy,
+   bo kursywa niesie tu termin obcy, i bez cudzysłowów z CSS – jeśli tekst
+   ich potrzebuje, stoją w nim. */
+.prose-swiss blockquote {
+  margin: 0 0 18px;
+  padding-left: 20px;
+  border-left: 1px solid var(--color-hairline);
+  color: var(--color-ink);
+  font-weight: 500;
+  break-inside: avoid;
+}
+.prose-swiss blockquote:last-child {
+  margin-bottom: 0;
+}
+.prose-swiss blockquote p:last-child {
+  margin-bottom: 0;
 }
