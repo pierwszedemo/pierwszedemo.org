@@ -24,7 +24,7 @@ Perfekcyjnej rolki i tak nie zrobisz, bo perfekcja zakłada, że wiesz z góry, 
 
 Poza tym publikuj do szerokiego grona, ale każdy pojedynczy film z wąskim _targetem_. Kilka tygodni po publikacji sprawdź, [która nisza w ogóle odpowiedziała](/wiedza/grupa-docelowa-artysty). Dziesięć prób daje dziesięć odpowiedzi. Jedna próba prawie na pewno da ciszę i poczucie, że „to chyba nie działa”.
 
-Kto ma to robić? Ty. Serio. Cała ta robota [kosztuje wyłącznie czas](/wiedza/ile-kosztuje-niezalezny-singiel). Telefon masz w kieszeni. Montaż jest darmowy. [Agencja na tym etapie to fanaberia](/aktualnosci/poczatkujacy-manager-artysty), a zresztą nikt nie wie o Twojej muzyce tyle co Ty. [Tak wygląda profil `olageppert_`, który pomagam prowadzić](https://olageppert.pl/ig): niemal zerowy budżet, ciasny kalendarz, konsekwencja.
+Kto ma to robić? Ty. Serio. Cała ta robota [kosztuje wyłącznie czas](/wiedza/ile-kosztuje-niezalezny-singiel). Telefon masz w kieszeni. Montaż jest darmowy. [Agencja na tym etapie to fanaberia](/wiedza/poczatkujacy-manager-artysty), a zresztą nikt nie wie o Twojej muzyce tyle co Ty. [Tak wygląda profil `olageppert_`, który pomagam prowadzić](https://olageppert.pl/ig): niemal zerowy budżet, ciasny kalendarz, konsekwencja.
 
 No i właśnie ten kalendarz jest najnudniejszą i najtrudniejszą częścią całej strategii. **Z Olą Geppert zaplanowaliśmy czternaście tygodni wprzód. Przyszedłem do niej z 70 scenariuszami krótkich filmików,** które ona dopasowała do swojej persony. Założenie: montaż ma zająć mniej niż 3 minuty. Dosłownie. A każdym tygodniu wpisane, ile treści ma się pojawić i kiedy. Tej pracy nikt nie zobaczy i nikt Ci za nią nie podziękuje dopóki nie zaczniesz publikować.
 

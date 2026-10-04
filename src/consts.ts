@@ -123,7 +123,7 @@ export const FOUNDERS = [
     jobTitle: "manager muzyczny",
     href: TYPE_OF_WEB_URL,
     bio: [
-      "Manager muzyczny i przedsiębiorca. Od lipca 2026 pod marką Pierwsze Demo prowadzi management, wydawnictwa i booking artystów alternatywnych: debiutancki singiel duetu Ola Geppert & Ioanni „To nie ja” (wrzesień 2026), kolejne single i sześcioutworowa EP-ka z koncertem premierowym.",
+      "Manager muzyczny i przedsiębiorca. Od lipca 2026 pod marką Pierwsze Demo prowadzi management, wydawnictwa i booking artystów alternatywnych – od planu wydawniczego i dystrybucji, przez materiały prasowe i kontakt z mediami, po koncert premierowy.",
       "Od 2013 roku organizuje wydarzenia i wydaje publikacje: współorganizator trzech międzynarodowych konferencji dla kilkuset osób każda, z dochodem przekazywanym na cele charytatywne, i ponad dwudziestu bezpłatnych spotkań branżowych (nagroda Curly Braces 2016 za najlepiej organizowane spotkania w Polsce). Autor i wydawca książki „TypeScript na poważnie” (2021), współtwórca kursu Next.js Masters dla blisko tysiąca uczestników, wykładowca i prelegent.",
       "Od blisko 20 lat związany z branżą technologiczną jako product engineer i twórca Type of Web. W fundacji odpowiada za program, finanse i produkcję wydarzeń.",
     ],
@@ -198,9 +198,12 @@ export const ACTIVITIES = [
 ] as const;
 
 /**
- * Projekty i artyści, którymi fundacja zajmuje się teraz – slot na stronie
- * głównej, w którym wcześniej stał roster managera. Linki zewnętrzne dostają
- * UTM-y przez `withUtm()` w miejscu użycia.
+ * Projekty, którymi fundacja zajmuje się teraz – slot na stronie głównej,
+ * w którym wcześniej stał roster managera. Wydawnictw fundatorki tu nie ma,
+ * i to jest zasada, nie przeoczenie: projekt fundatora stoi na stronie
+ * fundacji tylko wtedy, gdy wynika z celu statutowego (koncert, warsztat)
+ * i z jawną rolą, nigdy jako promocja wydawnictwa – patrz AGENTS.md.
+ * Linki zewnętrzne dostają UTM-y przez `withUtm()` w miejscu użycia.
  */
 export const PROJECTS = [
   {
@@ -209,9 +212,9 @@ export const PROJECTS = [
     href: CONCERT_SERIES_PATH,
   },
   {
-    name: "Ola Geppert / Ioanni",
-    meta: "debiutancka EP – 27.11.2026",
-    href: "https://olageppert.pl",
+    name: "Baza wiedzy",
+    meta: "jak działa branża – bez skrótów",
+    href: KNOWLEDGE_PATH,
   },
 ] as const;
 

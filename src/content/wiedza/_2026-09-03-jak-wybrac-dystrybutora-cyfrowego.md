@@ -46,7 +46,7 @@ Jest na to dodatek. [Leave a Legacy kosztuje 29 $ za singiel albo 49 $ za album,
 
 **Abonament w DistroKidzie nie jest ceną za dystrybucję. Jest ceną za utrzymanie katalogu przy życiu, a to inna umowa, niż wygląda w cenniku.**
 
-Drugi zapis: [plan Musician obsługuje jednego artystę albo zespół, plan Musician Plus za 44,99 $ dwóch](https://distrokid.com/pricing/). Podejrzewam, że collab z dwoma nazwiskami w polu głównego wykonawcy wypada poza najtańszy plan i wymaga dopłaty. Mam u siebie dokładnie taki przypadek, [duet Oli Geppert z Ioannim](/aktualnosci/poczatkujacy-manager-artysty), więc to nie jest problem teoretyczny.
+Drugi zapis: [plan Musician obsługuje jednego artystę albo zespół, plan Musician Plus za 44,99 $ dwóch](https://distrokid.com/pricing/). Podejrzewam, że collab z dwoma nazwiskami w polu głównego wykonawcy wypada poza najtańszy plan i wymaga dopłaty. Mam u siebie dokładnie taki przypadek, [duet Oli Geppert z Ioannim](/wiedza/poczatkujacy-manager-artysty), więc to nie jest problem teoretyczny.
 
 Trzeci: [pieniądze z YouTube’a i TikToka wymagają dodatku Social Media Pack za 4,95 $ rocznie od singla, a DistroKid bierze z nich 20% wpływów z reklam](https://support.distrokid.com/hc/en-us/articles/360013534274-What-Are-Album-Extras). „Zachowujesz 100% zarobków” z cennika ma więc gwiazdkę. [TuneCore ma podobną: 20% od przychodów z TikToka, Facebooka, Instagrama i YouTube’a](https://www.tunecore.com/pricing).
 
@@ -74,7 +74,7 @@ Każdy z tych wyborów jest odwracalny. Pod warunkiem, że wiesz jak.
 
 Zmiana nazwy artystki to ta sama mechanika, tylko boleśniejsza. Gdy Ola Geppert przestała wydawać jako Birim, każdy serwis przyjmował poprawkę osobno: Spotify pokazywało nowe nazwisko, gdy Apple Music wciąż wyświetlało stare, i wyrównało się to dopiero po tygodniach. **Dystrybutor wysyła zmianę raz, ale każdy serwis wdraża ją we własnym tempie i nikt Ci nie powie, kiedy skończy.**
 
-Stąd wniosek, który brzmi jak rada księgowej. Przed pierwszym uploadem załóż arkusz z ISRC, UPC, datą premiery i nazwą dystrybutora przy każdym wydawnictwie. Nudne. [Tak samo nudne jak kalendarz wydawniczy](/aktualnosci/poczatkujacy-manager-artysty) i tak samo niezbędne w dniu, w którym zechcesz odejść albo dystrybutor zniknie z rynku.
+Stąd wniosek, który brzmi jak rada księgowej. Przed pierwszym uploadem załóż arkusz z ISRC, UPC, datą premiery i nazwą dystrybutora przy każdym wydawnictwie. Nudne. [Tak samo nudne jak kalendarz wydawniczy](/wiedza/poczatkujacy-manager-artysty) i tak samo niezbędne w dniu, w którym zechcesz odejść albo dystrybutor zniknie z rynku.
 
 ## Najczęstsze pytania
 

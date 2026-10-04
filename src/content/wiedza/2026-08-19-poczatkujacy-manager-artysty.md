@@ -1,7 +1,8 @@
 ---
 title: Początkujący manager muzyczny robi wszystko oprócz muzyki
 lead: Na starcie jesteś sprzedawcą, bookerem, marketingowcem i fotografem naraz. A główna robota i tak polega na pilnowaniu, żeby artyści kończyli to, co zaczęli.
-kind: opinia
+category: Zarządzanie
+kind: notatka
 date: 2026-08-19
 keyphrase: początkujący manager artysty
 readingMinutes: 2
