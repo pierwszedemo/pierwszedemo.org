@@ -402,6 +402,25 @@ indent) are never typed as pixels – they are multiples of the grid module belo
   cards use. `instagram/` output is committed – it is the promotion history
   of a post.
 
+## Launch
+
+The site is deployed to `pierwszedemo.org` (Worker `pierwszedemo`, account
+„Fundacja Pierwsze Demo”, `custom_domain` route in `wrangler.jsonc`) **before**
+the foundation is in KRS, and kept out of every index by `public/_headers`
+(`X-Robots-Tag: noindex, nofollow` on `/*`). A header, not `<meta>`, because it
+also covers the OG cards, RSS and `llms.txt`; `robots.txt` stays open, because a
+crawler blocked by `Disallow` never sees the noindex and can still index the
+bare URL. `pierwszedemo.com` is the old manager site, still live on Vercel.
+
+On launch day:
+
+1. Fill `FOUNDATION.krs/nip/regon/iban` in `consts.ts`.
+2. Delete the noindex block from `public/_headers`.
+3. Redirect `pierwszedemo.com` → `.org` (DNS/Cloudflare, outside the repo) and
+   retire the Vercel project.
+4. Bump `LAST_CONTENT_UPDATE`, deploy, submit the sitemap in Search Console
+   and Bing Webmaster Tools.
+
 ## Not built yet
 
 Annual reports (the first, for 2026, is due in 2027 – `/fundacja#sprawozdania`
