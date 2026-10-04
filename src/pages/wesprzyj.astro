@@ -49,19 +49,19 @@ const WAYS = [
     no: "01",
     id: "darowizna",
     title: "Darowizna",
-    text: "Jednorazowa albo stała, dowolnej wysokości. Każda złotówka idzie na cele statutowe: koncerty, nagrania, warsztaty i wsparcie konkretnych twórców.",
+    text: "Jednorazowa albo stała, dowolnej wysokości. Każda złotówka przeznaczana jest na cele statutowe: koncerty, nagrania, warsztaty i wsparcie konkretnych twórców.",
   },
   {
     no: "02",
     id: "wolontariat",
     title: "Wolontariat",
-    text: "Przy koncertach potrzebujemy rąk do pracy: obsługa wejścia, zdjęcia, wideo, nagłośnienie, transport. Napisz, co umiesz i ile masz czasu – odezwiemy się przed najbliższym wydarzeniem.",
+    text: "Przy wydarzeniach potrzebujemy pomocy. Napisz, co Cię interesuje, w czym chcesz nam pomóc i ile masz czasu – odezwiemy się przed najbliższym wydarzeniem.",
   },
   {
     no: "03",
     id: "partnerstwo",
     title: "Partnerstwo",
-    text: "Sala na koncert, studio na sesję, sprzęt, druk, patronat medialny albo wsparcie finansowe konkretnego projektu. Firmy odliczają darowiznę od dochodu tak samo jak osoby prywatne – do 10% dochodu.",
+    text: "Sala na koncert, studio na sesję, sprzęt, druk, patronat medialny albo wsparcie finansowe konkretnego projektu.",
   },
 ] as const;
 
@@ -141,7 +141,7 @@ const link = "underline decoration-1 underline-offset-4";
 
       <section class={row} aria-labelledby="podatek">
         <h2 id="podatek" class={rowLabel}>Odliczenie od podatku</h2>
-        <div class={`${rowBody} ${prose}`}>
+        <div class={`${rowBody} ${prose} !text-base !max-w-full`}>
           <p>
             Darowiznę na cele statutowe fundacji odliczysz od dochodu
             w rocznym zeznaniu: osoby fizyczne do 6% dochodu (art. 26 ust. 1
@@ -150,9 +150,7 @@ const link = "underline decoration-1 underline-offset-4";
             – nie potrzebujesz od nas żadnego dodatkowego dokumentu.
           </p>
           <p>
-            Fundacja nie ma statusu organizacji pożytku publicznego, więc nie
-            przyjmuje 1,5% podatku. Jeśli to się zmieni, napiszemy o tym tutaj
-            i w aktualnościach.
+            Fundacja nie posiada jeszcze statusu organizacji pożytku publicznego.
           </p>
         </div>
       </section>
@@ -173,7 +171,7 @@ const link = "underline decoration-1 underline-offset-4";
             <a href={`${FOUNDATION_PATH}#sprawozdania`} class={link}>
               sprawozdanie z działalności
             </a>{" "}
-            – z niego dowiesz się, co z tego wyszło.
+            – z niego dowiesz się, co udało nam się zrealizować.
           </p>
         </div>
       </section>
