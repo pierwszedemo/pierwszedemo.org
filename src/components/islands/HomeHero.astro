@@ -1,0 +1,62 @@
+---
+import { FOUNDATION_PATH, HOME_CITY, SITE_NAME, SITE_TAGLINE } from "../../consts";
+import type { ActivitiesDoc, HomepageDoc } from "../../strony";
+import { fixHanging } from "../../typography";
+import { field } from "./field";
+
+interface Props {
+  home: HomepageDoc;
+  activities: ActivitiesDoc;
+}
+const { home, activities } = Astro.props;
+---
+
+<div>
+  {
+    /* Nagłówkiem strony jest nadtytuł, nie slogan: „Fundacja Pierwsze
+       Demo – Wsparcie młodych twórców muzycznych – Gdańsk" niesie
+       frazy, pod które ta strona ma się wyświetlać, a slogan nie
+       niesie żadnej. Wizualnie h1 zostaje małą etykietą monospace,
+       a slogan dalej jest największym tekstem na stronie. */
+  }
+  <h1 class="label text-muted">
+    ({SITE_NAME} – {SITE_TAGLINE} – {HOME_CITY})
+  </h1>
+  <p
+    class="mt-6 text-hero leading-[0.98] font-semibold tracking-[-0.035em] text-balance md:mt-[26px]"
+    data-tina-field={field(home, "slogan")}
+  >
+    {
+      /* Nowa linia w polu „Slogan” w Tinie = złamanie wiersza, ale
+         tylko od md – na telefonie slogan łamie się sam. */
+      home.slogan.split("\n").map((line, index) => (
+        <>
+          {index > 0 && <> <br class="hidden md:inline" /></>}
+          {fixHanging(line)}
+        </>
+      ))
+    }
+  </p>
+</div>
+
+<div class="flex flex-col gap-7">
+  <p class="max-w-[44ch] text-lg leading-[1.55] text-body" data-tina-field={field(home, "intro")}>
+    {fixHanging(home.intro)}
+  </p>
+  <ul
+    class="flex flex-col gap-3 font-mono text-[13px] leading-none font-medium tracking-[0.14em] uppercase sm:flex-row sm:flex-wrap sm:gap-x-9 sm:gap-y-3"
+  >
+    {
+      activities.activities.map((activity, index) => (
+        <li data-tina-field={field(activity)}>
+          <a
+            href={`${FOUNDATION_PATH}#${activity.id}`}
+            class="underline decoration-1 underline-offset-4"
+          >
+            ({String(index + 1).padStart(2, "0")}) {activity.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>

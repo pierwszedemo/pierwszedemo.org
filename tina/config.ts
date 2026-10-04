@@ -195,13 +195,21 @@ const aktualnosci: Collection = {
  * treść, ale nie dodawać ani usuwać dokumentów: pola kodowe (id, schemaId,
  * zdjęcia) są w consts.ts.
  */
-const singleton = (name: string, label: string, file: string, fields: TinaField[]): Collection => ({
+const singleton = (
+  name: string,
+  label: string,
+  file: string,
+  // Strona, którą edytor otwiera w podglądzie obok formularza – z wyspami
+  // edycji wizualnej (src/islands.ts) zmiany widać na niej od razu.
+  preview: string,
+  fields: TinaField[],
+): Collection => ({
   name,
   label,
   path: "src/content/strony",
   format: "json",
   match: { include: file },
-  ui: { allowedActions: { create: false, delete: false } },
+  ui: { allowedActions: { create: false, delete: false }, router: () => preview },
   fields,
 });
 
@@ -236,7 +244,7 @@ const person = (name: string, label: string): TinaField => ({
   ],
 });
 
-const stronaGlowna = singleton("stronaGlowna", "Strona główna", "strona-glowna", [
+const stronaGlowna = singleton("stronaGlowna", "Strona główna", "strona-glowna", "/", [
   paragraphs(
     "slogan",
     "Slogan",
@@ -265,12 +273,12 @@ const stronaGlowna = singleton("stronaGlowna", "Strona główna", "strona-glowna
   paragraphs("contact", "Tekst w sekcji „Kontakt”"),
 ]);
 
-const fundatorzy = singleton("fundatorzy", "Fundatorzy i Zarząd", "fundatorzy", [
+const fundatorzy = singleton("fundatorzy", "Fundatorzy i Zarząd", "fundatorzy", "/fundacja", [
   person("michal", "Michał"),
   person("ola", "Ola"),
 ]);
 
-const dzialania = singleton("dzialania", "Działania", "dzialania", [
+const dzialania = singleton("dzialania", "Działania", "dzialania", "/fundacja", [
   {
     type: "object",
     name: "activities",

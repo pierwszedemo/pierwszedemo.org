@@ -1,0 +1,32 @@
+---
+import type { ActivitiesDoc } from "../../strony";
+import { item, itemText, link } from "../../styles/fundacja";
+import { fixHanging } from "../../typography";
+import { field } from "./field";
+
+interface Props {
+  activities: ActivitiesDoc;
+}
+const { activities } = Astro.props;
+---
+
+{
+  activities.activities.map((activity, index) => (
+    <li class={item} id={activity.id} data-tina-field={field(activity)}>
+      <h3 class="flex items-baseline justify-between gap-4 text-row font-semibold md:flex-col md:items-start md:gap-2">
+        <span data-tina-field={field(activity, "label")}>{activity.label}</span>
+        <span class="label text-muted">({String(index + 1).padStart(2, "0")})</span>
+      </h3>
+      <div class={`flex flex-col gap-3 ${itemText}`}>
+        <p data-tina-field={field(activity, "description")}>{fixHanging(activity.description)}</p>
+        {activity.href && (
+          <p>
+            <a href={activity.href} class={link}>
+              {activity.linkLabel} <span aria-hidden="true">→</span>
+            </a>
+          </p>
+        )}
+      </div>
+    </li>
+  ))
+}

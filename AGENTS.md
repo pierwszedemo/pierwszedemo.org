@@ -184,7 +184,7 @@ Redundant under `output: "static"`, kept as a guard: in server mode an on-demand
 dynamic route cannot be enumerated by `@astrojs/sitemap` and the posts would
 silently vanish from the sitemap.
 
-**The site is fully static on purpose.** It was `output: "server"` (copied from
+**Every page is prerendered on purpose.** It was `output: "server"` (copied from
 olageppert.pl) until a page rendered on demand made `<Image>` skip build-time
 optimisation and emit a runtime `/_image?href=…` URL instead — an endpoint the host (Vercel
 back then) did not serve, so the hero photo 404'd in production. Nothing here
@@ -194,6 +194,12 @@ at runtime through Cloudflare Images), `prerenderEnvironment: "node"` (the
 default `workerd` has neither sharp nor the filesystem `src/og.ts` reads TTFs
 from) and `session: false` (otherwise the adapter adds a `SESSION` KV binding
 a static site has no use for).
+
+The one exception is `/tina-island/[name]` (`prerender = false`), Tina's
+visual-editing endpoint – see „Visual editing” below. It makes the build emit
+a real Worker (`dist/server/entry.mjs`, `nodejs_compat` for AsyncLocalStorage),
+but static assets are still served before it, so visitors never reach it:
+it answers only a same-origin POST with the bridge's content type.
 
 Two knowledge-base formats, both markdown, distinguished by `kind`: `notatka` (300–500
 words, no headings) and `przewodnik` (1200–2000 words, `##` sections plus an FAQ).
@@ -243,9 +249,38 @@ files; React exists only there.
   are kept in that format so a save does not churn the diff.
 - Media: `publicFolder: "src/assets"`, `mediaRoot: "blog"` – uploads land
   where Astro optimises them, never in `public/`.
+- Visual editing („Visual editing” below) covers the three JSON documents;
+  posts are edited through the form only, by design – their body renders
+  through `render()` and the satteri plugins, which `TinaMarkdown` would
+  replace.
 - `astro dev` backgrounds itself when there is no TTY (an agent's shell), and
   `tinacms dev -c` then sees its child exit and shuts down. In a terminal it
   runs in the foreground and works.
+
+### Visual editing
+
+`@tinacms/astro` (integration in `astro.config.mjs`) lets the admin preview
+`/` and `/fundacja` live while a form is edited. Editable regions are
+`<TinaIsland>`s registered in `src/islands.ts`; their markup lives in
+`src/components/islands/` and is rendered two ways:
+
+- At build, by the pages, from the JSON in `src/strony.ts` – no Tina query, so
+  the build does not depend on TinaCloud. Without Tina metadata `tinaField()`
+  returns `""`; `field()` turns that into `undefined` so production HTML has no
+  empty `data-tina-field`.
+- In the editor, by `POST /tina-island/<name>` on the Worker, from the
+  generated Tina client (`tina/__generated__/client`, read-only token baked in
+  server-side) with the unsaved form values overlaid. The bridge swaps the
+  whole wrapper element.
+
+`<TinaIsland>` can give its wrapper only a class – no `id`, no `aria-*` – so
+islands wrap elements that need neither (`wrappers.ts`): the hero column, the
+„Teraz” list, the contact sentence, the activities list, each founder's text
+column. Founders' photos stay outside: an `<Image>` rendered on demand in the
+Worker has no build-time optimised file. Each island adds one inline bootstrap
+`<script>` that does nothing outside the `/admin` iframe; that is the only
+production HTML cost. `src/astro-modules.d.ts` exists because bare `tsgo`
+cannot resolve a `.astro` import from `islands.ts`.
 
 ### SEO / structured data
 
@@ -448,8 +483,7 @@ On launch day:
 Annual reports (the first, for 2026, is due in 2027 – `/fundacja#sprawozdania`
 already has the slot and the sentence), a grant-logo band („Dofinansowano ze
 środków…" is mandatory on the site from the day a MKiDN or city grant is
-signed), visual editing of the homepage and `/fundacja` (`@tinacms/astro`
-islands), a new visual design (the current
+signed), a new visual design (the current
 Swiss layout was kept on purpose for the conversion).
 
 The homepage `<h1>` is the mono eyebrow „(Fundacja Pierwsze Demo – Wsparcie
