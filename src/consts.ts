@@ -124,9 +124,10 @@ export const FOUNDERS = [
     jobTitle: "manager muzyczny",
     href: TYPE_OF_WEB_URL,
     bio: [
-      "Manager muzyczny i przedsiębiorca. Od lipca 2026 pod marką Pierwsze Demo prowadzi management, wydawnictwa i booking artystów alternatywnych – od planu wydawniczego i dystrybucji, przez materiały prasowe i kontakt z mediami, po koncert premierowy.",
-      "Od 2013 roku organizuje wydarzenia i wydaje publikacje: współorganizator trzech międzynarodowych konferencji dla kilkuset osób każda, z dochodem przekazywanym na cele charytatywne, i ponad dwudziestu bezpłatnych spotkań branżowych (nagroda Curly Braces 2016 za najlepiej organizowane spotkania w Polsce). Autor i wydawca książki „TypeScript na poważnie” (2021), współtwórca kursu Next.js Masters dla blisko tysiąca uczestników, wykładowca i prelegent.",
-      "Od blisko 20 lat związany z branżą technologiczną jako product engineer i twórca Type of Web. W fundacji odpowiada za program, finanse i produkcję wydarzeń.",
+      "Manager muzyczny i przedsiębiorca. Od lipca 2026 pod marką Pierwsze Demo prowadził bezpłatny management, wydawnictwa i booking artystów alternatywnych – od planu wydawniczego i dystrybucji, przez materiały prasowe i kontakt z mediami, po koncert premierowy.",
+      "Od 2013 roku organizuje wydarzenia i wydaje publikacje: współorganizator trzech międzynarodowych konferencji (dla kilkuset osób każda; dochód przekazywany na cele charytatywne) i ponad dwudziestu bezpłatnych spotkań branżowych (nagroda Curly Braces 2016 za najlepiej organizowane spotkania w Polsce). Autor i wydawca książki „TypeScript na poważnie” (2021), współtwórca kursu Next.js Masters dla blisko tysiąca uczestników, szkoleniowiec, wykładowca akademicki i prelegent.",
+      "Twórca inicjatywy Type of Web od blisko 20 lat związany z branżą technologiczną.",
+      "Pomysłodawca fundacji; odpowiada za produkcję wydarzeń oraz kwestie formalne, finansowe i organizacyjne.",
     ],
   },
   {
@@ -138,23 +139,24 @@ export const FOUNDERS = [
     jobTitle: "songwriterka i wokalistka",
     href: "https://olageppert.pl",
     bio: [
-      "Songwriterka i wokalistka z Gdańska, na styku alternatywnego popu, indie i brzmień retro. Pisze mroczne, melancholijne piosenki o cierpieniu, autonomii, sensie życia i miłości; wcześniej publikowała jako Birim. Od debiutu w 2022 roku wydała osiem singli, m.in. „To nie ja” i „Wielkie Nic”; jesienią 2026 ukazuje się jej debiutancka EP-ka nagrana z producentem Ioannim.",
+      "Songwriterka i wokalistka z Gdańska, na styku alternatywnego popu, indie i brzmień retro. Pisze mroczne, melancholijne piosenki o cierpieniu, autonomii, sensie życia i miłości. Od debiutu w 2022 roku wydała osiem singli, m.in. „To nie ja” i „Delikatnie”. Jesienią 2026 ukazuje się jej debiutancka EP-ka nagrana z producentem Ioannim.",
       "Pięć lat kształcenia wokalnego, koncerty w Toruniu, Łodzi i Gdańsku, udział w międzynarodowym festiwalu chóralnym Mundus Cantat. W 2026 roku jej głos zabrzmiał w filmie dokumentalnym „Sędzia z Auschwitz” z muzyką Ioanniego.",
-      "W latach 2022–2025 studiowała projektowanie graficzne na ASP w Łodzi; brała udział w Laboratorium Sztuki Performance i Międzynarodowym Festiwalu Sztuk Performatywnych w Płocku. W fundacji odpowiada za program artystyczny i oprawę wizualną.",
+      "W latach 2022–2025 studiowała projektowanie graficzne na ASP w Łodzi oraz brała udział w Laboratorium Sztuki Performance i Międzynarodowym Festiwalu Sztuk Performatywnych w Płocku.",
+      "W fundacji odpowiada za program artystyczny, kierunek, kontakt z artystami i oprawę wizualną.",
     ],
   },
 ] as const;
 
 /** Cele statutowe – § 5 statutu, dosłownie. Zmiana tu = zmiana statutu. */
 export const GOALS = [
-  "wspieranie rozwoju młodych i początkujących twórców muzycznych, w szczególności artystów i zespołów na początku drogi artystycznej",
+  "wspieranie rozwoju młodych i początkujących twórców muzycznych, w szczególności artystów i zespołów na początku drogi artystycznej",
   "wspieranie artystów w rozwoju kariery, w tym w zakresie managementu, promocji i dystrybucji ich twórczości",
-  "wspieranie twórczości fonograficznej młodych artystów i powstawania ich nagrań",
-  "upowszechnianie kultury, w szczególności muzyki, oraz poszerzanie dostępu publiczności do nowej twórczości muzycznej",
+  "wspieranie twórczości fonograficznej młodych artystów i powstawania ich nagrań",
+  "upowszechnianie kultury, w szczególności muzyki, oraz poszerzanie dostępu publiczności do nowej twórczości muzycznej",
   "tworzenie warunków do prezentowania twórczości muzycznej, przede wszystkim przez organizowanie koncertów",
   "edukacja muzyczna",
-  "edukacja w zakresie funkcjonowania w branży muzycznej, w szczególności managementu, działalności wydawniczej i fonograficznej, promocji i dystrybucji muzyki oraz organizacji koncertów",
-  "wspieranie rozwoju muzyki i środowiska muzycznego, w tym współpracy artystów, organizatorów, wydawców i innych osób zawodowo związanych z muzyką",
+  "edukacja w zakresie funkcjonowania w branży muzycznej, w szczególności managementu, działalności wydawniczej i fonograficznej, promocji i dystrybucji muzyki oraz organizacji koncertów",
+  "wspieranie rozwoju muzyki i środowiska muzycznego, w tym współpracy artystów, organizatorów, wydawców i innych osób zawodowo związanych z muzyką",
 ] as const;
 
 /**
@@ -169,7 +171,7 @@ export const ACTIVITIES = [
     id: "koncerty",
     label: "Koncerty i wydarzenia",
     description:
-      "Kameralne koncerty, showcase’y i przeglądy, na których młodzi twórcy grają własny repertuar dla publiczności, która przyszła właśnie po to. Pierwszy cykl: „dźwięki efemeryczne” w Trójmieście.",
+      "Kameralne koncerty, showcase’y i przeglądy, na których młodzi twórcy grają własny repertuar dla publiczności. Pierwszy cykl: „dźwięki efemeryczne” w Trójmieście.",
     href: CONCERT_SERIES_PATH,
     linkLabel: "dźwięki efemeryczne.",
   },
@@ -194,7 +196,7 @@ export const ACTIVITIES = [
     id: "kariera",
     label: "Wsparcie w karierze",
     description:
-      "Management, promocja i dystrybucja dla artystów, którzy mają materiał i chcą pracować regularnie. Odpłatnie, po kosztach, w ramach działalności pożytku publicznego – nie jako firma.",
+      "Management, promocja i dystrybucja dla artystów, którzy mają materiał i chcą pracować regularnie.",
   },
 ] as const;
 
