@@ -262,6 +262,11 @@ files; React exists only there.
   the commit just pushed, and nothing in the site build queries TinaCloud.
   Workers Builds runs Bun from `BUN_VERSION` (a build variable, 1.4.0) – the
   image default was 1.2.15.
+- Workers Builds skips commits that touch only files the site never reads
+  (build watch paths, set in the dashboard/API, not in the repo):
+  `instagram/*`, `.agents/*`, `.claude/*`, `assets/*`, `AGENTS.md`,
+  `CLAUDE.md`, `skills-lock.json`, `.env.example`, `scripts/generate-*`. A new
+  directory the build does read must not land under one of these.
 - `astro dev` backgrounds itself when there is no TTY (an agent's shell), and
   `tinacms dev -c` then sees its child exit and shuts down. In a terminal it
   runs in the foreground and works.
