@@ -1,0 +1,7 @@
+# PRZED STARTEM: serwis stoi pod pierwszedemo.org, ale fundacji nie ma jeszcze
+# w KRS, więc nic nie może trafić do indeksu. Nagłówek zamiast <meta>, bo
+# obejmuje też karty OG, RSS i llms.txt. robots.txt zostaje otwarty celowo:
+# crawler zablokowany przez Disallow nie zobaczy noindex i może zaindeksować
+# sam adres. W dniu startu usuń ten blok (patrz AGENTS.md, „Launch”).
+/*
+  X-Robots-Tag: noindex, nofollow

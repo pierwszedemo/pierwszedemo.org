@@ -30,5 +30,5 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
-# Treść strony w formie tekstowej: https://pierwszedemo.com/llms.txt
-Sitemap: https://pierwszedemo.com/sitemap-index.xml
+# Treść strony w formie tekstowej: https://pierwszedemo.org/llms.txt
+Sitemap: https://pierwszedemo.org/sitemap-index.xml

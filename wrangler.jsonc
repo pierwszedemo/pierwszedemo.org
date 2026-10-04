@@ -2,6 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "pierwszedemo",
   "compatibility_date": "2026-10-01",
+  // Domena podpięta jako Custom Domain – Cloudflare sam zakłada rekord DNS
+  // i certyfikat. www nie jest tu dopisane: przekierowanie www → apex to
+  // reguła strefy (Redirect Rules), nie zadanie workera.
+  "routes": [{ "pattern": "pierwszedemo.org", "custom_domain": true }],
   "assets": {
     "directory": "./dist",
     // Kanoniczne adresy są bez ukośnika na końcu (trailingSlash: "never").
