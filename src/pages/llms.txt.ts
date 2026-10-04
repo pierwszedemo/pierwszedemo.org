@@ -1,12 +1,10 @@
 import type { APIRoute } from "astro";
 import { getSortedArticles, getSortedNews, isoDate } from "../collections";
 import {
-  ACTIVITIES,
   CONCERT_SERIES_PATH,
   CONTACT_EMAIL,
   FOUNDATION,
   FOUNDATION_PATH,
-  FOUNDERS,
   GOALS,
   HOME_CITY,
   KNOWLEDGE_PATH,
@@ -19,6 +17,7 @@ import {
   SUPPORT_PATH,
   registryValue,
 } from "../consts";
+import { ACTIVITIES, FOUNDERS } from "../strony";
 
 export const prerender = true;
 

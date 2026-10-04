@@ -1,0 +1,30 @@
+{
+  "michal": {
+    "name": "Michał Miszczyszyn",
+    "fullName": "Michał Miszczyszyn",
+    "role": "Prezes Zarządu",
+    "jobTitle": "manager muzyczny",
+    "email": "michal@pierwszedemo.org",
+    "href": "https://typeofweb.com",
+    "bio": [
+      "Manager muzyczny i przedsiębiorca. Od lipca 2026 pod marką Pierwsze Demo prowadził bezpłatny management, wydawnictwa i booking artystów alternatywnych – od planu wydawniczego i dystrybucji, przez materiały prasowe i kontakt z mediami, po koncert premierowy. Misję tę kontynuuje w Fundacji.",
+      "Od 2013 roku organizuje wydarzenia i wydaje publikacje: współorganizator trzech międzynarodowych konferencji (dla kilkuset osób każda; dochód przekazywany na cele charytatywne) i ponad dwudziestu bezpłatnych spotkań branżowych (nagroda Curly Braces 2016 za najlepiej organizowane spotkania w Polsce). Autor i wydawca książki „TypeScript na poważnie” (2021), współtwórca kursu Next.js Masters dla blisko tysiąca uczestników, szkoleniowiec, wykładowca akademicki i prelegent.",
+      "Twórca inicjatywy Type of Web od blisko 20 lat związany z branżą technologiczną.",
+      "Pomysłodawca fundacji; odpowiada za produkcję wydarzeń oraz kwestie formalne, finansowe i organizacyjne."
+    ]
+  },
+  "ola": {
+    "name": "Ola Geppert",
+    "fullName": "Aleksandra Geppert",
+    "role": "Wiceprezeska Zarządu",
+    "jobTitle": "songwriterka i wokalistka",
+    "email": "ola@pierwszedemo.org",
+    "href": "https://olageppert.pl",
+    "bio": [
+      "Songwriterka i wokalistka z Gdańska, na styku alternatywnego popu, indie i brzmień retro. Pisze mroczne, melancholijne piosenki o cierpieniu, autonomii, sensie życia i miłości. Od debiutu w 2022 roku wydała osiem singli, m.in. „To nie ja” i „Delikatnie”. Jesienią 2026 ukazuje się jej debiutancka EP-ka nagrana z producentem Ioannim.",
+      "Pięć lat kształcenia wokalnego, koncerty w Toruniu, Łodzi i Gdańsku, udział w międzynarodowym festiwalu chóralnym Mundus Cantat. W 2026 roku jej głos zabrzmiał w filmie dokumentalnym „Sędzia z Auschwitz” z muzyką Ioanniego.",
+      "W latach 2022–2025 studiowała projektowanie graficzne na ASP w Łodzi oraz brała udział w Laboratorium Sztuki Performance i Międzynarodowym Festiwalu Sztuk Performatywnych w Płocku.",
+      "W fundacji odpowiada za program artystyczny, kierunek, kontakt z artystami i oprawę wizualną."
+    ]
+  }
+}

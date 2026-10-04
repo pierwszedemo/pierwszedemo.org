@@ -99,13 +99,27 @@ radius anywhere.
 
 ### `src/consts.ts` is the content database
 
-Site metadata, nav, the foundation's registry data (`FOUNDATION`), founders
-(`FOUNDERS`, with bios), statutory goals (`GOALS`, § 5 of the statute
-verbatim), programmes (`ACTIVITIES`), current projects (`PROJECTS`), socials,
-knowledge-base categories and news kinds (`NEWS_KINDS`) live here and are
-imported by `astro.config.mjs`, `BaseLayout.astro` and the pages. `CATEGORIES`
-and `NEWS_KINDS` feed the zod enums in `src/content.config.ts`, so adding one
-is one edit.
+Site metadata, nav, the foundation's registry data (`FOUNDATION`), statutory
+goals (`GOALS`, § 5 of the statute verbatim), socials, knowledge-base
+categories and news kinds (`NEWS_KINDS`) live here and are imported by
+`astro.config.mjs`, `BaseLayout.astro` and the pages. `CATEGORIES` and
+`NEWS_KINDS` feed the zod enums in `src/content.config.ts`, so adding one is
+one edit.
+
+What Tina edits lives as JSON in `src/content/strony/` – homepage copy and the
+„Teraz” panel (`strona-glowna.json`), founders with bios (`fundatorzy.json`),
+programmes (`dzialania.json`) – and is assembled in `src/strony.ts` into
+`HOMEPAGE`, `PROJECTS`, `FOUNDERS` and `ACTIVITIES`, together with the fields
+an editor must not touch: `id` (the `/fundacja#…` anchor and photo key),
+`schemaId` (the `Person` node) and the activity number (from list order).
+Founders are an object keyed by person, not a list, so the CMS cannot add a
+person who has no photo or schema.org node in code. `strony.ts` is separate
+from `consts.ts` on purpose: the consent banner script imports `consts.ts`,
+and a default JSON import is not tree-shaken – the bios ended up in browser
+JavaScript. Never import `strony.ts` from `src/scripts/`. JSON text has plain
+spaces; templates run `fixHanging()` on it, because a hand-typed `&nbsp;`
+does not survive an edit in Tina. `GOALS` (the statute), `FOUNDATION` and
+`PRIVACY_*` (legal text) stay in code deliberately.
 
 `LAST_CONTENT_UPDATE` must be bumped by hand – it drives JSON-LD `dateModified`
 and sitemap `lastmod`.
@@ -223,6 +237,10 @@ files; React exists only there.
 - File name comes from `ui.filename.slugify`: `YYYY-MM-DD-<slug>` from `date`
   and `keyphrase` (or the title). Set once, at creation. New documents start
   as `draft: true`.
+- Three singleton collections over `src/content/strony/*.json`
+  (`stronaGlowna`, `fundatorzy`, `dzialania`) – create/delete disabled. Tina
+  writes JSON in its own field order and without a trailing newline; the files
+  are kept in that format so a save does not churn the diff.
 - Media: `publicFolder: "src/assets"`, `mediaRoot: "blog"` – uploads land
   where Astro optimises them, never in `public/`.
 - `astro dev` backgrounds itself when there is no TTY (an agent's shell), and
