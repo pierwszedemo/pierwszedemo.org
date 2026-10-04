@@ -9,13 +9,12 @@ import {
   CONCERT_SERIES_NAME,
   CONCERT_SERIES_OG,
   CONCERT_SERIES_PATH,
-  CONTACT_EMAIL,
   ORGANIZATION_ID,
   FOUNDATION_PATH,
-  PERSON_NAME,
   SITE_NAME,
   SITE_URL,
   withUtm,
+DZWIEKI_EMAIL,
 } from "../consts";
 import { breadcrumbJsonLd } from "../schema";
 
@@ -79,7 +78,7 @@ const titleWords = NAME.split(" ").map((word) =>
 
 const canonical = new URL(CONCERT_SERIES_PATH, SITE_URL).href;
 const description =
-  "Cykl trzech kameralnych koncertów piosenki autorskiej w Trójmieście: Gdańsk, Sopot i Gdynia, kwiecień–wrzesień 2027. Trzy równe sety każdego wieczoru, wstęp wolny.";
+  "Cykl kameralnych koncertów piosenki autorskiej w Trójmieście: Gdańsk, Sopot i Gdynia, kwiecień–wrzesień 2027. Trzy równe sety każdego wieczoru, wstęp wolny.";
 
 const RULES = [
   {
@@ -104,7 +103,7 @@ const RULES = [
   },
   {
     no: "05",
-    title: "Rejestracja",
+    title: "Nagrania",
     text: "Audio i wideo z każdego koncertu.",
   },
 ] as const;
@@ -399,22 +398,7 @@ const link = "underline decoration-1 underline-offset-4";
         <div class={`${rowBody} ${prose}`}>
           <p>
             <a href={FOUNDATION_PATH} class={link}>{SITE_NAME}</a> –
-            fundacja wspierająca młodych twórców muzycznych, założona w Gdańsku
-            przez managera i artystkę.
-          </p>
-          {/* Bez nazw wydarzeń: to konferencje z innej branży, a czytelnikowi
-              tej strony mówią coś dopiero liczby osób i miasta. */}
-          <p>
-            <a href={`${FOUNDATION_PATH}#michal`} class={link}
-              >{PERSON_NAME}</a
-            >: Prezes Zarządu, manager muzyczny; od 2013 roku organizator eventów:
-            charytatywnych międzynarodowych konferencji w Gdańsku (łącznie ok. 600 osób),
-            i Warszawie (250 osób) oraz ponad 25 bezpłatnych
-            meetupów w Gdańsku (do 120 osób).
-          </p>
-          <p>
-            <a href={`${FOUNDATION_PATH}#ola`} class={link}>Ola
-            Geppert</a>: Wiceprezeska Zarządu, kuratorka cyklu i autorka jego oprawy; songwriterka, wokalistka i performerka; absolwentka projektowania graficznego ASP w Łodzi.
+            fundacja wspierająca młodych twórców muzycznych.
           </p>
         </div>
       </section>
@@ -431,7 +415,7 @@ const link = "underline decoration-1 underline-offset-4";
         <EmailLink
           class="label self-start border border-ink px-5 py-4 transition-colors hover:bg-ink hover:text-white md:self-auto"
         >
-          {CONTACT_EMAIL} <span aria-hidden="true">↗</span>
+          {DZWIEKI_EMAIL} <span aria-hidden="true">↗</span>
         </EmailLink>
       </section>
     </main>

@@ -62,9 +62,9 @@ const news = (await getSortedNews()).slice(0, 3);
 
           <div class="flex flex-col gap-7">
             <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
-              Fundacja wspiera młodych i początkujących twórców muzycznych:
-              organizuje koncerty, pomaga nagrać i wydać pierwsze piosenki,
-              uczy, jak działa branża, i prowadzi karierę tam, gdzie jest już
+              Fundacja wspiera młodych i początkujących twórców muzycznych:
+              organizuje koncerty, pomaga nagrać i wydać pierwsze piosenki,
+              uczy, jak działa branża, i prowadzi karierę tam, gdzie jest już
               co prowadzić.
             </p>
             <ul
@@ -130,18 +130,21 @@ const news = (await getSortedNews()).slice(0, 3);
           <h2 id="ostatnie" class="label text-muted">
             <a href={NEWS_PATH}>Aktualności</a>
           </h2>
+          {/* Wiersze odwracają się na hover jak na listach wpisów. Ujemny
+              margines wypycha czarne tło do krawędzi komórki, bo sekcja ma
+              własny padding, a pasek ma sięgać linii siatki, nie tekstu. */}
           <ul class="flex flex-col divide-y divide-hairline">
             {
               news.map((entry) => (
                 <li>
                   <a
                     href={`${NEWS_PATH}/${entry.id}`}
-                    class="flex flex-col gap-1.5 py-4 first:pt-1"
+                    class="group -mx-5 flex flex-col gap-1.5 px-5 py-4 transition-colors hover:bg-ink hover:text-white focus-visible:bg-ink focus-visible:text-white focus-visible:outline-white focus-visible:outline-offset-[-4px] md:-mx-8 md:px-8"
                   >
                     <span class="text-row font-semibold tracking-[-0.02em] text-balance">
                       {fixHanging(entry.data.title)}
                     </span>
-                    <span class="label text-muted">
+                    <span class="label text-muted group-hover:text-white/70 group-focus-visible:text-white/70">
                       <time datetime={isoDate(entry.data.date)}>
                         {isoDate(entry.data.date)}
                       </time>{" "}
