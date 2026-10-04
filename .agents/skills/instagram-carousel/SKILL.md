@@ -1,11 +1,11 @@
 ---
 name: instagram-carousel
-description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.com – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/_<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
+description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.org – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/_<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
 ---
 
 # instagram-carousel
 
-Zamieniasz opublikowany wpis z bloga pierwszedemo.com na karuzelę na Instagram:
+Zamieniasz opublikowany wpis z bloga pierwszedemo.org na karuzelę na Instagram:
 okładka, 1–4 slajdy treści, slajd CTA i opis posta. Karuzela jest zajawką, nie
 streszczeniem – ma zostawić jedną myśl i skierować po resztę na blog. Czytelnik
 na Instagramie scrolluje; każdy slajd musi bronić się w dwie sekundy.
@@ -28,7 +28,8 @@ na Instagramie scrolluje; każdy slajd musi bronić się w dwie sekundy.
 
 ## Krok 1 – wybór wpisu
 
-Kandydatami są wyłącznie opublikowane wpisy – `src/content/blog/*.md` **bez**
+Kandydatami są wyłącznie opublikowane wpisy – `src/content/wiedza/*.md` i
+`src/content/aktualnosci/*.md` **bez**
 plików zaczynających się podkreśleniem (`_szkic.md` nie ma adresu, więc nie ma
 czego promować). Slug to nazwa pliku **bez** prefiksu daty i rozszerzenia:
 `2026-08-11-grupa-docelowa-artysty.md` → `grupa-docelowa-artysty`.
@@ -103,7 +104,7 @@ Zapisz do `instagram/_<data>-<slug>-karuzela/spec.json`:
   ],
   "cta": {
     "lines": ["Obserwuj.", "Zapisz.", "Wróć po więcej."],
-    "url": "pierwszedemo.com/blog/<slug>"
+    "url": "pierwszedemo.org/wiedza/<slug>"
   }
 }
 ```
@@ -129,7 +130,8 @@ Zapisz do `instagram/_<data>-<slug>-karuzela/spec.json`:
 
 Limity to geometria, nie sugestia: satori nie zmniejsza tekstu i nadmiar
 wyjeżdża poza kadr. Walidacja w skrypcie je egzekwuje i wypisuje wszystkie
-błędy naraz. Slug musi wskazywać istniejący `src/content/blog/RRRR-MM-DD-<slug>.md` –
+błędy naraz. Slug musi wskazywać istniejący `src/content/{wiedza,aktualnosci}/RRRR-MM-DD-<slug>.md` –
+(skrypt sam znajduje dział i wstawia go do adresu na slajdzie CTA);
 adres wpisu trafia na slajd CTA jako piksele, więc literówki nie da się
 później poprawić. Wariant karuzeli dla tego samego wpisu (bez nadpisywania)
 zrób pod nazwą `<slug>-v2` – skrypt odmówi, bo pod takim slugiem nie ma wpisu;
@@ -175,7 +177,7 @@ Zapisz `instagram/_<data>-<slug>-karuzela/caption.txt`:
 2. Pusta linia, potem 2–4 zdania rozwinięcia – co czytelnik wynosi z wpisu.
    Rytm bloga: krótkie zdania, przynajmniej jedno bardzo krótkie.
 3. Pusta linia, potem CTA – te same trzy rzeczy, co na slajdzie CTA: obserwuj
-   profil, zapisz post na później, cały tekst na pierwszedemo.com (adres
+   profil, zapisz post na później, cały tekst na pierwszedemo.org (adres
    słowem – w opisie posta linki i tak nie są klikalne, więc nie udawaj linku).
 4. Pusta linia, potem 3–6 hashtagów po polsku, niszowych, zgodnych z tematem
    (np. #muzykaniezalezna #managerartysty #wydawaniemuzyki). Bez #fyp,

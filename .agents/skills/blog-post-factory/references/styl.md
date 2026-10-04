@@ -4,7 +4,7 @@ Jedynym źródłem tego pliku jest **pl.typeofweb.com** – 47 wpisów tego same
 z lat 2016–2025, około 46 000 słów, przeanalizowanych pod kątem rytmu, interpunkcji,
 składni i nawyków narracyjnych. Wszystkie liczby niżej pochodzą z tego korpusu.
 
-> **Wpisy leżące dziś w `src/content/blog/` NIE są wzorcem.** Powstały wcześniej
+> **Wpisy leżące dziś w `src/content/wiedza/` NIE są wzorcem.** Powstały wcześniej
 > z pomocą modelu i nie oddają stylu autora. Nie cytuj ich, nie naśladuj ich rytmu
 > i nie wyprowadzaj z nich reguł – ani długości tytułu, ani kształtu leadu, ani
 > zakończeń. Jeśli szukasz przykładu, bierz go z tego pliku albo bezpośrednio
@@ -323,7 +323,7 @@ do kontaktu** – ten sam gest, inny kanał:
 > „Masz inne doświadczenia? Napisz do mnie." · „Nie zgadzasz się? Tym bardziej napisz." ·
 > „Jeśli robisz to inaczej i działa – chętnie posłucham."
 
-Adres to `michal@pierwszedemo.com` (stała `CONTACT_EMAIL`), ale w treści zwykle wystarczy
+Adres to `michal@pierwszedemo.org` (stała `CONTACT_EMAIL`), ale w treści zwykle wystarczy
 samo „napisz do mnie" – kontakt jest w nawigacji i w stopce każdej strony. Nie wklejaj
 adresu w każdy wpis, bo zamienia się w podpis.
 

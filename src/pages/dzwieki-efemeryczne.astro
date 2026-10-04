@@ -11,8 +11,9 @@ import {
   CONCERT_SERIES_PATH,
   CONTACT_EMAIL,
   ORGANIZATION_ID,
+  FOUNDATION_PATH,
   PERSON_NAME,
-  ROSTER,
+  PROJECTS,
   SITE_NAME,
   SITE_URL,
   withUtm,
@@ -22,8 +23,8 @@ import { breadcrumbJsonLd } from "../schema";
 /*
  * Strona cyklu koncertów. Wchodzi się na nią z linku (wniosek, plakat, social
  * media), nie z menu serwisu, i sama też menu nie pokazuje: to strona
- * wydarzenia, nie managera, a pasmo „Współpraca / O mnie / Blog” nad nazwą
- * cyklu robiło z niej podstronę oferty. Do serwisu prowadzi link w sekcji
+ * wydarzenia, nie managera, a pasmo „Fundacja / Wiedza / Aktualności” nad nazwą
+ * cyklu robiło z niej zwykłą podstronę. Do serwisu prowadzi link w sekcji
  * organizatorów. Sale i dokładne daty są jeszcze w uzgodnieniu: strona
  * podaje tylko to, co ustalone, bez nazw instytucji „na zapas”.
  */
@@ -132,7 +133,7 @@ const ARTISTS = [
     city: "Gdańsk",
     genres: "alt-pop / indie / dark pop",
     bio: "Songwriterka, wokalistka i performerka z Gdańska. Siedem singli od 2022 r.\n\nOd 2026 w duecie z Ioannim: „To nie ja” (10.09.2026), „Do nieba” i „Szkło” (16.10.2026), i sześcioutworowa EP-ka (27.11.2026).\n\nAbsolwentka projektowania graficznego ASP w Łodzi.",
-    href: withUtm(ROSTER[0].href + "/l", "dzwieki-efemeryczne"),
+    href: withUtm(PROJECTS[1].href + "/l", "dzwieki-efemeryczne"),
     linkLabel: "olageppert.pl",
   },
   {
@@ -186,7 +187,7 @@ const seriesJsonLd = {
   })),
 };
 
-// Ten sam szkielet pasm co /manager-muzyczny: etykieta w kolumnie bocznej
+// Ten sam szkielet pasm co /fundacja: etykieta w kolumnie bocznej
 // (5 modułów), treść od linii 5, tytuły pozycji w torze `3 moduły − 2 rem`,
 // żeby opisy startowały na osi linii 8.
 const row = "grid border-b border-hairline md:grid-aside-left";
@@ -237,7 +238,7 @@ const link = "underline decoration-1 underline-offset-4";
               <>{wordIndex > 0 && " "}<span aria-hidden="true" class="whitespace-nowrap">{word.map((letter) => letter.style === null ? letter.char : <span class="nuta" style={letter.style}>{letter.char}</span>)}</span></>
             ))}
           </h1>
-          <p class="label mt-5 text-muted">({EDITION} ⋅ by pierwszedemo.com)</p>
+          <p class="label mt-5 text-muted">({EDITION} ⋅ <a href="/" class="underline underline-offset-4">{SITE_NAME}</a>)</p>
         </div>
         <p
           class="flex items-end bg-ink px-5 py-7 text-[clamp(1.35rem,2.4vw,2rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white text-balance md:px-8 lg:bg-white lg:text-ink"
@@ -395,21 +396,26 @@ const link = "underline decoration-1 underline-offset-4";
       </section>
 
       <section class={`${row} border-b-ink`} aria-labelledby="organizator">
-        <h2 id="organizator" class={rowLabel}>Organizatorzy</h2>
+        <h2 id="organizator" class={rowLabel}>Organizator</h2>
         <div class={`${rowBody} ${prose}`}>
+          <p>
+            <a href={FOUNDATION_PATH} class={link}>{SITE_NAME}</a> –
+            fundacja wspierająca młodych twórców muzycznych, założona w Gdańsku
+            przez managera i artystkę.
+          </p>
           {/* Bez nazw wydarzeń: to konferencje z innej branży, a czytelnikowi
               tej strony mówią coś dopiero liczby osób i miasta. */}
           <p>
-            <a href="/o-mnie" class={link}
+            <a href={`${FOUNDATION_PATH}#michal`} class={link}
               >{PERSON_NAME}</a
-            >: twórca <a href="/" class={link}>{SITE_NAME}</a>, manager muzyczny; od 2013 roku organizator eventów:
+            >: Prezes Zarządu, manager muzyczny; od 2013 roku organizator eventów:
             charytatywnych międzynarodowych konferencji w Gdańsku (łącznie ok. 600 osób),
             i Warszawie (250 osób) oraz ponad 25 bezpłatnych
             meetupów w Gdańsku (do 120 osób).
           </p>
           <p>
-            <a href="https://olageppert.pl" class={link}>Ola
-            Geppert</a>: współorganizatorka cyklu i autorka jego oprawy; songwriterka, wokalistka i performerka; absolwentka projektowania graficznego ASP w Łodzi.
+            <a href={`${FOUNDATION_PATH}#ola`} class={link}>Ola
+            Geppert</a>: Wiceprezeska Zarządu, kuratorka cyklu i autorka jego oprawy; songwriterka, wokalistka i performerka; absolwentka projektowania graficznego ASP w Łodzi.
           </p>
         </div>
       </section>

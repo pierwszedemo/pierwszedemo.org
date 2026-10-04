@@ -78,7 +78,7 @@ Rozróżnienie jest proste: **strony artystki czytasz zawsze, internetu o niej n
 - Gatunek: dark pop, indie pop, retro pop, pop alternatywny.
 - Jednozdaniowy opis z EPK: *„Mroczny alternatywny pop spotyka retro i intymny wokal."*
 - Manager: Michał Miszczyszyn. Kontakt bookingowy i prasowy podany na stronie:
-  `michal@pierwszedemo.com` (od 2026-09; wcześniej `czesc@olageppert.pl`).
+  `michal@pierwszedemo.org` (od 2026-09; wcześniej `czesc@olageppert.pl`).
 
 ## Dyskografia
 

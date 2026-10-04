@@ -14,7 +14,7 @@ import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "no
 import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
-import { HOME_CITY, PERSON_NAME, SITE_HOST, SITE_TAGLINE, WORDMARK } from "../../../../src/consts.ts";
+import { HOME_CITY, SITE_HOST, SITE_NAME, SITE_TAGLINE, WORDMARK } from "../../../../src/consts.ts";
 
 // 4:5 – najwyższy kadr, jaki Instagram pokazuje w feedzie bez przycinania;
 // kwadrat oddaje ~20% wysokości ekranu sąsiednim postom.
@@ -48,25 +48,34 @@ export function requireRepoRoot() {
  * `NN.png`, `alt.txt` i `caption.txt` – jedna konwencja plików niezależnie od
  * formatu. Adres wpisu trafia na grafikę jako piksele, więc slug musi
  * wskazywać istniejący, opublikowany wpis; data katalogu jest z nazwy pliku
- * wpisu, żeby `ls instagram/` układał się jak `ls src/content/blog/`.
+ * wpisu, żeby `ls instagram/` układał się jak `ls src/content/<dział>/`.
+ * Wpis może leżeć w bazie wiedzy albo w aktualnościach – stąd `section`
+ * w wyniku: to on decyduje o adresie na slajdzie CTA.
  */
+const SECTIONS = { wiedza: "wiedza", aktualnosci: "aktualnosci" };
 export function resolvePostDir(slug, type) {
   if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
     if (slug?.startsWith("_")) console.error("Szkic (_slug.md) nie ma adresu – najpierw opublikuj wpis.");
     return null;
   }
   const postFile = new RegExp(`^\\d{4}-\\d{2}-\\d{2}-${slug}\\.md$`);
-  const postName = readdirSync(resolve(process.cwd(), "src/content/blog")).find((f) => postFile.test(f));
-  if (!postName) {
-    console.error(`Nie ma opublikowanego wpisu src/content/blog/RRRR-MM-DD-${slug}.md.`);
+  const found = Object.keys(SECTIONS)
+    .map((section) => ({
+      section,
+      postName: readdirSync(resolve(process.cwd(), "src/content", section)).find((f) => postFile.test(f)),
+    }))
+    .find((candidate) => candidate.postName);
+  if (!found) {
+    console.error(`Nie ma opublikowanego wpisu src/content/{wiedza,aktualnosci}/RRRR-MM-DD-${slug}.md.`);
     return null;
   }
+  const { section, postName } = found;
   const base = `${postName.replace(/\.md$/, "")}-${type}`;
   // Świeże grafiki jeszcze nie poszły na Instagram, więc katalog dostaje `_`
   // jak szkic wpisu; prefiks znika ręcznie po publikacji posta. Katalog bez
   // prefiksu to post już opublikowany – regeneracja trafia tam, nie obok.
   const dirName = existsSync(resolve(process.cwd(), "instagram", base)) ? base : `_${base}`;
-  return { dirName, dir: resolve(process.cwd(), "instagram", dirName) };
+  return { dirName, dir: resolve(process.cwd(), "instagram", dirName), section };
 }
 
 export function readSpec(path) {
@@ -160,7 +169,7 @@ export const footer = (onInk) => el(
       el(
         "div",
         { ...mono, fontSize: 17, letterSpacing: "0.08em", marginTop: 10, color: onInk ? MUTED_ON_INK : MUTED },
-        `${PERSON_NAME} – ${SITE_TAGLINE} – ${HOME_CITY}`,
+        `${SITE_NAME} – ${SITE_TAGLINE} – ${HOME_CITY}`,
       ),
     ]),
     el("div", { ...mono, color: onInk ? MUTED_ON_INK : MUTED }, SITE_HOST),

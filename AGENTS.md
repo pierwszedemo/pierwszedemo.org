@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```bash
 bun install       # bun.lock is the lockfile
 bun run dev       # astro dev
-bun run build     # astro build (also prerenders /blog/<slug>)
+bun run build     # astro build (also prerenders /wiedza/<slug> and /aktualnosci/<slug>)
 bun run preview   # astro preview
 ```
 
@@ -21,9 +21,26 @@ collection schema. Type checking otherwise comes from the editor
 
 Astro 7, `output: "static"`, Vercel adapter, Tailwind v4 via the Vite plugin
 (no `tailwind.config` – theme tokens live in `@theme` inside
-`src/styles/global.css`). Polish-language site of an artist manager:
-`/`, `/o-mnie`, `/manager-muzyczny`, `/blog`, `/blog/<slug>`, `/polityka-prywatnosci`,
-`/404`.
+`src/styles/global.css`). Polish-language site of **Fundacja Pierwsze Demo**,
+a foundation supporting young musicians (converted in October 2026 from the
+site of an artist manager): `/`, `/fundacja` (one long page: mission, goals,
+activities, founders, registry data, documents), `/wiedza` + `/wiedza/<slug>`
+(knowledge base), `/aktualnosci` + `/aktualnosci/<slug>` (news), `/wesprzyj`,
+`/statut`, `/deklaracja-dostepnosci`, `/dzwieki-efemeryczne`,
+`/polityka-prywatnosci`, `/404`. Old manager-era URLs (`/o-mnie`,
+`/manager-muzyczny`, `/blog`, `/blog/<slug>`) are 301s defined in
+`astro.config.mjs` (`redirects`), **not** in `vercel.json` – with the Build
+Output API Vercel ignores routing from `vercel.json`, and the adapter writes
+Astro's redirects into `.vercel/output/config.json`. The domain is
+`pierwszedemo.org`; the old `.com` redirects at the DNS/Cloudflare level,
+outside the repo.
+
+The foundation is not yet in KRS. `FOUNDATION.krs/nip/regon/iban` in
+`consts.ts` are empty strings and every page renders `REGISTRY_PENDING`
+through `registryValue()` instead; filling them in is the only change needed
+after registration (footer, `/fundacja`, `/wesprzyj`, privacy policy, JSON-LD
+and `llms.txt` all read that object). Launch to production waits for the KRS
+entry.
 
 The layout is a transcription of a Claude Design canvas project
 (`380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`),
@@ -46,15 +63,15 @@ and `%` are exact there.
 
 Vertical lines may only fall on **5, 8 and 11**:
 
-- `--aside` = 5 modules (the mock's 400 px) is the one side column – photo on
-  `/` and `/o-mnie`, section labels on `/manager-muzyczny` and the privacy
-  policy, „W skrócie" on a post. Use `grid-aside-left` / `grid-aside-right`,
+- `--aside` = 5 modules (the mock's 400 px) is the one side column – the
+  „Teraz" panel on `/`, founders' photos and section labels on `/fundacja`,
+  `/wesprzyj` and the privacy policy, „W skrócie" on a post. Use `grid-aside-left` / `grid-aside-right`,
   never a width typed in place; that is how a 400 px photo column and a 320 px
   nav cell ended up 80 px apart on the same page.
 - Nav and footer are `5fr 3fr 3fr 5fr`, not four equal cells, so their outer
   dividers continue down the page as the aside line – on the left or the right.
-- Line 8 is the page middle: roster/contact on `/`, label/body on `/o-mnie`,
-  title/description in the lists on `/manager-muzyczny`.
+- Line 8 is the page middle: news/contact on `/`, title/description in the
+  lists on `/fundacja` and `/wesprzyj`.
 - The post meta bar is 5 / 6 / 5.
 - **Exception:** blog list rows keep the mock's content-sized tracks
   (`150px 1fr 190px 70px`). A row is a list item, not a band with a side column;
@@ -77,19 +94,23 @@ radius anywhere.
 
 ### `src/consts.ts` is the content database
 
-Site metadata, nav, services, roster, socials and blog categories live here and
-are imported by `astro.config.mjs`, `BaseLayout.astro` and the pages. `CATEGORIES`
-feeds the zod enum in `src/content.config.ts`, so adding a category is one edit.
+Site metadata, nav, the foundation's registry data (`FOUNDATION`), founders
+(`FOUNDERS`, with bios), statutory goals (`GOALS`, § 5 of the statute
+verbatim), programmes (`ACTIVITIES`), current projects (`PROJECTS`), socials,
+knowledge-base categories and news kinds (`NEWS_KINDS`) live here and are
+imported by `astro.config.mjs`, `BaseLayout.astro` and the pages. `CATEGORIES`
+and `NEWS_KINDS` feed the zod enums in `src/content.config.ts`, so adding one
+is one edit.
 
 `LAST_CONTENT_UPDATE` must be bumped by hand – it drives JSON-LD `dateModified`
 and sitemap `lastmod`.
 
-The brand and the person are two constants, not one. `SITE_NAME` („Pierwsze
-Demo") is the site: titles, `og:site_name`, RSS, the `WebSite` node.
-`PERSON_NAME` („Michał Miszczyszyn") is the human: the `Person` node and the
-caption under the hero photo. Collapsing them back into one name makes the
-`Person` entity claim the site's name, which is the thing Google reads as the
-author. The domain lives in `SITE_URL` alone – `SITE_HOST`, the schema.org
+The organisation and the people are separate entities. `SITE_NAME` („Fundacja
+Pierwsze Demo") is the site and the `NGO` node (`ORGANIZATION_ID`): titles,
+`og:site_name`, RSS, `WebSite.publisher`. Each founder has a `Person` node
+(`PERSON_ID` for Michał, `OLA_ID` for Ola) built from `FOUNDERS`; posts have
+`author` = Michał and `publisher` = the foundation, because Google reads an
+organisation as author badly. The domain lives in `SITE_URL` alone – `SITE_HOST`, the schema.org
 `@id`s, UTM `utm_source` and the OG card badge are all derived from it, so
 never type the host anywhere else.
 
@@ -98,15 +119,28 @@ which wraps the `mailto:` in `<!--email_off-->` – the same convention as
 olageppert.pl, so a change to how addresses are handled ports between the two
 sites without a grep.
 
-### Blog
+### Content: knowledge base and news
 
-Posts are markdown in `src/content/blog/`, named `YYYY-MM-DD-<slug>.md` so the
-directory lists chronologically. The date prefix is **not** part of the URL:
+Two collections, not one with a „section" field: `wiedza` (evergreen guides,
+grouped by category on the list, `updated` shown instead of `date`) and
+`aktualnosci` (chronological stream; `kind` = `wydarzenie | relacja | rozmowa
+| opinia | ogloszenie | sprawozdanie`, optional `eventDate` and `place`). Two
+directories map onto two content types in the git-based CMS planned later
+(Tina or Decap), so keep the frontmatter flat. `src/content.config.ts` shares
+the base schema between them. Both post pages are thin wrappers around
+`src/layouts/ArticleLayout.astro`; the markdown styles live in
+`src/styles/prose.css` (also used by `/statut`, rendered from
+`src/documents/statut.md`). A single `/rss.xml` and `/og/<slug>.png` serve
+both collections – slugs share one namespace, and a collision would fail the
+build with a duplicate route.
+
+Posts are markdown in `src/content/wiedza/` or `src/content/aktualnosci/`,
+named `YYYY-MM-DD-<slug>.md` so the directory lists chronologically. The date prefix is **not** part of the URL:
 `generateId` in `content.config.ts` strips it (`DATE_PREFIX` in `consts.ts`,
 shared with the sitemap `lastmod` map in `astro.config.mjs`), so `post.id` is
-the bare slug. Drafts are `_YYYY-MM-DD-<slug>.md`. Posts are loaded through a content collection
+the bare slug. Drafts are `_YYYY-MM-DD-<slug>.md`. Posts are loaded through the content collections
 (`src/content.config.ts`) with a zod schema: `title`, `lead` (the "W skrócie"
-column, doubling as the meta description), `category`, `kind`, `date`,
+column, doubling as the meta description), `category` (wiedza only), `kind`, `date`,
 `updated?`, `keyphrase?`, `readingMinutes`, `spotifyTrackId?` (embeds a Spotify
 player under the lead in the "W skrócie" column – a frontmatter field, never an
 iframe in the body; the player loads without the consent banner on legitimate
@@ -115,11 +149,11 @@ interest, same convention as olageppert.pl, and has its row in `PRIVACY_TOOLS`).
 frontmatter field (path relative to the post, `../../assets/blog/…`), never
 `![]()` in the body: `.prose-swiss` styles no `img`, and a notatka renders in two
 columns, which would tear an inline image at the column break. `imageAlt` is
-enforced by a zod refine whenever `image` is set. `src/blog.ts` owns sort order –
-`getSortedPosts()` is the single source for both the list page and the prev/next
-links, so they can't disagree.
+enforced by a zod refine whenever `image` is set. `src/collections.ts` owns sort order –
+`getSortedArticles()` / `getSortedNews()` are the single source for the lists,
+prev/next links, RSS, llms.txt and OG cards, so they can't disagree.
 
-`src/pages/blog/[...slug].astro` sets `prerender = true` and `getStaticPaths()`.
+`src/pages/wiedza/[...slug].astro` and `src/pages/aktualnosci/[...slug].astro` set `prerender = true` and `getStaticPaths()`.
 Redundant under `output: "static"`, kept as a guard: in server mode an on-demand
 dynamic route cannot be enumerated by `@astrojs/sitemap` and the posts would
 silently vanish from the sitemap.
@@ -131,10 +165,11 @@ does not serve, so the hero photo 404'd in production. Nothing here computes
 per request; if that ever changes, prerender the pages that use `<Image>` or turn
 on the adapter's `imageService`.
 
-Two post formats, both markdown, distinguished by `kind`: `notatka` (300–500
+Two knowledge-base formats, both markdown, distinguished by `kind`: `notatka` (300–500
 words, no headings) and `przewodnik` (1200–2000 words, `##` sections plus an FAQ).
-`kind` is not just an editorial label – it gates `lg:[column-count:2]` in
-`[...slug].astro`. It looks like a redundant condition and is the readability of
+`kind` is not just an editorial label – it gates `lg:[column-count:2]` (passed
+as `twoColumns` to `ArticleLayout`; news uses `readingMinutes <= 4` and never
+for `rozmowa`). It looks like a redundant condition and is the readability of
 every przewodnik: two columns taller than the viewport make the reader scroll to
 the bottom of the page and back up for the second one. `readingMinutes` is
 `max(2, round(words / 180))`, measured on the body only. `updated` (not `date`)
@@ -150,22 +185,23 @@ lines that Tailwind Preflight has already stripped of bullets and margins.
 `src/layouts/BaseLayout.astro` emits every page's `<head>` and a schema.org
 `@graph`: a `Person` node (stable `PERSON_ID`), a `WebSite` node (`WEBSITE_ID`)
 and a page node whose `@type` comes from the `schemaPageType` prop – `ProfilePage`
-on the homepage (it gets `mainEntity`, the others get `about`), `CollectionPage`
-on `/blog`, `WebPage` elsewhere. Pages contribute extra nodes via `extraJsonLd`:
-`/blog` adds `Blog` + `ItemList`, a post adds `BlogPosting`, and both add
+on the homepage (it gets `mainEntity` = the NGO, the others get `about`), `CollectionPage`
+on `/wiedza` and `/aktualnosci`, `WebPage` elsewhere. Pages contribute extra nodes via `extraJsonLd`:
+the lists add `Blog` + `ItemList`, a post adds `BlogPosting`, and all add
 `BreadcrumbList`. Pages with `robots="noindex"` get no page node.
 
 Breadcrumbs exist only in JSON-LD – the mock's grid has nowhere to put them
 visually, but they give Google a path to render under the result instead of a
-bare URL. `src/schema.ts` holds `breadcrumbJsonLd()` and `wordCount()`.
+bare URL. `src/schema.ts` holds `breadcrumbJsonLd()`, `isoDateTime()` and `wordCount()`.
 
 Canonical URLs have **no** trailing slash (`trailingSlash: "never"` in Astro,
 `trailingSlash: false` + `cleanUrls` in `vercel.json`); the sitemap `serialize()`
 hook strips the slash the Vercel adapter's build format adds.
 
 Sitemap `lastmod` is **per URL**, not global. `astro.config.mjs` reads each post's
-`updated`/`date` straight out of the frontmatter with a regex, because a content
-collection cannot be imported from the config. Without that every URL claimed the
+`updated`/`date` straight out of the frontmatter with a regex (both content
+directories, `CONTENT_DIRS`), because a content collection cannot be imported
+from the config; the same scan builds the per-post `/blog/<slug>` redirects. Without that every URL claimed the
 same revision date, which is the same as claiming nothing. The sitemap also
 filters out `.png`/`.xml`/`.txt` routes – the OG cards, the feed and `llms.txt`
 are resources, not pages.
@@ -183,8 +219,9 @@ rasterises. Two constraints are load-bearing:
 - Paths resolve from `process.cwd()`, never `import.meta.url`: Vite bundles the
   module into `dist/server/.prerender/chunks/`, where the TTFs are not.
 
-Posts live under `/og/<slug>.png` rather than `/blog/<slug>/og.png` so they don't
-collide with the `[...slug]` catch-all.
+Posts live under `/og/<slug>.png` rather than `/wiedza/<slug>/og.png` so they don't
+collide with the `[...slug]` catch-all. The eyebrow is the foundation's name,
+not a person's.
 
 ### Favicons
 
@@ -250,7 +287,13 @@ categories or wording change – it re-prompts everyone.
 
 `PRIVACY_TOOLS` / `PRIVACY_SECTIONS` in `consts.ts` feed both `/polityka-prywatnosci`
 and the wording inside the preferences panel. Adding a third-party script means
-adding a row there too, or the policy becomes false.
+adding a row there too, or the policy becomes false. The data controller is the
+foundation (`FOUNDATION`), from day one – there is no JDG-era variant.
+
+`/wesprzyj` has no form and no payment gateway on purpose: a bank transfer is
+not a „zbiórka publiczna" and needs no registration, while a form would add an
+art. 13 GDPR clause and a `PRIVACY_TOOLS` row. `/deklaracja-dostepnosci` exists
+before the law requires it – the first municipal grant makes it mandatory.
 
 ### Styling conventions
 
@@ -308,48 +351,55 @@ indent) are never typed as pixels – they are multiples of the grid module belo
 
 ## Not built yet
 
-Cookie consent + analytics, an `/artysci` page if the roster grows past one
-artist.
+Annual reports (the first, for 2026, is due in 2027 – `/fundacja#sprawozdania`
+already has the slot and the sentence), a grant-logo band („Dofinansowano ze
+środków…" is mandatory on the site from the day a MKiDN or city grant is
+signed), the git-based CMS (Tina or Decap), a new visual design (the current
+Swiss layout was kept on purpose for the conversion).
 
-The homepage `<h1>` is the mono eyebrow „(Manager artystów – Gdańsk)", not the
-slogan – the slogan carries no keywords and the h1 is the strongest on-page
-signal. Visually nothing changed: the h1 stays a small label and „Kariera to
-strategia." is still the largest text on the page, as a `<p>`. Don't "fix" this
-back by promoting the slogan.
+The homepage `<h1>` is the mono eyebrow „(Fundacja Pierwsze Demo – Wsparcie
+młodych twórców muzycznych – Gdańsk)", not the slogan – the slogan carries no
+keywords and the h1 is the strongest on-page signal. Visually nothing changed:
+the h1 stays a small label and „Pierwsze demo to początek." is still the
+largest text on the page, as a `<p>`. Don't "fix" this back by promoting the
+slogan.
 
-`src/assets/michal.jpg` is a phone snapshot, not a press portrait – it is what
-the design's placeholder slot got filled with, and it is the obvious thing to
-replace when a proper shot exists. Anything dropped in there must be
-pre-rotated and metadata-stripped first (the original carried an EXIF
-orientation tag and GPS coordinates).
+`src/assets/michal.jpg` is a phone snapshot and
+`src/assets/dzwieki-efemeryczne/ola-geppert.jpg` a 670 px stage shot – both
+fill the founders' slots on `/fundacja` until proper portraits exist. Anything
+dropped in there must be pre-rotated and metadata-stripped first (the original
+carried an EXIF orientation tag and GPS coordinates). `HeroPhoto.astro` takes
+`src`/`alt`/`caption` props and clips `widths` to the source size, because
+Astro refuses to upscale.
 
-The nav is four cells (marka / Współpraca / O mnie / Blog), same count as the
-mock, on 5/3/3/5 tracks (see the 16-column grid above). There is no Kontakt
-cell; the address is shown verbatim in the „Kontakt" sections of `/`, `/o-mnie`
-and `/manager-muzyczny` instead. `Nav.astro` lays out 2×2 on mobile with borders
-computed from the item index – a fourth entry in `NAV` means reworking it.
-Outbound links to artists go through `withUtm()`.
+The nav is four cells (marka / Fundacja / Wiedza / Aktualności), same count as
+the mock, on 5/3/3/5 tracks (see the 16-column grid above). „Wesprzyj" is
+deliberately not a nav item: it is the `SupportBand.astro` band above the
+footer on the pages that make sense as a donor's entry point. There is no
+Kontakt cell; the address is shown verbatim in the „Kontakt" sections of `/`,
+`/fundacja` and `/wesprzyj` instead. `Nav.astro` lays out 2×2 on mobile with
+borders computed from the item index – a fourth entry in `NAV` means reworking
+it. Outbound links to artists and projects go through `withUtm()`.
 
-### Keyword positioning (2026-08-27)
+### Keyword positioning (2026-10-04)
 
-Target phrases: „manager muzyczny", „manager artystów", „menedżer/menadżer
-muzyczny". Each page owns one form and one intent, so they don't cannibalise:
-the homepage is the entity (name + `SITE_TAGLINE` „Manager muzyczny" in h1 and
-`<title>`), `/manager-muzyczny` is the commercial intent (title „Współpraca z
-managerem muzycznym…", h1 „Manager muzyczny dla artystów alternatywnych", FAQ
-carries „menedżer/menadżer" and „ile kosztuje"), `/o-mnie` is the biography
-(no job title in `<title>` – it used to share the homepage title and dropped
-out of the name query; body uses the Polish spelling „menedżer muzyczny").
-`SERVICES` labels carry the industry word („Wydawnictwa muzyczne", „Booking
-koncertowy") because they land in h3s, `OfferCatalog` and `llms.txt`; the
-catalog is one node (`OFFER_CATALOG_ID`, `offerCatalogJsonLd()` in
-`src/schema.ts`) referenced by both `Person` and `Service`. Say „muzycy i
-zespoły", not „artyści", where the copy allows – „artysta" alone reads as a
-painter to a search engine.
+Target phrases: „fundacja pierwsze demo", „wsparcie młodych twórców
+muzycznych", „fundacja muzyczna gdańsk", plus the knowledge-base queries the
+posts already rank for (ZAiKS/STOART, EPK, dystrybutor, dofinansowanie
+muzyki). The homepage is the entity (name + `SITE_TAGLINE` in h1 and
+`<title>`), `/fundacja` carries the formal vocabulary (cele statutowe, zarząd,
+KRS, statut, sprawozdania), `/wesprzyj` the donor intent (darowizna,
+odliczenie, wolontariat). `ACTIVITIES` labels carry the industry word
+(„Koncerty i wydarzenia", „Nagrania i wydawnictwa") because they land in h3s
+and `llms.txt`. Say „twórcy muzyczni" / „muzycy i zespoły", not „artyści"
+alone – „artysta" reads as a painter to a search engine. The manager-era
+commercial page is gone: paid management is one of the foundation's
+programmes (§ 7 of the statute, odpłatna działalność pożytku publicznego),
+described on `/fundacja#kariera`, never as a company offer.
 
-The footer is exactly four cells (`© / LinkedIn / Instagram / Cookies`) and its
-border logic is computed from cell index – adding a fifth entry to `SOCIALS`
-breaks the 2×2 mobile layout, so rework `Footer.astro` rather than pushing one
-more item in. The city used to hold the fourth cell; it lost it to „Cookies",
-because withdrawing consent has to be as easy as giving it and Gdańsk is already
-in the hero eyebrow.
+The footer is two rows. The top row carries what a Polish foundation must show
+on every page – name, registered address, KRS / NIP / REGON, e-mail – on the
+same 5/3/3/5 tracks as the nav; the bottom row is the four-cell band (`© /
+Instagram / Cookies / Statut · Prywatność · Dostępność`) with borders computed
+from cell index, so a fifth cell means reworking `Footer.astro`, not pushing
+one more item in.

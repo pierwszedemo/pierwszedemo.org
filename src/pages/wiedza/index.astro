@@ -1,0 +1,140 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ListRow from "../../components/ListRow.astro";
+import SupportBand from "../../components/SupportBand.astro";
+import { getSortedArticles, isoDate } from "../../collections";
+import { breadcrumbJsonLd, isoDateTime } from "../../schema";
+import {
+  CATEGORIES,
+  KNOWLEDGE_PATH,
+  ORGANIZATION_ID,
+  PERSON_ID,
+  SITE_NAME,
+  SITE_URL,
+  WEBSITE_ID,
+} from "../../consts";
+
+const entries = await getSortedArticles();
+const count = String(entries.length).padStart(2, "0");
+const canonical = new URL(KNOWLEDGE_PATH, SITE_URL).href;
+const entryUrl = (id: string) => new URL(`${KNOWLEDGE_PATH}/${id}`, SITE_URL).href;
+
+// Baza wiedzy jest grupowana kategorią, nie datą: poradnik o ZAiKS-ie nie
+// starzeje się od tego, że wyszedł w sierpniu. Kolejność grup = kolejność
+// w CATEGORIES, puste grupy znikają.
+const groups = CATEGORIES.map((category) => ({
+  category,
+  entries: entries.filter((entry) => entry.data.category === category),
+})).filter((group) => group.entries.length > 0);
+
+const description =
+  "Baza wiedzy o branży muzycznej dla początkujących artystów: tantiemy i organizacje zbiorowego zarządzania, dystrybucja, wydawnictwa, booking, press kit, stypendia i dotacje.";
+
+// Węzeł `Blog` zbiera wpisy w jedną encję, a `ItemList` daje im kolejność –
+// bez niej lista jest dla robota kilkunastoma niepowiązanymi linkami.
+const blogJsonLd = {
+  "@type": "Blog",
+  "@id": `${canonical}#blog`,
+  name: `Baza wiedzy – ${SITE_NAME}`,
+  description,
+  url: canonical,
+  inLanguage: "pl",
+  author: { "@id": PERSON_ID },
+  publisher: { "@id": ORGANIZATION_ID },
+  isPartOf: { "@id": WEBSITE_ID },
+  blogPost: entries.map((entry) => ({
+    "@type": "BlogPosting",
+    "@id": `${entryUrl(entry.id)}#post`,
+    headline: entry.data.title,
+    description: entry.data.lead,
+    url: entryUrl(entry.id),
+    articleSection: entry.data.category,
+    datePublished: isoDateTime(entry.data.date),
+    dateModified: isoDateTime(entry.data.updated ?? entry.data.date),
+    author: { "@id": PERSON_ID },
+  })),
+};
+
+const itemListJsonLd = {
+  "@type": "ItemList",
+  "@id": `${canonical}#lista`,
+  name: `Baza wiedzy ${SITE_NAME}`,
+  numberOfItems: entries.length,
+  itemListOrder: "https://schema.org/ItemListOrderDescending",
+  itemListElement: entries.map((entry, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: entryUrl(entry.id),
+    name: entry.data.title,
+  })),
+};
+
+const breadcrumb = breadcrumbJsonLd(
+  [
+    { name: "Start", path: "/" },
+    { name: "Wiedza", path: KNOWLEDGE_PATH },
+  ],
+  canonical,
+);
+---
+
+<BaseLayout
+  title={`Baza wiedzy o branży muzycznej – ${SITE_NAME}`}
+  description={description}
+  canonicalPath={KNOWLEDGE_PATH}
+  schemaPageType="CollectionPage"
+  extraJsonLd={[blogJsonLd, itemListJsonLd, breadcrumb]}
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav active="Wiedza" />
+
+    <main class="flex-1">
+      <div
+        class="flex flex-col gap-6 px-5 pt-10 pb-9 md:flex-row md:items-end md:justify-between md:px-8 md:pt-13"
+      >
+        <h1 class="text-page leading-[0.95] font-semibold tracking-[-0.03em]">
+          Wiedza ({count})
+        </h1>
+        <p
+          class="font-mono text-[13px] leading-[1.7] font-medium tracking-[0.16em] text-muted uppercase md:text-right"
+        >
+          Jak działa branża,<br />bez skrótów
+        </p>
+      </div>
+
+      {
+        groups.map((group, groupIndex) => (
+          <section aria-labelledby={`kat-${groupIndex}`}>
+            {/* Nagłówek grupy to pasmo z twardą linią – kategorie są działami
+                bazy, nie wierszami listy. */}
+            <h2
+              id={`kat-${groupIndex}`}
+              class="label border-t border-ink px-5 pt-7 pb-4 text-muted md:px-8"
+            >
+              {group.category} ({String(group.entries.length).padStart(2, "0")})
+            </h2>
+            <ul>
+              {group.entries.map((entry, index) => (
+                <ListRow
+                  href={`${KNOWLEDGE_PATH}/${entry.id}`}
+                  title={entry.data.title}
+                  left={isoDate(entry.data.updated ?? entry.data.date)}
+                  leftDatetime={isoDate(entry.data.updated ?? entry.data.date)}
+                  label={entry.data.kind}
+                  sub={`${entry.data.readingMinutes} min`}
+                  first={index === 0}
+                  last={index === group.entries.length - 1 && groupIndex === groups.length - 1}
+                />
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </main>
+
+    <SupportBand />
+    <Footer />
+  </div>
+</BaseLayout>

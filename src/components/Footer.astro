@@ -1,39 +1,72 @@
 ---
-import { INSTAGRAM_URL } from "../consts";
+import EmailLink from "./EmailLink.astro";
+import {
+  ACCESSIBILITY_PATH,
+  FOUNDATION,
+  INSTAGRAM_URL,
+  PRIVACY_POLICY_PATH,
+  STATUTE_PATH,
+  registryValue,
+} from "../consts";
 
-// Profile osobiste są tylko w schema.org. Widoczna stopka zostawia niezbędne
-// minimum: podpis, Instagram marki i równie łatwy jak zgoda dostęp do
-// ustawień cookies. Tory 5/3/3/5 jak w nawigacji – te same linie siatki.
+// Stopka fundacji to dwa wiersze. Górny niesie to, co ustawa i dobry obyczaj
+// każą mieć na każdej stronie: nazwę, adres siedziby, KRS / NIP / REGON
+// i kontakt – tory 5/3/3/5 jak w nawigacji, te same linie siatki. Dolny to
+// cztery komórki jak dawniej: ©, Instagram, Cookies i linki prawne. Linia
+// między wierszami jest hairline (wnętrze pasma), zewnętrzna – ink.
 const cell = "px-5 py-4 md:py-[19px] lg:px-8";
+const registry = [
+  { label: "KRS", value: registryValue(FOUNDATION.krs) },
+  { label: "NIP", value: registryValue(FOUNDATION.nip) },
+  { label: "REGON", value: registryValue(FOUNDATION.regon) },
+];
 ---
 
-<footer
-  class="grid grid-cols-2 border-t border-ink text-[13px] text-muted md:grid-cols-[5fr_3fr_3fr_5fr]"
->
-  <div
-    class={`${cell} border-r border-b border-hairline md:border-b-0`}
-  >
-    © {new Date().getFullYear()}
+<footer class="border-t border-ink text-[13px] text-muted">
+  <div class="grid grid-cols-2 border-b border-hairline md:grid-cols-[5fr_3fr_3fr_5fr]">
+    <p class={`${cell} col-span-2 border-b border-hairline md:col-span-1 md:border-r md:border-b-0`}>
+      <span class="font-semibold text-ink">{FOUNDATION.name}</span><br />
+      {FOUNDATION.street}, {FOUNDATION.postalCode} {FOUNDATION.city}
+    </p>
+    <dl class={`${cell} border-r border-hairline md:col-span-2`}>
+      {
+        registry.map((item) => (
+          <div class="flex gap-2">
+            <dt class="w-14 shrink-0">{item.label}</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+    <p class={cell}>
+      <EmailLink class="underline underline-offset-4 transition-colors hover:text-ink" />
+    </p>
   </div>
-  <div
-    class={`${cell} border-b border-hairline md:border-r md:border-b-0`}
-    aria-hidden="true"
-  ></div>
-  <a
-    href={INSTAGRAM_URL}
-    target="_blank"
-    rel="noopener"
-    class={`${cell} border-r border-hairline underline underline-offset-4 transition-colors hover:text-ink`}
-  >
-    Instagram
-  </a>
-  <!-- Panel otwiera delegowany listener w ConsentManager.astro – dzięki temu
-       przycisk działa też po podmianie DOM przez ClientRouter. -->
-  <button
-    type="button"
-    data-cc-preferences
-    class={`${cell} cursor-pointer text-left underline underline-offset-4 transition-colors hover:text-ink`}
-  >
-    Cookies
-  </button>
+  <div class="grid grid-cols-2 md:grid-cols-[5fr_3fr_3fr_5fr]">
+    <div class={`${cell} border-r border-b border-hairline md:border-b-0`}>
+      © {new Date().getFullYear()}
+    </div>
+    <a
+      href={INSTAGRAM_URL}
+      target="_blank"
+      rel="noopener"
+      class={`${cell} border-b border-hairline underline underline-offset-4 transition-colors hover:text-ink md:border-r md:border-b-0`}
+    >
+      Instagram
+    </a>
+    <!-- Panel otwiera delegowany listener w ConsentManager.astro – dzięki temu
+         przycisk działa też po podmianie DOM przez ClientRouter. -->
+    <button
+      type="button"
+      data-cc-preferences
+      class={`${cell} cursor-pointer border-r border-hairline text-left underline underline-offset-4 transition-colors hover:text-ink`}
+    >
+      Cookies
+    </button>
+    <p class={`${cell} flex flex-wrap gap-x-5 gap-y-1`}>
+      <a href={STATUTE_PATH} class="underline underline-offset-4 transition-colors hover:text-ink">Statut</a>
+      <a href={PRIVACY_POLICY_PATH} class="underline underline-offset-4 transition-colors hover:text-ink">Prywatność</a>
+      <a href={ACCESSIBILITY_PATH} class="underline underline-offset-4 transition-colors hover:text-ink">Dostępność</a>
+    </p>
+  </div>
 </footer>

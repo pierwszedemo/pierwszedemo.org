@@ -3,9 +3,9 @@
 ## Dlaczego to kontrakt, a nie styl
 
 Ograniczenia w tym pliku nie są preferencją redakcyjną. Wynikają z tego, jak
-`src/pages/blog/[...slug].astro` renderuje treść.
+`src/layouts/ArticleLayout.astro` renderuje treść (wspólny dla `/wiedza/` i `/aktualnosci/`), a style treści leżą w `src/styles/prose.css`.
 
-Blok `<style>` w tym pliku stylizuje **wyłącznie** `p`, `h2`, `h3`, `a`, `strong`, `em`,
+Plik `prose.css` stylizuje **wyłącznie** `p`, `h2`, `h3`, `a`, `strong`, `em`,
 `ul`, `ol`, `li`, `table`, `th` i `td`.
 Wszystko inne
 wpada w Tailwind Preflight, który zeruje marginesy `blockquote`, `pre` i `hr`. Tabela
@@ -74,7 +74,7 @@ tekst to 600; `font-bold` ma wyłącznie wordmark w nawigacji.
 | `readingMinutes` | 2–3 |
 
 Widełki 300–500 słów są decyzją redakcyjną, nie wnioskiem z istniejących wpisów.
-Wpisy leżące w `src/content/blog/` nie są wzorcem niczego – powstały wcześniej z pomocą
+Wpisy leżące w `src/content/wiedza/` nie są wzorcem niczego – powstały wcześniej z pomocą
 modelu i nie oddają stylu autora. Wzorzec głosu i rytmu jest wyłącznie w `styl.md`.
 
 ## `kind: przewodnik`
@@ -175,7 +175,7 @@ readingMinutes = max(2, round(słowa / 180))
 ```
 
 ```bash
-sed '1,/^---$/d;1,/^---$/d' src/content/blog/<data>-<slug>.md | wc -w
+sed '1,/^---$/d;1,/^---$/d' src/content/wiedza/<data>-<slug>.md | wc -w
 ```
 
 180 słów na minutę, nie zwyczajowe 200–250: polski jest bardziej fleksyjny, a to teksty
@@ -258,7 +258,7 @@ Gdyby ktoś pracował na klonie sprzed wprowadzenia formatów, potrzebne są czt
    `export const KINDS = ["notatka", "przewodnik"] as const;` i `export type Kind`.
 2. **`src/content.config.ts`** – import `KINDS`, pola `kind: z.enum(KINDS).default("notatka")`,
    `updated: z.coerce.date().optional()`, `keyphrase: z.string().optional()`.
-3. **`src/pages/blog/[...slug].astro`** – `const modified = isoDate(post.data.updated ?? post.data.date);`
+3. **`src/layouts/ArticleLayout.astro`** – `const modified = isoDate(post.data.updated ?? post.data.date);`
    użyte w `blogPostingJsonLd.dateModified` i w propie `dateModified`; `class:list`
    z bramką `kind` na `column-count`; reguła CSS `p + h2, p + h3 { margin-top: 30px }`.
 4. **`bun run build`** musi przejść.

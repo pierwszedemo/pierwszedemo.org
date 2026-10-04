@@ -1,4 +1,4 @@
-import { OFFER_CATALOG_ID, SERVICES, SERVICE_PATH, SITE_URL } from "./consts";
+import { SITE_URL } from "./consts";
 
 /**
  * Okruszki nawigacyjne. Serwis nie pokazuje ich wizualnie – siatka z makiety
@@ -39,27 +39,4 @@ export function wordCount(markdown: string): number {
     .replace(/^#{1,6}\s+/gm, "")
     .split(/\s+/)
     .filter(Boolean).length;
-}
-
-/**
- * Katalog usług – te trzy pozycje to jedyne, co strona faktycznie oferuje,
- * więc encja nie obiecuje niczego ponad treść. Jeden węzeł z @id, bo odsyła
- * do niego i Person (BaseLayout), i Service (/manager-muzyczny); dwie kopie
- * z różną treścią Google czytałby jako dwa różne katalogi.
- */
-export function offerCatalogJsonLd() {
-  return {
-    "@type": "OfferCatalog",
-    "@id": OFFER_CATALOG_ID,
-    name: "Usługi",
-    itemListElement: SERVICES.map((service) => ({
-      "@type": "Offer",
-      itemOffered: {
-        "@type": "Service",
-        name: service.label,
-        description: service.description,
-        url: `${SITE_URL}${SERVICE_PATH}#${service.id}`,
-      },
-    })),
-  };
 }

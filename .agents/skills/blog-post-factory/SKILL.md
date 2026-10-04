@@ -1,15 +1,28 @@
 ---
 name: blog-post-factory
-description: Pisze wpisy na blog pierwszedemo.com – po polsku, z perspektywy menedżera artystów, całkowicie bez obrazków. Dwa formaty: „notatka" (300–500 słów, bez śródtytułów) i „przewodnik" (1200–2000 słów, sekcje H2 i FAQ). Prowadzi proces: odświeżenie własnych źródeł (olageppert.pl i ten serwis), wybór tematu i deduplikacja, wybór formatu, rejestr faktów ze źródłem dla każdej liczby, tekst, redakcja językowa, linkowanie, publikacja i build. Użyj, gdy pada „napisz wpis na bloga", „nowy wpis", „notatka na bloga", „przewodnik o…", „zaktualizuj wpis", „co napisać na bloga", albo gdy trzeba opisać temat branżowy: wydarzenia (Great September, showcase, konferencja), EPK i materiały prasowe, Spotify for Artists, wydawnictwo i dystrybucję, booking, tantiemy i pieniądze, umowę menedżerską, pracę z Olą Geppert.
+description: Pisze wpisy do bazy wiedzy i aktualności pierwszedemo.org (strona Fundacji Pierwsze Demo) – po polsku, w pierwszej osobie Michała, prezesa fundacji i managera, całkowicie bez obrazków. Dwa formaty: „notatka" (300–500 słów, bez śródtytułów) i „przewodnik" (1200–2000 słów, sekcje H2 i FAQ). Prowadzi proces: odświeżenie własnych źródeł (olageppert.pl i ten serwis), wybór tematu i deduplikacja, wybór formatu, rejestr faktów ze źródłem dla każdej liczby, tekst, redakcja językowa, linkowanie, publikacja i build. Użyj, gdy pada „napisz wpis na bloga", „nowy wpis", „notatka na bloga", „przewodnik o…", „zaktualizuj wpis", „co napisać na bloga", albo gdy trzeba opisać temat branżowy: wydarzenia (Great September, showcase, konferencja), EPK i materiały prasowe, Spotify for Artists, wydawnictwo i dystrybucję, booking, tantiemy i pieniądze, umowę menedżerską, pracę z Olą Geppert.
 ---
 
 # blog-post-factory
 
-Piszesz wpisy na blog serwisu pierwszedemo.com. Prowadzi go Michał Miszczyszyn,
-menedżer artystów z Gdańska, którego
-roster to jedna artystka przed debiutem płytowym, Ola Geppert. Czytelnikiem jest inny
-praktyk: muzyk bez wytwórni, początkujący menedżer, osoba prowadząca zespół. Blog nie
-tłumaczy, czym jest streaming. Blog mówi, co z tym zrobić w poniedziałek rano.
+Piszesz wpisy na stronę Fundacji Pierwsze Demo (pierwszedemo.org). Fundację
+założyli Michał Miszczyszyn (Prezes Zarządu, manager muzyczny) i Ola Geppert
+(Wiceprezeska, songwriterka i wokalistka). Wpisy pisze Michał w pierwszej
+osobie i są podpisane jego nazwiskiem – „ja” to Michał, „my” to fundacja.
+Czytelnikiem jest praktyk: muzyk bez wytwórni, początkujący menedżer, osoba
+prowadząca zespół. Wpis nie tłumaczy, czym jest streaming. Mówi, co z tym
+zrobić w poniedziałek rano.
+
+Wpisy trafiają do jednej z dwóch kolekcji – **to pierwsza decyzja, przed
+tematem**:
+
+| Kolekcja | Katalog | Adres | Co tu idzie |
+|---|---|---|---|
+| baza wiedzy | `src/content/wiedza/` | `/wiedza/<slug>` | poradniki bez daty ważności (notatka / przewodnik), z `category` i `keyphrase` |
+| aktualności | `src/content/aktualnosci/` | `/aktualnosci/<slug>` | rzeczy datowane: `kind` = wydarzenie / relacja / rozmowa / opinia / ogloszenie / sprawozdanie |
+
+Test: jeśli tekst będzie tak samo prawdziwy za rok – wiedza. Jeśli opisuje coś,
+co się wydarzyło albo wydarzy, albo jest osobistym zdaniem – aktualności.
 
 ## Cztery zasady, których nie wolno złamać
 
@@ -60,7 +73,7 @@ schemacie – `bun run build` odrzuci frontmatter z polem `kind`.
 liczby od nowa (krok 3), sprawdź, czy linki żyją, podmień to, co się zdezaktualizowało,
 ustaw `updated` na dzisiejszą datę. **Nie ruszaj `date` ani sluga** – data publikacji
 porządkuje listę i prev/next, a zmiana sluga psuje adres, który ktoś mógł zapisać.
-Commit `fix(blog): …`.
+Commit `fix(wiedza): …` albo `fix(aktualnosci): …`.
 
 **Sam temat** – użytkownik pyta „co napisać na bloga". Wykonaj krok 1 i zatrzymaj się
 na propozycjach. Nie pisz nic dalej bez potwierdzenia.
@@ -91,13 +104,13 @@ i jedynymi, które zmieniają się bez uprzedzenia.
 Jeśli WebFetch zawiedzie, pracujesz na dossier i **mówisz o tym wprost w raporcie** –
 razem z informacją, że fakty o artystce nie zostały odświeżone.
 
-### pierwszedemo.com – ten serwis
+### pierwszedemo.org – ten serwis
 
 Nie zgaduj, co jest na stronie, dla której piszesz. Przeczytaj:
 
-- `src/consts.ts` – roster, usługi, tagline, miasto, kontakt, profile, kategorie;
+- `src/consts.ts` – fundacja (`FOUNDATION`, `FOUNDERS`, `GOALS`, `ACTIVITIES`, `PROJECTS`), tagline, miasto, kontakt, kategorie, `NEWS_KINDS`;
 - `src/pages/index.astro` – copy strony głównej, czyli jak serwis sam siebie opisuje;
-- **treść wszystkich `src/content/blog/*.md`, nie sam frontmatter.**
+- **treść wszystkich `src/content/wiedza/*.md` i `src/content/aktualnosci/*.md`, nie sam frontmatter.**
 
 Ostatni punkt jest ważniejszy, niż wygląda, i robi się go **przed** napisaniem czegokolwiek.
 Frontmatter mówi, o czym są wpisy; dopiero treść mówi, **które argumenty już padły**.
@@ -115,7 +128,7 @@ Wpisy z podkreśleniem na początku nazwy (`_slug.md`) są niepublikowane – cz
 żeby nie dublować treści, ale **nigdy do nich nie linkujesz**, bo nie mają adresu.
 
 Repo jest źródłem prawdy o tym serwisie, bo to ono trafia na produkcję. Jeśli coś tam
-doszło – nowa artystka w rosterze, nowa usługa, zmiana miasta, nowy kanał kontaktu –
+doszło – nowy projekt fundacji, nowe działanie, zmiana miasta, nowy kanał kontaktu –
 **używasz tego w tekście i nie powtarzasz nieaktualnych sformułowań z wcześniejszych
 wpisów**. Sprzeczność między starym wpisem a `consts.ts` rozstrzygasz na korzyść
 `consts.ts` i zgłaszasz ją użytkownikowi jako kandydata do aktualizacji.
@@ -217,7 +230,7 @@ Załaduj `references/styl.md` i `references/format.md`.
 
 - **Pisz od razu po polsku.** Nigdy nie tłumacz z angielskiego szkicu – składnia zostaje
   angielska i tekst brzmi jak tłumaczenie maszynowe.
-- **Zapisuj od razu do `src/content/blog/<data>-<slug>.md`** (`2026-08-11-grupa-docelowa-artysty.md`;
+- **Zapisuj od razu do `src/content/<kolekcja>/<data>-<slug>.md`** (`2026-08-11-grupa-docelowa-artysty.md`;
   data = `date` z frontmattera, adres to sam slug – reguły w `format.md`). Nie ma folderu roboczego i to jest
   celowe: `bun run build` w kroku 7 jest realnym testem schematu.
 - **Rytm decyduje o tym, czy tekst brzmi jak człowiek.** Akapit 1–4 zdania, przynajmniej
@@ -286,7 +299,7 @@ Załaduj `references/styl.md` i `references/format.md`.
 1. Uzupełnij frontmatter (pola i limity w `format.md`).
 2. Przelicz `readingMinutes`:
    ```bash
-   sed '1,/^---$/d;1,/^---$/d' src/content/blog/<data>-<slug>.md | wc -w
+   sed '1,/^---$/d;1,/^---$/d' src/content/<kolekcja>/<data>-<slug>.md | wc -w
    ```
    `readingMinutes = max(2, round(słowa / 180))`.
 3. Podbij `LAST_CONTENT_UPDATE` w `src/consts.ts`. Uwaga na pułapkę: `serialize()`
@@ -296,7 +309,7 @@ Załaduj `references/styl.md` i `references/format.md`.
 5. **Raport dla użytkownika, maksymalnie 12 linijek:** wybrany format i dlaczego, liczba
    słów, `readingMinutes`, lista faktów z linkami, **lista rzeczy świadomie pominiętych
    z braku potwierdzenia**, pytania, na które tylko użytkownik zna odpowiedź.
-6. Zaproponuj commit `feat(blog): <polski temat>`. **Nie commituj bez prośby.**
+6. Zaproponuj commit `feat(wiedza): <polski temat>` albo `feat(aktualnosci): …`. **Nie commituj bez prośby.**
 
 ---
 
@@ -307,7 +320,7 @@ myślniki i cudzysłowy, więc grepowanie całego pliku daje fałszywe trafienia
 
 ```bash
 SLUG=<slug>
-BODY() { sed '1,/^---$/d;1,/^---$/d' src/content/blog/*-"$SLUG".md; }
+BODY() { sed '1,/^---$/d;1,/^---$/d' src/content/*/*-"$SLUG".md; }
 
 # 1. Liczba słów – musi mieścić się w widełkach formatu
 BODY | wc -w
@@ -331,7 +344,7 @@ BODY | grep -niE 'w dzisiejszych czasach|nie od dziś|w dobie|warto (pamiętać|
 BODY | grep -o '\*\*' | wc -l   # podziel przez 2
 
 # 5. Deduplikacja fraz między wpisami – ma być pusto
-grep -h '^keyphrase:' src/content/blog/*.md | sort | uniq -d
+grep -h '^keyphrase:' src/content/*/*.md | sort | uniq -d
 
 # 6. Anchory linków – każdy 2–5 słów; wypisuje dłuższe, ma być pusto
 BODY | grep -o '\[[^]]*\]([^)]*)' | sed 's/\](.*//; s/^\[//' | awk 'NF>5'

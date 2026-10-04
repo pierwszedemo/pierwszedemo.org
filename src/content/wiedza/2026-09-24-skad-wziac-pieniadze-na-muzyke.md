@@ -24,7 +24,7 @@ Druga szuflada to dotacja. Pieniądze na przedsięwzięcie z datą początku, da
 
 Większość dotacji chce podmiotu: instytucji, fundacji, firmy. Programy ministra „Muzyka” i „Muzyczny ślad” przyjmują wnioski od organizacji pozarządowych, instytucji i [„podmiotów prowadzących działalność gospodarczą”](https://nimit.pl/aktualnosci/programy-ministra-2026-startuje-nabor-wnioskow/). Strona ministerstwa mówi wprost, że [osoby fizyczne nie są uprawnione](https://www.gov.pl/web/kultura/programy-i-projekty) do składania wniosków, z jednym wyjątkiem: ochrona zabytków. ZAiKS w dotacjach wymienia [„przedsiębiorców z sektora kultury”](https://app.zaiks.org.pl/media/npoocc5f/regulamin-przyznawania-dotacji-z-fpt.pdf). **Artystka bez firmy stoi przed tą szufladą bez klucza.**
 
-Jest na to obejście. Artystka składa stypendia jako osoba fizyczna, a dotacje składa podmiot, który z nią pracuje: manager z jednoosobową działalnością, fundacja, stowarzyszenie. Manager przecież i tak robi [wszystko oprócz muzyki](/blog/poczatkujacy-manager-artysty), więc pisanie wniosków wchodzi w skład. Dwa tory, dwa terminarze, a _de facto_ jeden projekt. I dokładnie tak robię ja.
+Jest na to obejście. Artystka składa stypendia jako osoba fizyczna, a dotacje składa podmiot, który z nią pracuje: manager z jednoosobową działalnością, fundacja, stowarzyszenie. Manager przecież i tak robi [wszystko oprócz muzyki](/aktualnosci/poczatkujacy-manager-artysty), więc pisanie wniosków wchodzi w skład. Dwa tory, dwa terminarze, a _de facto_ jeden projekt. I dokładnie tak robię ja.
 
 Od tej reguły jest jeden wyjątek, przynajmniej na papierze. Do niego za chwilę.
 
@@ -62,7 +62,7 @@ Z dotacji można finansować nagranie – ale nie każdy może się o dotacje st
 
 ### ZAiKS
 
-Ten sam Fundusz Popierania Twórczości ma drugi instrument, dotację, z tymi samymi terminami naborów, ale dla podmiotów. Regulamin wymienia [rejestrację nagrań audio i wideo](https://app.zaiks.org.pl/media/npoocc5f/regulamin-przyznawania-dotacji-z-fpt.pdf), organizację koncertów i festiwali oraz kampanie promocyjne. Czyli produkcja, miks, master, teledysk, własna trasa: tak. Licencje, koszty administracyjne, catering i przedsięwzięcia, które już trwają albo się skończyły: nie. To ostatnie zdanie jest ważne. Wniosek dotyczy tego, co dopiero się zacznie. Wniosek opiniuje Zarząd Sekcji, a decyduje Zarząd Funduszu, patrząc na wartość artystyczną, dorobek wnioskodawcy i zakres wykorzystania repertuaru chronionego przez ZAiKS. **Zgłoszenie własnych utworów do ZAiKS-u jest więc nie tylko po tantiemy, ale też po punkty we wniosku podmiotu, który je wykorzysta.** Jak to zrobić, [pisałem osobno](/blog/zaiks-stoart-sawp-zpav). Rozliczenie to sprawozdanie z zestawieniem wydatków w ciągu 30 dni od końca projektu.
+Ten sam Fundusz Popierania Twórczości ma drugi instrument, dotację, z tymi samymi terminami naborów, ale dla podmiotów. Regulamin wymienia [rejestrację nagrań audio i wideo](https://app.zaiks.org.pl/media/npoocc5f/regulamin-przyznawania-dotacji-z-fpt.pdf), organizację koncertów i festiwali oraz kampanie promocyjne. Czyli produkcja, miks, master, teledysk, własna trasa: tak. Licencje, koszty administracyjne, catering i przedsięwzięcia, które już trwają albo się skończyły: nie. To ostatnie zdanie jest ważne. Wniosek dotyczy tego, co dopiero się zacznie. Wniosek opiniuje Zarząd Sekcji, a decyduje Zarząd Funduszu, patrząc na wartość artystyczną, dorobek wnioskodawcy i zakres wykorzystania repertuaru chronionego przez ZAiKS. **Zgłoszenie własnych utworów do ZAiKS-u jest więc nie tylko po tantiemy, ale też po punkty we wniosku podmiotu, który je wykorzysta.** Jak to zrobić, [pisałem osobno](/wiedza/zaiks-stoart-sawp-zpav). Rozliczenie to sprawozdanie z zestawieniem wydatków w ciągu 30 dni od końca projektu.
 
 ### Programy ministra
 
@@ -72,7 +72,7 @@ Są też programy ministra, czyli „Muzyka” i „Muzyczny ślad”. „Muzycz
 
 STOART to obiecany wyjątek. [Aktualny regulamin](https://stoart.org.pl/upload/2026/07/regulamin-funduszu-promocyjnego-zaw-stoart_1.pdf) Funduszu Promocyjnego dopuszcza wnioski od osoby fizycznej, „w tym osoby fizycznej prowadzącej jednoosobową działalność gospodarczą”. Bez firmy, bez fundacji. Tyle regulamin. Własne ogłoszenie naboru STOART mówi o „podmiotach posiadających osobowość prawną”, a w Cantilenie lista „Forma prawna” ma z osób fizycznych tylko „osobę fizyczną prowadzącą jednoosobową działalność gospodarczą”. Papier i formularz się rozjeżdżają, więc bez firmy napisz najpierw do STOART i nie licz na te pieniądze, dopóki nie odpowiedzą.
 
-Program Scherzo daje do 10000 zł na projekt, a wnioski „mogą dotyczyć w szczególności nagrania lub wydania singla lub płyty”. **Ktoś napisał to zdanie z myślą o Tobie.** Regulamin mówi, że fundusz ma promować „artystyczną działalność członków ZAW STOART i osób, które powierzyły ZAW STOART zarządzanie” prawami, więc podejrzewam, że [powierzenie praw STOART-owi](/blog/zaiks-stoart-sawp-zpav) przed wnioskiem pomaga. Nabór jest ciągły, w dwumiesięcznych turach. Projekt może ruszyć najwcześniej dwa miesiące po zamknięciu tury, a jesienna tura 2026 zamyka się [30 września](https://stoart.org.pl/o-nas/aktualnosci/nowy-nabor-do-programu-scherzo).
+Program Scherzo daje do 10000 zł na projekt, a wnioski „mogą dotyczyć w szczególności nagrania lub wydania singla lub płyty”. **Ktoś napisał to zdanie z myślą o Tobie.** Regulamin mówi, że fundusz ma promować „artystyczną działalność członków ZAW STOART i osób, które powierzyły ZAW STOART zarządzanie” prawami, więc podejrzewam, że [powierzenie praw STOART-owi](/wiedza/zaiks-stoart-sawp-zpav) przed wnioskiem pomaga. Nabór jest ciągły, w dwumiesięcznych turach. Projekt może ruszyć najwcześniej dwa miesiące po zamknięciu tury, a jesienna tura 2026 zamyka się [30 września](https://stoart.org.pl/o-nas/aktualnosci/nowy-nabor-do-programu-scherzo).
 
 Skala? Każda tura ma pulę 125000 zł. W pierwszej turze 2026 dostały ją [23 podmioty](https://stoart.org.pl/o-nas/aktualnosci/wyniki-programu-scherzo), [w drugiej 19](https://stoart.org.pl/o-nas/aktualnosci/wyniki-programu-scherzo-ii-2026). Około dwudziestu projektów na turę w całej Polsce, średnio po kilka tysięcy złotych.
 
@@ -90,7 +90,7 @@ Popyt widać w liczbach. Do końca kwietnia 2026 Instytut dostał [968 wniosków
 
 ### Culture Moves Europe i Music Export Poland
 
-Culture Moves Europe, unijny grant mobilności, wymaga zaproszenia od partnera za granicą, a nabór 2025/2026 [zamknął się 30 kwietnia 2026](https://culture.ec.europa.eu/sites/default/files/2026-02/call-individual-mobility_2025-2026_culture-moves-europe_v260226.pdf). Kolejny trzeba wypatrywać na stronie programu. Music Export Poland ogłasza [nabory rzadko](http://www.musicexportpoland.org/nabory) na misje networkingowe i songwriting campy, nigdy na nagrania. Zostaje pilnowanie obu stron i własna [akredytacja na showcase](/blog/pierwszy-raz-na-great-september) w Polsce, za którą niestety nikt nie zwróci.
+Culture Moves Europe, unijny grant mobilności, wymaga zaproszenia od partnera za granicą, a nabór 2025/2026 [zamknął się 30 kwietnia 2026](https://culture.ec.europa.eu/sites/default/files/2026-02/call-individual-mobility_2025-2026_culture-moves-europe_v260226.pdf). Kolejny trzeba wypatrywać na stronie programu. Music Export Poland ogłasza [nabory rzadko](http://www.musicexportpoland.org/nabory) na misje networkingowe i songwriting campy, nigdy na nagrania. Zostaje pilnowanie obu stron i własna [akredytacja na showcase](/aktualnosci/pierwszy-raz-na-great-september) w Polsce, za którą niestety nikt nie zwróci.
 
 ## Kalendarz
 
@@ -105,7 +105,7 @@ Kalendarz wniosków wygląda mniej więcej tak.
 
 Czyli lato jest na pisanie, jesień na składanie.
 
-**Wniosek na nagranie pisze się co najmniej kilka miesięcy przed nagraniem, a u ministra rok wcześniej.** Kalendarz singli, który i tak [układasz z wyprzedzeniem](/blog/ep-czy-seria-singli), dostaje po prostu jeszcze jedną kolumnę: co składamy, do kogo i kiedy.
+**Wniosek na nagranie pisze się co najmniej kilka miesięcy przed nagraniem, a u ministra rok wcześniej.** Kalendarz singli, który i tak [układasz z wyprzedzeniem](/wiedza/ep-czy-seria-singli), dostaje po prostu jeszcze jedną kolumnę: co składamy, do kogo i kiedy.
 
 Załóżmy, że EP jest już nagrana. O dotację na nią nie ma nawet co pytać, bo regulaminy wykluczają rzeczy, które już trwają lub zostały ukończone. Ale koncerty i wideo do wydanej EP-ki to nowe przedsięwzięcia – i mogą być we wniosku na najbliższy termin ZAiKS-u.
 

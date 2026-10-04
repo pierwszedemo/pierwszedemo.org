@@ -42,11 +42,11 @@ Co tak naprawdę się liczy? Nie liczba obserwujących, wbrew temu, co się mo�
 
 Dlatego skala sama w sobie niczego nie załatwia. Orphiq podaje wprost, że [50 tys. słuchaczy miesięcznie przy proporcji 6:1 w niedoinwestowanym gatunku dostaje więcej uwagi niż 500 tys. przy 2:1 w przepełnionym](https://orphiq.com/resources/a-and-r-in-2026). Dziesięć razy mniej ludzi, a rozmowa poważniejsza. To dla Ciebie nadzieja.
 
-Zanim jednak uznasz, że wszystko sprowadza się do panelu z wykresami: [tylko około połowa odkryć przychodzi z narzędzi cyfrowych](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/), reszta nadal z **sieci kontaktów i poleceń**. Dlatego tak ważny jest [udział w wydarzeniach branżowych i showcase'ach](/blog/pierwszy-raz-na-great-september). Znajomości nie umarły. Zmieniło się to, że dziś służą do potwierdzenia czegoś, co i tak musi być widać w danych.
+Zanim jednak uznasz, że wszystko sprowadza się do panelu z wykresami: [tylko około połowa odkryć przychodzi z narzędzi cyfrowych](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/), reszta nadal z **sieci kontaktów i poleceń**. Dlatego tak ważny jest [udział w wydarzeniach branżowych i showcase'ach](/aktualnosci/pierwszy-raz-na-great-september). Znajomości nie umarły. Zmieniło się to, że dziś służą do potwierdzenia czegoś, co i tak musi być widać w danych.
 
 Te dwie części koegzystują. Polecenie od osoby, której ktoś ufa, sprawia, że otwarty zostaje plik z Twoimi liczbami. Bez polecenia raczej nikt tam nie zajrzy. Natomiast jeśli w tym pliku nie ma liczb, to zostanie zamknięty po dziesięcu sekundach.
 
-I stąd wniosek, który brzmi banalnie, a zmienia kolejność pracy na następne pół roku. **Trakcję buduje się przed rozmową, nie w jej trakcie.** Nawet skromną, byle własną i policzalną – bo [profil słuchacza bez rozliczonego _betu_ jest tylko hipotezą](/blog/grupa-docelowa-artysty).
+I stąd wniosek, który brzmi banalnie, a zmienia kolejność pracy na następne pół roku. **Trakcję buduje się przed rozmową, nie w jej trakcie.** Nawet skromną, byle własną i policzalną – bo [profil słuchacza bez rozliczonego _betu_ jest tylko hipotezą](/wiedza/grupa-docelowa-artysty).
 
 **Wytwórnia nie kupuje potencjału, tylko powtarzalność: dowód, że umiesz zrobić to jeszcze raz.** Jeden utwór, który wystrzelił, jest ciekawostką i bywa podejrzany, bo [łatwo podbić liczby i równie łatwo to wychwycić](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/). Trzy wydawnictwa z rosnącą krzywą to już potencjał.
 
@@ -60,9 +60,9 @@ Przy publiczności bliskiej zeru taka cisza jest kosztowna. Fani nie czekają na
 
 Liczmy koszta uczciwie. To nie jest kwadrans na napisanie maila. To kwadrans plus wszystko, czego w tym czasie nie zrobiłaś albo nie zrobiłeś, bo czekałaś na odpowiedź. Zwykle sporo.
 
-Zresztą [rachunek za pierwsze wydawnictwa i tak płacisz czasem, nie przelewem](/blog/ile-kosztuje-niezalezny-singiel). Szkoda dokładać do tego miesiące bez odsłuchów od nikogo.
+Zresztą [rachunek za pierwsze wydawnictwa i tak płacisz czasem, nie przelewem](/wiedza/ile-kosztuje-niezalezny-singiel). Szkoda dokładać do tego miesiące bez odsłuchów od nikogo.
 
-Do tego dochodzi rzecz, której nie widać w kalendarzu. Materiał trzymany w szufladzie starzeje się w Twojej głowie: po kilku miesiącach przestaje Ci się podobać własny singiel i zaczynasz go poprawiać zamiast wydać. Nie mam na to dobrej rady poza jedną – [wydaj, zanim zdążysz się rozmyślić](/blog/ep-czy-seria-singli).
+Do tego dochodzi rzecz, której nie widać w kalendarzu. Materiał trzymany w szufladzie starzeje się w Twojej głowie: po kilku miesiącach przestaje Ci się podobać własny singiel i zaczynasz go poprawiać zamiast wydać. Nie mam na to dobrej rady poza jedną – [wydaj, zanim zdążysz się rozmyślić](/wiedza/ep-czy-seria-singli).
 
 ## Negocjacja z pozycji zero
 
@@ -70,7 +70,7 @@ Załóżmy, że odpowiedź przyszła i jest pozytywna. Gratulacje! Teraz zaczyna
 
 **Bez liczb nie masz lewaru.** Nie masz czym uzasadnić ani wyższego udziału, ani krótszej licencji, ani prawa do własnych nagrań. Zostaje argument, że muzyka jest dobra – a tego argumentu używa każda osoba w tej kolejce.
 
-Podejrzewam, że dlatego pierwsze umowy tak często kończą się [oddaniem masterów](/blog/zaiks-stoart-sawp-zpav) i licencji na wiele lat, a przychód dzieli strona, która przyszła z pieniędzmi.
+Podejrzewam, że dlatego pierwsze umowy tak często kończą się [oddaniem masterów](/wiedza/zaiks-stoart-sawp-zpav) i licencji na wiele lat, a przychód dzieli strona, która przyszła z pieniędzmi.
 
 Ale kierunek jest prosty i działa tak samo dla wytwórni i inwestorów. Każdy kolejny miesiąc, w którym rosną Twoje liczby przesuwa środek ciężkości tej rozmowy. Inwestor rozmawiający z firmą, która ma przychody nie dyktuje warunków tak samo jak inwestor rozmawiający z pustym _keynotem_.
 
@@ -96,7 +96,7 @@ Fundusz nie poprowadzi Ci firmy. Dopłaci do tego, co i tak robisz, i podpowie, 
 
 **Najdroższe złudzenie w tej okolicy brzmi mniej więcej tak: podpiszemy i wtedy się zacznie.** Nie zacznie. To Ty musisz zacząć.
 
-**Wytwórnia i inwestor nie mogą być tym, co umożliwia Ci realizację projektu. Są tym, co go bardziej rozpędza.** Reszta zostaje [po stronie Twojej i Twojego managera](/blog/poczatkujacy-manager-artysty): kalendarz, materiały, sociale, koncerty, kontakt z ludźmi, którzy już słuchają. [Press kit też musi być konkretem, a nie tylko obietnicą](/blog/jak-przygotowac-epk), niezależnie od tego, kto go w końcu dostanie.
+**Wytwórnia i inwestor nie mogą być tym, co umożliwia Ci realizację projektu. Są tym, co go bardziej rozpędza.** Reszta zostaje [po stronie Twojej i Twojego managera](/aktualnosci/poczatkujacy-manager-artysty): kalendarz, materiały, sociale, koncerty, kontakt z ludźmi, którzy już słuchają. [Press kit też musi być konkretem, a nie tylko obietnicą](/wiedza/jak-przygotowac-epk), niezależnie od tego, kto go w końcu dostanie.
 
 Dlatego u siebie prowadzę to równolegle. [Debiutancka EP, którą przygotowujemy na jesień 2026](https://olageppert.pl), ma swój termin i swoją kolejkę singli niezależnie od tego, kto ostatecznie ją wyda. Rozmowy toczą się obok, a nie zamiast.
 

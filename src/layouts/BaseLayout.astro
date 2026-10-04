@@ -3,25 +3,27 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import Analytics from "@vercel/analytics/astro";
 import michal from "../assets/michal.jpg";
+import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
 import ConsentManager from "../components/ConsentManager.astro";
 import {
-  COMPANY,
   CONTACT_EMAIL,
+  FOUNDATION,
+  FOUNDATION_PATH,
+  FOUNDERS,
   GA_ID,
+  GOALS,
   HOME_CITY,
-  ORGANIZATION_ID,
-  LAST_CONTENT_UPDATE,
-  PERSON_ID,
-  PERSON_NAME,
   INSTAGRAM_URL,
+  LAST_CONTENT_UPDATE,
+  ORGANIZATION_ID,
+  PERSON_ID,
   PERSON_PROFILES,
   SITE_DESCRIPTION,
   SITE_NAME,
-  SITE_TAGLINE,
   SITE_URL,
   WEBSITE_ID,
 } from "../consts";
-import { isoDateTime, offerCatalogJsonLd } from "../schema";
+import { isoDateTime } from "../schema";
 import "../styles/global.css";
 
 interface Props {
@@ -32,7 +34,7 @@ interface Props {
   ogType?: string;
   /** Ścieżka do karty OG 1200×630. Wpisy podstawiają własną z /og/<slug>.png. */
   ogImage?: string;
-  /** Typ węzła strony w @graph – strona główna jest profilem osoby. */
+  /** Typ węzła strony w @graph – strona główna jest profilem fundacji. */
   schemaPageType?: "WebPage" | "ProfilePage" | "CollectionPage";
   /** Dodatkowe węzły dopinane do schema.org @graph (np. BlogPosting). */
   extraJsonLd?: Record<string, unknown>[];
@@ -56,35 +58,63 @@ const {
 const site = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(canonicalPath, site).href;
 const ogImageUrl = new URL(ogImage, site).href;
-const photoUrl = new URL(michal.src, site).href;
+const photos = { michal, ola } as const;
 
-const personJsonLd = {
-  "@type": "Person",
-  "@id": PERSON_ID,
-  name: PERSON_NAME,
-  alternateName: "Type of Web",
+// Fundacja jest podmiotem strony: `NGO` to podtyp Organization, który Google
+// rozumie, a `foundingDate`, `taxID` i `legalName` to te same dane, co
+// w stopce i w polityce prywatności. Numery z KRS trafiają tu dopiero, gdy
+// są – puste pola są pomijane, bo pusty `taxID` to błąd walidacji.
+const organizationJsonLd = {
+  "@type": "NGO",
+  "@id": ORGANIZATION_ID,
+  name: SITE_NAME,
+  legalName: FOUNDATION.name,
+  alternateName: "Pierwsze Demo",
   url: site.href,
-  jobTitle: SITE_TAGLINE,
   description: SITE_DESCRIPTION,
   email: `mailto:${CONTACT_EMAIL}`,
-  image: photoUrl,
-  mainEntityOfPage: site.href,
-  hasOfferCatalog: offerCatalogJsonLd(),
-  knowsLanguage: ["pl", "en"],
-  knowsAbout: [
-    "management muzyczny",
-    "management artystów",
-    "wydawnictwa muzyczne",
-    "booking koncertowy",
-    "promocja muzyki",
-  ],
-  // Warianty pisowni jako alternateName zawodu – w treści każda strona używa
-  // jednej formy, a tu robot dostaje wszystkie trzy naraz.
-  hasOccupation: {
-    "@type": "Occupation",
-    name: SITE_TAGLINE,
-    alternateName: ["manager artystów", "menedżer muzyczny", "menadżer artystów"],
+  logo: new URL("/web-app-manifest-512x512.png", site).href,
+  ...(FOUNDATION.nip ? { taxID: FOUNDATION.nip } : {}),
+  ...(FOUNDATION.krs
+    ? {
+        identifier: {
+          "@type": "PropertyValue",
+          propertyID: "KRS",
+          value: FOUNDATION.krs,
+        },
+      }
+    : {}),
+  nonprofitStatus: "https://schema.org/NonprofitType",
+  founder: FOUNDERS.map((person) => ({ "@id": person.schemaId })),
+  member: FOUNDERS.map((person) => ({
+    "@type": "OrganizationRole",
+    member: { "@id": person.schemaId },
+    roleName: person.role,
+  })),
+  knowsAbout: GOALS,
+  areaServed: { "@type": "Country", name: "Polska" },
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: FOUNDATION.street,
+    postalCode: FOUNDATION.postalCode,
+    addressLocality: FOUNDATION.city,
+    addressCountry: "PL",
   },
+  sameAs: [INSTAGRAM_URL],
+};
+
+// Dwie osoby, dwa węzły Person – obie są członkami Zarządu, więc obie
+// dostają `memberOf` i `worksFor`; profile zewnętrzne ma na razie tylko
+// Michał (`PERSON_PROFILES`), Ola – własną stronę.
+const peopleJsonLd = FOUNDERS.map((person) => ({
+  "@type": "Person",
+  "@id": person.schemaId,
+  name: person.fullName,
+  ...(person.name !== person.fullName ? { alternateName: person.name } : {}),
+  url: `${new URL(FOUNDATION_PATH, site).href}#${person.id}`,
+  jobTitle: `${person.role}, ${person.jobTitle}`,
+  description: person.bio[0],
+  image: new URL(photos[person.id].src, site).href,
   homeLocation: {
     "@type": "Place",
     name: HOME_CITY,
@@ -95,29 +125,13 @@ const personJsonLd = {
     },
   },
   worksFor: { "@id": ORGANIZATION_ID },
-  sameAs: PERSON_PROFILES.map((profile) => profile.href),
-};
-// Firma, przez którą prowadzony jest management i która jest administratorem
-// danych – te same dane co w polityce prywatności i w CEIDG.
-const organizationJsonLd = {
-  "@type": "Organization",
-  "@id": ORGANIZATION_ID,
-  name: COMPANY.name,
-  alternateName: "Type of Web",
-  url: site.href,
-  founder: { "@id": PERSON_ID },
-  taxID: COMPANY.nip,
-  vatID: `PL${COMPANY.nip}`,
-  email: `mailto:${CONTACT_EMAIL}`,
-  sameAs: [INSTAGRAM_URL, ...PERSON_PROFILES.map((profile) => profile.href)],
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: COMPANY.street,
-    postalCode: COMPANY.postalCode,
-    addressLocality: COMPANY.city,
-    addressCountry: "PL",
-  },
-};
+  memberOf: { "@id": ORGANIZATION_ID },
+  sameAs:
+    person.schemaId === PERSON_ID
+      ? PERSON_PROFILES.map((profile) => profile.href)
+      : [person.href],
+}));
+
 const websiteJsonLd = {
   "@type": "WebSite",
   "@id": WEBSITE_ID,
@@ -125,9 +139,10 @@ const websiteJsonLd = {
   name: SITE_NAME,
   description: SITE_DESCRIPTION,
   inLanguage: "pl",
-  publisher: { "@id": PERSON_ID },
-  about: { "@id": PERSON_ID },
+  publisher: { "@id": ORGANIZATION_ID },
+  about: { "@id": ORGANIZATION_ID },
 };
+
 // Strony z noindex (404) nie dostają własnego węzła – nie ma czego indeksować.
 const pageJsonLd = robots.includes("noindex")
   ? null
@@ -141,16 +156,17 @@ const pageJsonLd = robots.includes("noindex")
       isPartOf: { "@id": WEBSITE_ID },
       primaryImageOfPage: ogImageUrl,
       dateModified: isoDateTime(dateModified),
-      // ProfilePage opisuje osobę wprost; pozostałe strony tylko jej dotyczą.
+      // ProfilePage opisuje fundację wprost; pozostałe strony tylko jej dotyczą.
       ...(schemaPageType === "ProfilePage"
-        ? { mainEntity: { "@id": PERSON_ID } }
-        : { about: { "@id": PERSON_ID } }),
+        ? { mainEntity: { "@id": ORGANIZATION_ID } }
+        : { about: { "@id": ORGANIZATION_ID } }),
     };
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
-    personJsonLd,
     organizationJsonLd,
+    ...peopleJsonLd,
     websiteJsonLd,
     ...(pageJsonLd ? [pageJsonLd] : []),
     ...extraJsonLd,
@@ -187,7 +203,7 @@ const jsonLd = {
     <link
       rel="alternate"
       type="application/rss+xml"
-      title={`${SITE_NAME} – blog`}
+      title={`${SITE_NAME} – wiedza i aktualności`}
       href="/rss.xml"
     />
 

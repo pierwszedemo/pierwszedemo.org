@@ -6,7 +6,7 @@ Deduplikację niesie pole `keyphrase` w opublikowanych wpisach; drugi rejestr ro
 się z pierwszym przy pierwszym ręcznie napisanym tekście.
 
 Kolumna „fraza" to fraza główna do pola `keyphrase`. Przed użyciem sprawdź, czy nie
-występuje już w `src/content/blog/*.md`.
+występuje już w `src/content/wiedza/*.md`.
 
 ## Filary (przewodniki)
 

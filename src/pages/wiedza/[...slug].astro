@@ -1,0 +1,41 @@
+---
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import Byline from "../../components/Byline.astro";
+import { getSortedArticles, type Article } from "../../collections";
+import { KNOWLEDGE_PATH } from "../../consts";
+
+interface Props {
+  entry: Article;
+  next?: Article;
+}
+
+// Redundantne przy `output: "static"`, ale zostaje jako zabezpieczenie: gdyby
+// serwis wrócił do trybu server, bez tego trasa dynamiczna wypadłaby z sitemapy
+// (integracja umie wyliczyć tylko prerenderowane).
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const entries = await getSortedArticles();
+  return entries.map((entry, index) => ({
+    params: { slug: entry.id },
+    // Lista jest posortowana malejąco, więc „następny" w czytaniu to starszy wpis.
+    props: { entry, next: entries[index + 1] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+---
+
+<ArticleLayout
+  entry={entry}
+  section={{ label: "Wiedza", href: KNOWLEDGE_PATH }}
+  meta={entry.data.category}
+  twoColumns={entry.data.kind === "notatka"}
+  next={next && { href: `${KNOWLEDGE_PATH}/${next.id}`, title: next.data.title }}
+  keywords={[entry.data.keyphrase, entry.data.category].filter(
+    (keyword): keyword is string => Boolean(keyword),
+  )}
+  oldestLabel="To najstarszy wpis w bazie wiedzy."
+>
+  <Byline slot="aside" updated={entry.data.updated} />
+</ArticleLayout>

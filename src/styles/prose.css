@@ -1,0 +1,205 @@
+/* ---------------------------------------------------------------------------
+  Treść wpisu (markdown) – wspólna dla bazy wiedzy, aktualności i statutu,
+  stąd osobny plik zamiast bloku <style> w jednej stronie. Jeden blok zamiast
+  wtyczki typography.
+--------------------------------------------------------------------------- */
+.prose-swiss p {
+  margin: 0 0 18px;
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+.prose-swiss p:last-child {
+  margin-bottom: 0;
+}
+/* Śródtytuły nie mogą się urwać na końcu kolumny. */
+.prose-swiss h2,
+.prose-swiss h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-ink);
+  break-after: avoid;
+}
+/* Odstęp nad śródtytułem dotyczy tylko przewodników – notatki śródtytułów nie
+   mają. Selektor `p + h2` zamiast `:not(:first-child)` omija wojnę
+   o specyficzność i nie rozdziela pary h2 + h3. */
+.prose-swiss p + h2,
+.prose-swiss p + h3,
+.prose-swiss ul + h2,
+.prose-swiss ul + h3,
+.prose-swiss ol + h2,
+.prose-swiss ol + h3,
+.prose-swiss .table-scroll + h2,
+.prose-swiss .table-scroll + h3 {
+  margin-top: 30px;
+}
+/* h2 i h3 miały ten sam stopień pisma, więc podział na sekcje i pytania
+   wewnątrz nich nie był widoczny – przy wywiadzie, gdzie `###` jest co drugi
+   akapit, strona robiła się jednolitą listą. Sekcja dostaje większy stopień
+   i własną linię. Hairline, nie ink: to linia WEWNĄTRZ pasma treści. */
+.prose-swiss h2 {
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  margin-bottom: 14px;
+}
+.prose-swiss p + h2,
+.prose-swiss ul + h2,
+.prose-swiss ol + h2 {
+  margin-top: 44px;
+  padding-top: 30px;
+  border-top: 1px solid var(--color-hairline);
+}
+/* Preflight daje `bolder`, czyli 700 – a w całym projekcie mocniejszy tekst
+   to 600 (font-bold ma tylko wordmark). Bez tego wyróżnione zdanie w treści
+   jest cięższe niż tytuł wpisu. */
+.prose-swiss strong {
+  font-weight: 600;
+  color: var(--color-ink);
+}
+/* Kursywa niesie termin obcy („to jest bet"). Preflight nie rusza `em`, więc
+   pochylenie działałoby i bez tej reguły – ale dopiero wariant `italic`
+   Archivo z astro.config.mjs daje prawdziwy krój zamiast skosu. Reguła stoi
+   tu jawnie, żeby ta zależność była widoczna w jednym miejscu z resztą
+   stylów treści. */
+.prose-swiss em {
+  font-style: italic;
+}
+/* Listy. Preflight zeruje punktory i marginesy, więc bez tej reguły `- `
+   w markdownie renderuje się jako zlepione linijki. Punktor to półpauza,
+   nie kropka – ta sama kreska, którą tekst i tak stawia we wtrąceniach,
+   więc lista wygląda jak ciąg dalszy akapitu, a nie jak slajd. Wcięcie
+   liczone w em, żeby trzymało się stopnia pisma akapitu. */
+.prose-swiss ul,
+.prose-swiss ol {
+  margin: 0 0 18px;
+  padding-left: 1.4em;
+  font-size: 15.5px;
+  line-height: 1.7;
+}
+.prose-swiss ul:last-child,
+.prose-swiss ol:last-child {
+  margin-bottom: 0;
+}
+.prose-swiss ul {
+  list-style: none;
+}
+.prose-swiss ul > li {
+  position: relative;
+}
+.prose-swiss ul > li::before {
+  content: "–";
+  position: absolute;
+  left: -1.4em;
+  color: var(--color-muted);
+}
+.prose-swiss ol {
+  list-style: decimal;
+}
+.prose-swiss li {
+  margin: 0 0 6px;
+  /* Pozycja listy nie może pęknąć między łamami notatki. */
+  break-inside: avoid;
+}
+.prose-swiss li:last-child {
+  margin-bottom: 0;
+}
+/* Tabela na dane (ściąga, cennik). Preflight zeruje jej style, a łam
+   ma 15,5 px, więc stopień pisma schodzi o krok, nagłówek dostaje mono
+   etykietę jak reszta serwisu, a poziome linie są hairline – to linie
+   WEWNĄTRZ pasma treści, nie krawędzie pasm.
+   Wrapper `.table-scroll` dokłada wtyczka `src/table-scroll.ts`. Jest
+   kontenerem dla zapytania niżej; `overflow-x: auto` zostaje wyłącznie jako
+   wyjście awaryjne dla przeglądarek bez container queries. */
+.prose-swiss .table-scroll {
+  container-type: inline-size;
+  margin: 0 0 18px;
+  overflow-x: auto;
+}
+.prose-swiss .table-scroll:last-child {
+  margin-bottom: 0;
+}
+.prose-swiss table {
+  width: 100%;
+  min-width: 800px;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  line-height: 1.5;
+  border-top: 1px solid var(--color-ink);
+}
+.prose-swiss th,
+.prose-swiss td {
+  padding: 8px 12px 8px 0;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--color-hairline);
+}
+.prose-swiss th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+.prose-swiss td:first-child {
+  color: var(--color-ink);
+  font-weight: 600;
+  white-space: nowrap;
+}
+/* Poniżej 800 px łamu (telefon, tablet, wąskie okno) pięć kolumn nie ma
+   szans i przewijana tabela wygląda jak ucięta – na Macu pasek przewijania
+   jest niewidoczny. Zamiast tego każdy wiersz staje się blokiem: nazwa
+   programu jako nagłówek, pod nią pary „etykieta: wartość". Etykieta
+   pochodzi z `data-label`, które wtyczka kopiuje z nagłówka kolumny,
+   bo `thead` jest tu ukryty. */
+@container (max-width: 799px) {
+  .prose-swiss table {
+    min-width: 0;
+    display: block;
+    border-top: 0;
+  }
+  .prose-swiss thead {
+    display: none;
+  }
+  .prose-swiss tbody,
+  .prose-swiss tr {
+    display: block;
+  }
+  .prose-swiss tr {
+    padding: 12px 0 14px;
+    border-top: 1px solid var(--color-hairline);
+  }
+  .prose-swiss tr:first-child {
+    border-top-color: var(--color-ink);
+  }
+  .prose-swiss td {
+    display: grid;
+    grid-template-columns: 7.5em minmax(0, 1fr);
+    gap: 0 12px;
+    padding: 3px 0;
+    border-bottom: 0;
+  }
+  .prose-swiss td::before {
+    content: attr(data-label);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    padding-top: 3px;
+  }
+  .prose-swiss td:first-child {
+    display: block;
+    padding: 0 0 6px;
+    white-space: normal;
+    font-size: 15.5px;
+  }
+  .prose-swiss td:first-child::before {
+    content: none;
+  }
+}
+.prose-swiss a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

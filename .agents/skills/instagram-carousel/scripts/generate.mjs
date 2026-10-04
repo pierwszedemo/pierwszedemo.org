@@ -57,7 +57,7 @@ if (!Array.isArray(ctaLines) || ctaLines.length < 1 || ctaLines.length > 4) {
 } else {
   ctaLines.forEach((line, i) => check(`cta.lines[${i}]`, line, 22, { token: 16 }));
 }
-const ctaUrl = cta.url ?? `${SITE_HOST}/blog/${slug}`;
+const ctaUrl = cta.url ?? `${SITE_HOST}/${post.section}/${slug}`;
 check("cta.url", ctaUrl, 60, { token: 60 });
 failOn(errors);
 

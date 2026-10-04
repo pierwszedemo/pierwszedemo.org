@@ -1,17 +1,23 @@
 import type { APIRoute } from "astro";
-import { getSortedPosts, isoDate } from "../blog";
+import { getSortedArticles, getSortedNews, isoDate } from "../collections";
 import {
+  ACTIVITIES,
   CONCERT_SERIES_PATH,
   CONTACT_EMAIL,
+  FOUNDATION,
+  FOUNDATION_PATH,
+  FOUNDERS,
+  GOALS,
   HOME_CITY,
-  PERSON_NAME,
-  ROSTER,
-  SERVICES,
+  KNOWLEDGE_PATH,
+  NEWS_KINDS,
+  NEWS_PATH,
   SITE_DESCRIPTION,
   SITE_NAME,
-  SITE_TAGLINE,
   SITE_URL,
-  SERVICE_PATH,
+  STATUTE_PATH,
+  SUPPORT_PATH,
+  registryValue,
 } from "../consts";
 
 export const prerender = true;
@@ -23,35 +29,50 @@ export const prerender = true;
  * aktualizować ręcznie i nie może się rozjechać z treścią.
  */
 export const GET: APIRoute = async () => {
-  const posts = await getSortedPosts();
-
+  const articles = await getSortedArticles();
+  const news = await getSortedNews();
   const body = [
     `# ${SITE_NAME}`,
     "",
     `> ${SITE_DESCRIPTION}`,
     "",
-    `${PERSON_NAME} – ${SITE_TAGLINE.toLowerCase()} z ${HOME_CITY}a. Kontakt: ${CONTACT_EMAIL}`,
+    `Fundacja z siedzibą w ${HOME_CITY}u (${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}), KRS ${registryValue(FOUNDATION.krs)}, NIP ${registryValue(FOUNDATION.nip)}. Kontakt: ${CONTACT_EMAIL}`,
     "",
-    `## Zakres pracy (${SITE_URL}${SERVICE_PATH})`,
+    `## Fundacja (${SITE_URL}${FOUNDATION_PATH})`,
     "",
-    ...SERVICES.map(
-      (service) =>
-        `- [${service.label}](${SITE_URL}${SERVICE_PATH}#${service.id}): ${service.description}`,
+    ...FOUNDERS.map(
+      (person) => `- ${person.fullName} – ${person.role}, ${person.jobTitle}`,
     ),
+    `- Statut: ${SITE_URL}${STATUTE_PATH}`,
+    `- Jak wesprzeć: ${SITE_URL}${SUPPORT_PATH}`,
     "",
-    "## Artyści",
+    "## Cele statutowe",
     "",
-    ...ROSTER.map((artist) => `- [${artist.name}](${artist.href}) – ${artist.genres}`),
+    ...GOALS.map((goal) => `- ${goal}`),
+    "",
+    "## Działania",
+    "",
+    ...ACTIVITIES.map(
+      (activity) =>
+        `- [${activity.label}](${SITE_URL}${FOUNDATION_PATH}#${activity.id}): ${activity.description}`,
+    ),
     "",
     "## Koncerty",
     "",
     `- [dźwięki efemeryczne](${SITE_URL}${CONCERT_SERIES_PATH}): cykl trzech kameralnych koncertów piosenki autorskiej w Trójmieście (Gdańsk, Sopot, Gdynia), kwiecień–wrzesień 2027, wstęp wolny.`,
     "",
-    "## Blog",
+    `## Baza wiedzy (${SITE_URL}${KNOWLEDGE_PATH})`,
     "",
-    ...posts.map(
-      (post) =>
-        `- [${post.data.title}](${SITE_URL}/blog/${post.id}) (${post.data.category}, ${isoDate(post.data.date)}): ${post.data.lead}`,
+    ...articles.map(
+      (entry) =>
+        `- [${entry.data.title}](${SITE_URL}${KNOWLEDGE_PATH}/${entry.id}) (${entry.data.category}, ${isoDate(entry.data.updated ?? entry.data.date)}): ${entry.data.lead}`,
+    ),
+    "",
+    `## Aktualności (${SITE_URL}${NEWS_PATH})`,
+    "",
+    ...news.map(
+      (entry) =>
+        `- [${entry.data.title}](${SITE_URL}${NEWS_PATH}/${entry.id}) (${NEWS_KINDS[entry.data.kind]}, ${isoDate(entry.data.date)}): ${entry.data.lead}`,
     ),
     "",
   ].join("\n");

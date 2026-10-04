@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "vanilla-cookieconsent/dist/cookieconsent.css";
+@import "./prose.css";
 
 @theme {
   --font-sans: var(--font-archivo), system-ui, sans-serif;
@@ -33,7 +34,7 @@
   --col: 6.25cqw;
   /* Kolumna boczna = 5 modułów, makietowe 400 px. Nawigacja i stopka dzielą
      się 5/3/3/5, więc ta sama linia biegnie przez całą stronę – z lewej
-     (wpis, polityka, /o-mnie, współpraca) albo z prawej (zdjęcie w hero).
+     (wpis, polityka, /fundacja, /wesprzyj) albo z prawej (hero, nagłówki stron).
      Cztery moduły byłyby równą ćwiartką, ale 320 px minus padding to 256 px,
      a odtwarzacz Spotify potrzebuje 280. */
   --aside: calc(var(--col) * 5);

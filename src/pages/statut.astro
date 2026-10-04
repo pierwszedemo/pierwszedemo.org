@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { Content as Statut } from "../documents/statut.md";
+import {
+  FOUNDATION,
+  FOUNDATION_PATH,
+  SITE_NAME,
+  SITE_URL,
+  STATUTE_PATH,
+} from "../consts";
+import { breadcrumbJsonLd } from "../schema";
+
+/*
+ * Statut jako strona HTML, nie PDF: tekst da się przeszukać, przeczytać
+ * czytnikiem ekranu i podlinkować do paragrafu. Źródłem jest
+ * src/documents/statut.md – plik poza kolekcjami, bo to jeden dokument,
+ * nie strumień wpisów. Do wpisu w KRS statut jest projektem i strona to
+ * mówi; po wpisie wystarczy uzupełnić numer KRS w consts.ts.
+ */
+const canonical = new URL(STATUTE_PATH, SITE_URL).href;
+const breadcrumb = breadcrumbJsonLd(
+  [
+    { name: "Start", path: "/" },
+    { name: "Fundacja", path: FOUNDATION_PATH },
+    { name: "Statut", path: STATUTE_PATH },
+  ],
+  canonical,
+);
+const registered = Boolean(FOUNDATION.krs);
+---
+
+<BaseLayout
+  title={`Statut – ${SITE_NAME}`}
+  description={`Statut ${SITE_NAME}: cele i zasady działania, majątek, Fundatorzy, Zarząd, sprawozdawczość, zmiana statutu i likwidacja.`}
+  canonicalPath={STATUTE_PATH}
+  extraJsonLd={[breadcrumb]}
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav active="Fundacja" />
+    <main class="flex-1">
+      <header
+        class="flex flex-col gap-6 border-b border-ink px-5 pt-10 pb-9 md:flex-row md:items-end md:justify-between md:px-8 md:pt-13"
+      >
+        <h1 class="text-page leading-[0.95] font-semibold tracking-[-0.03em]">
+          Statut
+        </h1>
+        <p class="label text-muted md:text-right">
+          {registered ? `KRS ${FOUNDATION.krs}` : "projekt – do wpisu do KRS"}
+        </p>
+      </header>
+      <div class="grid md:grid-aside-left">
+        <p class="label px-5 pt-6 text-muted md:border-r md:border-hairline md:px-8 md:py-9">
+          {SITE_NAME}
+        </p>
+        <article class="prose-swiss max-w-[68ch] px-5 py-6 text-body md:px-10 md:py-9">
+          <Statut />
+        </article>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
