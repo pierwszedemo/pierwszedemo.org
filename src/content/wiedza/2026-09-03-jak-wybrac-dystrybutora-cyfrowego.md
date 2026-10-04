@@ -5,7 +5,7 @@ category: Wydawnictwa
 kind: przewodnik
 date: 2026-09-03
 keyphrase: dystrybutor cyfrowy muzyki
-readingMinutes: 9
+draft: true
 ---
 
 Załóżmy, że masz gotowy master, okładkę i datę premiery za sześć tygodni. Zostało jedno kliknięcie: u kogo to wydać. I w tym miejscu większość osób otwiera porównanie cenników, wybiera najtańszą rubrykę i zamyka temat na lata.

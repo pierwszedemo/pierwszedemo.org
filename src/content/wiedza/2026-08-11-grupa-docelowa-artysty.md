@@ -5,7 +5,6 @@ category: Promocja
 kind: notatka
 date: 2026-08-11
 keyphrase: grupa docelowa artysty
-readingMinutes: 3
 ---
 
 Profil idealnego słuchacza (ICP), który powstaje przed premierą, jest zakładem. Kobieta, 25-34, duże miasto, słucha w drodze do pracy. Brzmi jak wiedza. Ale na tym etapie to zgadywanka.

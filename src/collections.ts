@@ -1,4 +1,5 @@
 import { getCollection, type CollectionEntry } from "astro:content";
+import { wordCount } from "./schema";
 
 export type Article = CollectionEntry<"wiedza">;
 export type News = CollectionEntry<"aktualnosci">;
@@ -12,13 +13,23 @@ export type News = CollectionEntry<"aktualnosci">;
 const byDateDesc = <T extends { id: string; data: { date: Date } }>(a: T, b: T) =>
   b.data.date.getTime() - a.data.date.getTime() || a.id.localeCompare(b.id);
 
+const published = ({ data }: { data: { draft: boolean } }) => !data.draft;
+
 export async function getSortedArticles(): Promise<Article[]> {
-  return (await getCollection("wiedza")).sort(byDateDesc);
+  return (await getCollection("wiedza", published)).sort(byDateDesc);
 }
 
 export async function getSortedNews(): Promise<News[]> {
-  return (await getCollection("aktualnosci")).sort(byDateDesc);
+  return (await getCollection("aktualnosci", published)).sort(byDateDesc);
 }
+
+/**
+ * Czas czytania liczony z treści przy buildzie, nie wpisywany do frontmattera.
+ * Pole ręczne rozjeżdżało się z tekstem po każdej redakcji, a w Tinie nikt nie
+ * policzy słów przed zapisem. Wzór jak w skillach pierwszedemo.
+ */
+export const readingMinutes = (entry: Article | News) =>
+  Math.max(2, Math.round(wordCount(entry.body ?? "") / 180));
 
 /** `YYYY-MM-DD` – do atrybutu datetime, sitemapy i widocznych dat. */
 export const isoDate = (date: Date) => date.toISOString().slice(0, 10);

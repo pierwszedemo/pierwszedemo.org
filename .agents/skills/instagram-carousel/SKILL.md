@@ -30,8 +30,8 @@ na Instagramie scrolluje; każdy slajd musi bronić się w dwie sekundy.
 
 Kandydatami są wyłącznie opublikowane wpisy – `src/content/wiedza/*.md` i
 `src/content/aktualnosci/*.md` **bez**
-plików zaczynających się podkreśleniem (`_szkic.md` nie ma adresu, więc nie ma
-czego promować). Slug to nazwa pliku **bez** prefiksu daty i rozszerzenia:
+wpisów z `draft: true` (szkic nie ma adresu, więc nie ma czego promować –
+skrypt odmówi). Slug to nazwa pliku **bez** prefiksu daty i rozszerzenia:
 `2026-08-11-grupa-docelowa-artysty.md` → `grupa-docelowa-artysty`.
 
 - Jeśli użytkownik podał slug albo temat – dopasuj po slugu, `title`,
@@ -44,7 +44,7 @@ czego promować). Slug to nazwa pliku **bez** prefiksu daty i rozszerzenia:
   katalog, w każdym te same pliki: `spec.json`, `NN.png`, `alt.txt`,
   `caption.txt`. Prefiks daty jest z nazwy pliku wpisu, skrypt dobiera go
   sam; `<data>` poniżej oznacza właśnie tę datę. Podkreślenie na początku
-  znaczy to samo co przy wpisach: jeszcze nieopublikowane. Użytkownik zdejmuje
+  znaczy: jeszcze nieopublikowane na Instagramie. Użytkownik zdejmuje
   je ręcznie, gdy post pójdzie na Instagram – `ls instagram/` pokazuje wtedy,
   co czeka w kolejce. Katalog bez podkreślenia to post już opublikowany;
   skrypt zapisuje do niego, jeśli istnieje, więc regeneracja nie tworzy

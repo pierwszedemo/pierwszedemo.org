@@ -6,7 +6,6 @@ kind: notatka
 date: 2026-08-10
 updated: 2026-09-10
 keyphrase: ile kosztuje singiel
-readingMinutes: 2
 ---
 
 „Ile kosztuje singiel?” – to pytanie wraca do mnie regularnie i prawie zawsze z gotową odpowiedzią w tle: stawka za dzień w studiu razy liczba dni. Potem pada kwota, która ma przerazić, i rozmowa kończy się na tym, że na razie nie ma za co. Cóż.

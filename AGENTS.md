@@ -6,8 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ```bash
 bun install       # bun.lock is the lockfile
-bun run dev       # astro dev
-bun run build     # astro build (also prerenders /wiedza/<slug> and /aktualnosci/<slug>)
+bun run dev       # tinacms dev + astro dev; the CMS is at /admin/index.html, editing local files
+bun run build     # tinacms build + astro build (needs PUBLIC_TINA_CLIENT_ID and TINA_TOKEN)
+bun run build:local  # the same without TinaCloud – for a build on a machine without the keys
 bun run preview   # astro preview
 bun run deploy    # astro build + wrangler deploy (Workers Builds does the same on push)
 ```
@@ -130,8 +131,8 @@ one chronological list like news – category is the row label, grouping by
 category put older posts above newer ones) and
 `aktualnosci` (chronological stream; `kind` = `wydarzenie | relacja | rozmowa
 | opinia | ogloszenie | sprawozdanie`, optional `eventDate` and `place`). Two
-directories map onto two content types in the git-based CMS planned later
-(Tina or Decap), so keep the frontmatter flat. `src/content.config.ts` shares
+directories are the two Tina collections (see „TinaCMS” below), so keep the
+frontmatter flat. `src/content.config.ts` shares
 the base schema between them. Both post pages are thin wrappers around
 `src/layouts/ArticleLayout.astro`; the markdown styles live in
 `src/styles/prose.css` (also used by `/statut`, rendered from
@@ -143,15 +144,21 @@ Posts are markdown in `src/content/wiedza/` or `src/content/aktualnosci/`,
 named `YYYY-MM-DD-<slug>.md` so the directory lists chronologically. The date prefix is **not** part of the URL:
 `generateId` in `content.config.ts` strips it (`DATE_PREFIX` in `consts.ts`,
 shared with the sitemap `lastmod` map in `astro.config.mjs`), so `post.id` is
-the bare slug. Drafts are `_YYYY-MM-DD-<slug>.md`. Posts are loaded through the content collections
+the bare slug. Drafts are `draft: true` in the frontmatter – they stay in the
+collection and `collections.ts` drops them, so a draft has no URL and is in no
+list, sitemap, RSS or llms.txt (`astro.config.mjs` skips them by the same
+field). They used to be `_`-prefixed files, but Tina cannot rename a file, so
+publishing from the CMS would have been impossible. Posts are loaded through the content collections
 (`src/content.config.ts`) with a zod schema: `title`, `lead` (the "W skrócie"
 column, doubling as the meta description), `category` (wiedza only), `kind`, `date`,
-`updated?`, `keyphrase?`, `readingMinutes`, `spotifyTrackId?` (embeds a Spotify
+`updated?`, `keyphrase?`, `draft`, `spotifyTrackId?` (embeds a Spotify
 player under the lead in the "W skrócie" column – a frontmatter field, never an
 iframe in the body; the player loads without the consent banner on legitimate
 interest, same convention as olageppert.pl, and has its row in `PRIVACY_TOOLS`).
 `image?` + `imageAlt?` put a picture in the same slot, under the lead – again a
-frontmatter field (path relative to the post, `../../assets/blog/…`), never
+frontmatter field (`/blog/…`, relative to `src/assets` – the way Tina's media
+manager writes it; a zod preprocess turns it into `../../assets/blog/…` for
+`image()`, which resolves relative to the post), never
 `![]()` in the body: `.prose-swiss` styles no `img`, and a notatka renders in two
 columns, which would tear an inline image at the column break. `imageAlt` is
 enforced by a zod refine whenever `image` is set. `src/collections.ts` owns sort order –
@@ -177,17 +184,50 @@ a static site has no use for).
 Two knowledge-base formats, both markdown, distinguished by `kind`: `notatka` (300–500
 words, no headings) and `przewodnik` (1200–2000 words, `##` sections plus an FAQ).
 `kind` is not just an editorial label – it gates `lg:[column-count:2]` (passed
-as `twoColumns` to `ArticleLayout`; news uses `readingMinutes <= 4` and never
+as `twoColumns` to `ArticleLayout`; news uses `readingMinutes(entry) <= 4` and never
 for `rozmowa`). It looks like a redundant condition and is the readability of
 every przewodnik: two columns taller than the viewport make the reader scroll to
-the bottom of the page and back up for the second one. `readingMinutes` is
-`max(2, round(words / 180))`, measured on the body only. `updated` (not `date`)
+the bottom of the page and back up for the second one. Reading time is not
+in the frontmatter: `readingMinutes()` in `collections.ts` computes
+`max(2, round(words / 180))` from the body at build time, so it cannot drift
+after an edit and nobody has to count words before saving in Tina.
+
+Dates go through `calendarDate` in `content.config.ts`: Tina saves a
+`datetime` as an instant in UTC, so 4 October picked in Poland arrives as
+`2026-10-03T22:00:00.000Z`, and everything downstream reads dates in UTC.
+Anything that is not UTC midnight is reduced to its Europe/Warsaw day. `updated` (not `date`)
 drives `dateModified`; `keyphrase` is what deduplicates topics across posts.
 
 Body markdown is deliberately narrow – paragraphs, `##`, `###`, links, nothing
 else. `.prose-swiss` styles only those, so a list or a table renders as unstyled
 lines that Tailwind Preflight has already stripped of bullets and margins.
 A pierwszedemo skill writes to these rules.
+
+### TinaCMS
+
+Tina edits the markdown in place and commits to the repo through **TinaCloud**
+(auth + content index; keys `PUBLIC_TINA_CLIENT_ID` / `TINA_TOKEN` in `.env`
+and in the Workers Builds settings). It is only an editor: the site still
+renders through Astro content collections, the zod schema and the satteri
+plugins – Tina's own data layer and `TinaMarkdown` are not used for pages.
+`tina/config.ts` mirrors `base()` from `content.config.ts` field for field;
+change one, change the other (zod is what the build enforces). `/admin` is
+built by `tinacms build` into `public/admin` (gitignored) and served as static
+files; React exists only there.
+
+- Body: `parser: { type: "markdown" }`, toolbar cut to heading/link/bold/italic,
+  headings to h2/h3 – the same narrow markdown as the rule below. Default
+  escaping stays on, so a Tina save writes `A\&R`, `*x*` for `_x_` and `*` list
+  bullets; it renders identically. The first save of a hand-written file
+  rewrites its frontmatter (quoted strings, ISO dates) – a one-off diff.
+- File name comes from `ui.filename.slugify`: `YYYY-MM-DD-<slug>` from `date`
+  and `keyphrase` (or the title). Set once, at creation. New documents start
+  as `draft: true`.
+- Media: `publicFolder: "src/assets"`, `mediaRoot: "blog"` – uploads land
+  where Astro optimises them, never in `public/`.
+- `astro dev` backgrounds itself when there is no TTY (an agent's shell), and
+  `tinacms dev -c` then sees its child exit and shuts down. In a terminal it
+  runs in the foreground and works.
 
 ### SEO / structured data
 
@@ -350,7 +390,7 @@ indent) are never typed as pixels – they are multiples of the grid module belo
   things: `spec.json`, `NN.png`, `alt.txt` (one line of alt text per slide,
   derived from the spec) and `caption.txt`. The date prefix is copied from the
   post filename, so `ls instagram/` lists in the same order as the posts.
-  A leading `_` means the same as on a blog post: not published yet. The
+  A leading `_` means: not posted on Instagram yet. The
   scripts write fresh output to `_…` and the user drops the underscore by hand
   once the post is up, so `ls instagram/` doubles as the queue; an existing
   bare directory is reused on regeneration so a posted post never gets a
@@ -367,7 +407,8 @@ indent) are never typed as pixels – they are multiples of the grid module belo
 Annual reports (the first, for 2026, is due in 2027 – `/fundacja#sprawozdania`
 already has the slot and the sentence), a grant-logo band („Dofinansowano ze
 środków…" is mandatory on the site from the day a MKiDN or city grant is
-signed), the git-based CMS (Tina or Decap), a new visual design (the current
+signed), visual editing of the homepage and `/fundacja` (`@tinacms/astro`
+islands), a new visual design (the current
 Swiss layout was kept on purpose for the conversion).
 
 The homepage `<h1>` is the mono eyebrow „(Fundacja Pierwsze Demo – Wsparcie
@@ -417,7 +458,7 @@ follows directly from a statutory goal). The line is drawn by purpose, not by
 person: a founder's project appears here only when it *is* a foundation
 activity (the concert series she hosts, a workshop she runs) and only with the
 role stated next to her name. Never as promotion of a release – the interview
-about her single was moved to a draft (`_2026-09-18-ola-geppert-ioanni-wywiad.md`)
+about her single was moved to a draft (`2026-09-18-ola-geppert-ioanni-wywiad.md`, `draft: true`)
 for that reason, the EP left the „Teraz" panel, and Michał's bio mentions the
 single in one clause. A grant assessor reading „foundation = the founder's
 promotion vehicle" is the risk this guards against.

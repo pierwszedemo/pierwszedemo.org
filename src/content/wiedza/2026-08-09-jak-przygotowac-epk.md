@@ -6,7 +6,6 @@ kind: notatka
 date: 2026-08-09
 updated: 2026-08-09
 keyphrase: jak zrobić epk
-readingMinutes: 2
 ---
 
 Widziałem kiedyś EPK na czternaście ekranów. Był tam życiorys od podstawówki, lista wszystkich zagranych koncertów i skan dyplomu z przeglądu sprzed ośmiu lat. Muzyki nie było nigdzie. Zamknąłem to po minucie i do dziś nie wiem, jak ten zespół brzmi.

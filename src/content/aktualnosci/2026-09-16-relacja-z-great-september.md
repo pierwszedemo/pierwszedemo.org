@@ -4,7 +4,6 @@ lead: Trzy dni w Łodzi za mną. Na panelach słuchałem tego, co sam piszę o b
 kind: relacja
 date: 2026-09-16
 keyphrase: great september relacja
-readingMinutes: 2
 ---
 
 Najważniejsze pół godziny Great September nie wydarzyło się w kolejce do baru. Przed wyjazdem [obstawiałem właśnie bar](/aktualnosci/pierwszy-raz-na-great-september) i miałem nadzieję, że stanę w tej właściwej kolejce. Jednak dobre rozmowy działy się w Teatrze Pinokio zaraz po panelach, kiedy dyskusja formalnie się kończyła i wszyscy wychodzili na korytarz. A najwięcej networkingu wydarzyło się w sobotę przy śniadaniu, zanim zaczęły się prelekcje.

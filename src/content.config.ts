@@ -9,32 +9,43 @@ import { CATEGORIES, DATE_PREFIX, KINDS, NEWS_KINDS } from "./consts";
  * jest wyciągnięta niżej, żeby pola o tej samej nazwie znaczyły to samo.
  */
 
-// Podkreślnik na początku nazwy = szkic: plik zostaje w repo, ale nie wchodzi
-// do kolekcji, więc nie ma go ani na liście, ani w sitemapie, RSS-ie i llms.txt.
-// Wzorzec musi to wykluczać jawnie — sam loader nie traktuje `_` specjalnie.
-//
-// Wykluczenie jest osobnym wzorcem, nie klasą `[!_]`, bo loader mierzy ten sam
-// wzorzec dwoma silnikami: tinyglobby przy starcie i picomatch w watcherze.
-// picomatch czyta `[!_]` jako klasę znaków `{!, _}`, nie jako negację — więc
-// `onChange` odrzucał każdy plik wpisu i zmiana w `.md` nie przeładowywała
-// dev-serwera (build był poprawny, bo tam pracuje tinyglobby).
+// Szkice są w kolekcji (`draft: true`) i odpada je dopiero `collections.ts`.
+// Wcześniej szkic był plikiem z `_` na początku nazwy, ale Tina nie ma akcji
+// „zmień nazwę pliku”, więc publikacja z CMS-a byłaby niemożliwa – a checkbox
+// jest.
 const loader = (base: string) =>
   glob({
     base,
-    pattern: ["**/*.md", "!**/_*.md"],
+    pattern: "**/*.md",
     // Pliki nazywają się `RRRR-MM-DD-slug.md`, żeby `ls` pokazywał chronologię,
     // ale adresem jest sam slug – data w URL-u postarzałaby wpis i zmuszała do
     // przekierowań przy każdej zmianie nazwy. Źródłem daty pozostaje frontmatter.
     generateId: ({ entry }) => entry.replace(/\.md$/, "").replace(DATE_PREFIX, ""),
   });
 
+/**
+ * Data kalendarzowa wpisu. Tina zapisuje pole `datetime` jako chwilę w UTC –
+ * 4 października wybrany w Polsce to `2026-10-03T22:00:00.000Z` – a reszta
+ * serwisu (plDate, isoDate, prefiks nazwy pliku) czyta datę w UTC. Bez tego
+ * każdy wpis z CMS-a cofałby się o dzień. Dzień bierzemy więc w strefie
+ * Warszawy, a północ UTC (`date: 2026-08-09` z ręcznie pisanych plików) przechodzi
+ * bez zmian.
+ */
+const warsawDay = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Warsaw" });
+const calendarDate = z.preprocess((value) => {
+  const date = value instanceof Date ? value : typeof value === "string" ? new Date(value) : null;
+  if (!date || Number.isNaN(date.getTime())) return value;
+  if (date.getUTCHours() === 0 && date.getUTCMinutes() === 0) return date;
+  return new Date(warsawDay.format(date));
+}, z.coerce.date());
+
 const base = (image: ImageFunction) => ({
   title: z.string(),
   /** Akapit „W skrócie" z lewej kolumny wpisu. Jednocześnie meta description. */
   lead: z.string(),
-  date: z.coerce.date(),
+  date: calendarDate,
   /** Data rewizji faktów – przewodniki starzeją się na liczbach. Zasila dateModified. */
-  updated: z.coerce.date().optional(),
+  updated: calendarDate.optional(),
   /**
    * Wyimek – zdanie, w które ma wpaść ktoś przelatujący stronę wzrokiem.
    * Renderuje się jako pasmo pod tytułem i zostaje też w treści, bo wyimek
@@ -46,7 +57,11 @@ const base = (image: ImageFunction) => ({
   pullquote: z.string().optional(),
   /** Kto to powiedział. Bez tego wyimek czyta się jak głos autora wpisu. */
   pullquoteAuthor: z.string().optional(),
-  readingMinutes: z.number().int().positive(),
+  /**
+   * Szkic: plik jest w repo i w kolekcji, ale `collections.ts` nie wypuszcza
+   * go na listy, do sitemapy, RSS-u, llms.txt ani pod własny adres.
+   */
+  draft: z.boolean().default(false),
   /**
    * ID utworu z open.spotify.com/track/<id> – osadza odtwarzacz w kolumnie
    * „W skrócie". Pole zamiast iframe'u w markdownie, bo korpus wpisu
@@ -59,10 +74,20 @@ const base = (image: ImageFunction) => ({
    * Grafika w kolumnie „W skrócie", pod leadem – ten sam slot co odtwarzacz.
    * Pole zamiast `![]()` w treści z tego samego powodu co wyżej: korpus
    * wpisu zostaje tekstowy, a obrazek dostaje własne miejsce w siatce
-   * zamiast łamać dwie łamy notatki. Ścieżka względem pliku wpisu
-   * (`../../assets/blog/…`), Astro optymalizuje ją przy buildzie.
+   * zamiast łamać dwie łamy notatki. Astro optymalizuje ją przy buildzie.
+   *
+   * Ścieżka `/blog/…` jest względem `src/assets` – tak zapisuje ją media
+   * manager Tiny (`publicFolder: "src/assets"` w tina/config.ts). `image()`
+   * szuka pliku względem wpisu, więc zamieniamy ją tu na `../../assets/blog/…`.
+   * Ścieżka względna od razu przechodzi bez zmian.
    */
-  image: image().optional(),
+  image: z
+    .preprocess(
+      (path) =>
+        typeof path === "string" && path.startsWith("/") ? `../../assets${path}` : path,
+      image(),
+    )
+    .optional(),
   imageAlt: z.string().optional(),
 });
 
@@ -100,7 +125,7 @@ const aktualnosci = defineCollection({
         ...base(image),
         kind: z.enum(Object.keys(NEWS_KINDS) as [keyof typeof NEWS_KINDS]),
         /** Data wydarzenia, gdy wpis je zapowiada lub relacjonuje – nie data publikacji. */
-        eventDate: z.coerce.date().optional(),
+        eventDate: calendarDate.optional(),
         /** Miejsce wydarzenia – miasto albo sala, w formie do wyświetlenia. */
         place: z.string().optional(),
         keyphrase: z.string().optional(),

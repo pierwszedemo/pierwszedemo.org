@@ -5,7 +5,6 @@ category: Finanse
 kind: przewodnik
 date: 2026-08-28
 keyphrase: zaiks stoart sawp różnice
-readingMinutes: 7
 ---
 
 Radio w Polsce nie może nadać Twojej piosenki na podstawie umowy z Tobą. [Ustawa w art. 21 każe mu podpisać umowę z organizacją zbiorowego zarządzania](https://isap.sejm.gov.pl/isap.nsf/download.xsp/WDU19940240083/U/D19940083Lj.pdf), czyli w praktyce z ZAiKS-em. Niezależnie od tego, czy o ZAiKS-ie kiedykolwiek słyszałaś albo słyszałeś, pieniądze za nadanie i tak zostaną policzone. Mogą trafić do Ciebie albo czekać.

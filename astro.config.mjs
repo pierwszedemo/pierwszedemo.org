@@ -18,19 +18,27 @@ const CONTENT_DIRS = {
   "/wiedza": "./src/content/wiedza",
   "/aktualnosci": "./src/content/aktualnosci",
 };
+// Wartość pola z frontmattera bez cudzysłowów – Tina zapisuje daty jako
+// łańcuchy ISO i YAML może je wziąć w apostrofy.
+/** @param {string} raw @param {string} key */
+const frontmatter = (raw, key) =>
+  raw.match(new RegExp(`^${key}:\\s*['"]?([^'"\\s]+)`, "m"))?.[1];
 const entries = Object.entries(CONTENT_DIRS).flatMap(([prefix, dir]) =>
   readdirSync(dir)
-    .filter((file) => file.endsWith(".md") && !file.startsWith("_"))
-    .map((file) => {
-      const raw = readFileSync(`${dir}/${file}`, "utf8");
+    .filter((file) => file.endsWith(".md"))
+    .map((file) => ({ file, raw: readFileSync(`${dir}/${file}`, "utf8") }))
+    // Szkic to `draft: true` (patrz content.config.ts) – bez adresu, więc ani
+    // w sitemapie, ani w przekierowaniach.
+    .filter(({ raw }) => frontmatter(raw, "draft") !== "true")
+    .map(({ file, raw }) => {
       const slug = file.replace(/\.md$/, "").replace(DATE_PREFIX, "");
       return {
         slug,
         path: `${prefix}/${slug}`,
         date: file.match(DATE_PREFIX)?.[0].slice(0, 10) ?? "",
         lastmod:
-          raw.match(/^updated:\s*(\S+)/m)?.[1] ??
-          raw.match(/^date:\s*(\S+)/m)?.[1] ??
+          frontmatter(raw, "updated") ??
+          frontmatter(raw, "date") ??
           LAST_CONTENT_UPDATE,
       };
     }),
@@ -51,6 +59,7 @@ const postLastmod = Object.fromEntries(
 // dopisuje swoje na końcu). Wpisy z późniejszą datą nigdy nie miały adresu
 // pod /blog/, więc reguł dla nich nie ma.
 const BLOG_RETIRED_ON = "2026-10-03";
+/** @type {Record<string, { status: 301, destination: string }>} */
 const redirects = {
   "/o-mnie": { status: 301, destination: "/fundacja" },
   "/manager-muzyczny": { status: 301, destination: "/fundacja" },

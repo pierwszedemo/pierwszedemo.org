@@ -4,7 +4,7 @@ import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import ListRow from "../../components/ListRow.astro";
 import SupportBand from "../../components/SupportBand.astro";
-import { getSortedNews, isoDate } from "../../collections";
+import { getSortedNews, isoDate, readingMinutes } from "../../collections";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import {
   NEWS_KINDS,
@@ -103,7 +103,7 @@ const breadcrumb = breadcrumbJsonLd(
               left={isoDate(entry.data.date)}
               leftDatetime={isoDate(entry.data.date)}
               label={NEWS_KINDS[entry.data.kind]}
-              sub={`${entry.data.readingMinutes} min`}
+              sub={`${readingMinutes(entry)} min`}
               first={index === 0}
               last={index === entries.length - 1}
             />

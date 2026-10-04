@@ -5,7 +5,6 @@ category: Promocja
 kind: notatka
 date: 2026-08-17
 keyphrase: strategia social media
-readingMinutes: 2
 ---
 
 Wyobraź sobie, że masz gotową rolkę. Leży na dysku trzeci tydzień, bo wokal w środku wchodzi o pół sekundy za późno. Nikt tej rolki nie widział. I pewnie nie zobaczy.

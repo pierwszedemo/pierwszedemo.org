@@ -6,7 +6,7 @@ kind: notatka
 date: 2026-06-11
 updated: 2026-08-09
 keyphrase: pre-save spotify
-readingMinutes: 2
+draft: true
 ---
 
 Link do pre-save poszedł w świat na sześć tygodni przed premierą. I co dalej? Zwykle nic. Bo link nie jest kampanią, tylko jednym z jej kroków, i to wcale nie pierwszym.
