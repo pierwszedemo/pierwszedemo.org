@@ -23,6 +23,7 @@ export const SITE_DESCRIPTION =
   "Fundacja Pierwsze Demo wspiera młodych i początkujących twórców muzycznych: koncerty, nagrania i wydawnictwa, wiedza o branży i pomoc w prowadzeniu kariery. Gdańsk, cała Polska.";
 
 export const CONTACT_EMAIL = "fundacja@pierwszedemo.org";
+export const DZWIEKI_EMAIL = "dzwieki@pierwszedemo.org";
 export const HOME_CITY = "Gdańsk";
 export const TYPE_OF_WEB_URL = "https://typeofweb.com";
 /** Profil marki (nie osoby) – stąd w stopce i w `sameAs` Organization, nie Person. */
