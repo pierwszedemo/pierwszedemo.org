@@ -122,7 +122,8 @@ sites without a grep.
 ### Content: knowledge base and news
 
 Two collections, not one with a „section" field: `wiedza` (evergreen guides,
-grouped by category on the list, `updated` shown instead of `date`) and
+one chronological list like news – category is the row label, grouping by
+category put older posts above newer ones) and
 `aktualnosci` (chronological stream; `kind` = `wydarzenie | relacja | rozmowa
 | opinia | ogloszenie | sprawozdanie`, optional `eventDate` and `place`). Two
 directories map onto two content types in the git-based CMS planned later
