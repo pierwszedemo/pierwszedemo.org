@@ -418,7 +418,11 @@ On launch day:
 2. Delete the noindex block from `public/_headers`.
 3. Redirect `pierwszedemo.com` → `.org` (DNS/Cloudflare, outside the repo) and
    retire the Vercel project.
-4. Bump `LAST_CONTENT_UPDATE`, deploy, submit the sitemap in Search Console
+4. Merge `fundacja` into `main`, switch the production branch in Workers
+   Builds to `main` and the fallback in `tina/config.ts` back to `"main"`
+   (until launch both say `fundacja` – it is production, `main` is the old
+   manager site without Tina).
+5. Bump `LAST_CONTENT_UPDATE`, deploy, submit the sitemap in Search Console
    and Bing Webmaster Tools.
 
 ## Not built yet
