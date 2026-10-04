@@ -107,8 +107,9 @@ categories and news kinds (`NEWS_KINDS`) live here and are imported by
 one edit.
 
 What Tina edits lives as JSON in `src/content/strony/` – homepage copy and the
-„Teraz” panel (`strona-glowna.json`), founders with bios (`fundatorzy.json`),
-programmes (`dzialania.json`) – and is assembled in `src/strony.ts` into
+„Teraz” panel (`strona-glowna.json`), the `/fundacja` heading and mission
+(`fundacja.json`), founders with bios (`fundatorzy.json`), programmes
+(`dzialania.json`) – and is assembled in `src/strony.ts` into
 `HOMEPAGE`, `PROJECTS`, `FOUNDERS` and `ACTIVITIES`, together with the fields
 an editor must not touch: `id` (the `/fundacja#…` anchor and photo key),
 `schemaId` (the `Person` node) and the activity number (from list order).
@@ -243,13 +244,17 @@ files; React exists only there.
 - File name comes from `ui.filename.slugify`: `YYYY-MM-DD-<slug>` from `date`
   and `keyphrase` (or the title). Set once, at creation. New documents start
   as `draft: true`.
-- Three singleton collections over `src/content/strony/*.json`
-  (`stronaGlowna`, `fundatorzy`, `dzialania`) – create/delete disabled. Tina
+- Four singleton collections over `src/content/strony/*.json`
+  (`stronaGlowna`, `fundacja`, `fundatorzy`, `dzialania`) – create/delete
+  disabled. A list of paragraphs is `paragraphList()`: with `list: true`,
+  `ui.component` replaces the whole list widget (one textarea for the array,
+  and a save would turn it into a string), so the per-item widget goes in
+  `ui.field`. Tina
   writes JSON in its own field order and without a trailing newline; the files
   are kept in that format so a save does not churn the diff.
 - Media: `publicFolder: "src/assets"`, `mediaRoot: "blog"` – uploads land
   where Astro optimises them, never in `public/`.
-- Visual editing („Visual editing” below) covers the three JSON documents;
+- Visual editing („Visual editing” below) covers the JSON documents;
   posts are edited through the form only, by design – their body renders
   through `render()` and the satteri plugins, which `TinaMarkdown` would
   replace.
@@ -289,8 +294,8 @@ files; React exists only there.
 
 `<TinaIsland>` can give its wrapper only a class – no `id`, no `aria-*` – so
 islands wrap elements that need neither (`wrappers.ts`): the hero column, the
-„Teraz” list, the contact sentence, the activities list, each founder's text
-column. Founders' photos stay outside: an `<Image>` rendered on demand in the
+„Teraz” list, the contact sentence, the `/fundacja` header and mission body,
+the activities list, each founder's text column. Founders' photos stay outside: an `<Image>` rendered on demand in the
 Worker has no build-time optimised file. Each island adds one inline bootstrap
 `<script>` that does nothing outside the `/admin` iframe; that is the only
 production HTML cost. `src/astro-modules.d.ts` exists because bare `tsgo`
