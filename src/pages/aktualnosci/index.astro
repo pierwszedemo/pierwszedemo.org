@@ -1,0 +1,118 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import ListRow from "../../components/ListRow.astro";
+import SupportBand from "../../components/SupportBand.astro";
+import { getSortedNews, isoDate } from "../../collections";
+import { breadcrumbJsonLd, isoDateTime } from "../../schema";
+import {
+  NEWS_KINDS,
+  NEWS_PATH,
+  ORGANIZATION_ID,
+  PERSON_ID,
+  SITE_NAME,
+  SITE_URL,
+  WEBSITE_ID,
+} from "../../consts";
+
+const entries = await getSortedNews();
+const count = String(entries.length).padStart(2, "0");
+const canonical = new URL(NEWS_PATH, SITE_URL).href;
+const entryUrl = (id: string) => new URL(`${NEWS_PATH}/${id}`, SITE_URL).href;
+
+const description =
+  "Aktualności Fundacji Pierwsze Demo: koncerty i wydarzenia, relacje, rozmowy z artystami, komunikaty i sprawozdania z projektów.";
+
+const blogJsonLd = {
+  "@type": "Blog",
+  "@id": `${canonical}#blog`,
+  name: `Aktualności – ${SITE_NAME}`,
+  description,
+  url: canonical,
+  inLanguage: "pl",
+  author: { "@id": PERSON_ID },
+  publisher: { "@id": ORGANIZATION_ID },
+  isPartOf: { "@id": WEBSITE_ID },
+  blogPost: entries.map((entry) => ({
+    "@type": "BlogPosting",
+    "@id": `${entryUrl(entry.id)}#post`,
+    headline: entry.data.title,
+    description: entry.data.lead,
+    url: entryUrl(entry.id),
+    articleSection: NEWS_KINDS[entry.data.kind],
+    datePublished: isoDateTime(entry.data.date),
+    dateModified: isoDateTime(entry.data.updated ?? entry.data.date),
+    author: { "@id": PERSON_ID },
+  })),
+};
+
+const itemListJsonLd = {
+  "@type": "ItemList",
+  "@id": `${canonical}#lista`,
+  name: `Aktualności ${SITE_NAME}`,
+  numberOfItems: entries.length,
+  itemListOrder: "https://schema.org/ItemListOrderDescending",
+  itemListElement: entries.map((entry, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: entryUrl(entry.id),
+    name: entry.data.title,
+  })),
+};
+
+const breadcrumb = breadcrumbJsonLd(
+  [
+    { name: "Start", path: "/" },
+    { name: "Aktualności", path: NEWS_PATH },
+  ],
+  canonical,
+);
+---
+
+<BaseLayout
+  title={`Aktualności – ${SITE_NAME}`}
+  description={description}
+  canonicalPath={NEWS_PATH}
+  schemaPageType="CollectionPage"
+  extraJsonLd={[blogJsonLd, itemListJsonLd, breadcrumb]}
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav active="Aktualności" />
+
+    <main class="flex-1">
+      <div
+        class="flex flex-col gap-6 px-5 pt-10 pb-9 md:flex-row md:items-end md:justify-between md:px-8 md:pt-13"
+      >
+        <h1 class="text-page leading-[0.95] font-semibold tracking-[-0.03em]">
+          Aktualności ({count})
+        </h1>
+        <p
+          class="font-mono text-[13px] leading-[1.7] font-medium tracking-[0.16em] text-muted uppercase md:text-right"
+        >
+          Wydarzenia, relacje,<br />rozmowy, sprawozdania
+        </p>
+      </div>
+
+      <ul>
+        {
+          entries.map((entry, index) => (
+            <ListRow
+              href={`${NEWS_PATH}/${entry.id}`}
+              title={entry.data.title}
+              left={isoDate(entry.data.date)}
+              leftDatetime={isoDate(entry.data.date)}
+              label={NEWS_KINDS[entry.data.kind]}
+              sub={`${entry.data.readingMinutes} min`}
+              first={index === 0}
+              last={index === entries.length - 1}
+            />
+          ))
+        }
+      </ul>
+    </main>
+
+    <SupportBand />
+    <Footer />
+  </div>
+</BaseLayout>

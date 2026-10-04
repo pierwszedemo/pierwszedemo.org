@@ -40,7 +40,7 @@ W ZPAV [nie trzeba być w stowarzyszeniu, żeby dostawać tantiemy producenckie]
 
 Intuicja mówi: jak najwcześniej, najlepiej przed premierą. Z ZAiKS-em to nie działa. [Rejestruje wyłącznie utwory już rozpowszechnione](https://zaiks.org.pl/dla-autorow/zarejestruj-utwor): wykonane publicznie, wydane na nośniku, nadane, wyświetlone albo umieszczone w internecie. Jest w tym jednak furtka, z której mało kto korzysta. Koncert to też rozpowszechnienie. **Piosenka zagrana na żywo w klubie może trafić do kartoteki miesiące przed tym, zanim wyjdzie singiel.**
 
-Po zgłoszeniu [utwór ocenia rzeczoznawca: czy nosi znamiona utworu i czy nie narusza praw osób trzecich](https://zaiks.org.pl/dla-autorow/rozpoczecie-wspolpracy). Dopiero potem ląduje w kartotece. **Nawet jeśli zarejestrujesz się dopiero po premierze, kasa za wcześniejsze nadania i tak trafia do ZAiKS-u i tam na Ciebie czeka.** Ja planuję te zgłoszenia w kalendarzu [tak samo jak wszystko](/blog/poczatkujacy-manager-artysty).
+Po zgłoszeniu [utwór ocenia rzeczoznawca: czy nosi znamiona utworu i czy nie narusza praw osób trzecich](https://zaiks.org.pl/dla-autorow/rozpoczecie-wspolpracy). Dopiero potem ląduje w kartotece. **Nawet jeśli zarejestrujesz się dopiero po premierze, kasa za wcześniejsze nadania i tak trafia do ZAiKS-u i tam na Ciebie czeka.** Ja planuję te zgłoszenia w kalendarzu [tak samo jak wszystko](/aktualnosci/poczatkujacy-manager-artysty).
 
 Wykonania zgłaszasz w [eWykonawca](https://www.stoart.org.pl/dla-wykonawcow) albo w [portalu SAWP](https://www.sawp.pl/artysci/formularze/), fonogramy w [mójZPAV](https://dfm.zpav.pl/mojzpav.php). Do tego ostatniego potrzebujesz kodu ISRC, czyli numeru identyfikującego nagranie. Dystrybutorzy, z którymi pracowałem, nadają go przy uploadzie z własnej puli i ten sam kod wpisujesz potem w mójZPAV. [Własny prefiks producenta wydaje ZPAV, na wniosek mailem](https://dfm.zpav.pl/kodisrc.php), ale przydaje się dopiero wtedy, gdy chcesz nadawać kody sama albo sam, zanim plik trafi do dystrybutora.
 
@@ -50,7 +50,7 @@ Ile kosztuje zwłoka? ZAiKS prowadzi akcję [„Nic straconego”](https://zaiks
 
 Uczciwie: na początku niewiele, bo mało kto Cię jeszcze gra.
 
-Rozdzielmy dwie rzeczy, bo tu jest często zamieszanie. Ze streamingu pieniądze za nagranie idą [przez dystrybutora albo wytwórnię, a pieniądze za utwór do wydawców i organizacji zbiorowego zarządzania](https://support.spotify.com/us/artists/article/royalties/). **Dystrybutor rozlicza Ci odtworzenia (master). Natomiast autorska część leci inną ścieżką i bez umowy z ZAiKS-em nie ma jak do Ciebie dotrzeć.** Prowizja dystrybutora, [jedyny twardy koszt singla](/blog/ile-kosztuje-niezalezny-singiel), kupuje tylko połowę, a nie całość źródła przychodu.
+Rozdzielmy dwie rzeczy, bo tu jest często zamieszanie. Ze streamingu pieniądze za nagranie idą [przez dystrybutora albo wytwórnię, a pieniądze za utwór do wydawców i organizacji zbiorowego zarządzania](https://support.spotify.com/us/artists/article/royalties/). **Dystrybutor rozlicza Ci odtworzenia (master). Natomiast autorska część leci inną ścieżką i bez umowy z ZAiKS-em nie ma jak do Ciebie dotrzeć.** Prowizja dystrybutora, [jedyny twardy koszt singla](/wiedza/ile-kosztuje-niezalezny-singiel), kupuje tylko połowę, a nie całość źródła przychodu.
 
 Radio, telewizja i lokale to drugi strumień i tu dystrybutor nie ma nic do powiedzenia: wykonawcy należy się z art. 86 wynagrodzenie za nadawanie i odtwarzanie, producentowi tak samo z art. 94, a jedyna droga do tych pieniędzy prowadzi przez organizację. Art. 86¹ daje wykonawcy osobne prawo do wynagrodzenia także za streaming, niezależnie od tego, co rozlicza dystrybutor; czy STOART i SAWP już inkasują je od serwisów, z ich stron nie wynika.
 
@@ -58,7 +58,7 @@ Koszt pośrednictwa jest jawny. [ZAiKS potrąca około 16,5% wpływów na koszty
 
 I jeszcze jedna ważna rzecz, o której warto pomyśleć już przy pierwszym singlu. Autorskie prawa majątkowe trwają siedemdziesiąt lat po śmierci twórcy (art. 36), a prawa do opublikowanego fonogramu siedemdziesiąt lat od publikacji (art. 95). **Katalog, który dziś przynosi grosze, może być rentą na dwa pokolenia.** Pod warunkiem, że ktoś go zgłosił.
 
-I rzecz, która chroni Cię nawet w najgorszej umowie: prawo do wynagrodzenia z czystych nośników nie podlega zrzeczeniu ani zbyciu, tak stoi w art. 18. Możesz [oddać wytwórni master i licencję na lata](/blog/demo-do-wytworni), ale część pieniędzy i tak przychodzi do Ciebie przez organizację, w której jesteś.
+I rzecz, która chroni Cię nawet w najgorszej umowie: prawo do wynagrodzenia z czystych nośników nie podlega zrzeczeniu ani zbyciu, tak stoi w art. 18. Możesz [oddać wytwórni master i licencję na lata](/wiedza/demo-do-wytworni), ale część pieniędzy i tak przychodzi do Ciebie przez organizację, w której jesteś.
 
 ## Najczęstsze pytania
 
@@ -72,7 +72,7 @@ Po pierwszym rozpowszechnieniu, ale to niekoniecznie premiera. Publiczne wykonan
 
 ### Czy zgłoszenie chroni przed plagiatem?
 
-Nie, i nie musi. Prawo do piosenki masz od chwili jej powstania, a art. 8 wskazuje, że autorem jest osoba podana jako autor przy rozpowszechnianiu: w creditsach u dystrybutora, na okładce, w opisie. Pseudonim wystarczy, byle było wiadomo, kto za nim stoi. Gdy dwie osoby wydały to samo pod swoim nazwiskiem, decyduje, która była pierwsza. Wtedy liczy się wszystko z datą: premiera, wystąpienia, pliki, maile z demo. Zgłoszenie ustawia Cię w kartotece jako osobę, której ZAiKS płaci. Kto zgłosi cudzy, już zarejestrowany utwór, wpada na rzeczoznawcę. Kto zgłosi utwór, którego w kartotece nie ma, może przejść. Rozstrzygnięcie i tak będzie prawdopodobnie na Twoją korzyść, ale po co sobie robić problemy – [zgłaszaj, jak tylko się da](/blog/skad-wziac-pieniadze-na-muzyke).
+Nie, i nie musi. Prawo do piosenki masz od chwili jej powstania, a art. 8 wskazuje, że autorem jest osoba podana jako autor przy rozpowszechnianiu: w creditsach u dystrybutora, na okładce, w opisie. Pseudonim wystarczy, byle było wiadomo, kto za nim stoi. Gdy dwie osoby wydały to samo pod swoim nazwiskiem, decyduje, która była pierwsza. Wtedy liczy się wszystko z datą: premiera, wystąpienia, pliki, maile z demo. Zgłoszenie ustawia Cię w kartotece jako osobę, której ZAiKS płaci. Kto zgłosi cudzy, już zarejestrowany utwór, wpada na rzeczoznawcę. Kto zgłosi utwór, którego w kartotece nie ma, może przejść. Rozstrzygnięcie i tak będzie prawdopodobnie na Twoją korzyść, ale po co sobie robić problemy – [zgłaszaj, jak tylko się da](/wiedza/skad-wziac-pieniadze-na-muzyke).
 
 ## Podsumowanie
 

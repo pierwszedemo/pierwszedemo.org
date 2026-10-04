@@ -2,7 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import { SITE_NAME } from "../consts";
+import { KNOWLEDGE_PATH, SITE_NAME } from "../consts";
 ---
 
 <BaseLayout
@@ -24,14 +24,14 @@ import { SITE_NAME } from "../consts";
       </h1>
       <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
         Adres jest błędny albo strona zmieniła miejsce. Zacznij od strony
-        głównej lub zajrzyj na blog.
+        głównej lub zajrzyj do bazy wiedzy.
       </p>
       <p class="flex flex-wrap gap-x-9 gap-y-3 text-sm font-semibold">
         <a href="/" class="underline decoration-2 underline-offset-[6px]">
           Strona główna
         </a>
-        <a href="/blog" class="underline decoration-2 underline-offset-[6px]">
-          Blog
+        <a href={KNOWLEDGE_PATH} class="underline decoration-2 underline-offset-[6px]">
+          Baza wiedzy
         </a>
       </p>
     </main>

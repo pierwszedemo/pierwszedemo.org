@@ -18,7 +18,7 @@ Zacznijmy może od początku.
 
 Dystrybutor bierze od Ciebie plik, okładkę i metadane, dostarcza je do serwisów streamingowych i zbiera z nich pieniądze za odtworzenia nagrania. Tyle. Spotify nie przyjmuje plików od artystów bezpośrednio, tylko od firm z [katalogu dostawców](https://artists.spotify.com/en/providers), o których pisze, że „spełniają standardy dostarczania muzyki” na platformę. To zdanie ustawia poprzeczkę nisko. Sam fakt, że dystrybutor jest na liście, o niczym nie przesądza.
 
-Przy uploadzie dostajesz kod ISRC dla nagrania i UPC dla wydawnictwa. [Ten sam ISRC wpisujesz potem w mójZPAV](/blog/zaiks-stoart-sawp-zpav) i będzie Ci potrzebny przy każdej przeprowadzce, o czym niżej.
+Przy uploadzie dostajesz kod ISRC dla nagrania i UPC dla wydawnictwa. [Ten sam ISRC wpisujesz potem w mójZPAV](/wiedza/zaiks-stoart-sawp-zpav) i będzie Ci potrzebny przy każdej przeprowadzce, o czym niżej.
 
 Czego dystrybutor nie robi? Nie rozlicza części autorskiej. **Pieniądze za nagranie idą przez dystrybutora, pieniądze za piosenkę przez ZAiKS, i żaden dystrybutor tego drugiego strumienia nie zastąpi.** Nie załatwia też playlist. Umożliwia pitching, bo bez dostarczonego pliku nie ma czego pitchować, i dlatego [Spotify wymaga dostarczenia utworu co najmniej 7 dni przed premierą](https://support.spotify.com/us/artists/article/pitching-music-to-playlist-editors/). Ale formularz wypełniasz Ty, a decyzję podejmuje redakcja. **Dystrybutor, który obiecuje playlisty, sprzedaje coś, czego nie ma.**
 
@@ -34,7 +34,7 @@ Który jest tańszy? Na starcie prowizja. Trzydzieści procent od zera to zero, 
 
 Z czasem rachunek się odwraca. Katalog, który zaczyna zarabiać, oddaje w prowizji coraz więcej, a abonament kosztuje tyle samo. **Model prowizyjny jest tani dla debiutu i drogi dla katalogu. Abonament odwrotnie.** Więc pytanie nie brzmi „który tańszy”, tylko „na którym etapie jesteś” i, ważniejsze, jak łatwo będzie zmienić zdanie.
 
-Bo [rachunek za pierwszego singla i tak płacisz czasem, nie przelewem](/blog/ile-kosztuje-niezalezny-singiel), a dystrybucja jest w nim jedyną pozycją z twardą ceną. Różnica między dwudziestoma pięcioma dolarami a zerem nie zmieni Twojego roku. **Zmieni go to, co podpisujesz.**
+Bo [rachunek za pierwszego singla i tak płacisz czasem, nie przelewem](/wiedza/ile-kosztuje-niezalezny-singiel), a dystrybucja jest w nim jedyną pozycją z twardą ceną. Różnica między dwudziestoma pięcioma dolarami a zerem nie zmieni Twojego roku. **Zmieni go to, co podpisujesz.**
 
 ## DistroKid – drobny druk
 
@@ -46,7 +46,7 @@ Jest na to dodatek. [Leave a Legacy kosztuje 29 $ za singiel albo 49 $ za album,
 
 **Abonament w DistroKidzie nie jest ceną za dystrybucję. Jest ceną za utrzymanie katalogu przy życiu, a to inna umowa, niż wygląda w cenniku.**
 
-Drugi zapis: [plan Musician obsługuje jednego artystę albo zespół, plan Musician Plus za 44,99 $ dwóch](https://distrokid.com/pricing/). Podejrzewam, że collab z dwoma nazwiskami w polu głównego wykonawcy wypada poza najtańszy plan i wymaga dopłaty. Mam u siebie dokładnie taki przypadek, [duet Oli Geppert z Ioannim](/blog/poczatkujacy-manager-artysty), więc to nie jest problem teoretyczny.
+Drugi zapis: [plan Musician obsługuje jednego artystę albo zespół, plan Musician Plus za 44,99 $ dwóch](https://distrokid.com/pricing/). Podejrzewam, że collab z dwoma nazwiskami w polu głównego wykonawcy wypada poza najtańszy plan i wymaga dopłaty. Mam u siebie dokładnie taki przypadek, [duet Oli Geppert z Ioannim](/aktualnosci/poczatkujacy-manager-artysty), więc to nie jest problem teoretyczny.
 
 Trzeci: [pieniądze z YouTube’a i TikToka wymagają dodatku Social Media Pack za 4,95 $ rocznie od singla, a DistroKid bierze z nich 20% wpływów z reklam](https://support.distrokid.com/hc/en-us/articles/360013534274-What-Are-Album-Extras). „Zachowujesz 100% zarobków” z cennika ma więc gwiazdkę. [TuneCore ma podobną: 20% od przychodów z TikToka, Facebooka, Instagrama i YouTube’a](https://www.tunecore.com/pricing).
 
@@ -64,7 +64,7 @@ Do tego regulamin prosi przy rejestracji o NIP, numer konta i dane urzędu skarb
 
 Crave Digital gra w drugiej lidze cenowej i w innym modelu. [Polska platforma z dofinansowaniem Ministerstwa Kultury, dystrybucja niewyłączna, 100% tantiem zostaje u artysty](https://www.crave-digital.eu/), za 134,99 zł rocznie w planie Artist Boost. Czyli DistroKid w złotych. Czego nie wiem: co dzieje się z katalogiem po końcu abonamentu, bo cennik o tym milczy. To pytanie zadaj przed pierwszym przelewem, nie po.
 
-Zostają dwie firmy, które działają inaczej. [Independent Digital dostarcza muzykę od 2002 roku do ponad 70 platform](https://independentdigital.com/), deklaruje pracę z niezależnymi artystami, ale cennika nie publikuje: warunki dostajesz po kontakcie. [e-Muzyka działa na podziale zysku ze sprzedaży „na elastycznych warunkach”](https://e-muzyka.pl/) i w katalogu Spotify figuruje wśród dystrybutorów dla wytwórni, nie dla artystów. Wygląda na to, że to oferta dla kogoś, kto ma już katalog albo wytwórnię, i taką rozmowę prowadzi się jak [rozmowę z wytwórnią](/blog/demo-do-wytworni): z liczbami w ręku, nie z demówką.
+Zostają dwie firmy, które działają inaczej. [Independent Digital dostarcza muzykę od 2002 roku do ponad 70 platform](https://independentdigital.com/), deklaruje pracę z niezależnymi artystami, ale cennika nie publikuje: warunki dostajesz po kontakcie. [e-Muzyka działa na podziale zysku ze sprzedaży „na elastycznych warunkach”](https://e-muzyka.pl/) i w katalogu Spotify figuruje wśród dystrybutorów dla wytwórni, nie dla artystów. Wygląda na to, że to oferta dla kogoś, kto ma już katalog albo wytwórnię, i taką rozmowę prowadzi się jak [rozmowę z wytwórnią](/wiedza/demo-do-wytworni): z liczbami w ręku, nie z demówką.
 
 ## Przeprowadzka
 
@@ -74,7 +74,7 @@ Każdy z tych wyborów jest odwracalny. Pod warunkiem, że wiesz jak.
 
 Zmiana nazwy artystki to ta sama mechanika, tylko boleśniejsza. Gdy Ola Geppert przestała wydawać jako Birim, każdy serwis przyjmował poprawkę osobno: Spotify pokazywało nowe nazwisko, gdy Apple Music wciąż wyświetlało stare, i wyrównało się to dopiero po tygodniach. **Dystrybutor wysyła zmianę raz, ale każdy serwis wdraża ją we własnym tempie i nikt Ci nie powie, kiedy skończy.**
 
-Stąd wniosek, który brzmi jak rada księgowej. Przed pierwszym uploadem załóż arkusz z ISRC, UPC, datą premiery i nazwą dystrybutora przy każdym wydawnictwie. Nudne. [Tak samo nudne jak kalendarz wydawniczy](/blog/poczatkujacy-manager-artysty) i tak samo niezbędne w dniu, w którym zechcesz odejść albo dystrybutor zniknie z rynku.
+Stąd wniosek, który brzmi jak rada księgowej. Przed pierwszym uploadem załóż arkusz z ISRC, UPC, datą premiery i nazwą dystrybutora przy każdym wydawnictwie. Nudne. [Tak samo nudne jak kalendarz wydawniczy](/aktualnosci/poczatkujacy-manager-artysty) i tak samo niezbędne w dniu, w którym zechcesz odejść albo dystrybutor zniknie z rynku.
 
 ## Najczęstsze pytania
 

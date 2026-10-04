@@ -13,7 +13,7 @@ Widziałem kiedyś EPK na czternaście ekranów. Był tam życiorys od podstawó
 
 Ale zacznijmy może od początku. **Press kit nie jest teczką z materiałami. Jest argumentem.** Jedno zdanie o tym, kim jest artystka albo artysta, jeden utwór, który to udowadnia, i jeden kontakt, pod który można zadzwonić.
 
-Więc muzyka idzie na samą górę. Link do singla ma być pierwszą rzeczą, w którą da się kliknąć – nie bio, nie zdjęcia, nie historia zespołu. Tylko nie licz na to, że utwór obroni się sam: statystyki i liczba obserwujących [ważą dziś więcej niż samo nagranie](/blog/demo-do-wytworni), więc one też muszą się znaleźć obok.
+Więc muzyka idzie na samą górę. Link do singla ma być pierwszą rzeczą, w którą da się kliknąć – nie bio, nie zdjęcia, nie historia zespołu. Tylko nie licz na to, że utwór obroni się sam: statystyki i liczba obserwujących [ważą dziś więcej niż samo nagranie](/wiedza/demo-do-wytworni), więc one też muszą się znaleźć obok.
 
 Co dalej? Trzy odpowiedzi, zanim ktokolwiek zdecyduje się przewijać: kto to jest, jak brzmi i skąd pochodzi. Gatunek, miasto, rok debiutu, ostatnie wydawnictwo. Bio przydaje się w trzech długościach – zdanie do line-upu, akapit do zapowiedzi koncertu i pełna wersja dla osoby, która naprawdę siada i pisze o tym tekst. Redakcje kopiują dokładnie to, co dostaną, więc każda z tych wersji ma być gotowa do wklejenia bez jednej poprawki.
 

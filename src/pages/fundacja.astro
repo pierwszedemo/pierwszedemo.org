@@ -1,0 +1,323 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import HeroPhoto from "../components/HeroPhoto.astro";
+import EmailLink from "../components/EmailLink.astro";
+import SupportBand from "../components/SupportBand.astro";
+import michal from "../assets/michal.jpg";
+import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
+import {
+  ACTIVITIES,
+  CONTACT_EMAIL,
+  FOUNDATION,
+  FOUNDATION_PATH,
+  FOUNDERS,
+  GOALS,
+  HOME_CITY,
+  SITE_NAME,
+  SITE_URL,
+  STATUTE_PATH,
+  SUPPORT_PATH,
+  registryValue,
+  withUtm,
+} from "../consts";
+import { breadcrumbJsonLd } from "../schema";
+
+/*
+ * Jedna długa strona o fundacji: misja, cele statutowe, działania, ludzie,
+ * dane rejestrowe, statut i sprawozdania. Nawigacja ma trzy pozycje, więc
+ * wszystko, co o organizacji, mieszka tu – pod kotwicami, do których linkują
+ * hero, stopka i llms.txt.
+ */
+const canonical = new URL(FOUNDATION_PATH, SITE_URL).href;
+const breadcrumb = breadcrumbJsonLd(
+  [
+    { name: "Start", path: "/" },
+    { name: "Fundacja", path: FOUNDATION_PATH },
+  ],
+  canonical,
+);
+
+const registry = [
+  { label: "Nazwa", value: FOUNDATION.name },
+  {
+    label: "Siedziba",
+    value: `${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}`,
+  },
+  { label: "KRS", value: registryValue(FOUNDATION.krs) },
+  { label: "NIP", value: registryValue(FOUNDATION.nip) },
+  { label: "REGON", value: registryValue(FOUNDATION.regon) },
+  { label: "Sąd rejestrowy", value: FOUNDATION.court },
+  { label: "Nadzór", value: FOUNDATION.minister },
+  { label: "Forma", value: "fundacja, nie prowadzi działalności gospodarczej" },
+] as const;
+
+const photos = {
+  michal: {
+    src: michal,
+    alt: "Michał Miszczyszyn w niebieskiej kurtce, w tle panorama Bergen",
+    position: "object-[center_35%]",
+  },
+  ola: {
+    src: ola,
+    alt: "Ola Geppert na scenie – czarno-białe zdjęcie: chustka na głowie, długie czarne rękawiczki, mikrofon trzymany oburącz przy ustach",
+    position: "object-top",
+  },
+} as const;
+
+// Lewa kolumna etykiet to kolumna boczna siatki (5 z 16 modułów). Opisy
+// pozycji zaczynają się na linii 8 (środek strony), stąd w listach tor
+// `3 moduły − 2 rem`: padding listy (2.5 rem) + tor + gap (2 rem) = linia 8
+// + 2.5 rem, oś tekstu jak w treści.
+const row = "grid border-b border-hairline md:grid-aside-left";
+const rowLabel =
+  "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
+const rowBody = "px-5 py-7 md:px-8 md:py-10 lg:px-10";
+const prose =
+  "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
+const list = "divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10";
+const item =
+  "grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
+const itemText =
+  "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
+const link = "underline decoration-1 underline-offset-4";
+---
+
+<BaseLayout
+  title={`O fundacji – cele, działania, zarząd | ${SITE_NAME}`}
+  description={`${SITE_NAME} z ${HOME_CITY}a: cele statutowe, programy, fundatorzy i zarząd, dane rejestrowe, statut i sprawozdania.`}
+  canonicalPath={FOUNDATION_PATH}
+  extraJsonLd={[breadcrumb]}
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav active="Fundacja" />
+
+    <main class="flex-1">
+      <header class="grid border-b border-ink lg:grid-aside-right">
+        <div class="px-5 pt-10 pb-9 md:px-8 md:pt-13 lg:border-r lg:border-hairline">
+          <p class="label text-muted">({SITE_NAME} – {HOME_CITY})</p>
+          <h1
+            class="mt-5 text-page leading-[0.95] font-semibold tracking-[-0.035em] text-balance"
+          >
+            Fundacja dla twórców na początku drogi.
+          </h1>
+        </div>
+        <p
+          class="flex items-end bg-ink px-5 py-7 text-[clamp(1.35rem,2.4vw,2rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white text-balance md:px-8 lg:bg-white lg:text-ink"
+        >
+          Koncerty, nagrania, wiedza i plan – zanim pojawi się ktoś, kto na
+          tym zarobi.
+        </p>
+      </header>
+
+      <section class={row} aria-labelledby="misja">
+        <h2 id="misja" class={rowLabel}>Misja</h2>
+        <div class={`${rowBody} ${prose}`}>
+          <p>
+            <strong>
+              Fundacja Pierwsze Demo wspiera młodych i początkujących twórców
+              muzycznych – artystów i zespoły, które mają piosenki, a nie mają
+              jeszcze sceny, nagrań ani kogoś, kto wie, jak to działa.
+            </strong>
+          </p>
+          <p>
+            Najtrudniejszy odcinek kariery jest na samym początku: przed
+            pierwszym koncertem z własnym repertuarem, przed pierwszym
+            wydanym singlem, przed pierwszą rozmową z wytwórnią. Wtedy nie ma
+            jeszcze przychodu, z którego mógłby żyć manager, agencja czy
+            wydawca – i dlatego nikt tam nie pomaga. Fundacja działa dokładnie
+            w tym miejscu.
+          </p>
+          <p>
+            Założyliśmy ją we dwoje: manager i artystka. Jedno z nas wie,
+            jak wygląda ta droga od strony kalendarza i umów, drugie – od
+            strony sceny. Fundacja powstała w Gdańsku i zaczyna od Trójmiasta,
+            ale działa w całej Polsce.
+          </p>
+        </div>
+      </section>
+
+      <section class={row} aria-labelledby="dzialania">
+        <h2 id="dzialania" class={rowLabel}>Działania</h2>
+        <ul class={list}>
+          {
+            ACTIVITIES.map((activity) => (
+              <li class={item} id={activity.id}>
+                <h3 class="flex items-baseline justify-between gap-4 text-row font-semibold md:flex-col md:items-start md:gap-2">
+                  <span>{activity.label}</span>
+                  <span class="label text-muted">({activity.no})</span>
+                </h3>
+                <div class={`flex flex-col gap-3 ${itemText}`}>
+                  <p>{activity.description}</p>
+                  {activity.href && (
+                    <p>
+                      <a href={activity.href} class={link}>
+                        {activity.linkLabel} <span aria-hidden="true">→</span>
+                      </a>
+                    </p>
+                  )}
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class={row} aria-labelledby="cele">
+        <h2 id="cele" class={rowLabel}>Cele statutowe</h2>
+        <div class={rowBody}>
+          <p class={`${itemText} mb-5`}>
+            Z § 5 <a href={STATUTE_PATH} class={link}>statutu</a>. Celami
+            Fundacji są:
+          </p>
+          <ol class="flex max-w-[62ch] flex-col gap-3">
+            {
+              GOALS.map((goal, index) => (
+                <li class={`flex gap-4 ${itemText}`}>
+                  <span class="label shrink-0 pt-[0.35em] text-muted">
+                    ({String(index + 1).padStart(2, "0")})
+                  </span>
+                  <span>{goal};</span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <!-- Zespół: fundatorzy, zarazem cały Zarząd. Zdjęcie w kolumnie
+           bocznej, bio od linii 5 – ten sam szkielet, co strona wpisu. -->
+      <section id="zespol" aria-labelledby="zespol-naglowek">
+        <h2
+          id="zespol-naglowek"
+          class="label border-b border-hairline px-5 pt-7 pb-6 text-muted md:px-8"
+        >
+          Fundatorzy i Zarząd
+        </h2>
+        {
+          FOUNDERS.map((person) => {
+            const photo = photos[person.id];
+            return (
+              <article
+                id={person.id}
+                class="grid border-b border-hairline md:grid-aside-left"
+              >
+                <HeroPhoto
+                  src={photo.src}
+                  alt={photo.alt}
+                  caption={person.name}
+                  position={photo.position}
+                  class="aspect-[4/5] border-b border-hairline md:aspect-auto md:min-h-[30rem] md:border-r md:border-b-0"
+                />
+                <div class="flex flex-col gap-5 px-5 py-7 md:px-8 md:py-10 lg:px-10">
+                  <h3 class="flex flex-col gap-2">
+                    <span class="text-row font-semibold">{person.fullName}</span>
+                    <span class="label text-muted">
+                      ({person.role} · {person.jobTitle})
+                    </span>
+                  </h3>
+                  <div class={`max-w-[62ch] flex flex-col gap-4 ${itemText}`}>
+                    {person.bio.map((paragraph) => (
+                      <p>{paragraph}</p>
+                    ))}
+                    <p>
+                      <a
+                        href={withUtm(person.href, "zespol")}
+                        target="_blank"
+                        rel="noopener"
+                        class={link}
+                      >
+                        {new URL(person.href).host}
+                        <span class="sr-only"> (otwiera się w nowej karcie)</span>
+                      </a>
+                    </p>
+                  </div>
+                </div>
+              </article>
+            );
+          })
+        }
+      </section>
+
+      <section class={row} aria-labelledby="dane">
+        <h2 id="dane" class={rowLabel}>Dane rejestrowe</h2>
+        <dl class="divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10">
+          {
+            registry.map((entry) => (
+              <div class={`${item} py-4`}>
+                <dt class="label pt-[0.2em] text-muted">{entry.label}</dt>
+                <dd class={itemText}>{entry.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
+      <section class={row} aria-labelledby="dokumenty">
+        <h2 id="dokumenty" class={rowLabel}>Dokumenty</h2>
+        <ul class={list}>
+          <li class={item}>
+            <h3 class="text-row font-semibold">Statut</h3>
+            <p class={itemText}>
+              Pełny tekst statutu w jednym miejscu, bez PDF-a:{" "}
+              <a href={STATUTE_PATH} class={link}>
+                statut Fundacji Pierwsze Demo <span aria-hidden="true">→</span>
+              </a>
+            </p>
+          </li>
+          <li class={item} id="sprawozdania">
+            <h3 class="text-row font-semibold">Sprawozdania</h3>
+            <div class={`flex flex-col gap-3 ${itemText}`}>
+              <p>
+                Co roku Zarząd składa ministrowi sprawozdanie z działalności
+                fundacji i publikuje je tutaj. Pierwsze – za rok 2026 – ukaże
+                się w 2027 roku.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </section>
+
+      <section class={`${row} border-b-ink`} aria-labelledby="wsparcie">
+        <h2 id="wsparcie" class={rowLabel}>Finansowanie</h2>
+        <div class={`${rowBody} ${prose}`}>
+          <p>
+            Fundacja utrzymuje się z darowizn, dotacji i grantów oraz
+            z odpłatnej działalności pożytku publicznego – biletowanych
+            koncertów i warsztatów, rozliczanych po kosztach. Nie prowadzi
+            działalności gospodarczej, a członkowie Zarządu nie pobierają
+            wynagrodzenia za pełnienie funkcji.
+          </p>
+          <p>
+            <a href={SUPPORT_PATH} class={link}>
+              Jak wesprzeć fundację <span aria-hidden="true">→</span>
+            </a>
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="flex flex-col gap-5 px-5 py-8 md:flex-row md:items-center md:justify-between md:px-8"
+      >
+        <div>
+          <h2 class="label text-muted">Kontakt</h2>
+          <p class="mt-3 text-xl font-semibold">
+            Masz pytanie, projekt albo chcesz z nami pracować?
+          </p>
+        </div>
+        {/* Adres dosłownie, nie „Napisz do nas": nawigacja nie ma komórki
+            Kontakt, więc to tutaj ktoś szuka adresu. Wersaliki robi CSS –
+            w DOM-ie i po skopiowaniu adres zostaje małymi literami. */}
+        <EmailLink
+          class="label self-start border border-ink px-5 py-4 transition-colors hover:bg-ink hover:text-white md:self-auto"
+        >
+          {CONTACT_EMAIL} <span aria-hidden="true">↗</span>
+        </EmailLink>
+      </section>
+    </main>
+
+    <SupportBand />
+    <Footer />
+  </div>
+</BaseLayout>

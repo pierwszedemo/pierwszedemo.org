@@ -1,8 +1,7 @@
 ---
 title: Początkujący manager muzyczny robi wszystko oprócz muzyki
 lead: Na starcie jesteś sprzedawcą, bookerem, marketingowcem i fotografem naraz. A główna robota i tak polega na pilnowaniu, żeby artyści kończyli to, co zaczęli.
-category: Zarządzanie
-kind: notatka
+kind: opinia
 date: 2026-08-19
 keyphrase: początkujący manager artysty
 readingMinutes: 2
@@ -14,7 +13,7 @@ Dwójkę, choć w rosterze formalnie mam jedną artystkę. Ola Geppert i Ioanni 
 
 **A i tak moje główne zadanie to kopanie artystów w dupę.** Ale po kolei.
 
-W branży mówi się na to „360”. Brzmi jak przemyślany model biznesowy. Prawda jest prostsza: na tym etapie nie stać Cię na agencję do żadnego z tych zadań, a [rachunek płacisz czasem, nie przelewem](/blog/ile-kosztuje-niezalezny-singiel).
+W branży mówi się na to „360”. Brzmi jak przemyślany model biznesowy. Prawda jest prostsza: na tym etapie nie stać Cię na agencję do żadnego z tych zadań, a [rachunek płacisz czasem, nie przelewem](/wiedza/ile-kosztuje-niezalezny-singiel).
 
 Okładka do singla? Kilka godzin na peronie kolejowym i setki zdjęć do przejrzenia.
 
@@ -26,10 +25,10 @@ Niektórzy mówią, że to artystom musi zależeć bardziej niż managerowi. Abs
 
 „Będziemy mieć 100 tys. słuchaczy po pierwszym singlu”. „To będzie gotowe na jutro”. „Został tylko mastering, a to już proste”. Znasz to?
 
-Każde z tych zdań świetnie brzmi i nic z nich nie wynika. „100 tys. słuchaczy” to nie plan, tylko [zakład, którego nikt nie zamierza rozliczyć](/blog/grupa-docelowa-artysty). „Gotowe na jutro” nigdy nie znaczy jutro. A „tylko mastering” jakimś cudem nigdy nie jest tylko masteringiem.
+Każde z tych zdań świetnie brzmi i nic z nich nie wynika. „100 tys. słuchaczy” to nie plan, tylko [zakład, którego nikt nie zamierza rozliczyć](/wiedza/grupa-docelowa-artysty). „Gotowe na jutro” nigdy nie znaczy jutro. A „tylko mastering” jakimś cudem nigdy nie jest tylko masteringiem.
 
 Więc ostudzam, urealniam, ściągam na ziemię. Kalendarz wydawniczy planuję od daty premiery wstecz, z buforem na wszystko, co miało „być gotowe na jutro”. Nie po to, żeby odbierać komukolwiek entuzjazm – po to, żeby premiera wydarzyła się naprawdę, a nie w trybie przypuszczającym.
 
-Do tego wspólny kalendarz, regularne spotkania w domu i premiera ustawiona pod [Great September](https://greatseptember.pl/). Termin, którego nie da się przesunąć motywuje lepiej niż manager. A motywacja jest tu potrzebna do najnudniejszej części tej roboty, czyli do kończenia rzeczy zaczętych. Bez tego zostaje [szuflada pełna _prawie_ gotowych singli](/blog/ep-czy-seria-singli).
+Do tego wspólny kalendarz, regularne spotkania w domu i premiera ustawiona pod [Great September](https://greatseptember.pl/). Termin, którego nie da się przesunąć motywuje lepiej niż manager. A motywacja jest tu potrzebna do najnudniejszej części tej roboty, czyli do kończenia rzeczy zaczętych. Bez tego zostaje [szuflada pełna _prawie_ gotowych singli](/wiedza/ep-czy-seria-singli).
 
 Marzenia są po stronie artystów. Terminy po Twojej.

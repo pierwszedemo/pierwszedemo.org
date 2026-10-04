@@ -1,0 +1,27 @@
+---
+import { isoDate } from "../collections";
+import { FOUNDERS } from "../consts";
+
+/**
+ * Podpis pod wpisem w kolumnie „W skrócie”. Wpisy pisze Michał w pierwszej
+ * osobie – podpis z funkcją w fundacji mówi czytelnikowi, czyj to głos,
+ * bez przepisywania tekstów na głos organizacji.
+ */
+interface Props {
+  updated?: Date;
+}
+const { updated } = Astro.props;
+const author = FOUNDERS[0];
+---
+
+<p class="label text-muted">
+  {author.name}, {author.role.toLowerCase()}
+  {
+    updated && (
+      <>
+        <br />
+        aktualizacja: <time datetime={isoDate(updated)}>{isoDate(updated)}</time>
+      </>
+    )
+  }
+</p>

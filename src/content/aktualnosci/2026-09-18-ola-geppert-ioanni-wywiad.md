@@ -1,8 +1,7 @@
 ---
 title: Trzy tygodnie i dwa lata. Wywiad z Olą Geppert i Ioannim
 lead: 'Singiel „To nie ja” powstawał prawie dwa lata. Samo komponowanie i produkcja zajęły z tego dwa, trzy tygodnie. Więc co działo się przez resztę czasu?'
-category: Wydawnictwa
-kind: przewodnik
+kind: rozmowa
 date: 2026-09-18
 keyphrase: ola geppert ioanni
 pullquote: 'Zamiast uchwycić jakiś moment, przedłużamy tę chwilę i jest takie ryzyko, że gdzieś straci się ten impet, i to, co pierwotnie było świeże i lekkie, może być gorsze albo nawet wcale nie wyjść. Zakurzyć się w szufladzie.'
@@ -181,4 +180,4 @@ _Przypis: Ola Geppert użyczyła głosu do ścieżki dźwiękowej filmu „Sędz
 
 ## Podsumowanie
 
-Szykuje się ciekawe wydawnictwo, które powstawało aż dwa lata. Swoboda artystyczna, którą oboje opisują, ma swoją cenę i jest nią czas: kiedy nikt nie [płaci za godziny w studiu](/blog/ile-kosztuje-niezalezny-singiel), nic nie zmusza do postawienia kropki.
+Szykuje się ciekawe wydawnictwo, które powstawało aż dwa lata. Swoboda artystyczna, którą oboje opisują, ma swoją cenę i jest nią czas: kiedy nikt nie [płaci za godziny w studiu](/wiedza/ile-kosztuje-niezalezny-singiel), nic nie zmusza do postawienia kropki.

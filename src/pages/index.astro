@@ -2,81 +2,82 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import HeroPhoto from "../components/HeroPhoto.astro";
 import EmailLink from "../components/EmailLink.astro";
+import SupportBand from "../components/SupportBand.astro";
+import { getSortedNews, isoDate } from "../collections";
 import {
+  ACTIVITIES,
+  FOUNDATION_PATH,
   HOME_CITY,
-  PERSON_NAME,
-  ROSTER,
-  SERVICES,
+  NEWS_KINDS,
+  NEWS_PATH,
+  PROJECTS,
   SITE_NAME,
   SITE_TAGLINE,
-  SERVICE_PATH,
   withUtm,
 } from "../consts";
+import { fixHanging } from "../typography";
+
+// Trzy ostatnie aktualności – strona główna ma pokazywać, że fundacja żyje,
+// a nie dublować listę.
+const news = (await getSortedNews()).slice(0, 3);
 ---
 
 {
-  /* Tytuł: nazwisko i obie frazy zawodowe z przodu, marka na końcu – „Pierwsze
-     Demo" jest nowe i nikt go jeszcze nie wyszukuje, a Google ucina tytuł
-     po ~60 znakach, więc to, co ma rankować, musi być przed kreską. Zapytania
-     po nazwisku muszą dalej trafiać tutaj. */
+  /* Tytuł: nazwa fundacji z przodu, bo to pod nią ma być znajdowana; fraza
+     „twórców muzycznych” i miasto po kresce, w limicie ~60 znaków. */
 }
 <BaseLayout
-  title={`${PERSON_NAME} – ${SITE_TAGLINE.toLowerCase()}, manager artystów | ${SITE_NAME}`}
-  description={`${SITE_TAGLINE} z ${HOME_CITY}a: management artystów, wydawnictwa i booking dla muzyków alternatywnych. Od pierwszego demo do festiwalowych scen – z planem, nie z przypadku.`}
+  title={`${SITE_NAME} – wsparcie młodych twórców muzycznych, ${HOME_CITY}`}
   schemaPageType="ProfilePage"
 >
   <div class="flex min-h-dvh flex-col">
     <Nav />
 
     <main class="flex flex-1 flex-col">
-      <!-- Pasmo hero: tekst + zdjęcie. W makiecie prawa kolumna ma stałe
-           400 px; poniżej `md` zdjęcie schodzi pod tekst. -->
-      <!-- Zdjęcie stoi w kolumnie bocznej siatki (5 z 16 modułów), nie
-           w makietowych 400 px: jej krawędź jest przedłużeniem ostatniej linii
-           nawigacji. Szerokość – `--aside` w global.css. -->
-      <div
-        class="grid flex-1 md:grid-aside-right"
-      >
+      <!-- Pasmo hero: tekst + czarna komórka z projektami. Prawa kolumna to
+           kolumna boczna siatki (5 z 16 modułów) – jej krawędź jest
+           przedłużeniem ostatniej linii nawigacji. -->
+      <div class="grid flex-1 md:grid-aside-right">
         <div
           class="flex min-w-0 flex-col justify-between gap-14 border-b border-ink px-5 py-12 md:border-r md:border-b-0 md:px-8 md:pt-16 md:pb-11"
         >
           <div>
             {
-              /* Nagłówkiem strony jest nadtytuł, nie slogan: „Michał
-                 Miszczyszyn – Manager muzyczny – Gdańsk" niesie frazy, pod
-                 które ta strona ma się wyświetlać, a „Kariera to strategia."
-                 nie niesie żadnej. Wizualnie nic się nie zmienia – h1 zostaje
-                 małą etykietą monospace, a slogan dalej jest największym
-                 tekstem na stronie. */
+              /* Nagłówkiem strony jest nadtytuł, nie slogan: „Fundacja Pierwsze
+                 Demo – Wsparcie młodych twórców muzycznych – Gdańsk" niesie
+                 frazy, pod które ta strona ma się wyświetlać, a slogan nie
+                 niesie żadnej. Wizualnie h1 zostaje małą etykietą monospace,
+                 a slogan dalej jest największym tekstem na stronie. */
             }
             <h1 class="label text-muted">
-              ({PERSON_NAME} – {SITE_TAGLINE} – {HOME_CITY})
+              ({SITE_NAME} – {SITE_TAGLINE} – {HOME_CITY})
             </h1>
             <p
               class="mt-6 text-hero leading-[0.98] font-semibold tracking-[-0.035em] text-balance md:mt-[26px]"
             >
-              Kariera to <br class="hidden md:inline" />strategia.
+              Pierwsze demo <br class="hidden md:inline" />to początek.
             </p>
           </div>
 
           <div class="flex flex-col gap-7">
             <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
-              Prowadzę muzyków i zespoły alternatywne od pierwszego demo do
-              festiwalowych scen – z planem, nie z przypadku.
+              Fundacja wspiera młodych i początkujących twórców muzycznych:
+              organizuje koncerty, pomaga nagrać i wydać pierwsze piosenki,
+              uczy, jak działa branża, i prowadzi karierę tam, gdzie jest już
+              co prowadzić.
             </p>
             <ul
               class="flex flex-col gap-3 font-mono text-[13px] leading-none font-medium tracking-[0.14em] uppercase sm:flex-row sm:flex-wrap sm:gap-x-9 sm:gap-y-3"
             >
               {
-                SERVICES.map((service) => (
+                ACTIVITIES.map((activity) => (
                   <li>
                     <a
-                      href={`${SERVICE_PATH}#${service.id}`}
+                      href={`${FOUNDATION_PATH}#${activity.id}`}
                       class="underline decoration-1 underline-offset-4"
                     >
-                      ({service.no}) {service.label}
+                      ({activity.no}) {activity.label}
                     </a>
                   </li>
                 ))
@@ -85,37 +86,72 @@ import {
           </div>
         </div>
 
-        <HeroPhoto class="aspect-[4/5] md:aspect-auto" />
+        <!-- Projekty w toku zamiast zdjęcia: strona fundacji pokazuje, co się
+             dzieje, nie kto za nią stoi – ludzie są na /fundacja. -->
+        <section
+          class="flex flex-col justify-between gap-10 bg-ink px-5 py-7 text-white md:px-8 md:py-10"
+          aria-labelledby="teraz"
+        >
+          <h2 id="teraz" class="label text-white/60">Teraz</h2>
+          <ul class="flex flex-col gap-6">
+            {
+              PROJECTS.map((project) => {
+                const external = project.href.startsWith("http");
+                return (
+                  <li>
+                    <a
+                      href={external ? withUtm(project.href, "teraz") : project.href}
+                      target={external ? "_blank" : undefined}
+                      rel={external ? "noopener" : undefined}
+                      class="group flex flex-col gap-1.5"
+                    >
+                      <span class="text-roster font-semibold tracking-[-0.02em] underline decoration-1 underline-offset-[6px] group-hover:decoration-2">
+                        {project.name}
+                      </span>
+                      <span class="label text-white/60">
+                        {project.meta}
+                        {external && <span class="sr-only"> (otwiera się w nowej karcie)</span>}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })
+            }
+          </ul>
+        </section>
       </div>
 
-      <!-- Roster + kontakt. „Artyści" z nawigacji celuje w #roster. -->
+      <!-- Aktualności + kontakt. Linia 8 = środek strony. -->
       <div class="grid border-t border-ink md:grid-cols-2">
         <section
-          id="roster"
           class="flex flex-col gap-2.5 border-b border-hairline px-5 py-6 md:border-r md:border-b-0 md:px-8"
+          aria-labelledby="ostatnie"
         >
-          <h2 class="label text-muted">
-            Roster ({String(ROSTER.length).padStart(2, "0")})
+          <h2 id="ostatnie" class="label text-muted">
+            <a href={NEWS_PATH}>Aktualności</a>
           </h2>
-          {
-            ROSTER.map((artist) => (
-              <a
-                href={withUtm(artist.href, "roster")}
-                target="_blank"
-                rel="noopener"
-                data-social={artist.name}
-                class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
-              >
-                <span class="text-roster font-semibold tracking-[-0.02em]">
-                  {artist.name}
-                </span>
-                <span class="text-sm text-muted">
-                  {artist.genres} <span aria-hidden="true">→</span>
-                  <span class="sr-only">(otwiera się w nowej karcie)</span>
-                </span>
-              </a>
-            ))
-          }
+          <ul class="flex flex-col divide-y divide-hairline">
+            {
+              news.map((entry) => (
+                <li>
+                  <a
+                    href={`${NEWS_PATH}/${entry.id}`}
+                    class="flex flex-col gap-1.5 py-4 first:pt-1"
+                  >
+                    <span class="text-row font-semibold tracking-[-0.02em] text-balance">
+                      {fixHanging(entry.data.title)}
+                    </span>
+                    <span class="label text-muted">
+                      <time datetime={isoDate(entry.data.date)}>
+                        {isoDate(entry.data.date)}
+                      </time>{" "}
+                      · {NEWS_KINDS[entry.data.kind]}
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
         </section>
 
         <section class="flex flex-col gap-2.5 px-5 py-6 md:px-8">
@@ -123,10 +159,15 @@ import {
           <EmailLink
             class="text-[clamp(1.125rem,3.2vw,1.625rem)] font-semibold break-all underline decoration-2 underline-offset-[6px]"
           />
+          <p class="mt-2 max-w-[40ch] text-sm leading-[1.6] text-body">
+            Tworzysz muzykę i chcesz zagrać, nagrać albo zapytać? Napisz.
+            Organizujesz, wydajesz, uczysz? Też napisz.
+          </p>
         </section>
       </div>
     </main>
 
+    <SupportBand />
     <Footer />
   </div>
 </BaseLayout>

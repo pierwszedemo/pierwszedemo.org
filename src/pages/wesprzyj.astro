@@ -1,0 +1,200 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import EmailLink from "../components/EmailLink.astro";
+import {
+  CONTACT_EMAIL,
+  DONATION_TITLE,
+  FOUNDATION,
+  FOUNDATION_PATH,
+  HOME_CITY,
+  SITE_NAME,
+  SITE_URL,
+  SUPPORT_PATH,
+} from "../consts";
+import { breadcrumbJsonLd } from "../schema";
+
+/*
+ * Jedno wejście dla darczyńcy, wolontariusza i partnera. Bez formularzy
+ * i bramki płatności: przelew na konto fundacji to nie zbiórka publiczna,
+ * nie wymaga zgłoszenia ani regulaminu, a formularz pociągnąłby za sobą
+ * klauzulę RODO i nowy wiersz w polityce. Numer konta pojawia się po
+ * wpisie do KRS – do tego czasu sekcja mówi wprost, że go jeszcze nie ma.
+ */
+const canonical = new URL(SUPPORT_PATH, SITE_URL).href;
+const breadcrumb = breadcrumbJsonLd(
+  [
+    { name: "Start", path: "/" },
+    { name: "Wesprzyj", path: SUPPORT_PATH },
+  ],
+  canonical,
+);
+
+const transfer = [
+  { label: "Odbiorca", value: FOUNDATION.name },
+  {
+    label: "Adres",
+    value: `${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}`,
+  },
+  {
+    label: "Numer konta",
+    value: FOUNDATION.iban || "podamy po wpisie fundacji do KRS",
+  },
+  { label: "Tytuł przelewu", value: DONATION_TITLE },
+] as const;
+
+const WAYS = [
+  {
+    no: "01",
+    id: "darowizna",
+    title: "Darowizna",
+    text: "Jednorazowa albo stała, dowolnej wysokości. Każda złotówka idzie na cele statutowe: koncerty, nagrania, warsztaty i wsparcie konkretnych twórców.",
+  },
+  {
+    no: "02",
+    id: "wolontariat",
+    title: "Wolontariat",
+    text: "Przy koncertach potrzebujemy rąk do pracy: obsługa wejścia, zdjęcia, wideo, nagłośnienie, transport. Napisz, co umiesz i ile masz czasu – odezwiemy się przed najbliższym wydarzeniem.",
+  },
+  {
+    no: "03",
+    id: "partnerstwo",
+    title: "Partnerstwo",
+    text: "Sala na koncert, studio na sesję, sprzęt, druk, patronat medialny albo wsparcie finansowe konkretnego projektu. Firmy odliczają darowiznę od dochodu tak samo jak osoby prywatne – do 10% dochodu.",
+  },
+] as const;
+
+const row = "grid border-b border-hairline md:grid-aside-left";
+const rowLabel =
+  "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
+const rowBody = "px-5 py-7 md:px-8 md:py-10 lg:px-10";
+const prose =
+  "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
+const list = "divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10";
+const item =
+  "grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
+const itemText =
+  "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
+const link = "underline decoration-1 underline-offset-4";
+---
+
+<BaseLayout
+  title={`Wesprzyj fundację – darowizna, wolontariat, partnerstwo | ${SITE_NAME}`}
+  description={`Jak wesprzeć ${SITE_NAME} z ${HOME_CITY}a: darowizna na cele statutowe z odliczeniem od podatku, wolontariat przy koncertach, partnerstwo firm i instytucji.`}
+  canonicalPath={SUPPORT_PATH}
+  extraJsonLd={[breadcrumb]}
+>
+  <div class="flex min-h-dvh flex-col">
+    <Nav />
+
+    <main class="flex-1">
+      <header class="grid border-b border-ink lg:grid-aside-right">
+        <div class="px-5 pt-10 pb-9 md:px-8 md:pt-13 lg:border-r lg:border-hairline">
+          <p class="label text-muted">({SITE_NAME} – wsparcie)</p>
+          <h1
+            class="mt-5 text-page leading-[0.95] font-semibold tracking-[-0.035em] text-balance"
+          >
+            Wesprzyj fundację.
+          </h1>
+        </div>
+        <p
+          class="flex items-end bg-ink px-5 py-7 text-[clamp(1.35rem,2.4vw,2rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white text-balance md:px-8 lg:bg-white lg:text-ink"
+        >
+          Pieniądze, czas albo miejsce – każde z tych trzech przybliża kogoś
+          do pierwszego koncertu.
+        </p>
+      </header>
+
+      <section class={row} aria-labelledby="jak">
+        <h2 id="jak" class={rowLabel}>Jak pomóc</h2>
+        <ul class={list}>
+          {
+            WAYS.map((way) => (
+              <li class={item} id={way.id}>
+                <h3 class="flex items-baseline justify-between gap-4 text-row font-semibold md:flex-col md:items-start md:gap-2">
+                  <span>{way.title}</span>
+                  <span class="label text-muted">({way.no})</span>
+                </h3>
+                <p class={itemText}>{way.text}</p>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class={row} aria-labelledby="przelew">
+        <h2 id="przelew" class={rowLabel}>Dane do przelewu</h2>
+        <dl class="divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10">
+          {
+            transfer.map((entry) => (
+              <div class={`${item} py-4`}>
+                <dt class="label pt-[0.2em] text-muted">{entry.label}</dt>
+                <dd class={`${itemText} ${entry.label === "Numer konta" && FOUNDATION.iban ? "font-mono" : ""}`}>
+                  {entry.value}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
+      <section class={row} aria-labelledby="podatek">
+        <h2 id="podatek" class={rowLabel}>Odliczenie od podatku</h2>
+        <div class={`${rowBody} ${prose}`}>
+          <p>
+            Darowiznę na cele statutowe fundacji odliczysz od dochodu
+            w rocznym zeznaniu: osoby fizyczne do 6% dochodu (art. 26 ust. 1
+            pkt 9 ustawy o PIT), firmy do 10% (art. 18 ust. 1 pkt 1 ustawy
+            o CIT). Dowodem jest potwierdzenie przelewu z tytułem „{DONATION_TITLE}”
+            – nie potrzebujesz od nas żadnego dodatkowego dokumentu.
+          </p>
+          <p>
+            Fundacja nie ma statusu organizacji pożytku publicznego, więc nie
+            przyjmuje 1,5% podatku. Jeśli to się zmieni, napiszemy o tym tutaj
+            i w aktualnościach.
+          </p>
+        </div>
+      </section>
+
+      <section class={`${row} border-b-ink`} aria-labelledby="na-co">
+        <h2 id="na-co" class={rowLabel}>Na co idą pieniądze</h2>
+        <div class={`${rowBody} ${prose}`}>
+          <p>
+            Na realizację celów statutowych: honoraria dla artystów
+            i techniki na koncertach, wynajem sal i sprzętu, nagrania,
+            dystrybucję i materiały prasowe debiutantów, warsztaty
+            i konsultacje. Członkowie Zarządu nie pobierają wynagrodzenia za
+            pełnienie funkcji, a fundacja nie prowadzi działalności
+            gospodarczej.
+          </p>
+          <p>
+            Co roku publikujemy{" "}
+            <a href={`${FOUNDATION_PATH}#sprawozdania`} class={link}>
+              sprawozdanie z działalności
+            </a>{" "}
+            – z niego dowiesz się, co z tego wyszło.
+          </p>
+        </div>
+      </section>
+
+      <section
+        class="flex flex-col gap-5 px-5 py-8 md:flex-row md:items-center md:justify-between md:px-8"
+      >
+        <div>
+          <h2 class="label text-muted">Kontakt</h2>
+          <p class="mt-3 text-xl font-semibold">
+            Wolontariat, partnerstwo, darowizna rzeczowa? Napisz.
+          </p>
+        </div>
+        <EmailLink
+          class="label self-start border border-ink px-5 py-4 transition-colors hover:bg-ink hover:text-white md:self-auto"
+        >
+          {CONTACT_EMAIL} <span aria-hidden="true">↗</span>
+        </EmailLink>
+      </section>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

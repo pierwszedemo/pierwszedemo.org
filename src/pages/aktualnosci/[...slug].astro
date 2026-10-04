@@ -1,0 +1,40 @@
+---
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import Byline from "../../components/Byline.astro";
+import { getSortedNews, type News } from "../../collections";
+import { NEWS_KINDS, NEWS_PATH } from "../../consts";
+
+interface Props {
+  entry: News;
+  next?: News;
+}
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const entries = await getSortedNews();
+  return entries.map((entry, index) => ({
+    params: { slug: entry.id },
+    props: { entry, next: entries[index + 1] },
+  }));
+}
+
+const { entry, next } = Astro.props;
+// Dwie łamy tylko dla krótkich relacji i opinii; rozmowa z `###` co drugi
+// akapit jest długa jak przewodnik i czyta się ją w jednej.
+const twoColumns = entry.data.kind !== "rozmowa" && entry.data.readingMinutes <= 4;
+---
+
+<ArticleLayout
+  entry={entry}
+  section={{ label: "Aktualności", href: NEWS_PATH }}
+  meta={NEWS_KINDS[entry.data.kind]}
+  twoColumns={twoColumns}
+  next={next && { href: `${NEWS_PATH}/${next.id}`, title: next.data.title }}
+  keywords={[entry.data.keyphrase, NEWS_KINDS[entry.data.kind]].filter(
+    (keyword): keyword is string => Boolean(keyword),
+  )}
+  oldestLabel="To najstarsza aktualność."
+>
+  <Byline slot="aside" updated={entry.data.updated} />
+</ArticleLayout>
