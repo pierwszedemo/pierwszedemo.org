@@ -10,7 +10,7 @@ import { HOME_CITY, SITE_HOST, SITE_NAME, SITE_TAGLINE, WORDMARK } from "./const
  *
  * Dlaczego satori, a nie samo SVG w sharpie: sharp renderuje SVG librsvg,
  * który sięga po *systemowe* fonty – Archivo nie ma ani na tej maszynie, ani
- * na builderze Vercela, więc tekst wyszedłby zastępczym krojem. Satori dostaje
+ * na builderze Cloudflare, więc tekst wyszedłby zastępczym krojem. Satori dostaje
  * pliki TTF wprost i zamienia tekst na ścieżki, więc sharp rasteryzuje już
  * gotowe kształty. Stąd też wersje TTF w `src/assets/fonts` – Fonts API Astro
  * cachuje woff2, którego satori nie czyta.

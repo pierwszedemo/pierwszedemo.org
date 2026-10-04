@@ -122,7 +122,7 @@ Zapisz do `instagram/_<data>-<slug>-karuzela/spec.json`:
   przewodniku – patrz krok 2).
 - `cta` jest opcjonalne – domyślne wartości (powyżej) są dobre w 90% przypadków;
   `lines` to tablica 1–4 linii po ≤22 znaki, `url` ≤60 znaków. Adres renderuje
-  się małymi literami – ścieżki na Vercelu rozróżniają wielkość liter.
+  się małymi literami – ścieżki na hostingu rozróżniają wielkość liter.
 - Żadne słowo nie może być dłuższe niż: 17 znaków w hooku, 26 w nagłówku, 30
   w akapicie, 16 w linii CTA – satori nie dzieli wyrazów i taki token wyjechałby
   poza kadr. Długi adres albo hashtag w treści slajdu to zły pomysł także z

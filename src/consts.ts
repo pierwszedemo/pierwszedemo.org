@@ -50,6 +50,14 @@ export const LAST_CONTENT_UPDATE = "2026-10-04";
  */
 export const GA_ID = "G-MHM5P6X3TG";
 
+/**
+ * Token Cloudflare Web Analytics (panel Cloudflare → Web Analytics → strona →
+ * „Manage site”). Pusty = beacon się nie ładuje. Ustawiony ręcznie tutaj, a nie
+ * automatycznym wstrzykiwaniem w panelu – wtedy skrypt na stronie byłby
+ * niewidoczny w repo, a polityka prywatności i tak musi go wymieniać.
+ */
+export const CF_BEACON_TOKEN = "";
+
 /** Marka w lewej komórce nagłówka. Bez ® – nazwa fundacji nie jest znakiem zarejestrowanym. */
 export const WORDMARK = SITE_NAME;
 
@@ -304,15 +312,15 @@ export const CONSENT_COOKIE_DAYS = 182;
 /** Narzędzia zewnętrzne działające na stronie – tabela w polityce. */
 export const PRIVACY_TOOLS = [
   {
-    name: "Vercel (hosting)",
-    provider: "Vercel Inc., USA",
+    name: "Cloudflare (hosting)",
+    provider: "Cloudflare, Inc., USA",
     purpose: "Serwowanie strony, logi serwera, ochrona przed nadużyciami.",
     storage: "Brak cookies",
     basis: "Uzasadniony interes (art. 6 ust. 1 lit. f RODO)",
   },
   {
-    name: "Vercel Web Analytics",
-    provider: "Vercel Inc., USA",
+    name: "Cloudflare Web Analytics",
+    provider: "Cloudflare, Inc., USA",
     purpose:
       "Zliczanie odwiedzin i kliknięć w linki, bez identyfikowania użytkowników.",
     storage: "Brak cookies",
@@ -366,7 +374,7 @@ export const PRIVACY_SECTIONS = [
       "Przy pierwszej wizycie widzisz baner z pytaniem o cookies. Do momentu Twojej decyzji Google Analytics nie zapisuje niczego na Twoim urządzeniu – działa w trybie Google Consent Mode v2 z domyślnie odrzuconymi zgodami.",
       "Odmowa jest tak samo łatwa jak zgoda: oba przyciski są tej samej wielkości i dostępne jednym kliknięciem. Nic nie jest zaznaczone z góry.",
       "Decyzję zmienisz w każdej chwili – link „Cookies” w stopce otwiera panel ustawień. Po cofnięciu zgody zapisane wcześniej cookies analityczne są usuwane.",
-      `Umami i Vercel Web Analytics nie zapisują niczego na Twoim urządzeniu i nie tworzą profili – liczą odwiedziny i kliknięcia w linki w postaci zbiorczych statystyk, bez wiązania ich z konkretną osobą – dlatego działają niezależnie od banera. Cookie z Twoją decyzją o zgodach (${CONSENT_COOKIE}, ${CONSENT_COOKIE_DAYS} dni) jest niezbędne do działania samego mechanizmu zgody.`,
+      `Umami i Cloudflare Web Analytics nie zapisują niczego na Twoim urządzeniu i nie tworzą profili – liczą odwiedziny i kliknięcia w linki w postaci zbiorczych statystyk, bez wiązania ich z konkretną osobą – dlatego działają niezależnie od banera. Cookie z Twoją decyzją o zgodach (${CONSENT_COOKIE}, ${CONSENT_COOKIE_DAYS} dni) jest niezbędne do działania samego mechanizmu zgody.`,
       "Kroje pisma są serwowane z tego samego serwera co strona – przeglądanie serwisu nie wysyła żadnego zapytania do Google Fonts.",
       "W niektórych wpisach osadzony jest odtwarzacz Spotify. Wczytuje się razem ze stroną i Spotify zapisuje wtedy własne cookies oraz dane w localStorage, na zasadach opisanych w polityce prywatności Spotify. Jeśli tego nie chcesz, zablokuj cookies stron trzecich w ustawieniach przeglądarki.",
     ],
@@ -374,13 +382,13 @@ export const PRIVACY_SECTIONS = [
   {
     title: "Przekazywanie danych poza EOG",
     paragraphs: [
-      "Google, Vercel i Umami mogą przetwarzać dane w Stanach Zjednoczonych. Odbywa się to na podstawie decyzji Komisji Europejskiej o odpowiednim stopniu ochrony (EU–U.S. Data Privacy Framework) lub standardowych klauzul umownych.",
+      "Google, Cloudflare i Umami mogą przetwarzać dane w Stanach Zjednoczonych. Odbywa się to na podstawie decyzji Komisji Europejskiej o odpowiednim stopniu ochrony (EU–U.S. Data Privacy Framework) lub standardowych klauzul umownych.",
     ],
   },
   {
     title: "Jak długo przechowujemy dane",
     paragraphs: [
-      "Dane w Google Analytics są przechowywane maksymalnie 14 miesięcy. Statystyki Umami i Vercela są zagregowane i nie pozwalają na identyfikację. Korespondencja mailowa – przez czas potrzebny do obsługi sprawy i ewentualnych roszczeń.",
+      "Dane w Google Analytics są przechowywane maksymalnie 14 miesięcy. Statystyki Umami i Cloudflare są zagregowane i nie pozwalają na identyfikację. Korespondencja mailowa – przez czas potrzebny do obsługi sprawy i ewentualnych roszczeń.",
     ],
   },
   {

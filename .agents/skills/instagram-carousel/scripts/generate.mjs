@@ -118,7 +118,7 @@ const ctaSlide = () => frame(true, [
       ...ctaLines.map((line, i) =>
         el("div", { fontSize: 84, fontWeight: 600, lineHeight: 1.12, letterSpacing: "-0.03em", marginTop: i ? 8 : 0 }, line),
       ),
-      // Adres bez wersalików i rozstrzelenia: ścieżki na Vercelu rozróżniają
+      // Adres bez wersalików i rozstrzelenia: ścieżki na hostingu rozróżniają
       // wielkość liter, a 53-znakowy slug z trackingiem 0.18em łamał się w pół.
       el("div", { ...mono, textTransform: "none", letterSpacing: "0.04em", color: MUTED_ON_INK, marginTop: 48 }, ctaUrl),
     ],

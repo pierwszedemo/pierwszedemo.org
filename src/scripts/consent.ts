@@ -36,7 +36,7 @@ const syncGoogleConsent = () => {
 const domain = new URL(SITE_URL).hostname;
 
 export const consentConfig: CookieConsentConfig = {
-  // Umami i Vercel Web Analytics nie zapisują nic na urządzeniu (brak cookies
+  // Umami i Cloudflare Web Analytics nie zapisują nic na urządzeniu (brak cookies
   // i localStorage), więc art. 5(3) ePrivacy ich nie obejmuje – nie ma ich
   // w banerze. Wymienione są w polityce prywatności.
   root: "body",
@@ -157,7 +157,7 @@ export const consentConfig: CookieConsentConfig = {
             {
               title: "Bez cookies",
               description:
-                "Umami i Vercel Web Analytics zliczają odwiedziny, nie zapisując niczego na Twoim urządzeniu i nie tworząc profili. Dlatego działają zawsze i nie wymagają zgody.",
+                "Umami i Cloudflare Web Analytics zliczają odwiedziny, nie zapisując niczego na Twoim urządzeniu i nie tworząc profili. Dlatego działają zawsze i nie wymagają zgody.",
             },
           ],
         },
