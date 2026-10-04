@@ -9,6 +9,7 @@
         "@astrojs/markdown-satteri": "0.3.5",
         "@astrojs/rss": "4.0.19",
         "@astrojs/sitemap": "3.7.3",
+        "@tinacms/astro": "0.7.1",
         "astro": "7.3.5",
         "vanilla-cookieconsent": "3.1.0",
       },
@@ -694,6 +695,8 @@
     "@tanstack/virtual-core": ["@tanstack/virtual-core@3.17.11", "", {}, "sha512-+ILjvtHup6Y2hzQ6YzwMgX1Q+oQpxEGOXCEsCNaPoIP0VxMbizIBTmYTDtkerkIQS8/CbP1BRuyt8V/8BCsy1g=="],
 
     "@tinacms/app": ["@tinacms/app@2.5.14", "", { "dependencies": { "@graphiql/toolkit": "^0.11.3", "@monaco-editor/loader": "^1.7.0", "@radix-ui/react-popover": "^1.1.18", "@tinacms/mdx": "^2.2.3", "final-form": "4.20.10", "graphiql": "^4.1.2", "graphql": "15.8.0", "lucide-react": "^0.424.0", "react": "^18.3.1", "react-dom": "^18.3.1", "react-router-dom": "^6.30.3", "tinacms": "^3.14.0", "zod": "^3.24.2" } }, "sha512-/iqU4pBpV4OQxyMLU4ZSioueF3Oa/w6/sjM8HMCJNV/IVz20jEJsMnUibbjkwqR81dTm+TVOShDd8/cmbGOQuQ=="],
+
+    "@tinacms/astro": ["@tinacms/astro@0.7.1", "", { "dependencies": { "@tinacms/bridge": "^0.3.1" }, "peerDependencies": { "astro": "^5.0.0 || ^6.0.0 || ^7.0.0" } }, "sha512-WH4ZnZOqgiDZ0aJaHHqtkVhwo2syTBeuWxgvyBqHQHloVRUq40v2hoVQOcT/iwilf0w8R3JsLeB8I3JaMeZU0Q=="],
 
     "@tinacms/bridge": ["@tinacms/bridge@0.3.1", "", {}, "sha512-HgFZGFec+92FvXR5NVinQtPmkidWIubkjyYkNnRWlqFmGbhzIZE6GhMX/RWZ9uNYek6kRQUtpFnGaQeBkXo95Q=="],
 

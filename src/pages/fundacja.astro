@@ -5,6 +5,10 @@ import Footer from "../components/Footer.astro";
 import HeroPhoto from "../components/HeroPhoto.astro";
 import EmailLink from "../components/EmailLink.astro";
 import SupportBand from "../components/SupportBand.astro";
+import TinaIsland from "@tinacms/astro/TinaIsland.astro";
+import FundacjaDzialania from "../components/islands/FundacjaDzialania.astro";
+import Fundator from "../components/islands/Fundator.astro";
+import { wrappers } from "../components/islands/wrappers";
 import michal from "../assets/michal.jpg";
 import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
 import {
@@ -18,11 +22,9 @@ import {
   STATUTE_PATH,
   SUPPORT_PATH,
   registryValue,
-  withUtm,
 } from "../consts";
-import { ACTIVITIES, FOUNDERS } from "../strony";
+import { ACTIVITIES_DOC, FOUNDERS, FOUNDERS_DOC } from "../strony";
 import { breadcrumbJsonLd } from "../schema";
-import { fixHanging } from "../typography";
 
 /*
  * Jedna długa strona o fundacji: misja, cele statutowe, działania, ludzie,
@@ -66,22 +68,7 @@ const photos = {
   },
 } as const;
 
-// Lewa kolumna etykiet to kolumna boczna siatki (5 z 16 modułów). Opisy
-// pozycji zaczynają się na linii 8 (środek strony), stąd w listach tor
-// `3 moduły − 2 rem`: padding listy (2.5 rem) + tor + gap (2 rem) = linia 8
-// + 2.5 rem, oś tekstu jak w treści.
-const row = "grid border-b border-hairline md:grid-aside-left";
-const rowLabel =
-  "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
-const rowBody = "px-5 py-7 md:px-8 md:py-10 lg:px-10";
-const prose =
-  "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
-const list = "divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10";
-const item =
-  "grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
-const itemText =
-  "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
-const link = "underline decoration-1 underline-offset-4";
+import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../styles/fundacja";
 ---
 
 <BaseLayout
@@ -138,28 +125,9 @@ const link = "underline decoration-1 underline-offset-4";
 
       <section class={row} aria-labelledby="dzialania">
         <h2 id="dzialania" class={rowLabel}>Działania</h2>
-        <ul class={list}>
-          {
-            ACTIVITIES.map((activity) => (
-              <li class={item} id={activity.id}>
-                <h3 class="flex items-baseline justify-between gap-4 text-row font-semibold md:flex-col md:items-start md:gap-2">
-                  <span>{activity.label}</span>
-                  <span class="label text-muted">({activity.no})</span>
-                </h3>
-                <div class={`flex flex-col gap-3 ${itemText}`}>
-                  <p>{fixHanging(activity.description)}</p>
-                  {activity.href && (
-                    <p>
-                      <a href={activity.href} class={link}>
-                        {activity.linkLabel} <span aria-hidden="true">→</span>
-                      </a>
-                    </p>
-                  )}
-                </div>
-              </li>
-            ))
-          }
-        </ul>
+        <TinaIsland name="fundacja-dzialania" wrapper={wrappers["fundacja-dzialania"]}>
+          <FundacjaDzialania activities={ACTIVITIES_DOC} />
+        </TinaIsland>
       </section>
 
       <section class={row} aria-labelledby="cele">
@@ -194,7 +162,7 @@ const link = "underline decoration-1 underline-offset-4";
           Fundatorzy i Zarząd
         </h2>
         {
-          FOUNDERS.map((person) => {
+          FOUNDERS.map((person, index) => {
             const photo = photos[person.id];
             return (
               <article
@@ -208,31 +176,14 @@ const link = "underline decoration-1 underline-offset-4";
                   position={photo.position}
                   class="aspect-[4/5] border-b border-hairline md:aspect-auto md:min-h-[30rem] md:border-r md:border-b-0"
                 />
-                <div class="flex flex-col gap-5 px-5 py-7 md:px-8 md:py-10 lg:px-10">
-                  <h3 class="flex flex-col gap-2">
-                    <span class="text-row font-semibold">{person.fullName}</span>
-                    <span class="label text-muted">
-                      ({person.role} · {person.jobTitle})
-                    </span>
-                  </h3>
-                  <div class={`max-w-[62ch] flex flex-col gap-4 ${itemText}`}>
-                    {person.bio.map((paragraph) => (
-                      <p>{fixHanging(paragraph)}</p>
-                    ))}
-                    <p class="flex flex-wrap gap-x-6 gap-y-2">
-                      <EmailLink address={person.email} class={link} />
-                      <a
-                        href={withUtm(person.href, "zespol")}
-                        target="_blank"
-                        rel="noopener"
-                        class={link}
-                      >
-                        {new URL(person.href).host}
-                        <span class="sr-only"> (otwiera się w nowej karcie)</span>
-                      </a>
-                    </p>
-                  </div>
-                </div>
+                <TinaIsland
+                  name="fundator"
+                  wrapper={wrappers.fundator}
+                  params={{ id: person.id }}
+                  primary={index === 0}
+                >
+                  <Fundator person={FOUNDERS_DOC[person.id]} />
+                </TinaIsland>
               </article>
             );
           })

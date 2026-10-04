@@ -4,17 +4,14 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import EmailLink from "../components/EmailLink.astro";
 import SupportBand from "../components/SupportBand.astro";
+import TinaIsland from "@tinacms/astro/TinaIsland.astro";
+import HomeHero from "../components/islands/HomeHero.astro";
+import HomeTeraz from "../components/islands/HomeTeraz.astro";
+import HomeKontakt from "../components/islands/HomeKontakt.astro";
+import { wrappers } from "../components/islands/wrappers";
 import { getSortedNews, isoDate } from "../collections";
-import {
-  FOUNDATION_PATH,
-  HOME_CITY,
-  NEWS_KINDS,
-  NEWS_PATH,
-  SITE_NAME,
-  SITE_TAGLINE,
-  withUtm,
-} from "../consts";
-import { ACTIVITIES, HOMEPAGE, PROJECTS } from "../strony";
+import { HOME_CITY, NEWS_KINDS, NEWS_PATH, SITE_NAME } from "../consts";
+import { ACTIVITIES_DOC, HOMEPAGE_DOC } from "../strony";
 import { fixHanging } from "../typography";
 
 // Trzy ostatnie aktualności – strona główna ma pokazywać, że fundacja żyje,
@@ -38,58 +35,14 @@ const news = (await getSortedNews()).slice(0, 3);
            kolumna boczna siatki (5 z 16 modułów) – jej krawędź jest
            przedłużeniem ostatniej linii nawigacji. -->
       <div class="grid flex-1 md:grid-aside-right">
-        <div
-          class="flex min-w-0 flex-col justify-between gap-14 border-b border-ink px-5 py-12 md:border-r md:border-b-0 md:px-8 md:pt-16 md:pb-11"
-        >
-          <div>
-            {
-              /* Nagłówkiem strony jest nadtytuł, nie slogan: „Fundacja Pierwsze
-                 Demo – Wsparcie młodych twórców muzycznych – Gdańsk" niesie
-                 frazy, pod które ta strona ma się wyświetlać, a slogan nie
-                 niesie żadnej. Wizualnie h1 zostaje małą etykietą monospace,
-                 a slogan dalej jest największym tekstem na stronie. */
-            }
-            <h1 class="label text-muted">
-              ({SITE_NAME} – {SITE_TAGLINE} – {HOME_CITY})
-            </h1>
-            <p
-              class="mt-6 text-hero leading-[0.98] font-semibold tracking-[-0.035em] text-balance md:mt-[26px]"
-            >
-              {
-                /* Nowa linia w polu „Slogan” w Tinie = złamanie wiersza, ale
-                   tylko od md – na telefonie slogan łamie się sam. */
-                HOMEPAGE.slogan.split("\n").map((line, index) => (
-                  <>
-                    {index > 0 && <> <br class="hidden md:inline" /></>}
-                    {fixHanging(line)}
-                  </>
-                ))
-              }
-            </p>
-          </div>
-
-          <div class="flex flex-col gap-7">
-            <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
-              {fixHanging(HOMEPAGE.intro)}
-            </p>
-            <ul
-              class="flex flex-col gap-3 font-mono text-[13px] leading-none font-medium tracking-[0.14em] uppercase sm:flex-row sm:flex-wrap sm:gap-x-9 sm:gap-y-3"
-            >
-              {
-                ACTIVITIES.map((activity) => (
-                  <li>
-                    <a
-                      href={`${FOUNDATION_PATH}#${activity.id}`}
-                      class="underline decoration-1 underline-offset-4"
-                    >
-                      ({activity.no}) {activity.label}
-                    </a>
-                  </li>
-                ))
-              }
-            </ul>
-          </div>
-        </div>
+        {
+          /* Wyspy <TinaIsland> to regiony, które edytor Tiny odświeża na
+             żywo (src/islands.ts). Produkcyjny HTML dostaje przy każdej
+             skrypt, który nic nie robi poza iframe'em /admin. */
+        }
+        <TinaIsland name="home-hero" wrapper={wrappers["home-hero"]} primary>
+          <HomeHero home={HOMEPAGE_DOC} activities={ACTIVITIES_DOC} />
+        </TinaIsland>
 
         <!-- Projekty w toku zamiast zdjęcia: strona fundacji pokazuje, co się
              dzieje, nie kto za nią stoi – ludzie są na /fundacja. -->
@@ -98,31 +51,9 @@ const news = (await getSortedNews()).slice(0, 3);
           aria-labelledby="teraz"
         >
           <h2 id="teraz" class="label text-white/60">Teraz</h2>
-          <ul class="flex flex-col gap-6">
-            {
-              PROJECTS.map((project) => {
-                const external = project.href.startsWith("http");
-                return (
-                  <li>
-                    <a
-                      href={external ? withUtm(project.href, "teraz") : project.href}
-                      target={external ? "_blank" : undefined}
-                      rel={external ? "noopener" : undefined}
-                      class="group flex flex-col gap-1.5"
-                    >
-                      <span class="text-roster font-semibold tracking-[-0.02em] underline decoration-1 underline-offset-[6px] group-hover:decoration-2">
-                        {fixHanging(project.name)}
-                      </span>
-                      <span class="label text-white/60">
-                        {fixHanging(project.meta)}
-                        {external && <span class="sr-only"> (otwiera się w nowej karcie)</span>}
-                      </span>
-                    </a>
-                  </li>
-                );
-              })
-            }
-          </ul>
+          <TinaIsland name="home-teraz" wrapper={wrappers["home-teraz"]}>
+            <HomeTeraz home={HOMEPAGE_DOC} />
+          </TinaIsland>
         </section>
       </div>
 
@@ -167,9 +98,9 @@ const news = (await getSortedNews()).slice(0, 3);
           <EmailLink
             class="text-[clamp(1.125rem,3.2vw,1.625rem)] font-semibold break-all underline decoration-2 underline-offset-[6px]"
           />
-          <p class="mt-2 max-w-[40ch] text-sm leading-[1.6] text-body">
-            {fixHanging(HOMEPAGE.contact)}
-          </p>
+          <TinaIsland name="home-kontakt" wrapper={wrappers["home-kontakt"]}>
+            <HomeKontakt home={HOMEPAGE_DOC} />
+          </TinaIsland>
         </section>
       </div>
     </main>

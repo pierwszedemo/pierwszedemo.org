@@ -56,3 +56,15 @@ export const PROJECTS = homepage.teraz;
  * Nagłówek h1 zostaje w kodzie: to fraza pod wyszukiwarkę (patrz AGENTS.md).
  */
 export const HOMEPAGE = homepage;
+
+/**
+ * Surowe dokumenty, w kształcie, w jakim zwraca je Tina. Dostają je komponenty
+ * wysp (src/components/islands): przy buildzie z tych plików, w edytorze –
+ * z zapytania do Tiny, z niezapisanymi jeszcze zmianami.
+ */
+export const HOMEPAGE_DOC = homepage;
+export const FOUNDERS_DOC = founders;
+export const ACTIVITIES_DOC = activities;
+export type HomepageDoc = typeof homepage;
+export type FoundersDoc = typeof founders;
+export type ActivitiesDoc = typeof activities;

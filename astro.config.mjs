@@ -4,6 +4,7 @@ import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
+import tina from "@tinacms/astro/integration";
 import { DATE_PREFIX, LAST_CONTENT_UPDATE, SITE_URL } from "./src/consts";
 import { satteri } from "@astrojs/markdown-satteri";
 import { satteriHanging } from "./src/typography";
@@ -100,6 +101,10 @@ export default defineConfig({
     prerenderEnvironment: "node",
   }),
   integrations: [
+    // Edycja wizualna w /admin: middleware dla trasy /tina-island/[name]
+    // i bridge.js podawany do iframe'a edytora. Strony zostają statyczne –
+    // patrz src/islands.ts.
+    tina(),
     sitemap({
       // Sitemapa jest listą stron. Kanał RSS, karty OG i llms.txt to zasoby
       // pomocnicze – w indeksie tylko rozmywają to, co ma trafić do wyników.

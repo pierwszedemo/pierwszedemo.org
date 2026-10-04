@@ -1,0 +1,37 @@
+---
+import EmailLink from "../EmailLink.astro";
+import { withUtm } from "../../consts";
+import type { FoundersDoc } from "../../strony";
+import { itemText, link } from "../../styles/fundacja";
+import { fixHanging } from "../../typography";
+import { field } from "./field";
+
+interface Props {
+  person: FoundersDoc[keyof FoundersDoc];
+}
+const { person } = Astro.props;
+---
+
+<h3 class="flex flex-col gap-2">
+  <span class="text-row font-semibold" data-tina-field={field(person, "fullName")}>{person.fullName}</span>
+  <span class="label text-muted">
+    ({person.role} · {person.jobTitle})
+  </span>
+</h3>
+<div class={`max-w-[62ch] flex flex-col gap-4 ${itemText}`}>
+  {person.bio.map((paragraph, index) => (
+    <p data-tina-field={field(person, "bio", index)}>{fixHanging(paragraph)}</p>
+  ))}
+  <p class="flex flex-wrap gap-x-6 gap-y-2">
+    <EmailLink address={person.email} class={link} />
+    <a
+      href={withUtm(person.href, "zespol")}
+      target="_blank"
+      rel="noopener"
+      class={link}
+    >
+      {new URL(person.href).host}
+      <span class="sr-only"> (otwiera się w nowej karcie)</span>
+    </a>
+  </p>
+</div>

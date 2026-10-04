@@ -1,0 +1,12 @@
+---
+import type { HomepageDoc } from "../../strony";
+import { fixHanging } from "../../typography";
+import { field } from "./field";
+
+interface Props {
+  home: HomepageDoc;
+}
+const { home } = Astro.props;
+---
+
+<span data-tina-field={field(home, "contact")}>{fixHanging(home.contact)}</span>
