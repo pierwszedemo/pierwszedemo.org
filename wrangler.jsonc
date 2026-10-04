@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "pierwszedemo",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // Kanoniczne adresy są bez ukośnika na końcu (trailingSlash: "never").
+    // To odpowiednik `cleanUrls` + `trailingSlash: false` z dawnego vercel.json:
+    // /fundacja serwuje fundacja.html, a /fundacja/ przekierowuje na /fundacja.
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

@@ -1,7 +1,6 @@
 ---
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-import Analytics from "@vercel/analytics/astro";
 import michal from "../assets/michal.jpg";
 import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
 import ConsentManager from "../components/ConsentManager.astro";
@@ -10,6 +9,7 @@ import {
   FOUNDATION,
   FOUNDATION_PATH,
   FOUNDERS,
+  CF_BEACON_TOKEN,
   GA_ID,
   GOALS,
   HOME_CITY,
@@ -240,6 +240,19 @@ const jsonLd = {
       data-website-id="3ff6a02b-368d-4b2b-b697-25cab2f8a077"></script>
 
     {
+      /* Cloudflare Web Analytics – też bez cookies. `spa: true`, bo nawigacje
+         ClientRoutera to pushState, nie pełne przeładowania strony. */
+      CF_BEACON_TOKEN && (
+        <script
+          is:inline
+          defer
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon={JSON.stringify({ token: CF_BEACON_TOKEN, spa: true })}
+        />
+      )
+    }
+
+    {
       /* Google Consent Mode v2 – domyślne odmowy MUSZĄ pojechać przed gtag.js.
          Tryb advanced: loader ładuje się zawsze, ale przy `denied` nie zapisuje
          cookies, tylko wysyła bezcookie'owe pingi. Podniesienie zgód robi
@@ -295,7 +308,6 @@ const jsonLd = {
     class="min-h-dvh bg-white font-sans text-ink antialiased [text-rendering:optimizeLegibility]"
   >
     <slot />
-    <Analytics />
     <ConsentManager />
   </body>
 </html>

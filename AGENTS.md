@@ -9,6 +9,7 @@ bun install       # bun.lock is the lockfile
 bun run dev       # astro dev
 bun run build     # astro build (also prerenders /wiedza/<slug> and /aktualnosci/<slug>)
 bun run preview   # astro preview
+bun run deploy    # astro build + wrangler deploy (Workers Builds does the same on push)
 ```
 
 No test suite, no linter, no formatter. `@astrojs/check` is not a dependency, so
@@ -19,7 +20,7 @@ collection schema. Type checking otherwise comes from the editor
 
 ## Architecture
 
-Astro 7, `output: "static"`, Vercel adapter, Tailwind v4 via the Vite plugin
+Astro 7, `output: "static"`, Cloudflare adapter (Workers static assets), Tailwind v4 via the Vite plugin
 (no `tailwind.config` – theme tokens live in `@theme` inside
 `src/styles/global.css`). Polish-language site of **Fundacja Pierwsze Demo**,
 a foundation supporting young musicians (converted in October 2026 from the
@@ -29,9 +30,12 @@ activities, founders, registry data, documents), `/wiedza` + `/wiedza/<slug>`
 `/statut`, `/deklaracja-dostepnosci`, `/dzwieki-efemeryczne`,
 `/polityka-prywatnosci`, `/404`. Old manager-era URLs (`/o-mnie`,
 `/manager-muzyczny`, `/blog`, `/blog/<slug>`) are 301s defined in
-`astro.config.mjs` (`redirects`), **not** in `vercel.json` – with the Build
-Output API Vercel ignores routing from `vercel.json`, and the adapter writes
-Astro's redirects into `.vercel/output/config.json`. The domain is
+`astro.config.mjs` (`redirects`), **not** in `public/_redirects` – the adapter
+appends Astro's redirects to `dist/client/_redirects`, and Cloudflare applies
+the first matching line, so a hand-written rule would land above them. That
+is also why there is no `/blog/*` wildcard: the adapter writes a dynamic
+redirect's target as `/wiedza/*/index.html`, so every post dated before
+`BLOG_RETIRED_ON` gets its own rule instead. The domain is
 `pierwszedemo.org`; the old `.com` redirects at the DNS/Cloudflare level,
 outside the repo.
 
@@ -161,10 +165,14 @@ silently vanish from the sitemap.
 
 **The site is fully static on purpose.** It was `output: "server"` (copied from
 olageppert.pl) until a page rendered on demand made `<Image>` skip build-time
-optimisation and emit a runtime `/_image?href=…` URL instead — an endpoint Vercel
-does not serve, so the hero photo 404'd in production. Nothing here computes
-per request; if that ever changes, prerender the pages that use `<Image>` or turn
-on the adapter's `imageService`.
+optimisation and emit a runtime `/_image?href=…` URL instead — an endpoint the host (Vercel
+back then) did not serve, so the hero photo 404'd in production. Nothing here
+computes per request. The Cloudflare adapter is configured to keep it that way:
+`imageService: "compile"` (its default, `cloudflare-binding`, transforms images
+at runtime through Cloudflare Images), `prerenderEnvironment: "node"` (the
+default `workerd` has neither sharp nor the filesystem `src/og.ts` reads TTFs
+from) and `session: false` (otherwise the adapter adds a `SESSION` KV binding
+a static site has no use for).
 
 Two knowledge-base formats, both markdown, distinguished by `kind`: `notatka` (300–500
 words, no headings) and `przewodnik` (1200–2000 words, `##` sections plus an FAQ).
@@ -196,8 +204,10 @@ visually, but they give Google a path to render under the result instead of a
 bare URL. `src/schema.ts` holds `breadcrumbJsonLd()`, `isoDateTime()` and `wordCount()`.
 
 Canonical URLs have **no** trailing slash (`trailingSlash: "never"` in Astro,
-`trailingSlash: false` + `cleanUrls` in `vercel.json`); the sitemap `serialize()`
-hook strips the slash the Vercel adapter's build format adds.
+`assets.html_handling: "drop-trailing-slash"` in `wrangler.jsonc`, which serves
+`/fundacja/index.html` at `/fundacja` and sends `/fundacja/` there with a 307);
+the sitemap `serialize()` hook strips the slash Astro's directory build format
+adds.
 
 Sitemap `lastmod` is **per URL**, not global. `astro.config.mjs` reads each post's
 `updated`/`date` straight out of the frontmatter with a regex (both content
@@ -216,7 +226,7 @@ rasterises. Two constraints are load-bearing:
 - Fonts are vendored as **TTF** in `src/assets/fonts/`. Astro's Fonts API caches
   woff2, which satori cannot read; and handing plain SVG to sharp would render
   through librsvg, which resolves *system* fonts – Archivo exists on neither this
-  machine nor the Vercel builder.
+  machine nor the Cloudflare builder.
 - Paths resolve from `process.cwd()`, never `import.meta.url`: Vite bundles the
   module into `dist/server/.prerender/chunks/`, where the TTFs are not.
 
@@ -276,10 +286,12 @@ Three tools, ported from olageppert.pl with the palette inverted (black on white
   `send_page_view: false` plus a manual `page_view` on `astro:page-load`, because
   `ClientRouter` navigations are not full page loads. The whole block is gated on
   `GA_ID` in `consts.ts` – blank it and no Google script loads at all.
-- **Umami** and **Vercel Web Analytics** (`<Analytics />` from `@vercel/analytics/astro`)
-  are cookieless, so ePrivacy art. 5(3) does not cover them and they sit outside
-  the banner. Do **not** also set `webAnalytics` on the Vercel adapter – either
-  route injects the script, both together inject it twice.
+- **Umami** and **Cloudflare Web Analytics** (the beacon in `BaseLayout.astro`,
+  gated on `CF_BEACON_TOKEN`, `spa: true` for `ClientRouter` navigations) are
+  cookieless, so ePrivacy art. 5(3) does not cover them and they sit outside
+  the banner. Do **not** also turn on automatic injection in the Cloudflare
+  dashboard – the beacon would load twice, and a script the repo does not show
+  is one the privacy policy forgets.
 
 `ConsentManager.astro` re-attaches the banner node across View Transitions and
 listens for `[data-cc-preferences]` (the footer „Cookies" cell and the button at
