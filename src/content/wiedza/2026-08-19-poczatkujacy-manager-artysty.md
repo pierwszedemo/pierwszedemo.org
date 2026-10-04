@@ -5,7 +5,6 @@ category: Zarządzanie
 kind: notatka
 date: 2026-08-19
 keyphrase: początkujący manager artysty
-readingMinutes: 2
 ---
 
 Prowadzę dwójkę artystów z Trójmiasta i gdybym miał zmieścić w bio na Instagramie, czym się zajmuję, zabrakłoby miejsca. Jestem jednocześnie sprzedawcą, marketingowcem, bookerem i project managerem, do tego specjalistą od socjali i reklam, a w wolnych chwilach fotografem i operatorem. Wszystko oprócz sfery artystycznej. Ta jedna rzecz nie należy do mnie.

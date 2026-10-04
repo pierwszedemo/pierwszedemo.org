@@ -6,7 +6,7 @@ kind: notatka
 date: 2026-04-09
 updated: 2026-08-09
 keyphrase: booking festiwalowy
-readingMinutes: 2
+draft: true
 ---
 
 Znasz to uczucie, gdy wysyłasz zgłoszenie na czerwcowy festiwal i dostajesz uprzejme „niestety, mamy komplet"? Zwykle nie chodzi o muzykę. Chodzi o to, że jest kwiecień.

@@ -54,10 +54,7 @@ export function requireRepoRoot() {
  */
 const SECTIONS = { wiedza: "wiedza", aktualnosci: "aktualnosci" };
 export function resolvePostDir(slug, type) {
-  if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
-    if (slug?.startsWith("_")) console.error("Szkic (_slug.md) nie ma adresu – najpierw opublikuj wpis.");
-    return null;
-  }
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) return null;
   const postFile = new RegExp(`^\\d{4}-\\d{2}-\\d{2}-${slug}\\.md$`);
   const found = Object.keys(SECTIONS)
     .map((section) => ({
@@ -70,6 +67,11 @@ export function resolvePostDir(slug, type) {
     return null;
   }
   const { section, postName } = found;
+  const raw = readFileSync(resolve(process.cwd(), "src/content", section, postName), "utf8");
+  if (/^draft:\s*true\b/m.test(raw)) {
+    console.error("Szkic (draft: true) nie ma adresu – najpierw opublikuj wpis.");
+    return null;
+  }
   const base = `${postName.replace(/\.md$/, "")}-${type}`;
   // Świeże grafiki jeszcze nie poszły na Instagram, więc katalog dostaje `_`
   // jak szkic wpisu; prefiks znika ręcznie po publikacji posta. Katalog bez

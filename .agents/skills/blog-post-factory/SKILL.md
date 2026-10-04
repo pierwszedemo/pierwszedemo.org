@@ -124,8 +124,8 @@ Z lektury wynoszysz dwie rzeczy:
 - **gdzie linkować** – konkretne akapity w starych wpisach, które dotykają nowego tematu
   i przyjmą link zwrotny (krok 6).
 
-Wpisy z podkreśleniem na początku nazwy (`_slug.md`) są niepublikowane – czytasz je,
-żeby nie dublować treści, ale **nigdy do nich nie linkujesz**, bo nie mają adresu.
+Wpisy z `draft: true` we frontmatterze są niepublikowane – czytasz je, żeby nie
+dublować treści, ale **nigdy do nich nie linkujesz**, bo nie mają adresu.
 
 Repo jest źródłem prawdy o tym serwisie, bo to ono trafia na produkcję. Jeśli coś tam
 doszło – nowy projekt fundacji, nowe działanie, zmiana miasta, nowy kanał kontaktu –
@@ -297,17 +297,18 @@ Załaduj `references/styl.md` i `references/format.md`.
 ## Krok 7 – publikacja
 
 1. Uzupełnij frontmatter (pola i limity w `format.md`).
-2. Przelicz `readingMinutes`:
+2. Policz słowa (czas czytania liczy build, ale raport go podaje):
    ```bash
    sed '1,/^---$/d;1,/^---$/d' src/content/<kolekcja>/<data>-<slug>.md | wc -w
    ```
-   `readingMinutes = max(2, round(słowa / 180))`.
+   Czas czytania = `max(2, round(słowa / 180))`. Wpis zostaje z `draft: true`, dopóki
+   użytkownik nie powie, że publikujemy.
 3. Podbij `LAST_CONTENT_UPDATE` w `src/consts.ts`. Uwaga na pułapkę: `serialize()`
    w `astro.config.mjs` wpisuje tę wartość jako `lastmod` **każdego** adresu w sitemapie,
    natomiast `dateModified` samego wpisu bierze się z `updated ?? date`.
 4. `bun run build` – jedyna bramka schematu i typów w tym repo.
 5. **Raport dla użytkownika, maksymalnie 12 linijek:** wybrany format i dlaczego, liczba
-   słów, `readingMinutes`, lista faktów z linkami, **lista rzeczy świadomie pominiętych
+   słów, czas czytania, lista faktów z linkami, **lista rzeczy świadomie pominiętych
    z braku potwierdzenia**, pytania, na które tylko użytkownik zna odpowiedź.
 6. Zaproponuj commit `feat(wiedza): <polski temat>` albo `feat(aktualnosci): …`. **Nie commituj bez prośby.**
 

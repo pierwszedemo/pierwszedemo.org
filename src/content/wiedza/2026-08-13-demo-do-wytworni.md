@@ -5,7 +5,6 @@ category: Branża
 kind: przewodnik
 date: 2026-08-13
 keyphrase: demo do wytwórni
-readingMinutes: 9
 ---
 
 Muzykę publikuje dziś [około 12 milionów osób, a 1% z nich zbiera 90% wszystkich odsłuchów](https://www.waterandmusic.com/how-ars-use-data-to-scout-and-evaluate-artists/).

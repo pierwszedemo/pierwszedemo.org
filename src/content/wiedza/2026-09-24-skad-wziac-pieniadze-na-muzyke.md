@@ -5,7 +5,6 @@ category: Finanse
 kind: przewodnik
 date: 2026-09-24
 keyphrase: dofinansowanie muzyki
-readingMinutes: 12
 ---
 
 Nabór na stypendia twórcze ministra kultury na 2027 rok [zamknął się 18 września 2026](https://www.gov.pl/web/kultura/rozpoczynamy-nabor-na-stypendia-ministra-kultury-i-dziedzictwa-narodowego-2027), miesiąc po otwarciu. Młoda Polska zbiera wnioski [do końca września](https://www.gov.pl/web/kultura/rozpoczynamy-nabor-wnioskow-do-programu-stypendialnego-mloda-polska-2027). ZAiKS [do połowy października](https://zaiks.org.pl/dla-autorow/fundusz-popierania-tworczosci), z decyzją w grudniu. Jeśli jesienią szukasz pieniędzy na EP, która wychodzi przed końcem roku, to ich nie znajdziesz. **Spóźnienie wynosi od kilku miesięcy do roku.**

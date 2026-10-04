@@ -5,7 +5,6 @@ category: Wydawnictwa
 kind: notatka
 date: 2026-09-03
 keyphrase: ep czy single
-readingMinutes: 3
 ---
 
 Ile skończonych piosenek leży u Ciebie na dysku, bo EP „jeszcze nie jest gotowa”? Zwykle więcej, niż ktokolwiek słyszał. Brakuje jednego miksu, jednej zwrotki i jednej wolnej soboty producenta, a w tym czasie nie wychodzi nic. Zero premier, zero powodów, żeby wejść na profil.

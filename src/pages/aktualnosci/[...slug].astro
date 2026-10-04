@@ -1,7 +1,7 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
 import Byline from "../../components/Byline.astro";
-import { getSortedNews, type News } from "../../collections";
+import { getSortedNews, readingMinutes, type News } from "../../collections";
 import { NEWS_KINDS, NEWS_PATH } from "../../consts";
 
 interface Props {
@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 const { entry, next } = Astro.props;
 // Dwie łamy tylko dla krótkich relacji i opinii; rozmowa z `###` co drugi
 // akapit jest długa jak przewodnik i czyta się ją w jednej.
-const twoColumns = entry.data.kind !== "rozmowa" && entry.data.readingMinutes <= 4;
+const twoColumns = entry.data.kind !== "rozmowa" && readingMinutes(entry) <= 4;
 ---
 
 <ArticleLayout

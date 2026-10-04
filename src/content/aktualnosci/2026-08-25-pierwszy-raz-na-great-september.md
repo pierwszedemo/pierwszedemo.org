@@ -4,8 +4,7 @@ lead: Za dwa tygodnie jadę na pierwszy showcase w życiu – jako manager, nie 
 kind: relacja
 date: 2026-08-25
 keyphrase: great september networking
-readingMinutes: 2
-image: ../../assets/blog/great-september-delegat.png
+image: /blog/great-september-delegat.png
 imageAlt: Grafika delegata Great September 2026 – DELEGAT, Michał Miszczyszyn, Ola Geppert, Łódź 10–12.09.2026
 ---
 

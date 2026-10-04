@@ -4,7 +4,7 @@ import Nav from "../../components/Nav.astro";
 import Footer from "../../components/Footer.astro";
 import ListRow from "../../components/ListRow.astro";
 import SupportBand from "../../components/SupportBand.astro";
-import { getSortedArticles, isoDate } from "../../collections";
+import { getSortedArticles, isoDate, readingMinutes } from "../../collections";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import {
   KNOWLEDGE_PATH,
@@ -107,7 +107,7 @@ const breadcrumb = breadcrumbJsonLd(
               left={isoDate(entry.data.date)}
               leftDatetime={isoDate(entry.data.date)}
               label={entry.data.category}
-              sub={`${entry.data.kind} · ${entry.data.readingMinutes} min`}
+              sub={`${entry.data.kind} · ${readingMinutes(entry)} min`}
               first={index === 0}
               last={index === entries.length - 1}
             />

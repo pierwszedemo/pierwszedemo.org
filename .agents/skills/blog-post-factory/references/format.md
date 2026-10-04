@@ -71,7 +71,7 @@ tekst to 600; `font-bold` ma wyłącznie wordmark w nawigacji.
 | Rytm | co najmniej jeden akapit jednozdaniowy; co piąte zdanie ≤5 słów; co najmniej jedno ≥20 słów |
 | Markdown | akapity, `[tekst](url)`, `**pogrubienie**`, `_kursywa_`, wyjątkowo lista na dane |
 | Linki | 1–3 wewnętrzne; linkowanie do własnych wpisów jest pożądane |
-| `readingMinutes` | 2–3 |
+| czas czytania | 2–3 min |
 
 Widełki 300–500 słów są decyzją redakcyjną, nie wnioskiem z istniejących wpisów.
 Wpisy leżące w `src/content/wiedza/` nie są wzorcem niczego – powstały wcześniej z pomocą
@@ -86,7 +86,7 @@ modelu i nie oddają stylu autora. Wzorzec głosu i rytmu jest wyłącznie w `st
 | FAQ | 3–5 pytań jako `###`, odpowiedź 40–70 słów |
 | Markdown | akapity, `##`, `###`, `[tekst](url)`, `**pogrubienie**`, `_kursywa_`, lista i tabela na dane |
 | Linki | 3–6 wewnętrznych + źródło przy pierwszym wystąpieniu każdej liczby |
-| `readingMinutes` | 7–11 |
+| czas czytania | 7–11 min |
 
 Nagłówków jest **6–10 na wpis**, licząc `##` i `###` razem – w korpusie autora nawet
 700-wyrazowy tekst dostaje 5–7 śródtytułów, więc rzadkie nagłówki brzmią nie jak on.
@@ -125,7 +125,7 @@ category: Streaming
 kind: notatka
 date: 2026-06-11
 keyphrase: pre-save spotify
-readingMinutes: 2
+draft: true
 ---
 ```
 
@@ -156,10 +156,13 @@ readingMinutes: 2
   w akcent. Pole istnieje właśnie po to, żeby nie odblokowywać `>` w korpusie.
 - **`pullquoteAuthor`** – opcjonalne, kto to powiedział. Bez tego wyimek czyta się jak
   głos autora wpisu, co przy wywiadzie jest po prostu nieprawdą.
-- **`readingMinutes`** – liczba całkowita dodatnia, wzór niżej.
+- **`draft`** – `true`, dopóki wpis nie jest gotowy. Szkic leży w tym samym katalogu
+  co reszta, ale nie ma adresu: nie trafia na listy, do sitemapy, RSS ani llms.txt.
+  Nowy wpis zaczyna jako szkic; publikacja = usunięcie linii (albo checkbox w Tinie).
 - **`image`** / **`imageAlt`** – opcjonalna grafika wpisu, renderowana w kolumnie
-  „W skrócie" pod leadem (ten sam slot co odtwarzacz Spotify). Ścieżka względem
-  pliku wpisu: `../../assets/blog/<slug>.png`, plik uprzednio pozbawiony metadanych.
+  „W skrócie" pod leadem (ten sam slot co odtwarzacz Spotify). Plik w
+  `src/assets/blog/`, uprzednio pozbawiony metadanych; ścieżka zapisana tak jak
+  zapisuje ją Tina, względem `src/assets`: `image: /blog/<slug>.png`.
   `imageAlt` jest obowiązkowy, gdy jest `image` – build to sprawdza. To jedyne
   miejsce na obrazek: zasada „zero obrazków w treści" dalej obowiązuje, bo dotyczy
   korpusu, nie siatki strony.
@@ -168,11 +171,16 @@ readingMinutes: 2
 `#`, `[`, `{` albo `*`, musi być w cudzysłowie – inaczej `getCollection` rzuca błąd przy
 buildzie. Tytuł „Spotify for Artists: konfiguracja" **musi** być zacytowany.
 
-## `readingMinutes`
+## Czas czytania
+
+Nie ma go we frontmatterze – `readingMinutes()` w `src/collections.ts` liczy go przy
+buildzie z treści, więc nie rozjeżdża się z tekstem po redakcji. Wzór:
 
 ```
-readingMinutes = max(2, round(słowa / 180))
+max(2, round(słowa / 180))
 ```
+
+Słowa policzysz do raportu tak:
 
 ```bash
 sed '1,/^---$/d;1,/^---$/d' src/content/wiedza/<data>-<slug>.md | wc -w
@@ -228,7 +236,9 @@ Plik nazywa się `RRRR-MM-DD-<slug>.md` (data = `date` z frontmattera – żeby 
 pokazywał chronologię), a adresem jest sam slug: `generateId` w `content.config.ts`
 zdejmuje prefiks daty, `post.id` to czysty slug. Raz opublikowanego sluga się nie
 zmienia; prefiks również zostaje, bo `date` się nie zmienia (patrz tryb aktualizacji).
-Szkic: `_RRRR-MM-DD-<slug>.md` – podkreślenie na początku, przed datą.
+Szkic: ta sama nazwa i `draft: true` we frontmatterze. Podkreślenie na początku nazwy
+już nic nie znaczy – Tina nie umie zmienić nazwy pliku, więc publikacja z CMS-a
+byłaby niemożliwa.
 
 ## Kategorie i reguła rozstrzygania
 

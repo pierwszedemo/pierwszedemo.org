@@ -6,8 +6,8 @@ date: 2026-09-18
 keyphrase: ola geppert ioanni
 pullquote: 'Zamiast uchwycić jakiś moment, przedłużamy tę chwilę i jest takie ryzyko, że gdzieś straci się ten impet, i to, co pierwotnie było świeże i lekkie, może być gorsze albo nawet wcale nie wyjść. Zakurzyć się w szufladzie.'
 pullquoteAuthor: Ola Geppert
-readingMinutes: 11
 spotifyTrackId: 4D8BnzwJPmyrVAYIzOxCZk
+draft: true
 ---
 
 Singiel „To nie ja” [ukazał się 10 września](https://open.spotify.com/track/4D8BnzwJPmyrVAYIzOxCZk), a jesienią wyjdzie debiutancka EP Oli Geppert i Ioanniego. Ona pisze teksty i śpiewa, on komponuje, produkuje, miksuje i masteruje. Ola wydała wcześniej [siedem singli, od debiutu w 2022 roku](https://olageppert.pl/bio), jeszcze jako Birim.
