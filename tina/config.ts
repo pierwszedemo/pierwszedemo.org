@@ -222,6 +222,24 @@ const paragraphs = (name: string, label: string, description?: string): TinaFiel
   ui: { component: "textarea" },
 });
 
+/**
+ * Lista akapitów – każdy we własnym polu tekstowym. `ui.component` przy
+ * `list: true` podmienia cały widżet listy (schema-tools rozkłada `ui` na
+ * `{ component: "list", field: { component: "text" } }`), więc samo
+ * `component: "textarea"` dawało jedno pole na całą tablicę. Widżet
+ * pojedynczego elementu ustawia się przez `ui.field`, a lista zostaje listą.
+ */
+// Typy `ui` dla listy nie znają `field`, choć schema-tools go przekazuje dalej.
+const paragraphList = (name: string, label: string, description?: string) =>
+  ({
+    type: "string",
+    name,
+    label,
+    description,
+    list: true,
+    ui: { component: "list", field: { component: "textarea" } },
+  }) as unknown as TinaField;
+
 const person = (name: string, label: string): TinaField => ({
   type: "object",
   name,
@@ -233,14 +251,11 @@ const person = (name: string, label: string): TinaField => ({
     { type: "string", name: "jobTitle", label: "Zawód", required: true },
     { type: "string", name: "email", label: "E-mail", required: true },
     { type: "string", name: "href", label: "Strona własna (pełny adres)", required: true },
-    {
-      type: "string",
-      name: "bio",
-      label: "Bio – akapity",
-      description: "Pierwszy akapit idzie też do opisu osoby w danych dla Google.",
-      list: true,
-      ui: { component: "textarea" },
-    },
+    paragraphList(
+      "bio",
+      "Bio – akapity",
+      "Pierwszy akapit idzie też do opisu osoby w danych dla Google.",
+    ),
   ],
 });
 
