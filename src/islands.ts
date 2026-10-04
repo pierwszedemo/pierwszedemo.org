@@ -12,10 +12,12 @@
 import type { IslandRegistry } from "@tinacms/astro/experimental";
 import { requestWithMetadata } from "@tinacms/astro";
 import client from "../tina/__generated__/client";
-import type { ActivitiesDoc, FoundersDoc, HomepageDoc } from "./strony";
+import type { ActivitiesDoc, FoundationPageDoc, FoundersDoc, HomepageDoc } from "./strony";
 import HomeHero from "./components/islands/HomeHero.astro";
 import HomeTeraz from "./components/islands/HomeTeraz.astro";
 import HomeKontakt from "./components/islands/HomeKontakt.astro";
+import FundacjaNaglowek from "./components/islands/FundacjaNaglowek.astro";
+import FundacjaMisja from "./components/islands/FundacjaMisja.astro";
 import FundacjaDzialania from "./components/islands/FundacjaDzialania.astro";
 import Fundator from "./components/islands/Fundator.astro";
 import { wrappers } from "./components/islands/wrappers";
@@ -24,6 +26,8 @@ const getHome = () =>
   requestWithMetadata(client.queries.stronaGlowna({ relativePath: "strona-glowna.json" }));
 const getActivities = () =>
   requestWithMetadata(client.queries.dzialania({ relativePath: "dzialania.json" }));
+const getFoundationPage = () =>
+  requestWithMetadata(client.queries.fundacja({ relativePath: "fundacja.json" }));
 const getFounders = () =>
   requestWithMetadata(client.queries.fundatorzy({ relativePath: "fundatorzy.json" }));
 
@@ -54,6 +58,18 @@ export const islands: IslandRegistry = {
     component: HomeKontakt,
     wrapper: wrappers["home-kontakt"],
     propsFromData: (data) => ({ home: doc<HomepageDoc>(data, "stronaGlowna") }),
+  },
+  "fundacja-naglowek": {
+    fetch: getFoundationPage,
+    component: FundacjaNaglowek,
+    wrapper: wrappers["fundacja-naglowek"],
+    propsFromData: (data) => ({ page: doc<FoundationPageDoc>(data, "fundacja") }),
+  },
+  "fundacja-misja": {
+    fetch: getFoundationPage,
+    component: FundacjaMisja,
+    wrapper: wrappers["fundacja-misja"],
+    propsFromData: (data) => ({ page: doc<FoundationPageDoc>(data, "fundacja") }),
   },
   "fundacja-dzialania": {
     fetch: getActivities,

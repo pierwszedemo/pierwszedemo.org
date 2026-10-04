@@ -6,6 +6,8 @@ import HeroPhoto from "../components/HeroPhoto.astro";
 import EmailLink from "../components/EmailLink.astro";
 import SupportBand from "../components/SupportBand.astro";
 import TinaIsland from "@tinacms/astro/TinaIsland.astro";
+import FundacjaNaglowek from "../components/islands/FundacjaNaglowek.astro";
+import FundacjaMisja from "../components/islands/FundacjaMisja.astro";
 import FundacjaDzialania from "../components/islands/FundacjaDzialania.astro";
 import Fundator from "../components/islands/Fundator.astro";
 import { wrappers } from "../components/islands/wrappers";
@@ -23,7 +25,7 @@ import {
   SUPPORT_PATH,
   registryValue,
 } from "../consts";
-import { ACTIVITIES_DOC, FOUNDERS, FOUNDERS_DOC } from "../strony";
+import { ACTIVITIES_DOC, FOUNDATION_PAGE_DOC, FOUNDERS, FOUNDERS_DOC } from "../strony";
 import { breadcrumbJsonLd } from "../schema";
 
 /*
@@ -81,46 +83,15 @@ import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../st
     <Nav active="Fundacja" />
 
     <main class="flex-1">
-      <header class="grid border-b border-ink lg:grid-aside-right">
-        <div class="px-5 pt-10 pb-9 md:px-8 md:pt-13 lg:border-r lg:border-hairline">
-          <p class="label text-muted">({SITE_NAME} – {HOME_CITY})</p>
-          <h1
-            class="mt-5 text-page leading-[0.95] font-semibold tracking-[-0.035em] text-balance"
-          >
-            Fundacja dla twórców na początku drogi.
-          </h1>
-        </div>
-        <p
-          class="flex items-end bg-ink px-5 py-7 text-[clamp(1.35rem,2.4vw,2rem)] leading-[1.15] font-semibold tracking-[-0.02em] text-white text-balance md:px-8 lg:bg-white lg:text-ink"
-        >
-          Nagrania, koncerty, wiedza i plan.
-        </p>
-      </header>
+      <TinaIsland name="fundacja-naglowek" wrapper={wrappers["fundacja-naglowek"]} primary>
+        <FundacjaNaglowek page={FOUNDATION_PAGE_DOC} />
+      </TinaIsland>
 
       <section class={row} aria-labelledby="misja">
         <h2 id="misja" class={rowLabel}>Misja</h2>
-        <div class={`${rowBody} ${prose}`}>
-          <p>
-            <strong>
-              Fundacja Pierwsze Demo wspiera młodych i początkujących twórców
-              muzycznych – artystów i zespoły na początku drogi, które nie mają
-              jeszcze sceny, nagrań ani kogoś, kto wie, jak to działa.
-            </strong>
-          </p>
-          <p>
-            Najtrudniejszy odcinek kariery jest na samym początku: przed
-            pierwszym koncertem z własnym repertuarem, przed pierwszym
-            wydanym singlem, przed pierwszą rozmową z wytwórnią. Wtedy nie ma
-            jeszcze przychodu, z którego można opłacić managera, agencję czy
-            wydawcę – i dlatego nikt nie pomaga. Fundacja działa dokładnie
-            w tym celu.
-          </p>
-          <p>
-            Założyliśmy ją we dwoje: manager i artystka. Jedno z nas wie,
-            jak wygląda ta droga od strony kalendarza i umów, drugie – od
-            strony sceny.
-          </p>
-        </div>
+        <TinaIsland name="fundacja-misja" wrapper={wrappers["fundacja-misja"]}>
+          <FundacjaMisja page={FOUNDATION_PAGE_DOC} />
+        </TinaIsland>
       </section>
 
       <section class={row} aria-labelledby="dzialania">
@@ -162,7 +133,7 @@ import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../st
           Fundatorzy i Zarząd
         </h2>
         {
-          FOUNDERS.map((person, index) => {
+          FOUNDERS.map((person) => {
             const photo = photos[person.id];
             return (
               <article
@@ -180,7 +151,6 @@ import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../st
                   name="fundator"
                   wrapper={wrappers.fundator}
                   params={{ id: person.id }}
-                  primary={index === 0}
                 >
                   <Fundator person={FOUNDERS_DOC[person.id]} />
                 </TinaIsland>

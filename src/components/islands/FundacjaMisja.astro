@@ -1,0 +1,17 @@
+---
+import type { FoundationPageDoc } from "../../strony";
+import { fixHanging } from "../../typography";
+import { field } from "./field";
+
+interface Props {
+  page: FoundationPageDoc;
+}
+const { page } = Astro.props;
+---
+
+<p>
+  <strong data-tina-field={field(page, "missionLead")}>{fixHanging(page.missionLead)}</strong>
+</p>
+{page.mission.map((paragraph, index) => (
+  <p data-tina-field={field(page, "mission", index)}>{fixHanging(paragraph)}</p>
+))}

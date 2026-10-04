@@ -1,6 +1,7 @@
 import founders from "./content/strony/fundatorzy.json" with { type: "json" };
 import activities from "./content/strony/dzialania.json" with { type: "json" };
 import homepage from "./content/strony/strona-glowna.json" with { type: "json" };
+import foundationPage from "./content/strony/fundacja.json" with { type: "json" };
 import { OLA_ID, PERSON_ID } from "./consts";
 
 /*
@@ -65,6 +66,8 @@ export const HOMEPAGE = homepage;
 export const HOMEPAGE_DOC = homepage;
 export const FOUNDERS_DOC = founders;
 export const ACTIVITIES_DOC = activities;
+export const FOUNDATION_PAGE_DOC = foundationPage;
 export type HomepageDoc = typeof homepage;
 export type FoundersDoc = typeof founders;
 export type ActivitiesDoc = typeof activities;
+export type FoundationPageDoc = typeof foundationPage;

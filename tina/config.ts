@@ -288,6 +288,23 @@ const stronaGlowna = singleton("stronaGlowna", "Strona główna", "strona-glowna
   paragraphs("contact", "Tekst w sekcji „Kontakt”"),
 ]);
 
+const fundacja = singleton("fundacja", "Strona Fundacja", "fundacja", "/fundacja", [
+  {
+    type: "string",
+    name: "heading",
+    label: "Nagłówek (h1)",
+    description: "Największy tekst na /fundacja.",
+    required: true,
+  },
+  { type: "string", name: "tagline", label: "Podtytuł obok nagłówka", required: true },
+  paragraphs(
+    "missionLead",
+    "Misja – pierwszy akapit (pogrubiony)",
+    "Najważniejsze zdanie o fundacji – czyta je ten, kto nie przeczyta reszty.",
+  ),
+  paragraphList("mission", "Misja – kolejne akapity"),
+]);
+
 const fundatorzy = singleton("fundatorzy", "Fundatorzy i Zarząd", "fundatorzy", "/fundacja", [
   person("michal", "Michał"),
   person("ola", "Ola"),
@@ -335,6 +352,6 @@ export default defineConfig({
     },
   },
   schema: {
-    collections: [wiedza, aktualnosci, stronaGlowna, fundatorzy, dzialania],
+    collections: [wiedza, aktualnosci, stronaGlowna, fundacja, fundatorzy, dzialania],
   },
 });
