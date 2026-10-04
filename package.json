@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "tinacms dev -c \"astro dev\"",
-    "build": "tinacms build && astro build",
+    "build": "bun scripts/build-tina.mjs && astro build",
     "build:local": "tinacms build --local --skip-cloud-checks && astro build",
     "preview": "astro preview",
     "deploy": "bun run build && wrangler deploy",
