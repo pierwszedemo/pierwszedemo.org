@@ -6,6 +6,9 @@ import { FOUNDERS } from "../consts";
  * Podpis pod wpisem w kolumnie „W skrócie”. Wpisy pisze Michał w pierwszej
  * osobie – podpis z funkcją w fundacji mówi czytelnikowi, czyj to głos,
  * bez przepisywania tekstów na głos organizacji.
+ *
+ * `label` ma interlinię 1 – dobrą dla jednej linijki etykiety, ale podpis
+ * i data aktualizacji to dwie linie i przy 1 sklejały się w blok.
  */
 interface Props {
   updated?: Date;
@@ -14,7 +17,7 @@ const { updated } = Astro.props;
 const author = FOUNDERS[0];
 ---
 
-<p class="label text-muted">
+<p class="label leading-[1.8] text-muted">
   {author.name}, {author.role.toLowerCase()}
   {
     updated && (
