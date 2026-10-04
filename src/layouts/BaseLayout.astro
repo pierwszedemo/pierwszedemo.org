@@ -113,6 +113,7 @@ const peopleJsonLd = FOUNDERS.map((person) => ({
   ...(person.name !== person.fullName ? { alternateName: person.name } : {}),
   url: `${new URL(FOUNDATION_PATH, site).href}#${person.id}`,
   jobTitle: `${person.role}, ${person.jobTitle}`,
+  email: `mailto:${person.email}`,
   description: person.bio[0],
   image: new URL(photos[person.id].src, site).href,
   homeLocation: {
