@@ -173,9 +173,9 @@ interest, same convention as olageppert.pl, and has its row in `PRIVACY_TOOLS`).
 `image?` + `imageAlt?` put a picture in the same slot, under the lead – again a
 frontmatter field (`/blog/…`, relative to `src/assets` – the way Tina's media
 manager writes it; a zod preprocess turns it into `../../assets/blog/…` for
-`image()`, which resolves relative to the post), never
-`![]()` in the body: `.prose-swiss` styles no `img`, and a notatka renders in two
-columns, which would tear an inline image at the column break. `imageAlt` is
+`image()`, which resolves relative to the post). This slot is for the post's
+one illustration; pictures that belong to the text go in the body (below).
+`imageAlt` is
 enforced by a zod refine whenever `image` is set. `src/collections.ts` owns sort order –
 `getSortedArticles()` / `getSortedNews()` are the single source for the lists,
 prev/next links, RSS, llms.txt and OG cards, so they can't disagree.
@@ -219,10 +219,34 @@ Dates go through `calendarDate` in `content.config.ts`: Tina saves a
 Anything that is not UTC midnight is reduced to its Europe/Warsaw day. `updated` (not `date`)
 drives `dateModified`; `keyphrase` is what deduplicates topics across posts.
 
-Body markdown is deliberately narrow – paragraphs, `##`, `###`, links, nothing
-else. `.prose-swiss` styles only those, so a list or a table renders as unstyled
-lines that Tailwind Preflight has already stripped of bullets and margins.
-A pierwszedemo skill writes to these rules.
+Body markdown is deliberately narrow – paragraphs, `##`, `###`, links, bold,
+italic, lists and tables (both styled in `prose.css`, tables wrapped by
+`src/table-scroll.ts`), quotes and images. Anything else renders as unstyled
+lines that Tailwind Preflight has already stripped. Tina's toolbar offers
+exactly these (`overrides.toolbar` in `tina/config.ts`) – adding a button
+there means adding its styles to `prose.css` in the same change. A `>` quote
+is someone else's words inside the text, quieter than the `pullquote` band
+(same size as a paragraph, ink colour, hairline rule on the left).
+
+Images in the body (`src/images.ts`, two satteri plugins):
+
+- `assetImages` (mdast) rewrites Tina's `/blog/x.jpg` (relative to
+  `src/assets`) to `../../assets/blog/x.jpg`. A path starting with `/` is a
+  `public/` file to Astro – not optimised, and not there – the same reason
+  the frontmatter `image` has its zod preprocess.
+- `figures` (hast) turns a paragraph holding only an image into `<figure>`
+  and the image title (`![alt](path "Caption")`, Tina's „Caption” field) into
+  `<figcaption>`, styled like the photo captions on `/fundacja`.
+- A post with an image in the body never gets two columns (`hasBodyImage()`
+  in `collections.ts`, checked in `ArticleLayout`): the image would tear at
+  the column break or leave a hole at the bottom of the first column.
+
+The content layer caches rendered markdown by file content, not by plugin
+code: after changing a satteri plugin run `astro build --force` once, and
+clear the Workers Builds cache if CI renders the old output.
+
+A pierwszedemo skill writes to these rules;
+posts it writes stay without images.
 
 ### TinaCMS
 
