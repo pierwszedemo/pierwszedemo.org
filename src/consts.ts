@@ -124,7 +124,7 @@ export const FOUNDERS = [
     jobTitle: "manager muzyczny",
     href: TYPE_OF_WEB_URL,
     bio: [
-      "Manager muzyczny i przedsiębiorca. Od lipca 2026 pod marką Pierwsze Demo prowadził bezpłatny management, wydawnictwa i booking artystów alternatywnych. Misję tę kontynuuje w Fundacji – od planu wydawniczego i dystrybucji, przez materiały prasowe i kontakt z mediami, po koncert premierowy.",
+      "Manager muzyczny i przedsiębiorca. Od lipca 2026 pod marką Pierwsze Demo prowadził bezpłatny management, wydawnictwa i booking artystów alternatywnych – od planu wydawniczego i dystrybucji, przez materiały prasowe i kontakt z mediami, po koncert premierowy. Misję tę kontynuuje w Fundacji.",
       "Od 2013 roku organizuje wydarzenia i wydaje publikacje: współorganizator trzech międzynarodowych konferencji (dla kilkuset osób każda; dochód przekazywany na cele charytatywne) i ponad dwudziestu bezpłatnych spotkań branżowych (nagroda Curly Braces 2016 za najlepiej organizowane spotkania w Polsce). Autor i wydawca książki „TypeScript na poważnie” (2021), współtwórca kursu Next.js Masters dla blisko tysiąca uczestników, szkoleniowiec, wykładowca akademicki i prelegent.",
       "Twórca inicjatywy Type of Web od blisko 20 lat związany z branżą technologiczną.",
       "Pomysłodawca fundacji; odpowiada za produkcję wydarzeń oraz kwestie formalne, finansowe i organizacyjne.",
