@@ -13,7 +13,7 @@ W skrzynce leży PDF z biletem delegata Great September, do wymiany na badge na 
 
 Dobra, to od razu wyjaśnijmy, po co. [Mniej więcej połowa odkryć A&R wciąż przychodzi z poleceń i znajomości](/wiedza/demo-do-wytworni), a ja w tej branży nie znam jeszcze prawie nikogo. Trzy dni w jednym mieście z osobami od bookingu, wytwórni i mediów to najtańszy sposób, żeby to zmienić. Liczę, że ktoś z nich wyjedzie z Łodzi z muzyką Oli Geppert w telefonie. Tyle z planu.
 
-Termin nie jest przypadkiem. [Singiel „To nie ja” wychodzi 10 września](https://olageppert.pl/tonieja), czyli w pierwszy dzień festiwalu, bo [premiera ustawiona pod Great September motywuje lepiej niż manager](/aktualnosci/poczatkujacy-manager-artysty). Do tego szykujemy koszulki na tę okazję: Ola i kod QR, który prowadzi do singla. Zamiast wciskać komuś link, po prostu chodzę po Piotrkowskiej.
+Termin nie jest przypadkiem. [Singiel „To nie ja” wychodzi 10 września](https://olageppert.pl/tonieja), czyli w pierwszy dzień festiwalu, bo [premiera ustawiona pod Great September motywuje lepiej niż manager](/wiedza/poczatkujacy-manager-artysty). Do tego szykujemy koszulki na tę okazję: Ola i kod QR, który prowadzi do singla. Zamiast wciskać komuś link, po prostu chodzę po Piotrkowskiej.
 
 No dobra, a teraz obawy. Mam trzy.
 

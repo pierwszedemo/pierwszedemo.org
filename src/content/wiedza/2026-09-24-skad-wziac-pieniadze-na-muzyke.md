@@ -24,7 +24,7 @@ Druga szuflada to dotacja. Pieniądze na przedsięwzięcie z datą początku, da
 
 Większość dotacji chce podmiotu: instytucji, fundacji, firmy. Programy ministra „Muzyka” i „Muzyczny ślad” przyjmują wnioski od organizacji pozarządowych, instytucji i [„podmiotów prowadzących działalność gospodarczą”](https://nimit.pl/aktualnosci/programy-ministra-2026-startuje-nabor-wnioskow/). Strona ministerstwa mówi wprost, że [osoby fizyczne nie są uprawnione](https://www.gov.pl/web/kultura/programy-i-projekty) do składania wniosków, z jednym wyjątkiem: ochrona zabytków. ZAiKS w dotacjach wymienia [„przedsiębiorców z sektora kultury”](https://app.zaiks.org.pl/media/npoocc5f/regulamin-przyznawania-dotacji-z-fpt.pdf). **Artystka bez firmy stoi przed tą szufladą bez klucza.**
 
-Jest na to obejście. Artystka składa stypendia jako osoba fizyczna, a dotacje składa podmiot, który z nią pracuje: manager z jednoosobową działalnością, fundacja, stowarzyszenie. Manager przecież i tak robi [wszystko oprócz muzyki](/aktualnosci/poczatkujacy-manager-artysty), więc pisanie wniosków wchodzi w skład. Dwa tory, dwa terminarze, a _de facto_ jeden projekt. I dokładnie tak robię ja.
+Jest na to obejście. Artystka składa stypendia jako osoba fizyczna, a dotacje składa podmiot, który z nią pracuje: manager z jednoosobową działalnością, fundacja, stowarzyszenie. Manager przecież i tak robi [wszystko oprócz muzyki](/wiedza/poczatkujacy-manager-artysty), więc pisanie wniosków wchodzi w skład. Dwa tory, dwa terminarze, a _de facto_ jeden projekt. I dokładnie tak robię ja.
 
 Od tej reguły jest jeden wyjątek, przynajmniej na papierze. Do niego za chwilę.
 

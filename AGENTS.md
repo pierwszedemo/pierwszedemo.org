@@ -397,6 +397,18 @@ commercial page is gone: paid management is one of the foundation's
 programmes (§ 7 of the statute, odpłatna działalność pożytku publicznego),
 described on `/fundacja#kariera`, never as a company offer.
 
+**Founders' own projects on the foundation's site.** Ola is both Vice-President
+and a young artist the foundation can legitimately support (statute § 5 covers
+her; § 9 allows using the foundation's assets for a founder only when it
+follows directly from a statutory goal). The line is drawn by purpose, not by
+person: a founder's project appears here only when it *is* a foundation
+activity (the concert series she hosts, a workshop she runs) and only with the
+role stated next to her name. Never as promotion of a release – the interview
+about her single was moved to a draft (`_2026-09-18-ola-geppert-ioanni-wywiad.md`)
+for that reason, the EP left the „Teraz" panel, and Michał's bio mentions the
+single in one clause. A grant assessor reading „foundation = the founder's
+promotion vehicle" is the risk this guards against.
+
 The footer is two rows. The top row carries what a Polish foundation must show
 on every page – name, registered address, KRS / NIP / REGON, e-mail – on the
 same 5/3/3/5 tracks as the nav; the bottom row is the four-cell band (`© /
