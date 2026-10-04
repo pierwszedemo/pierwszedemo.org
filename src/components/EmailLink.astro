@@ -6,13 +6,18 @@ import { CONTACT_EMAIL } from "../consts";
  * Znaczniki `email_off` to ta sama konwencja co na olageppert.pl – oba serwisy
  * mają obsługiwać adres identycznie, żeby zmiana w jednym dała się przenieść
  * do drugiego bez szukania po plikach.
+ *
+ * `address` domyślnie jest adresem fundacji. Inny adres (osobisty członka
+ * Zarządu, skrzynka cyklu koncertów) idzie przez ten sam prop, nigdy przez
+ * sam slot: tekst w slocie i `mailto:` muszą wskazywać tę samą skrzynkę.
  */
 interface Props {
+  address?: string;
   class?: string;
 }
-const { class: className } = Astro.props;
+const { address = CONTACT_EMAIL, class: className } = Astro.props;
 ---
 
-<!--email_off--><a href={`mailto:${CONTACT_EMAIL}`} class={className}
-  ><slot>{CONTACT_EMAIL}</slot></a
+<!--email_off--><a href={`mailto:${address}`} class={className}
+  ><slot>{address}</slot></a
 ><!--/email_off-->

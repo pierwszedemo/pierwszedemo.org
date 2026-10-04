@@ -219,7 +219,8 @@ const link = "underline decoration-1 underline-offset-4";
                     {person.bio.map((paragraph) => (
                       <p>{paragraph}</p>
                     ))}
-                    <p>
+                    <p class="flex flex-wrap gap-x-6 gap-y-2">
+                      <EmailLink address={person.email} class={link} />
                       <a
                         href={withUtm(person.href, "zespol")}
                         target="_blank"
