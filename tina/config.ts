@@ -188,6 +188,112 @@ const aktualnosci: Collection = {
   ],
 };
 
+/**
+ * Pojedyncze dokumenty JSON w src/content/strony – teksty, które wcześniej
+ * siedziały w consts.ts i index.astro. consts.ts importuje te pliki, więc
+ * JSON-LD, llms.txt i stopka czytają to samo, co strona. Edytor może zmieniać
+ * treść, ale nie dodawać ani usuwać dokumentów: pola kodowe (id, schemaId,
+ * zdjęcia) są w consts.ts.
+ */
+const singleton = (name: string, label: string, file: string, fields: TinaField[]): Collection => ({
+  name,
+  label,
+  path: "src/content/strony",
+  format: "json",
+  match: { include: file },
+  ui: { allowedActions: { create: false, delete: false } },
+  fields,
+});
+
+const paragraphs = (name: string, label: string, description?: string): TinaField => ({
+  type: "string",
+  name,
+  label,
+  description,
+  required: true,
+  ui: { component: "textarea" },
+});
+
+const person = (name: string, label: string): TinaField => ({
+  type: "object",
+  name,
+  label,
+  fields: [
+    { type: "string", name: "name", label: "Imię i nazwisko w treści", required: true },
+    { type: "string", name: "fullName", label: "Imię i nazwisko jak w KRS", required: true },
+    { type: "string", name: "role", label: "Funkcja w Zarządzie", required: true },
+    { type: "string", name: "jobTitle", label: "Zawód", required: true },
+    { type: "string", name: "email", label: "E-mail", required: true },
+    { type: "string", name: "href", label: "Strona własna (pełny adres)", required: true },
+    {
+      type: "string",
+      name: "bio",
+      label: "Bio – akapity",
+      description: "Pierwszy akapit idzie też do opisu osoby w danych dla Google.",
+      list: true,
+      ui: { component: "textarea" },
+    },
+  ],
+});
+
+const stronaGlowna = singleton("stronaGlowna", "Strona główna", "strona-glowna", [
+  paragraphs(
+    "slogan",
+    "Slogan",
+    "Największy tekst na stronie. Nowa linia = złamanie wiersza na szerokim ekranie.",
+  ),
+  paragraphs("intro", "Akapit pod sloganem"),
+  {
+    type: "object",
+    name: "teraz",
+    label: "Panel „Teraz”",
+    description: "Projekty fundacji. Wydawnictwa fundatorów tu nie trafiają – patrz zasady w AGENTS.md.",
+    list: true,
+    ui: { itemProps: (item) => ({ label: item?.name }) },
+    fields: [
+      { type: "string", name: "name", label: "Nazwa", required: true },
+      { type: "string", name: "meta", label: "Podpis", required: true },
+      {
+        type: "string",
+        name: "href",
+        label: "Link",
+        description: "Ścieżka na stronie (/wiedza) albo pełny adres – zewnętrzne dostają UTM-y.",
+        required: true,
+      },
+    ],
+  },
+  paragraphs("contact", "Tekst w sekcji „Kontakt”"),
+]);
+
+const fundatorzy = singleton("fundatorzy", "Fundatorzy i Zarząd", "fundatorzy", [
+  person("michal", "Michał"),
+  person("ola", "Ola"),
+]);
+
+const dzialania = singleton("dzialania", "Działania", "dzialania", [
+  {
+    type: "object",
+    name: "activities",
+    label: "Działania",
+    description: "Kolejność = numeracja (01, 02…) na stronie głównej i /fundacja.",
+    list: true,
+    ui: { itemProps: (item) => ({ label: item?.label }) },
+    fields: [
+      {
+        type: "string",
+        name: "id",
+        label: "Kotwica",
+        description: "Adres sekcji: /fundacja#<kotwica>. Po publikacji nie zmieniaj – linkują do niej hero i llms.txt.",
+        required: true,
+      },
+      { type: "string", name: "label", label: "Nazwa", required: true },
+      paragraphs("description", "Opis"),
+      { type: "string", name: "href", label: "Link (opcjonalny)" },
+      { type: "string", name: "linkLabel", label: "Tekst linku" },
+    ],
+  },
+]);
+
 export default defineConfig({
   branch,
   clientId: process.env.PUBLIC_TINA_CLIENT_ID,
@@ -206,6 +312,6 @@ export default defineConfig({
     },
   },
   schema: {
-    collections: [wiedza, aktualnosci],
+    collections: [wiedza, aktualnosci, stronaGlowna, fundatorzy, dzialania],
   },
 });

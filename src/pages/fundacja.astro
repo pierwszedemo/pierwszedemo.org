@@ -8,11 +8,9 @@ import SupportBand from "../components/SupportBand.astro";
 import michal from "../assets/michal.jpg";
 import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
 import {
-  ACTIVITIES,
   CONTACT_EMAIL,
   FOUNDATION,
   FOUNDATION_PATH,
-  FOUNDERS,
   GOALS,
   HOME_CITY,
   SITE_NAME,
@@ -22,7 +20,9 @@ import {
   registryValue,
   withUtm,
 } from "../consts";
+import { ACTIVITIES, FOUNDERS } from "../strony";
 import { breadcrumbJsonLd } from "../schema";
+import { fixHanging } from "../typography";
 
 /*
  * Jedna długa strona o fundacji: misja, cele statutowe, działania, ludzie,
@@ -147,7 +147,7 @@ const link = "underline decoration-1 underline-offset-4";
                   <span class="label text-muted">({activity.no})</span>
                 </h3>
                 <div class={`flex flex-col gap-3 ${itemText}`}>
-                  <p>{activity.description}</p>
+                  <p>{fixHanging(activity.description)}</p>
                   {activity.href && (
                     <p>
                       <a href={activity.href} class={link}>
@@ -217,7 +217,7 @@ const link = "underline decoration-1 underline-offset-4";
                   </h3>
                   <div class={`max-w-[62ch] flex flex-col gap-4 ${itemText}`}>
                     {person.bio.map((paragraph) => (
-                      <p>{paragraph}</p>
+                      <p>{fixHanging(paragraph)}</p>
                     ))}
                     <p class="flex flex-wrap gap-x-6 gap-y-2">
                       <EmailLink address={person.email} class={link} />

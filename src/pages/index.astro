@@ -6,16 +6,15 @@ import EmailLink from "../components/EmailLink.astro";
 import SupportBand from "../components/SupportBand.astro";
 import { getSortedNews, isoDate } from "../collections";
 import {
-  ACTIVITIES,
   FOUNDATION_PATH,
   HOME_CITY,
   NEWS_KINDS,
   NEWS_PATH,
-  PROJECTS,
   SITE_NAME,
   SITE_TAGLINE,
   withUtm,
 } from "../consts";
+import { ACTIVITIES, HOMEPAGE, PROJECTS } from "../strony";
 import { fixHanging } from "../typography";
 
 // Trzy ostatnie aktualności – strona główna ma pokazywać, że fundacja żyje,
@@ -56,16 +55,22 @@ const news = (await getSortedNews()).slice(0, 3);
             <p
               class="mt-6 text-hero leading-[0.98] font-semibold tracking-[-0.035em] text-balance md:mt-[26px]"
             >
-              Pierwsze demo <br class="hidden md:inline" />to początek.
+              {
+                /* Nowa linia w polu „Slogan” w Tinie = złamanie wiersza, ale
+                   tylko od md – na telefonie slogan łamie się sam. */
+                HOMEPAGE.slogan.split("\n").map((line, index) => (
+                  <>
+                    {index > 0 && <> <br class="hidden md:inline" /></>}
+                    {fixHanging(line)}
+                  </>
+                ))
+              }
             </p>
           </div>
 
           <div class="flex flex-col gap-7">
             <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
-              Fundacja wspiera młodych i początkujących twórców muzycznych:
-              organizuje koncerty, pomaga nagrać i wydać pierwsze piosenki,
-              uczy, jak działa branża, i prowadzi karierę tam, gdzie jest już
-              co prowadzić.
+              {fixHanging(HOMEPAGE.intro)}
             </p>
             <ul
               class="flex flex-col gap-3 font-mono text-[13px] leading-none font-medium tracking-[0.14em] uppercase sm:flex-row sm:flex-wrap sm:gap-x-9 sm:gap-y-3"
@@ -106,10 +111,10 @@ const news = (await getSortedNews()).slice(0, 3);
                       class="group flex flex-col gap-1.5"
                     >
                       <span class="text-roster font-semibold tracking-[-0.02em] underline decoration-1 underline-offset-[6px] group-hover:decoration-2">
-                        {project.name}
+                        {fixHanging(project.name)}
                       </span>
                       <span class="label text-white/60">
-                        {project.meta}
+                        {fixHanging(project.meta)}
                         {external && <span class="sr-only"> (otwiera się w nowej karcie)</span>}
                       </span>
                     </a>
@@ -163,8 +168,7 @@ const news = (await getSortedNews()).slice(0, 3);
             class="text-[clamp(1.125rem,3.2vw,1.625rem)] font-semibold break-all underline decoration-2 underline-offset-[6px]"
           />
           <p class="mt-2 max-w-[40ch] text-sm leading-[1.6] text-body">
-            Tworzysz muzykę i chcesz zagrać, nagrać albo zapytać? Napisz.
-            Organizujesz, wydajesz, uczysz? Też napisz.
+            {fixHanging(HOMEPAGE.contact)}
           </p>
         </section>
       </div>

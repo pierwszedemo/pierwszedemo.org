@@ -1,0 +1,28 @@
+{
+  "activities": [
+    {
+      "id": "koncerty",
+      "label": "Koncerty i wydarzenia",
+      "description": "Kameralne koncerty, showcase’y i przeglądy, na których młodzi twórcy grają własny repertuar dla publiczności. Pierwszy cykl: „dźwięki efemeryczne” w Trójmieście.",
+      "href": "/dzwieki-efemeryczne",
+      "linkLabel": "dźwięki efemeryczne."
+    },
+    {
+      "id": "nagrania",
+      "label": "Nagrania i wydawnictwa",
+      "description": "Pomoc w nagraniu, wydaniu i promocji pierwszych singli i EP-ek: od planu wydawniczego, przez dystrybucję cyfrową i materiały prasowe, po kontakt z mediami i playlistami."
+    },
+    {
+      "id": "wiedza",
+      "label": "Wiedza o branży",
+      "description": "Baza wiedzy, warsztaty i konsultacje o tym, jak działa branża muzyczna: tantiemy i organizacje zbiorowego zarządzania, dystrybucja, booking, press kit, stypendia i dotacje.",
+      "href": "/wiedza",
+      "linkLabel": "Baza wiedzy"
+    },
+    {
+      "id": "kariera",
+      "label": "Wsparcie w karierze",
+      "description": "Management, promocja i dystrybucja dla artystów, którzy mają materiał i chcą pracować regularnie."
+    }
+  ]
+}

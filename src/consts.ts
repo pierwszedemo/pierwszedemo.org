@@ -7,7 +7,7 @@ export const SITE_HOST = new URL(SITE_URL).host;
  * Serwis jest stroną fundacji, więc marka i podmiot to od października 2026
  * jedno: `SITE_NAME` to pełna nazwa z KRS (tytuły, og:site_name, RSS, węzeł
  * Organization), `SHORT_NAME` – nazwa potoczna do zdań w treści. Ludzie
- * stojący za fundacją mają własne stałe w `FOUNDERS`; encja osoby w schema.org
+ * stojący za fundacją mają własne stałe w `FOUNDERS` (src/strony.ts); encja osoby w schema.org
  * nie może nazywać się jak organizacja, bo Google czyta to jako autora strony.
  */
 export const SITE_NAME = "Fundacja Pierwsze Demo";
@@ -118,45 +118,6 @@ export const registryValue = (value: string) => value || REGISTRY_PENDING;
 /** Tytuł przelewu, który pozwala zaksięgować wpłatę jako darowiznę (odliczenie od podatku). */
 export const DONATION_TITLE = "Darowizna na cele statutowe";
 
-/**
- * Fundatorzy i zarazem cały Zarząd. Kolejność = kolejność na stronie.
- * `name` to forma używana w treści, `fullName` – w danych zarządu (jak w KRS).
- */
-export const FOUNDERS = [
-  {
-    id: "michal",
-    schemaId: PERSON_ID,
-    name: PERSON_NAME,
-    fullName: "Michał Miszczyszyn",
-    email: "michal@pierwszedemo.org",
-    role: "Prezes Zarządu",
-    jobTitle: "manager muzyczny",
-    href: TYPE_OF_WEB_URL,
-    bio: [
-      "Manager muzyczny i przedsiębiorca. Od lipca 2026 pod marką Pierwsze Demo prowadził bezpłatny management, wydawnictwa i booking artystów alternatywnych – od planu wydawniczego i dystrybucji, przez materiały prasowe i kontakt z mediami, po koncert premierowy. Misję tę kontynuuje w Fundacji.",
-      "Od 2013 roku organizuje wydarzenia i wydaje publikacje: współorganizator trzech międzynarodowych konferencji (dla kilkuset osób każda; dochód przekazywany na cele charytatywne) i ponad dwudziestu bezpłatnych spotkań branżowych (nagroda Curly Braces 2016 za najlepiej organizowane spotkania w Polsce). Autor i wydawca książki „TypeScript na poważnie” (2021), współtwórca kursu Next.js Masters dla blisko tysiąca uczestników, szkoleniowiec, wykładowca akademicki i prelegent.",
-      "Twórca inicjatywy Type of Web od blisko 20 lat związany z branżą technologiczną.",
-      "Pomysłodawca fundacji; odpowiada za produkcję wydarzeń oraz kwestie formalne, finansowe i organizacyjne.",
-    ],
-  },
-  {
-    id: "ola",
-    schemaId: OLA_ID,
-    name: "Ola Geppert",
-    fullName: "Aleksandra Geppert",
-    email: "ola@pierwszedemo.org",
-    role: "Wiceprezeska Zarządu",
-    jobTitle: "songwriterka i wokalistka",
-    href: "https://olageppert.pl",
-    bio: [
-      "Songwriterka i wokalistka z Gdańska, na styku alternatywnego popu, indie i brzmień retro. Pisze mroczne, melancholijne piosenki o cierpieniu, autonomii, sensie życia i miłości. Od debiutu w 2022 roku wydała osiem singli, m.in. „To nie ja” i „Delikatnie”. Jesienią 2026 ukazuje się jej debiutancka EP-ka nagrana z producentem Ioannim.",
-      "Pięć lat kształcenia wokalnego, koncerty w Toruniu, Łodzi i Gdańsku, udział w międzynarodowym festiwalu chóralnym Mundus Cantat. W 2026 roku jej głos zabrzmiał w filmie dokumentalnym „Sędzia z Auschwitz” z muzyką Ioanniego.",
-      "W latach 2022–2025 studiowała projektowanie graficzne na ASP w Łodzi oraz brała udział w Laboratorium Sztuki Performance i Międzynarodowym Festiwalu Sztuk Performatywnych w Płocku.",
-      "W fundacji odpowiada za program artystyczny, kierunek, kontakt z artystami i oprawę wizualną.",
-    ],
-  },
-] as const;
-
 /** Cele statutowe – § 5 statutu, dosłownie. Zmiana tu = zmiana statutu. */
 export const GOALS = [
   "wspieranie rozwoju młodych i początkujących twórców muzycznych, w szczególności artystów i zespołów na początku drogi artystycznej",
@@ -167,68 +128,6 @@ export const GOALS = [
   "edukacja muzyczna",
   "edukacja w zakresie funkcjonowania w branży muzycznej, w szczególności managementu, działalności wydawniczej i fonograficznej, promocji i dystrybucji muzyki oraz organizacji koncertów",
   "wspieranie rozwoju muzyki i środowiska muzycznego, w tym współpracy artystów, organizatorów, wydawców i innych osób zawodowo związanych z muzyką",
-] as const;
-
-/**
- * Działania – § 6 statutu przełożony na programy, którymi fundacja faktycznie
- * mówi o sobie. Etykiety niosą słowo branżowe („koncerty”, „nagrania”), bo
- * trafiają do h3 na /fundacja, do hero i do llms.txt. `href` prowadzi tam,
- * gdzie działanie już się dzieje; bez niego program ma tylko opis.
- */
-export const ACTIVITIES = [
-  {
-    no: "01",
-    id: "koncerty",
-    label: "Koncerty i wydarzenia",
-    description:
-      "Kameralne koncerty, showcase’y i przeglądy, na których młodzi twórcy grają własny repertuar dla publiczności. Pierwszy cykl: „dźwięki efemeryczne” w Trójmieście.",
-    href: CONCERT_SERIES_PATH,
-    linkLabel: "dźwięki efemeryczne.",
-  },
-  {
-    no: "02",
-    id: "nagrania",
-    label: "Nagrania i wydawnictwa",
-    description:
-      "Pomoc w nagraniu, wydaniu i promocji pierwszych singli i EP-ek: od planu wydawniczego, przez dystrybucję cyfrową i materiały prasowe, po kontakt z mediami i playlistami.",
-  },
-  {
-    no: "03",
-    id: "wiedza",
-    label: "Wiedza o branży",
-    description:
-      "Baza wiedzy, warsztaty i konsultacje o tym, jak działa branża muzyczna: tantiemy i organizacje zbiorowego zarządzania, dystrybucja, booking, press kit, stypendia i dotacje.",
-    href: KNOWLEDGE_PATH,
-    linkLabel: "Baza wiedzy",
-  },
-  {
-    no: "04",
-    id: "kariera",
-    label: "Wsparcie w karierze",
-    description:
-      "Management, promocja i dystrybucja dla artystów, którzy mają materiał i chcą pracować regularnie.",
-  },
-] as const;
-
-/**
- * Projekty, którymi fundacja zajmuje się teraz – slot na stronie głównej,
- * w którym wcześniej stał roster managera. Wydawnictw fundatorki tu nie ma,
- * i to jest zasada, nie przeoczenie: projekt fundatora stoi na stronie
- * fundacji tylko wtedy, gdy wynika z celu statutowego (koncert, warsztat)
- * i z jawną rolą, nigdy jako promocja wydawnictwa – patrz AGENTS.md.
- * Linki zewnętrzne dostają UTM-y przez `withUtm()` w miejscu użycia.
- */
-export const PROJECTS = [
-  {
-    name: CONCERT_SERIES_NAME,
-    meta: "cykl koncertów – Trójmiasto 2027",
-    href: CONCERT_SERIES_PATH,
-  },
-  {
-    name: "Baza wiedzy",
-    meta: "jak działa branża – bez skrótów",
-    href: KNOWLEDGE_PATH,
-  },
 ] as const;
 
 export function withUtm(href: string, campaign: string): string {
