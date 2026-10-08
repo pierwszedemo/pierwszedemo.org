@@ -27,6 +27,7 @@ import {
 } from "../consts";
 import { ACTIVITIES_DOC, FOUNDATION_PAGE_DOC, FOUNDERS, FOUNDERS_DOC } from "../strony";
 import { breadcrumbJsonLd } from "../schema";
+import { fixHanging } from "../typography";
 
 /*
  * Jedna długa strona o fundacji: misja, cele statutowe, działania, ludzie,
@@ -115,7 +116,7 @@ import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../st
                   <span class="label shrink-0 pt-[0.35em] text-muted">
                     ({String(index + 1).padStart(2, "0")})
                   </span>
-                  <span>{goal};</span>
+                  <span>{fixHanging(goal)}{index < GOALS.length - 1 ? ";" : "."}</span>
                 </li>
               ))
             }

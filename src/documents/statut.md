@@ -6,7 +6,7 @@ title: Statut Fundacji Pierwsze Demo
 
 ### § 1
 
-1. Fundacja Pierwsze Demo, zwana dalej „Fundacją”, została ustanowiona przez Michała Miszczyszyna i Aleksandrę Helenę Geppert, zwanych dalej łącznie „Fundatorami”, a każde z nich „Fundatorem”, oświadczeniem woli złożonym w formie aktu notarialnego przed notariuszem [imię i nazwisko] w [miejscowość] dnia [data], Rep. A nr [numer].
+1. Fundacja Pierwsze Demo, zwana dalej „Fundacją”, została ustanowiona przez Michała Miszczyszyna i Aleksandrę Helenę Geppert, zwanych dalej łącznie „Fundatorami”, a każde z nich „Fundatorem”, oświadczeniem woli złożonym w formie aktu notarialnego przed notariuszem Maciejem Tomaszewskim w Gdańsku dnia 8 października 2026 r., Rep. A nr 4056/2026.
 2. Fundacja działa na podstawie przepisów prawa polskiego oraz niniejszego statutu.
 3. Fundacja jest apolityczna i nie związana z żadnym wyznaniem.
 4. Fundacja uzyskuje osobowość prawną z chwilą wpisu do Krajowego Rejestru Sądowego.
@@ -19,7 +19,7 @@ title: Statut Fundacji Pierwsze Demo
 
 ### § 3
 
-1. Ministrem właściwym ze względu na cele Fundacji jest minister właściwy do spraw kultury i ochrony dziedzictwa narodowego.
+Ministrem właściwym ze względu na cele Fundacji jest minister właściwy do spraw kultury i ochrony dziedzictwa narodowego.
 
 ### § 4
 
@@ -32,36 +32,40 @@ title: Statut Fundacji Pierwsze Demo
 
 ### § 5
 
-1. Celami Fundacji są:
-   - wspieranie rozwoju młodych i początkujących twórców muzycznych, w szczególności artystów i zespołów na początku drogi artystycznej;
-   - wspieranie artystów w rozwoju kariery, w tym w zakresie managementu, promocji i dystrybucji ich twórczości;
-   - wspieranie twórczości fonograficznej młodych artystów i powstawania ich nagrań;
-   - upowszechnianie kultury, w szczególności muzyki, oraz poszerzanie dostępu publiczności do nowej twórczości muzycznej;
-   - tworzenie warunków do prezentowania twórczości muzycznej, przede wszystkim przez organizowanie koncertów;
-   - edukacja muzyczna;
-   - edukacja w zakresie funkcjonowania w branży muzycznej, w szczególności managementu, działalności wydawniczej i fonograficznej, promocji i dystrybucji muzyki oraz organizacji koncertów;
-   - wspieranie rozwoju muzyki i środowiska muzycznego, w tym współpracy artystów, organizatorów, wydawców i innych osób zawodowo związanych z muzyką.
+Celami Fundacji są:
+
+1. wspieranie rozwoju młodych i początkujących twórców muzycznych, w szczególności artystów i zespołów na początku drogi artystycznej;
+2. wspieranie artystów w rozwoju kariery, w tym w zakresie managementu, promocji i dystrybucji ich twórczości;
+3. wspieranie twórczości fonograficznej młodych artystów i powstawania ich nagrań;
+4. upowszechnianie kultury i sztuki, w szczególności muzyki, oraz poszerzanie dostępu publiczności do nowej twórczości muzycznej;
+5. tworzenie warunków do prezentowania twórczości muzycznej, przede wszystkim przez organizowanie koncertów;
+6. edukacja muzyczna;
+7. edukacja w zakresie funkcjonowania w branży muzycznej, w szczególności managementu, działalności wydawniczej i fonograficznej, promocji i dystrybucji muzyki oraz organizacji koncertów;
+8. wspieranie artystów w sprawach prawnych i w dbaniu o zdrowie psychiczne;
+9. wspieranie rozwoju muzyki i środowiska muzycznego, w tym współpracy artystów, organizatorów, wydawców i innych osób zawodowo związanych z muzyką.
 
 ### § 6
 
 1. Fundacja realizuje swoje cele przez:
-   - organizowanie koncertów, showcase'ów, festiwali, przeglądów, konkursów i innych wydarzeń artystycznych;
-   - organizowanie i prowadzenie warsztatów, szkoleń, konferencji, kursów, wykładów, konsultacji i programów mentoringowych;
-   - wspieranie twórców w tworzeniu, nagrywaniu, wydawaniu, promocji i dystrybucji ich twórczości oraz w prowadzeniu kariery, w tym przez doradztwo i pomoc w zakresie managementu oraz udostępnianie wiedzy, kontaktów, sprzętu i przestrzeni;
-   - działalność wydawniczą, fonograficzną i audiowizualną, w tym w formie cyfrowej, oraz tworzenie i prowadzenie studia nagraniowego;
-   - prowadzenie serwisów internetowych, podcastów, publikacji i kampanii informacyjnych;
-   - przyznawanie stypendiów, nagród, grantów i innych form wsparcia finansowego lub rzeczowego twórcom;
-   - organizowanie rezydencji artystycznych, wymian i wyjazdów;
-   - współpracę z instytucjami kultury, organizacjami pozarządowymi, organami administracji publicznej, szkołami i uczelniami, mediami oraz podmiotami prywatnymi;
-   - pozyskiwanie środków na realizację celów, w tym przez ubieganie się o dotacje i granty oraz prowadzenie zbiórek publicznych.
+   1. organizowanie koncertów, showcase'ów, festiwali, przeglądów, konkursów i innych wydarzeń artystycznych;
+   2. organizowanie i prowadzenie warsztatów, szkoleń, konferencji, kursów, wykładów, konsultacji i programów mentoringowych;
+   3. wspieranie twórców w tworzeniu, nagrywaniu, wydawaniu, promocji i dystrybucji ich twórczości oraz w prowadzeniu kariery, w tym przez doradztwo i pomoc w zakresie managementu oraz udostępnianie wiedzy, kontaktów, sprzętu i przestrzeni;
+   4. działalność wydawniczą, fonograficzną i audiowizualną, w tym w formie cyfrowej, oraz tworzenie i prowadzenie studia nagraniowego dla artystów objętych działaniami Fundacji;
+   5. prowadzenie serwisów internetowych, podcastów, publikacji i kampanii informacyjnych;
+   6. przyznawanie stypendiów, nagród, grantów i innych form wsparcia finansowego lub rzeczowego twórcom;
+   7. zapewnianie artystom porad prawnych udzielanych przez prawników, w szczególności w zakresie praw autorskich i umów związanych z działalnością muzyczną;
+   8. organizowanie dla artystów konsultacji psychologicznych prowadzonych przez psychologów oraz grup wsparcia i warsztatów z zakresu zdrowia psychicznego;
+   9. organizowanie rezydencji artystycznych, wymian i wyjazdów;
+   10. współpracę z instytucjami kultury, organizacjami pozarządowymi, organami administracji publicznej, szkołami i uczelniami, mediami oraz podmiotami prywatnymi;
+   11. pozyskiwanie środków na realizację celów, w tym przez ubieganie się o dotacje i granty oraz prowadzenie zbiórek publicznych.
 2. Fundacja może realizować cele samodzielnie, we współpracy z innymi podmiotami oraz przez wspieranie działań innych osób i instytucji zbieżnych z jej celami.
 3. Fundacja może korzystać z pracy wolontariuszy, zatrudniać pracowników i zawierać umowy cywilnoprawne.
 
 ### § 7
 
 1. Fundacja realizuje cele, prowadząc nieodpłatną i odpłatną działalność pożytku publicznego w sferze zadań publicznych określonych w ustawie o działalności pożytku publicznego i o wolontariacie.
-2. Przedmiotem nieodpłatnej działalności pożytku publicznego są działania, o których mowa w § 6, prowadzone bez pobierania wynagrodzenia, w szczególności bezpłatne koncerty, wydarzenia i prezentacje, bezpłatne warsztaty, szkolenia, konferencje i mentoring, bezpłatne nagrania oraz konsultacje w zakresie managementu i promocji, stypendia, nagrody i inne formy wsparcia twórców oraz publikacje i materiały udostępniane bezpłatnie.
-3. Przedmiotem odpłatnej działalności pożytku publicznego są działania, o których mowa w § 6, za które Fundacja pobiera wynagrodzenie, w szczególności organizowanie koncertów, showcase'ów, festiwali i innych wydarzeń z biletowanym wstępem, prowadzenie odpłatnych warsztatów, szkoleń, konferencji, kursów i programów mentoringowych, realizację nagrań i udostępnianie studia nagraniowego, pomoc artystom w zakresie managementu, promocji i dystrybucji, sprzedaż wydawnictw fonograficznych, audiowizualnych i drukowanych wydanych przez Fundację w ramach realizacji jej celów oraz sprzedaż materiałów promocyjnych związanych z wydarzeniami i projektami Fundacji.
+2. Przedmiotem nieodpłatnej działalności pożytku publicznego są działania, o których mowa w § 6, prowadzone bez pobierania wynagrodzenia, w szczególności bezpłatne koncerty, wydarzenia i prezentacje, bezpłatne warsztaty, szkolenia, konferencje i mentoring, bezpłatne nagrania oraz konsultacje w zakresie managementu i promocji, bezpłatne porady prawne i konsultacje psychologiczne, stypendia, nagrody i inne formy wsparcia twórców oraz publikacje i materiały udostępniane bezpłatnie.
+3. Przedmiotem odpłatnej działalności pożytku publicznego są działania, o których mowa w § 6, za które Fundacja pobiera wynagrodzenie, w szczególności organizowanie koncertów, showcase'ów, festiwali i innych wydarzeń z biletowanym wstępem, prowadzenie odpłatnych warsztatów, szkoleń, konferencji, kursów, realizację nagrań dla artystów objętych działaniami Fundacji, pomoc artystom w zakresie managementu, promocji i dystrybucji oraz sprzedaż wydawnictw fonograficznych, audiowizualnych i drukowanych wydanych przez Fundację w ramach realizacji jej celów. Pomoc w zakresie managementu, promocji i dystrybucji oraz sprzedaż wydawnictw odbywają się za opłatą stałą, bez udziału Fundacji w przychodach artysty.
 4. Wynagrodzenie pobierane w ramach odpłatnej działalności pożytku publicznego nie może być wyższe od wynikającego z kosztów tej działalności, a wynagrodzenia osób fizycznych zatrudnionych przy jej wykonywaniu nie mogą przekraczać limitu określonego w art. 9 ust. 1 pkt 2 ustawy o działalności pożytku publicznego i o wolontariacie.
 5. Przychód z odpłatnej działalności pożytku publicznego służy wyłącznie realizacji działalności pożytku publicznego.
 6. Fundacja prowadzi rachunkowe wyodrębnienie nieodpłatnej i odpłatnej działalności pożytku publicznego w stopniu umożliwiającym określenie przychodów, kosztów i wyników każdej z nich.
@@ -80,10 +84,10 @@ title: Statut Fundacji Pierwsze Demo
 ### § 9
 
 1. Zabrania się:
-   - udzielania pożyczek lub zabezpieczania zobowiązań majątkiem Fundacji w stosunku do Fundatorów, członków Zarządu lub pracowników Fundacji oraz ich osób bliskich;
-   - przekazywania majątku Fundacji na rzecz osób, o których mowa w pkt 1, na zasadach innych niż w stosunku do osób trzecich, w szczególności bezpłatnie lub na preferencyjnych warunkach;
-   - wykorzystywania majątku Fundacji na rzecz osób, o których mowa w pkt 1, na zasadach innych niż w stosunku do osób trzecich, chyba że wykorzystanie to bezpośrednio wynika z celu statutowego;
-   - zakupu towarów lub usług od podmiotów, w których uczestniczą osoby, o których mowa w pkt 1, na zasadach innych niż w stosunku do osób trzecich lub po cenach wyższych niż rynkowe.
+   1. udzielania pożyczek lub zabezpieczania zobowiązań majątkiem Fundacji w stosunku do Fundatorów, członków Zarządu lub pracowników Fundacji oraz ich osób bliskich;
+   2. przekazywania majątku Fundacji na rzecz osób, o których mowa w pkt 1, na zasadach innych niż w stosunku do osób trzecich, w szczególności bezpłatnie lub na preferencyjnych warunkach;
+   3. wykorzystywania majątku Fundacji na rzecz osób, o których mowa w pkt 1, na zasadach innych niż w stosunku do osób trzecich, chyba że wykorzystanie to bezpośrednio wynika z celu statutowego;
+   4. zakupu towarów lub usług od podmiotów, w których uczestniczą osoby, o których mowa w pkt 1, na zasadach innych niż w stosunku do osób trzecich lub po cenach wyższych niż rynkowe.
 2. Osobami bliskimi są osoby, z którymi Fundatorzy, członkowie Zarządu lub pracownicy Fundacji pozostają w związku małżeńskim, we wspólnym pożyciu albo w stosunku pokrewieństwa lub powinowactwa w linii prostej, pokrewieństwa lub powinowactwa w linii bocznej do drugiego stopnia albo są związani z tytułu przysposobienia, opieki lub kurateli.
 
 ## Rozdział IV. Fundatorzy
@@ -91,12 +95,12 @@ title: Statut Fundacji Pierwsze Demo
 ### § 10
 
 1. Do kompetencji Fundatorów należy:
-   - powoływanie i odwoływanie członków Zarządu oraz określanie ich funkcji w Zarządzie;
-   - ustalanie zasad i wysokości wynagradzania członków Zarządu za pełnienie funkcji;
-   - dokonywanie zmian statutu, w tym zmiany celów Fundacji;
-   - podejmowanie decyzji o połączeniu Fundacji z inną fundacją oraz o likwidacji Fundacji;
-   - zatwierdzanie rocznego sprawozdania finansowego Fundacji; w tym zakresie Fundatorzy są organem zatwierdzającym w rozumieniu przepisów o rachunkowości i podejmują decyzje o wyborze uproszczonej ewidencji przychodów i kosztów oraz o rezygnacji z niej;
-   - ustanawianie pełnomocnika do reprezentowania Fundacji w przypadku, o którym mowa w § 14 ust. 3;
+   1. powoływanie i odwoływanie członków Zarządu oraz określanie ich funkcji w Zarządzie;
+   2. ustalanie zasad i wysokości wynagradzania członków Zarządu za pełnienie funkcji;
+   3. dokonywanie zmian statutu, w tym zmiany celów Fundacji;
+   4. podejmowanie decyzji o połączeniu Fundacji z inną fundacją oraz o likwidacji Fundacji;
+   5. zatwierdzanie rocznego sprawozdania finansowego Fundacji; w tym zakresie Fundatorzy są organem zatwierdzającym w rozumieniu przepisów o rachunkowości i podejmują decyzje o wyborze uproszczonej ewidencji przychodów i kosztów oraz o rezygnacji z niej;
+   6. ustanawianie pełnomocnika do reprezentowania Fundacji w przypadku, o którym mowa w § 14 ust. 3;
 2. Fundatorzy podejmują decyzje jednomyślnie, w formie pisemnych uchwał podpisanych przez oboje Fundatorów. Uchwała może być podpisana także podpisem kwalifikowanym, zaufanym lub osobistym.
 3. W sprawach wynagrodzenia jednego z Fundatorów za pełnienie funkcji w Zarządzie, umów między Fundacją a tym Fundatorem lub podmiotem, w którym on uczestniczy, oraz innych spraw majątkowych między Fundacją a tym Fundatorem decyzję podejmuje samodzielnie drugi Fundator. Nie dotyczy to powoływania i odwoływania członków Zarządu ani określania ich funkcji.
 4. Fundatorzy mogą być członkami Zarządu.
@@ -107,35 +111,35 @@ title: Statut Fundacji Pierwsze Demo
 ### § 11
 
 1. Organem Fundacji jest Zarząd.
-2. Zarząd składa się z jednej do trzech osób powoływanych przez Fundatorów na czas nieoznaczony. Fundatorzy wskazują Prezesa Zarządu i mogą wskazać Wiceprezesa Zarządu.
+2. Zarząd składa się z dwóch do trzech osób powoływanych przez Fundatorów na czas nieoznaczony. Fundatorzy wskazują Prezesa Zarządu i mogą wskazać Wiceprezesa Zarządu.
 3. Członkostwo w Zarządzie wygasa wskutek rezygnacji złożonej Fundatorom na piśmie, odwołania przez Fundatorów albo śmierci członka Zarządu.
 4. Członkiem Zarządu nie może być osoba skazana prawomocnym wyrokiem za przestępstwo umyślne ścigane z oskarżenia publicznego lub przestępstwo skarbowe.
-5. Jeżeli w Zarządzie nie pozostaje żaden członek, Fundatorzy niezwłocznie powołują nowy Zarząd.
+5. Jeżeli liczba członków Zarządu spadnie poniżej dwóch, Fundatorzy niezwłocznie uzupełniają jego skład. Do czasu uzupełnienia składu pozostały członek Zarządu prowadzi sprawy Fundacji, podejmuje decyzje Zarządu i reprezentuje Fundację samodzielnie we wszystkich sprawach. Jeżeli w Zarządzie nie pozostaje żaden członek, Fundatorzy niezwłocznie powołują nowy Zarząd.
 
 ### § 12
 
 1. Zarząd kieruje działalnością Fundacji i reprezentuje ją na zewnątrz.
 2. Do kompetencji Zarządu należą wszystkie sprawy niezastrzeżone dla Fundatorów, w szczególności:
-   - realizacja celów statutowych oraz planowanie działalności i budżetu Fundacji;
-   - uchwalanie regulaminów wewnętrznych Fundacji;
-   - zarządzanie majątkiem Fundacji;
-   - przyjmowanie darowizn, spadków, zapisów, dotacji i grantów;
-   - zatrudnianie pracowników, zawieranie umów cywilnoprawnych i współpraca z wolontariuszami;
-   - prowadzenie rachunkowości lub ewidencji oraz sporządzanie sprawozdań wymaganych przepisami;
-   - sporządzanie i składanie właściwemu ministrowi corocznego sprawozdania z działalności Fundacji.
+   1. realizacja celów statutowych oraz planowanie działalności i budżetu Fundacji;
+   2. uchwalanie regulaminów wewnętrznych Fundacji;
+   3. zarządzanie majątkiem Fundacji;
+   4. przyjmowanie darowizn, spadków, zapisów, dotacji i grantów;
+   5. zatrudnianie pracowników, zawieranie umów cywilnoprawnych i współpraca z wolontariuszami;
+   6. prowadzenie rachunkowości lub ewidencji oraz sporządzanie sprawozdań wymaganych przepisami;
+   7. sporządzanie i składanie właściwemu ministrowi corocznego sprawozdania z działalności Fundacji.
 
 ### § 13
 
-1. Zarząd podejmuje uchwały zwykłą większością głosów. W razie równej liczby głosów decyduje głos Prezesa Zarządu. W Zarządzie jednoosobowym decyzje podejmuje jedyny członek Zarządu.
+1. Zarząd podejmuje uchwały zwykłą większością głosów w obecności co najmniej dwóch członków Zarządu, z zastrzeżeniem § 11 ust. 5. W razie równej liczby głosów decyduje głos Prezesa Zarządu.
 2. Posiedzenia Zarządu odbywają się w miarę potrzeb, nie rzadziej jednak niż raz na kwartał. Zwołuje je Prezes Zarządu lub inny członek Zarządu, w dowolnej formie zapewniającej powiadomienie wszystkich członków.
-3. Posiedzenia Zarządu mogą odbywać się przy wykorzystaniu środków komunikacji elektronicznej. Uchwały mogą być podejmowane także bez posiedzenia, w trybie pisemnym lub przy wykorzystaniu środków komunikacji elektronicznej, jeżeli wszyscy członkowie Zarządu zostali powiadomieni o treści projektu uchwały.
-4. Uchwały Zarządu są protokołowane lub sporządzane w formie dokumentu podpisanego przez członków Zarządu biorących udział w głosowaniu.
+3. Posiedzenia Zarządu mogą odbywać się przy wykorzystaniu środków komunikacji elektronicznej. Uchwały mogą być podejmowane także bez posiedzenia, w trybie pisemnym lub przy wykorzystaniu środków komunikacji elektronicznej, jeżeli wszyscy członkowie Zarządu zostali powiadomieni o treści projektu uchwały i głos oddało co najmniej dwóch z nich. Głos przy wykorzystaniu środków komunikacji elektronicznej oddaje się wiadomością e-mail wysłaną z adresu w domenie Fundacji do pozostałych członków Zarządu.
+4. Uchwały Zarządu są protokołowane lub sporządzane w formie dokumentu podpisanego przez członków Zarządu biorących udział w głosowaniu. Protokół z posiedzenia odbytego przy wykorzystaniu środków komunikacji elektronicznej lub z głosowania bez posiedzenia wskazuje treść uchwały, sposób i datę głosowania oraz głosy poszczególnych członków Zarządu; sporządza go i podpisuje członek Zarządu, który zarządził głosowanie, a wiadomości z głosami przechowuje się wraz z protokołem.
 
 ### § 14
 
-1. Oświadczenia woli w imieniu Fundacji we wszystkich sprawach z wyjątkiem majątkowych składa każdy członek Zarządu samodzielnie. W sprawach majątkowych oświadczenia woli składają dwaj członkowie Zarządu działający łącznie, w tym Prezes Zarządu. Jeżeli Zarząd jest jednoosobowy, jedyny członek Zarządu reprezentuje Fundację samodzielnie we wszystkich sprawach.
+1. Oświadczenia woli w imieniu Fundacji we wszystkich sprawach z wyjątkiem majątkowych składa każdy członek Zarządu samodzielnie. W sprawach majątkowych oświadczenia woli składają dwaj członkowie Zarządu działający łącznie, w tym Prezes Zarządu. Jeżeli w Zarządzie pozostaje jeden członek, reprezentuje on Fundację samodzielnie we wszystkich sprawach.
 2. W umowach między Fundacją a członkiem Zarządu oraz w sporach z nim Fundację reprezentuje inny członek Zarządu, działający samodzielnie.
-3. Jeżeli Zarząd jest jednoosobowy, w czynnościach, o których mowa w ust. 2, Fundację reprezentuje pełnomocnik ustanowiony przez Fundatorów, niebędący członkiem Zarządu.
+3. Jeżeli w Zarządzie pozostaje jeden członek, w czynnościach, o których mowa w ust. 2, Fundację reprezentuje pełnomocnik ustanowiony przez Fundatorów, niebędący członkiem Zarządu.
 4. Zarząd może ustanawiać pełnomocników do dokonywania czynności określonego rodzaju lub czynności szczególnych.
 
 ### § 15
@@ -156,7 +160,7 @@ title: Statut Fundacji Pierwsze Demo
 
 ### § 17
 
-1. Zmian statutu, w tym zmiany celów Fundacji, dokonują Fundatorzy.
+Zmian statutu, w tym zmiany celów Fundacji, dokonują Fundatorzy.
 
 ### § 18
 

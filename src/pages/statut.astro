@@ -16,8 +16,10 @@ import { breadcrumbJsonLd } from "../schema";
  * Statut jako strona HTML, nie PDF: tekst da się przeszukać, przeczytać
  * czytnikiem ekranu i podlinkować do paragrafu. Źródłem jest
  * src/documents/statut.md – plik poza kolekcjami, bo to jeden dokument,
- * nie strumień wpisów. Do wpisu w KRS statut jest projektem i strona to
- * mówi; po wpisie wystarczy uzupełnić numer KRS w consts.ts.
+ * nie strumień wpisów. Statut ustalono uchwałą Fundatorów 8 października
+ * 2026 (akt notarialny Rep. A nr 4056/2026); do wpisu fundacja nie ma
+ * osobowości prawnej (§ 1 ust. 4) i strona to mówi. Po wpisie wystarczy
+ * uzupełnić numer KRS w consts.ts.
  */
 const canonical = new URL(STATUTE_PATH, SITE_URL).href;
 const breadcrumb = breadcrumbJsonLd(
@@ -47,7 +49,7 @@ const registered = Boolean(FOUNDATION.krs);
           Statut
         </h1>
         <p class="label text-muted md:text-right">
-          {registered ? `KRS ${FOUNDATION.krs}` : "projekt – do wpisu do KRS"}
+          {registered ? `KRS ${FOUNDATION.krs}` : "z 8.10.2026 – przed wpisem do KRS"}
         </p>
       </header>
       <div class="grid md:grid-aside-left">
