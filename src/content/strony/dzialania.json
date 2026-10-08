@@ -23,6 +23,11 @@
       "id": "kariera",
       "label": "Wsparcie w karierze",
       "description": "Management, promocja i dystrybucja dla artystów, którzy mają materiał i chcą pracować regularnie."
+    },
+    {
+      "id": "prawo-i-zdrowie",
+      "label": "Prawo i zdrowie psychiczne",
+      "description": "Porady prawników w sprawach praw autorskich i umów z wytwórnią, wydawcą czy organizatorem. Konsultacje z psychologiem, grupy wsparcia i warsztaty o zdrowiu psychicznym – bo kariera w muzyce to także presja, niepewność i praca bez etatu."
     }
   ]
 }
