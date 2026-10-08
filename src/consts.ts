@@ -118,16 +118,22 @@ export const registryValue = (value: string) => value || REGISTRY_PENDING;
 /** Tytuł przelewu, który pozwala zaksięgować wpłatę jako darowiznę (odliczenie od podatku). */
 export const DONATION_TITLE = "Darowizna na cele statutowe";
 
-/** Cele statutowe – § 5 statutu, dosłownie. Zmiana tu = zmiana statutu. */
+/**
+ * Cele statutowe – § 5 statutu z 8 października 2026, dosłownie i ze
+ * zwykłymi spacjami (twarde dokłada `fixHanging()` w szablonie). Zmiana tu
+ * = zmiana statutu, i odwrotnie: po każdej uchwale zmieniającej statut
+ * podmień też src/documents/statut.md.
+ */
 export const GOALS = [
-  "wspieranie rozwoju młodych i początkujących twórców muzycznych, w szczególności artystów i zespołów na początku drogi artystycznej",
-  "wspieranie artystów w rozwoju kariery, w tym w zakresie managementu, promocji i dystrybucji ich twórczości",
+  "wspieranie rozwoju młodych i początkujących twórców muzycznych, w szczególności artystów i zespołów na początku drogi artystycznej",
+  "wspieranie artystów w rozwoju kariery, w tym w zakresie managementu, promocji i dystrybucji ich twórczości",
   "wspieranie twórczości fonograficznej młodych artystów i powstawania ich nagrań",
-  "upowszechnianie kultury, w szczególności muzyki, oraz poszerzanie dostępu publiczności do nowej twórczości muzycznej",
+  "upowszechnianie kultury i sztuki, w szczególności muzyki, oraz poszerzanie dostępu publiczności do nowej twórczości muzycznej",
   "tworzenie warunków do prezentowania twórczości muzycznej, przede wszystkim przez organizowanie koncertów",
   "edukacja muzyczna",
-  "edukacja w zakresie funkcjonowania w branży muzycznej, w szczególności managementu, działalności wydawniczej i fonograficznej, promocji i dystrybucji muzyki oraz organizacji koncertów",
-  "wspieranie rozwoju muzyki i środowiska muzycznego, w tym współpracy artystów, organizatorów, wydawców i innych osób zawodowo związanych z muzyką",
+  "edukacja w zakresie funkcjonowania w branży muzycznej, w szczególności managementu, działalności wydawniczej i fonograficznej, promocji i dystrybucji muzyki oraz organizacji koncertów",
+  "wspieranie artystów w sprawach prawnych i w dbaniu o zdrowie psychiczne",
+  "wspieranie rozwoju muzyki i środowiska muzycznego, w tym współpracy artystów, organizatorów, wydawców i innych osób zawodowo związanych z muzyką",
 ] as const;
 
 export function withUtm(href: string, campaign: string): string {
