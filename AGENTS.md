@@ -47,8 +47,8 @@ The foundation is not yet in KRS. `FOUNDATION.krs/nip/regon/iban` in
 `consts.ts` are empty strings and every page renders `REGISTRY_PENDING`
 through `registryValue()` instead; filling them in is the only change needed
 after registration (footer, `/fundacja`, `/wesprzyj`, privacy policy, JSON-LD
-and `llms.txt` all read that object). Launch to production waits for the KRS
-entry.
+and `llms.txt` all read that object). The site went live without waiting for
+it (see „Launch”).
 
 The layout is a transcription of a Claude Design canvas project
 (`380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`),
@@ -508,28 +508,21 @@ indent) are never typed as pixels – they are multiples of the grid module belo
 
 ## Launch
 
-The site is deployed to `pierwszedemo.org` (Worker `pierwszedemo`, account
-„Fundacja Pierwsze Demo”, `custom_domain` route in `wrangler.jsonc`) **before**
-the foundation is in KRS, and kept out of every index by `public/_headers`
-(`X-Robots-Tag: noindex, nofollow` on `/*`). A header, not `<meta>`, because it
-also covers the OG cards, RSS and `llms.txt`; `robots.txt` stays open, because a
-crawler blocked by `Disallow` never sees the noindex and can still index the
-bare URL.
+Live and indexable since 2026-10-09, **before** the foundation is in KRS
+(registry fields render `REGISTRY_PENDING`). Worker `pierwszedemo`, account
+„Fundacja Pierwsze Demo”, `custom_domain` route in `wrangler.jsonc`, built by
+Workers Builds from `main`; `fundacja` was fast-forwarded into it and the Tina
+branch fallback says `main`. `public/_headers` keeps only `/admin` out of the
+index (a header, not `Disallow`: a crawler blocked by `robots.txt` never sees
+the noindex and can still index the bare URL).
 
-Migrated on 2026-10-09: `pierwszedemo.com` redirects to `.org` (see
-Architecture), the manager site's Vercel project no longer exists (the
-domain is left unassigned in the `typeofweb-org` team), `fundacja`
-was fast-forwarded into `main`, and Workers Builds and the Tina branch
-fallback both build from `main`. The `.com` zone's BIMI record points at
-`.org/bimi.svg`, because a BIMI fetcher does not follow redirects.
+`pierwszedemo.com` redirects to `.org` (see Architecture); the manager site's
+Vercel project and domain are gone. The `.com` zone's BIMI record points at
+`.org/bimi.svg`, because a BIMI fetcher does not follow redirects. Never remove
+the `.com` rule – Search Console's change of address depends on its 301s.
 
-Still to do once the foundation is in KRS:
-
-1. Fill `FOUNDATION.krs/nip/regon/iban` in `consts.ts`.
-2. Delete the noindex block from `public/_headers`.
-3. Bump `LAST_CONTENT_UPDATE`, deploy, submit the sitemap in Search Console
-   and Bing Webmaster Tools, and file the change of address from `.com`
-   (it needs the `.com` 301s above, so never remove that rule).
+Once the foundation is in KRS: fill `FOUNDATION.krs/nip/regon/iban` in
+`consts.ts`, bump `LAST_CONTENT_UPDATE` and deploy.
 
 ## Not built yet
 
