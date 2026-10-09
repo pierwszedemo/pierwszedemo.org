@@ -74,9 +74,6 @@ const redirects = {
         { status: 301, destination: entry.path },
       ]),
   ),
-  // Wywiad zszedł do szkicu (konflikt wizerunkowy – patrz AGENTS.md); stary
-  // adres prowadzi na listę, a nie na nieistniejący wpis.
-  "/blog/ola-geppert-ioanni-wywiad": { status: 301, destination: "/wiedza" },
 };
 
 export default defineConfig({

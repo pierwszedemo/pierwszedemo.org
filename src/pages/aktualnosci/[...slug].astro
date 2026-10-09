@@ -1,7 +1,7 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
 import Byline from "../../components/Byline.astro";
-import { getSortedNews, readingMinutes, type News } from "../../collections";
+import { getSortedNews, getPublishedNews, nextListed, readingMinutes, type News } from "../../collections";
 import { NEWS_KINDS, NEWS_PATH } from "../../consts";
 
 interface Props {
@@ -12,10 +12,10 @@ interface Props {
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const entries = await getSortedNews();
-  return entries.map((entry, index) => ({
+  const listed = await getSortedNews();
+  return (await getPublishedNews()).map((entry) => ({
     params: { slug: entry.id },
-    props: { entry, next: entries[index + 1] },
+    props: { entry, next: nextListed(entry, listed) },
   }));
 }
 

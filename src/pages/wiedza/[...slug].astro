@@ -1,7 +1,7 @@
 ---
 import ArticleLayout from "../../layouts/ArticleLayout.astro";
 import Byline from "../../components/Byline.astro";
-import { getSortedArticles, type Article } from "../../collections";
+import { getSortedArticles, getPublishedArticles, nextListed, type Article } from "../../collections";
 import { KNOWLEDGE_PATH } from "../../consts";
 
 interface Props {
@@ -15,11 +15,11 @@ interface Props {
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const entries = await getSortedArticles();
-  return entries.map((entry, index) => ({
+  const listed = await getSortedArticles();
+  return (await getPublishedArticles()).map((entry) => ({
     params: { slug: entry.id },
     // Lista jest posortowana malejąco, więc „następny" w czytaniu to starszy wpis.
-    props: { entry, next: entries[index + 1] },
+    props: { entry, next: nextListed(entry, listed) },
   }));
 }
 

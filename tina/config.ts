@@ -66,6 +66,12 @@ const tailFields: TinaField[] = [
     description: "Szkic nie ma adresu: nie trafia na listy, do sitemapy, RSS ani llms.txt.",
   },
   {
+    type: "boolean",
+    name: "unlisted",
+    label: "Ukryty na listach",
+    description: "Wpis ma adres i jest w sitemapie, ale nie ma go na listach, stronie głównej, w RSS ani llms.txt. Link do niego trzeba podać samemu.",
+  },
+  {
     type: "string",
     name: "keyphrase",
     label: "Fraza główna",

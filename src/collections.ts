@@ -13,15 +13,38 @@ export type News = CollectionEntry<"aktualnosci">;
 const byDateDesc = <T extends { id: string; data: { date: Date } }>(a: T, b: T) =>
   b.data.date.getTime() - a.data.date.getTime() || a.id.localeCompare(b.id);
 
-const published = ({ data }: { data: { draft: boolean } }) => !data.draft;
+type Flags = { data: { draft: boolean; unlisted: boolean } };
+const published = ({ data }: Flags) => !data.draft;
+const listed = ({ data }: Flags) => !data.draft && !data.unlisted;
 
+/** Wpisy widoczne w serwisie: listy, strona główna, prev/next, RSS, llms.txt. */
 export async function getSortedArticles(): Promise<Article[]> {
-  return (await getCollection("wiedza", published)).sort(byDateDesc);
+  return (await getCollection("wiedza", listed)).sort(byDateDesc);
 }
 
 export async function getSortedNews(): Promise<News[]> {
+  return (await getCollection("aktualnosci", listed)).sort(byDateDesc);
+}
+
+/**
+ * Wszystko, co ma adres – także `unlisted`. Tylko dla tras wpisów i kart OG:
+ * wpis niepubliczny na listach nadal musi mieć stronę i obrazek do udostępnień.
+ */
+export async function getPublishedArticles(): Promise<Article[]> {
+  return (await getCollection("wiedza", published)).sort(byDateDesc);
+}
+
+export async function getPublishedNews(): Promise<News[]> {
   return (await getCollection("aktualnosci", published)).sort(byDateDesc);
 }
+
+/**
+ * „Następny” w czytaniu = najbliższy starszy wpis z listy. Liczony względem
+ * listy, nie wszystkich opublikowanych, żeby żaden link nie prowadził do wpisu
+ * `unlisted`; ten sam wzór daje wpisowi `unlisted` następnika z listy.
+ */
+export const nextListed = <T extends { id: string; data: { date: Date } }>(entry: T, list: T[]) =>
+  list.find((other) => byDateDesc(entry, other) < 0);
 
 /**
  * Czas czytania liczony z treści przy buildzie, nie wpisywany do frontmattera.
