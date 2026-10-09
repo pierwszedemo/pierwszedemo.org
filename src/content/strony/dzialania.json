@@ -3,9 +3,7 @@
     {
       "id": "koncerty",
       "label": "Koncerty i wydarzenia",
-      "description": "Kameralne koncerty, showcase’y i przeglądy, na których młodzi twórcy grają własny repertuar dla publiczności. Pierwszy cykl: „dźwięki efemeryczne” w Trójmieście.",
-      "href": "/dzwieki-efemeryczne",
-      "linkLabel": "dźwięki efemeryczne."
+      "description": "Kameralne koncerty, showcase’y i przeglądy, na których młodzi twórcy grają własny repertuar dla publiczności."
     },
     {
       "id": "nagrania",
