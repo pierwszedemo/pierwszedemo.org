@@ -37,8 +37,11 @@ the first matching line, so a hand-written rule would land above them. That
 is also why there is no `/blog/*` wildcard: the adapter writes a dynamic
 redirect's target as `/wiedza/*/index.html`, so every post dated before
 `BLOG_RETIRED_ON` gets its own rule instead. The domain is
-`pierwszedemo.org`; the old `.com` redirects at the DNS/Cloudflare level,
-outside the repo.
+`pierwszedemo.org`. The old `.com` (and `www.`) is one Cloudflare Single
+Redirect rule on the `.com` zone, outside the repo: 301 to
+`https://pierwszedemo.org` + the same path and query. It maps nothing itself –
+`/blog/<slug>` and `/o-mnie` land on `.org` under their old paths and the rules
+above take them the rest of the way, so the mapping lives in one place.
 
 The foundation is not yet in KRS. `FOUNDATION.krs/nip/regon/iban` in
 `consts.ts` are empty strings and every page renders `REGISTRY_PENDING`
@@ -511,20 +514,22 @@ the foundation is in KRS, and kept out of every index by `public/_headers`
 (`X-Robots-Tag: noindex, nofollow` on `/*`). A header, not `<meta>`, because it
 also covers the OG cards, RSS and `llms.txt`; `robots.txt` stays open, because a
 crawler blocked by `Disallow` never sees the noindex and can still index the
-bare URL. `pierwszedemo.com` is the old manager site, still live on Vercel.
+bare URL.
 
-On launch day:
+Migrated on 2026-10-09: `pierwszedemo.com` redirects to `.org` (see
+Architecture), the manager site's Vercel project no longer exists (the
+domain is left unassigned in the `typeofweb-org` team), `fundacja`
+was fast-forwarded into `main`, and Workers Builds and the Tina branch
+fallback both build from `main`. The `.com` zone's BIMI record points at
+`.org/bimi.svg`, because a BIMI fetcher does not follow redirects.
+
+Still to do once the foundation is in KRS:
 
 1. Fill `FOUNDATION.krs/nip/regon/iban` in `consts.ts`.
 2. Delete the noindex block from `public/_headers`.
-3. Redirect `pierwszedemo.com` → `.org` (DNS/Cloudflare, outside the repo) and
-   retire the Vercel project.
-4. Merge `fundacja` into `main`, switch the production branch in Workers
-   Builds to `main` and the fallback in `tina/config.ts` back to `"main"`
-   (until launch both say `fundacja` – it is production, `main` is the old
-   manager site without Tina).
-5. Bump `LAST_CONTENT_UPDATE`, deploy, submit the sitemap in Search Console
-   and Bing Webmaster Tools.
+3. Bump `LAST_CONTENT_UPDATE`, deploy, submit the sitemap in Search Console
+   and Bing Webmaster Tools, and file the change of address from `.com`
+   (it needs the `.com` 301s above, so never remove that rule).
 
 ## Not built yet
 

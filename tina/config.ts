@@ -2,11 +2,9 @@ import { defineConfig, type Collection, type TinaField } from "tinacms";
 import { CATEGORIES, KINDS, NEWS_KINDS } from "../src/consts";
 
 // Gałąź, na którą Tina commituje. Workers Builds podaje ją w WORKERS_CI_BRANCH,
-// więc podgląd gałęzi edytuje tę samą gałąź, z której jest zbudowany. Domyślnie
-// `fundacja`: do startu to ona jest produkcją, a `main` to jeszcze serwis
-// managera bez Tiny. W dniu startu, po merge'u, wraca tu "main".
+// więc podgląd gałęzi edytuje tę samą gałąź, z której jest zbudowany.
 const branch =
-  process.env.GITHUB_BRANCH || process.env.WORKERS_CI_BRANCH || "fundacja";
+  process.env.GITHUB_BRANCH || process.env.WORKERS_CI_BRANCH || "main";
 
 /**
  * Slug z polskiego tekstu: „Skąd wziąć pieniądze” → „skad-wziac-pieniadze”.
