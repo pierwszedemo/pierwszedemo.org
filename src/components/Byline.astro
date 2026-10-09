@@ -1,12 +1,13 @@
 ---
 import { isoDate } from "../collections";
-import { FOUNDATION_PATH } from "../consts";
-import { FOUNDERS } from "../strony";
+import { FOUNDATION_PATH, type AuthorKey } from "../consts";
+import { authorsOf } from "../strony";
 
 /**
- * Podpis pod wpisem w kolumnie „W skrócie”. Wpisy pisze Michał w pierwszej
+ * Podpis pod wpisem w kolumnie „W skrócie”. Wpisy są pisane w pierwszej
  * osobie – podpis z funkcją w fundacji mówi czytelnikowi, czyj to głos,
- * bez przepisywania tekstów na głos organizacji.
+ * bez przepisywania tekstów na głos organizacji. Przy dwóch autorach każdy
+ * dostaje własną linijkę, żeby nazwisko nie odkleiło się od funkcji.
  *
  * `label` ma interlinię 1 – dobrą dla jednej linijki etykiety, ale podpis
  * i data aktualizacji to dwie linie i przy 1 sklejały się w blok.
@@ -16,20 +17,27 @@ import { FOUNDERS } from "../strony";
  * `rel="author"` mówi to samo przeglądarce i wyszukiwarce.
  */
 interface Props {
+  authors: readonly AuthorKey[];
   updated?: Date;
 }
-const { updated } = Astro.props;
-const author = FOUNDERS[0];
+const { authors, updated } = Astro.props;
 ---
 
 <p class="label leading-[1.8] text-muted">
-  <a
-    href={`${FOUNDATION_PATH}#${author.id}`}
-    rel="author"
-    class="underline underline-offset-4 transition-colors hover:text-ink"
-  >
-    {author.name}, {author.role.toLowerCase()}
-  </a>
+  {
+    authorsOf(authors).map((author, index) => (
+      <>
+        {index > 0 && <br />}
+        <a
+          href={`${FOUNDATION_PATH}#${author.id}`}
+          rel="author"
+          class="underline underline-offset-4 transition-colors hover:text-ink"
+        >
+          {author.name}, {author.role.toLowerCase()}
+        </a>
+      </>
+    ))
+  }
   {
     updated && (
       <>

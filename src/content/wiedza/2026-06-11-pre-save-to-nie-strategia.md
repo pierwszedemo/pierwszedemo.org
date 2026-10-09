@@ -3,6 +3,8 @@ title: Pre-save to nie strategia. To narzędzie
 lead: Pre-save zbiera ludzi, którzy już czekają. Nie tworzy ich. A większość kampanii singla zaczyna się właśnie od tego linku – i na nim kończy.
 category: Streaming
 kind: notatka
+authors:
+  - michal
 date: 2026-06-11
 updated: 2026-08-09
 keyphrase: pre-save spotify

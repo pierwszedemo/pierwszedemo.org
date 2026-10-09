@@ -3,6 +3,8 @@ title: Grupę docelową znajdziesz zakładem
 lead: Grupę docelową wypisujesz przed premierą, choć jeszcze nic o niej nie wiesz. To w porządku, o ile traktujesz ją jak zakład z terminem rozliczenia, a nie jak fakt.
 category: Promocja
 kind: notatka
+authors:
+  - michal
 date: 2026-08-11
 keyphrase: grupa docelowa artysty
 ---

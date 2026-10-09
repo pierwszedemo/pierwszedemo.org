@@ -1,6 +1,6 @@
 import { defineCollection, z, type ImageFunction } from "astro:content";
 import { glob } from "astro/loaders";
-import { CATEGORIES, DATE_PREFIX, KINDS, NEWS_KINDS } from "./consts";
+import { AUTHORS, CATEGORIES, DATE_PREFIX, KINDS, NEWS_KINDS } from "./consts";
 
 /**
  * Dwie kolekcje, nie jedna z polem „dział”: baza wiedzy i aktualności to dwa
@@ -44,6 +44,11 @@ const base = (image: ImageFunction) => ({
   /** Akapit „W skrócie" z lewej kolumny wpisu. Jednocześnie meta description. */
   lead: z.string(),
   date: calendarDate,
+  /**
+   * Kto podpisuje wpis – klucze fundatorów, w kolejności podpisu. Bez
+   * domyślnej wartości: wpis bez autora to błąd buildu, nie ciche „Michał”.
+   */
+  authors: z.array(z.enum(AUTHORS)).min(1, "Wpis musi mieć co najmniej jednego autora."),
   /** Data rewizji faktów – przewodniki starzeją się na liczbach. Zasila dateModified. */
   updated: calendarDate.optional(),
   /**

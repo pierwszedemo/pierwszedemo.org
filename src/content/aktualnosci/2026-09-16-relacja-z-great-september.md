@@ -2,6 +2,8 @@
 title: Po Great September – trochę skłamałem
 lead: Trzy dni w Łodzi za mną. Na panelach słuchałem tego, co sam piszę o branży, a najważniejsze rozmowy wydarzyły się nie tam, gdzie zakładałem.
 kind: relacja
+authors:
+  - michal
 date: 2026-09-16
 keyphrase: great september relacja
 ---

@@ -3,6 +3,8 @@ title: ZAiKS, STOART, SAWP, ZPAV – kto komu płaci
 lead: Jedno nagranie to trzy strumienie pieniędzy – za piosenkę, za wykonanie i za master. Każdy zbiera inna organizacja i żadna nie zgłosi Cię sama. Od czego zacząć?
 category: Finanse
 kind: przewodnik
+authors:
+  - michal
 date: 2026-08-28
 keyphrase: zaiks stoart sawp różnice
 ---

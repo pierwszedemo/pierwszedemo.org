@@ -39,6 +39,21 @@ export const OLA_ID = `${SITE_URL}/#ola`;
 export const WEBSITE_ID = `${SITE_URL}/#website`;
 export const ORGANIZATION_ID = `${SITE_URL}/#fundacja`;
 
+/**
+ * Kto może podpisać wpis: klucze z src/content/strony/fundatorzy.json, a przy
+ * nich etykiety do formularza Tiny. Tutaj, nie w strony.ts, bo listę czytają
+ * też zod (content.config.ts) i tina/config.ts, a cache panelu Tiny
+ * (scripts/build-tina.mjs) liczy się z consts.ts, nie z treści – etykieta
+ * wzięta z JSON-a nie odświeżyłaby się po zmianie nazwiska. Autor spoza listy
+ * nie ma bio na /fundacja ani węzła Person, więc nie ma go też w CMS-ie.
+ */
+export const AUTHOR_LABELS = {
+  michal: "Michał Miszczyszyn",
+  ola: "Ola Geppert",
+} as const;
+export type AuthorKey = keyof typeof AUTHOR_LABELS;
+export const AUTHORS = Object.keys(AUTHOR_LABELS) as [AuthorKey, ...AuthorKey[]];
+
 /** Data ostatniej zmiany treści – trafia do sitemap.lastmod i dateModified. */
 export const LAST_CONTENT_UPDATE = "2026-10-09";
 

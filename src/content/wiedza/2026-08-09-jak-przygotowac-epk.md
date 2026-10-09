@@ -3,6 +3,8 @@ title: EPK, czyli 90 sekund na zrobienie wrażenia
 lead: Osoba bookująca festiwal otwiera Twój press kit gdzieś między dwoma innymi mailami. Nie przeczyta go. Przeleci wzrokiem i zdecyduje.
 category: Promocja
 kind: notatka
+authors:
+  - michal
 date: 2026-08-09
 updated: 2026-08-09
 keyphrase: jak zrobić epk

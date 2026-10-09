@@ -3,6 +3,8 @@ title: Demo do wytwórni? Wyślij i nie czekaj
 lead: Wytwórnia nie spełnia marzeń i nie szuka talentów. Ona inwestuje. A inwestor kupuje dowód, nie obietnicę – i to zmienia kolejność Twoich ruchów.
 category: Branża
 kind: przewodnik
+authors:
+  - michal
 date: 2026-08-13
 keyphrase: demo do wytwórni
 ---

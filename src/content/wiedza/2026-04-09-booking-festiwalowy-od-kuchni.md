@@ -3,6 +3,8 @@ title: Booking festiwalowy od kuchni
 lead: Line-up letniego festiwalu jest w dużej mierze zamknięty, zanim skończy się zima. Zgłoszenia i tak przychodzą wiosną. Jest w tym pewna logika.
 category: Koncerty
 kind: notatka
+authors:
+  - michal
 date: 2026-04-09
 updated: 2026-08-09
 keyphrase: booking festiwalowy

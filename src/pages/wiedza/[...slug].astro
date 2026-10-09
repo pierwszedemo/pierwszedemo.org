@@ -37,5 +37,5 @@ const { entry, next } = Astro.props;
   )}
   oldestLabel="To najstarszy wpis w bazie wiedzy."
 >
-  <Byline slot="aside" updated={entry.data.updated} />
+  <Byline slot="aside" authors={entry.data.authors} updated={entry.data.updated} />
 </ArticleLayout>

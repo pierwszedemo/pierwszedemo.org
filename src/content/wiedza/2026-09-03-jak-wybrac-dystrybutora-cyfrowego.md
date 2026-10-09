@@ -3,6 +3,8 @@ title: Dystrybutor cyfrowy – jak wybrać i jak potem odejść
 lead: Cennik dystrybutora to najmniej ważna rubryka w porównaniu. Ważniejsze jest to, co dzieje się z Twoim katalogiem, gdy przestaniesz płacić albo zechcesz odejść.
 category: Wydawnictwa
 kind: przewodnik
+authors:
+  - michal
 date: 2026-09-03
 keyphrase: dystrybutor cyfrowy muzyki
 draft: true

@@ -138,8 +138,9 @@ The organisation and the people are separate entities. `SITE_NAME` („Fundacja
 Pierwsze Demo") is the site and the `NGO` node (`ORGANIZATION_ID`): titles,
 `og:site_name`, RSS, `WebSite.publisher`. Each founder has a `Person` node
 (`PERSON_ID` for Michał, `OLA_ID` for Ola) built from `FOUNDERS`; posts have
-`author` = Michał and `publisher` = the foundation, because Google reads an
-organisation as author badly. The domain lives in `SITE_URL` alone – `SITE_HOST`, the schema.org
+`author` = the people in their `authors` frontmatter (one or both founders)
+and `publisher` = the foundation, because Google reads an organisation as
+author badly. The domain lives in `SITE_URL` alone – `SITE_HOST`, the schema.org
 `@id`s, UTM `utm_source` and the OG card badge are all derived from it, so
 never type the host anywhere else.
 
@@ -179,7 +180,9 @@ homepage, prev/next link, RSS or llms.txt points to it. `getSortedArticles()` /
 OG cards) include unlisted ones, and `nextListed()` picks the next link from the
 listed set so no page links to an unlisted post. Posts are loaded through the content collections
 (`src/content.config.ts`) with a zod schema: `title`, `lead` (the "W skrócie"
-column, doubling as the meta description), `category` (wiedza only), `kind`, `date`,
+column, doubling as the meta description), `authors` (required list of
+founder keys from `AUTHORS` in `consts.ts` – no default, an empty list fails
+the build; drives the byline and JSON-LD `author`), `category` (wiedza only), `kind`, `date`,
 `updated?`, `keyphrase?`, `draft`, `spotifyTrackId?` (embeds a Spotify
 player under the lead in the "W skrócie" column – a frontmatter field, never an
 iframe in the body; the player loads without the consent banner on legitimate

@@ -3,6 +3,8 @@ title: Rolka nie musi być dobra. Musi wyjść
 lead: Strategia w socialach to przede wszystkim decyzja o tempie. Lepsze jest dziesięć rolek średnich niż jedna „idealna”.
 category: Promocja
 kind: notatka
+authors:
+  - michal
 date: 2026-08-17
 keyphrase: strategia social media
 ---

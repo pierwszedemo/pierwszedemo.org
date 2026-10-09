@@ -3,6 +3,8 @@ title: Ile naprawdę kosztuje niezależny singiel
 lead: Nagranie, okładka i promocja mogą kosztować zero złotych. Twardą cenę ma tu właściwie tylko dystrybucja. Więc czym płacisz za singla naprawdę?
 category: Finanse
 kind: notatka
+authors:
+  - michal
 date: 2026-08-10
 updated: 2026-09-10
 keyphrase: ile kosztuje singiel
