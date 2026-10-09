@@ -3,15 +3,18 @@ import EmailLink from "./EmailLink.astro";
 import {
   ACCESSIBILITY_PATH,
   FOUNDATION,
+  FOUNDATION_PATH,
   INSTAGRAM_URL,
   PRIVACY_POLICY_PATH,
   STATUTE_PATH,
   registryValue,
 } from "../consts";
 
-// Stopka fundacji to dwa wiersze. Górny niesie to, co ustawa i dobry obyczaj
-// każą mieć na każdej stronie: nazwę, adres siedziby, KRS / NIP / REGON
-// i kontakt – tory 5/3/3/5 jak w nawigacji, te same linie siatki. Dolny to
+// Stopka fundacji to dwa wiersze. Górny: nazwa, KRS / NIP / REGON i kontakt –
+// tory 5/3/3/5 jak w nawigacji, te same linie siatki. Adresu siedziby tu nie
+// ma: art. 5 ustawy o świadczeniu usług drogą elektroniczną każe podać go
+// „bezpośrednio dostępnie”, nie na każdej stronie – wystarcza link do danych
+// rejestrowych na /fundacja, gdzie adres stoi w całości. Dolny to
 // cztery komórki jak dawniej: ©, Instagram, Cookies i linki prawne. Linia
 // między wierszami jest hairline (wnętrze pasma), zewnętrzna – ink.
 const cell = "px-5 py-4 md:py-[19px] lg:px-8";
@@ -26,7 +29,7 @@ const registry = [
   <div class="grid grid-cols-2 border-b border-hairline md:grid-cols-[5fr_3fr_3fr_5fr]">
     <p class={`${cell} col-span-2 border-b border-hairline md:col-span-1 md:border-r md:border-b-0`}>
       <span class="font-semibold text-ink">{FOUNDATION.name}</span><br />
-      {FOUNDATION.street}, {FOUNDATION.postalCode} {FOUNDATION.city}
+      <a href={`${FOUNDATION_PATH}#dane`} class="underline underline-offset-4 transition-colors hover:text-ink">Dane rejestrowe</a>
     </p>
     <dl class={`${cell} border-r border-hairline md:col-span-2`}>
       {

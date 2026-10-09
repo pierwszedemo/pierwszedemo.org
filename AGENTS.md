@@ -587,9 +587,11 @@ by the site – the EP left the „Teraz" panel, and Michał's bio mentions the
 single in one clause. A grant assessor reading „foundation = the founder's
 promotion vehicle" is the risk this guards against.
 
-The footer is two rows. The top row carries what a Polish foundation must show
-on every page – name, registered address, KRS / NIP / REGON, e-mail – on the
-same 5/3/3/5 tracks as the nav; the bottom row is the four-cell band (`© /
+The footer is two rows. The top row carries the name, KRS / NIP / REGON and
+e-mail on the same 5/3/3/5 tracks as the nav. The registered address is not
+there on purpose: art. 5 of the e-services act wants it „bezpośrednio
+dostępny”, not on every page, so the footer links „Dane rejestrowe” to
+`/fundacja#dane` instead; the bottom row is the four-cell band (`© /
 Instagram / Cookies / Statut · Prywatność · Dostępność`) with borders computed
 from cell index, so a fifth cell means reworking `Footer.astro`, not pushing
 one more item in.
