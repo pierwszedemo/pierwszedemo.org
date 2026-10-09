@@ -37,11 +37,17 @@ the first matching line, so a hand-written rule would land above them. That
 is also why there is no `/blog/*` wildcard: the adapter writes a dynamic
 redirect's target as `/wiedza/*/index.html`, so every post dated before
 `BLOG_RETIRED_ON` gets its own rule instead. The domain is
-`pierwszedemo.org`. The old `.com` (and `www.`) is one Cloudflare Single
-Redirect rule on the `.com` zone, outside the repo: 301 to
-`https://pierwszedemo.org` + the same path and query. It maps nothing itself –
-`/blog/<slug>` and `/o-mnie` land on `.org` under their old paths and the rules
-above take them the rest of the way, so the mapping lives in one place.
+`pierwszedemo.org`. The old `.com` (and `www.`, http or https) is handled by
+Single Redirect rules on the `.com` zone, outside the repo, and every old URL
+must reach its final `.org` address in **one** 301 – never `.com/blog/x` →
+`.org/blog/x` → `.org/wiedza/x`. So the `.com` rules duplicate the mapping
+above instead of deferring to it: `/o-mnie` and `/manager-muzyczny` →
+`/fundacja`, `/blog` → `/wiedza`, each old `/blog/<slug>` (listed by name, with
+and without a trailing slash) → `/wiedza/…` or `/aktualnosci/…`, any other path
+ending in `/` → the same path without it, everything else → the same path.
+Query strings are preserved. The list is closed – no post dated after
+`BLOG_RETIRED_ON` ever lived under `/blog/` – so it never needs updating. A
+test of these must assert the hop count, not only the final URL.
 
 The foundation is not yet in KRS. `FOUNDATION.krs/nip/regon/iban` in
 `consts.ts` are empty strings and every page renders `REGISTRY_PENDING`
