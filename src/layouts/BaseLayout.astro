@@ -307,6 +307,14 @@ const jsonLd = {
   <body
     class="min-h-dvh bg-white font-sans text-ink antialiased [text-rendering:optimizeLegibility]"
   >
+    {/* WCAG 2.4.1: pierwszy cel tabulatora, widoczny dopiero z fokusem.
+        Każdy <main> w serwisie ma id="tresc". */}
+    <a
+      href="#tresc"
+      class="label sr-only z-50 bg-ink text-white focus:not-sr-only focus:fixed focus:px-5 focus:py-4 focus:top-0 focus:left-0 focus-visible:outline-white focus-visible:-outline-offset-4"
+    >
+      Przejdź do treści
+    </a>
     <slot />
     <ConsentManager />
   </body>

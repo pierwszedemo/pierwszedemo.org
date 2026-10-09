@@ -20,14 +20,14 @@ import {
  * na poziomie AA, do którego odsyła ustawa.
  */
 const PUBLISHED = "2026-10-04";
-const REVIEWED = "2026-10-04";
+const REVIEWED = "2026-10-09";
 
 const SECTIONS = [
   {
     title: "Stan",
     paragraphs: [
       `${SITE_NAME} zobowiązuje się zapewnić dostępność strony ${SITE_HOST} zgodnie z ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych. Niniejsze oświadczenie dotyczy strony ${SITE_URL}.`,
-      "Strona jest zgodna z ustawą. Wszystkie treści są dostępne z klawiatury, mają widoczny fokus, nagłówki tworzą logiczną strukturę, zdjęcia mają opisy alternatywne, a kontrast tekstu do tła przekracza 7:1. Jedynym ruchem na stronie jest animacja tytułu na stronie cyklu koncertów – wyłącza ją ustawienie systemowe ograniczenia ruchu.",
+      "Strona jest zgodna z ustawą. Wszystkie treści są dostępne z klawiatury, mają widoczny fokus, link „Przejdź do treści” na początku każdej strony pozwala pominąć nawigację, nagłówki tworzą logiczną strukturę, zdjęcia mają opisy alternatywne, a kontrast tekstu do tła wynosi co najmniej 4,5:1 (poziom AA). Jedynym ruchem na stronie jest animacja tytułu na stronie cyklu koncertów – wyłącza ją ustawienie systemowe ograniczenia ruchu.",
     ],
   },
   {
@@ -61,7 +61,7 @@ const SECTIONS = [
 >
   <div class="flex min-h-dvh flex-col">
     <Nav />
-    <main class="flex-1">
+    <main id="tresc" class="flex-1">
       <header
         class="flex flex-col gap-6 border-b border-ink px-5 pt-10 pb-9 md:flex-row md:items-end md:justify-between md:px-8 md:pt-13"
       >
