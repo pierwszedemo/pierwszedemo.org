@@ -280,7 +280,11 @@ and in the Workers Builds settings). It is only an editor: the site still
 renders through Astro content collections, the zod schema and the satteri
 plugins – Tina's own data layer and `TinaMarkdown` are not used for pages.
 `tina/config.ts` mirrors `base()` from `content.config.ts` field for field;
-change one, change the other (zod is what the build enforces). `/admin` is
+change one, change the other (zod is what the build enforces). Any change to `tina/config.ts` (or to `consts.ts` values it reads) must
+ship with a regenerated `tina/tina-lock.json` in the same push – TinaCloud
+indexes the schema from that file, and a stale lock makes the editor report
+„GraphQL Schema Mismatch”. Neither `tinacms build` nor `build:local` rewrites
+it; `tinacms dev` does (`bunx tinacms dev -c "sleep 8"` is enough). `/admin` is
 built by `tinacms build` into `public/admin` (gitignored) and served as static
 files; React exists only there.
 
