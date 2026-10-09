@@ -70,7 +70,7 @@ const tailFields: TinaField[] = [
     type: "boolean",
     name: "draft",
     label: "Szkic",
-    description: "Szkic nie ma adresu: nie trafia na listy, do sitemapy, RSS ani llms.txt.",
+    description: "Szkic ma adres do podglądu (z paskiem „to jest podgląd” i noindex), ale nie trafia na listy, do sitemapy, RSS ani llms.txt.",
   },
   {
     type: "boolean",

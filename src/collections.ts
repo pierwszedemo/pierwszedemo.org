@@ -14,7 +14,6 @@ const byDateDesc = <T extends { id: string; data: { date: Date } }>(a: T, b: T) 
   b.data.date.getTime() - a.data.date.getTime() || a.id.localeCompare(b.id);
 
 type Flags = { data: { draft: boolean; unlisted: boolean } };
-const published = ({ data }: Flags) => !data.draft;
 const listed = ({ data }: Flags) => !data.draft && !data.unlisted;
 
 /** Wpisy widoczne w serwisie: listy, strona główna, prev/next, RSS, llms.txt. */
@@ -27,21 +26,24 @@ export async function getSortedNews(): Promise<News[]> {
 }
 
 /**
- * Wszystko, co ma adres – także `unlisted`. Tylko dla tras wpisów i kart OG:
- * wpis niepubliczny na listach nadal musi mieć stronę i obrazek do udostępnień.
+ * Każdy wpis ma adres – także `unlisted` i szkic. Tylko dla tras wpisów i kart
+ * OG: wpisu spoza list nikt nie znajdzie bez linku, ale z linkiem musi mieć
+ * stronę i obrazek do udostępnień. Szkic to podgląd do wysłania komuś przed
+ * publikacją – z banerem i noindex (ArticleLayout), bez sitemapy
+ * (astro.config.mjs).
  */
-export async function getPublishedArticles(): Promise<Article[]> {
-  return (await getCollection("wiedza", published)).sort(byDateDesc);
+export async function getRoutedArticles(): Promise<Article[]> {
+  return (await getCollection("wiedza")).sort(byDateDesc);
 }
 
-export async function getPublishedNews(): Promise<News[]> {
-  return (await getCollection("aktualnosci", published)).sort(byDateDesc);
+export async function getRoutedNews(): Promise<News[]> {
+  return (await getCollection("aktualnosci")).sort(byDateDesc);
 }
 
 /**
  * „Następny” w czytaniu = najbliższy starszy wpis z listy. Liczony względem
  * listy, nie wszystkich opublikowanych, żeby żaden link nie prowadził do wpisu
- * `unlisted`; ten sam wzór daje wpisowi `unlisted` następnika z listy.
+ * `unlisted` ani do szkicu; ten sam wzór daje im następnika z listy.
  */
 export const nextListed = <T extends { id: string; data: { date: Date } }>(entry: T, list: T[]) =>
   list.find((other) => byDateDesc(entry, other) < 0);

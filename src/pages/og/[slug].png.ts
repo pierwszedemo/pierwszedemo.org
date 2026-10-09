@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import {
-  getPublishedArticles,
-  getPublishedNews,
+  getRoutedArticles,
+  getRoutedNews,
   type Article,
   type News,
 } from "../../collections";
@@ -15,8 +15,8 @@ export const prerender = true;
 // kolekcje dzielą jedną przestrzeń slugów; gdyby kiedyś się zderzyły, build
 // zgłosi zduplikowaną trasę.
 export async function getStaticPaths() {
-  const articles = await getPublishedArticles();
-  const news = await getPublishedNews();
+  const articles = await getRoutedArticles();
+  const news = await getRoutedNews();
   return [
     ...articles.map((entry) => ({
       params: { slug: entry.id },

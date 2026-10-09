@@ -25,18 +25,16 @@ const CONTENT_DIRS = {
 /** @param {string} raw @param {string} key */
 const frontmatter = (raw, key) =>
   raw.match(new RegExp(`^${key}:\\s*['"]?([^'"\\s]+)`, "m"))?.[1];
-const entries = Object.entries(CONTENT_DIRS).flatMap(([prefix, dir]) =>
+const allEntries = Object.entries(CONTENT_DIRS).flatMap(([prefix, dir]) =>
   readdirSync(dir)
     .filter((file) => file.endsWith(".md"))
     .map((file) => ({ file, raw: readFileSync(`${dir}/${file}`, "utf8") }))
-    // Szkic to `draft: true` (patrz content.config.ts) – bez adresu, więc ani
-    // w sitemapie, ani w przekierowaniach.
-    .filter(({ raw }) => frontmatter(raw, "draft") !== "true")
     .map(({ file, raw }) => {
       const slug = file.replace(/\.md$/, "").replace(DATE_PREFIX, "");
       return {
         slug,
         path: `${prefix}/${slug}`,
+        draft: frontmatter(raw, "draft") === "true",
         date: file.match(DATE_PREFIX)?.[0].slice(0, 10) ?? "",
         lastmod:
           frontmatter(raw, "updated") ??
@@ -44,6 +42,13 @@ const entries = Object.entries(CONTENT_DIRS).flatMap(([prefix, dir]) =>
           LAST_CONTENT_UPDATE,
       };
     }),
+);
+// Szkic (`draft: true`) ma adres – to podgląd do wysłania linkiem – ale noindex,
+// więc nie ma go w sitemapie ani w przekierowaniach z /blog: pod starym
+// adresem nigdy nie był publiczny.
+const entries = allEntries.filter((entry) => !entry.draft);
+const draftPaths = new Set(
+  allEntries.filter((entry) => entry.draft).map((entry) => entry.path),
 );
 const postLastmod = Object.fromEntries(
   entries.map((entry) => [entry.path, entry.lastmod]),
@@ -106,7 +111,11 @@ export default defineConfig({
     sitemap({
       // Sitemapa jest listą stron. Kanał RSS, karty OG i llms.txt to zasoby
       // pomocnicze – w indeksie tylko rozmywają to, co ma trafić do wyników.
-      filter: (page) => !/\.(png|xml|txt)$/.test(new URL(page).pathname),
+      // Szkice wypadają z tego samego powodu co z list – patrz `draftPaths`.
+      filter: (page) => {
+        const path = new URL(page).pathname.replace(/\/$/, "");
+        return !/\.(png|xml|txt)$/.test(path) && !draftPaths.has(path);
+      },
       serialize(item) {
         // Astro dokleja ukośnik na końcu, `trailingSlash: "never"` go nie
         // zdejmuje w sitemapie – bez tego każdy adres w mapie przekierowuje.

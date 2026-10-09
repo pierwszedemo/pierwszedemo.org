@@ -14,6 +14,9 @@
   --color-body: #3c3a36; /* akapity */
   --color-hairline: #e4e2dd; /* linie WEWNĄTRZ pasma (kontra ink między pasmami) */
   --color-panel: #f4f2ee; /* tło slotu na zdjęcie */
+  /* Jedyny kolor spoza makiety: pasek „to jest podgląd” na szkicach. Ma
+     odstawać od reszty strony – ink na nim daje 8:1, czyli też AAA. */
+  --color-preview: #ff8a00;
 
   /* Skala typograficzna – wartości z makiety 1280px jako górna granica. */
   --text-hero: clamp(3.25rem, 9.25vw, 7.375rem); /* 118px @ 1280 */
