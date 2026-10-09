@@ -3,6 +3,8 @@ title: Skąd wziąć pieniądze na muzykę? Stypendia i dotacje
 lead: Na muzykę w Polsce płacą ministerstwo, miasto, marszałek, ZAiKS i STOART. Każdy na co innego, ale wnioskować trzeba nawet rok wcześniej. Więc skąd wziąć na premierę z listopada?
 category: Finanse
 kind: przewodnik
+authors:
+  - michal
 date: 2026-09-24
 keyphrase: dofinansowanie muzyki
 ---

@@ -36,5 +36,5 @@ const twoColumns = entry.data.kind !== "rozmowa" && readingMinutes(entry) <= 4;
   )}
   oldestLabel="To najstarsza aktualność."
 >
-  <Byline slot="aside" updated={entry.data.updated} />
+  <Byline slot="aside" authors={entry.data.authors} updated={entry.data.updated} />
 </ArticleLayout>

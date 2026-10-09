@@ -2,6 +2,8 @@
 title: Jadę na Great September. Pierwszy raz, z tremą
 lead: Za dwa tygodnie jadę na pierwszy showcase w życiu – jako manager, nie widz. Mam bilet w PDF-ie i listę obaw dłuższą niż listę kontaktów.
 kind: relacja
+authors:
+  - michal
 date: 2026-08-25
 keyphrase: great september networking
 image: /blog/great-september-delegat.png

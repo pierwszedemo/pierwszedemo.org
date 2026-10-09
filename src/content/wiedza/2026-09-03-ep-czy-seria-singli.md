@@ -3,6 +3,8 @@ title: EP czy seria singli? Debiut zaczyna się od singla
 lead: Debiutancka EP to zwykle długie czekanie na produkcję, o której nikt nie wie. Single wychodzą co kilka miesięcy i każdy czegoś uczy. EP ma sens, gdy jest komu na nią czekać.
 category: Wydawnictwa
 kind: notatka
+authors:
+  - michal
 date: 2026-09-03
 keyphrase: ep czy single
 ---

@@ -6,11 +6,11 @@ import ListRow from "../../components/ListRow.astro";
 import SupportBand from "../../components/SupportBand.astro";
 import { getSortedNews, isoDate, readingMinutes } from "../../collections";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
+import { authorJsonLd, sectionAuthorJsonLd } from "../../strony";
 import {
   NEWS_KINDS,
   NEWS_PATH,
   ORGANIZATION_ID,
-  PERSON_ID,
   SITE_NAME,
   SITE_URL,
   WEBSITE_ID,
@@ -31,7 +31,7 @@ const blogJsonLd = {
   description,
   url: canonical,
   inLanguage: "pl",
-  author: { "@id": PERSON_ID },
+  author: sectionAuthorJsonLd(entries),
   publisher: { "@id": ORGANIZATION_ID },
   isPartOf: { "@id": WEBSITE_ID },
   blogPost: entries.map((entry) => ({
@@ -43,7 +43,7 @@ const blogJsonLd = {
     articleSection: NEWS_KINDS[entry.data.kind],
     datePublished: isoDateTime(entry.data.date),
     dateModified: isoDateTime(entry.data.updated ?? entry.data.date),
-    author: { "@id": PERSON_ID },
+    author: authorJsonLd(entry.data.authors),
   })),
 };
 

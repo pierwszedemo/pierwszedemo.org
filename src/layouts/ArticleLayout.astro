@@ -6,11 +6,11 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 import { hasBodyImage, isoDate, readingMinutes, type Article, type News } from "../collections";
 import { breadcrumbJsonLd, isoDateTime, wordCount } from "../schema";
+import { authorJsonLd } from "../strony";
 import { fixHanging } from "../typography";
 import {
   NAV,
   ORGANIZATION_ID,
-  PERSON_ID,
   SITE_NAME,
   SITE_URL,
   WEBSITE_ID,
@@ -62,7 +62,7 @@ const articleJsonLd = {
   datePublished: isoDateTime(entry.data.date),
   dateModified: isoDateTime(modified),
   inLanguage: "pl",
-  author: { "@id": PERSON_ID },
+  author: authorJsonLd(entry.data.authors),
   publisher: { "@id": ORGANIZATION_ID },
   isPartOf: { "@id": WEBSITE_ID },
   mainEntityOfPage: { "@id": canonical },

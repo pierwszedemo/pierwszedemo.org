@@ -1,5 +1,5 @@
 import { defineConfig, type Collection, type TinaField } from "tinacms";
-import { CATEGORIES, KINDS, NEWS_KINDS } from "../src/consts";
+import { AUTHOR_LABELS, CATEGORIES, KINDS, NEWS_KINDS } from "../src/consts";
 
 // Gałąź, na którą Tina commituje. Workers Builds podaje ją w WORKERS_CI_BRANCH,
 // więc podgląd gałęzi edytuje tę samą gałąź, z której jest zbudowany.
@@ -43,6 +43,15 @@ const headFields: TinaField[] = [
 ];
 
 const tailFields: TinaField[] = [
+  {
+    type: "string",
+    name: "authors",
+    label: "Autorzy",
+    description: "Kto podpisuje wpis. Co najmniej jedna osoba.",
+    required: true,
+    list: true,
+    options: Object.entries(AUTHOR_LABELS).map(([value, label]) => ({ value, label })),
+  },
   {
     type: "datetime",
     name: "date",
@@ -144,7 +153,12 @@ const wiedza: Collection = {
   path: "src/content/wiedza",
   format: "md",
   ui: postUi,
-  defaultItem: () => ({ draft: true, kind: "notatka", date: new Date().toISOString() }),
+  defaultItem: () => ({
+    draft: true,
+    kind: "notatka",
+    authors: ["michal"],
+    date: new Date().toISOString(),
+  }),
   fields: [
     ...headFields,
     {
@@ -172,7 +186,7 @@ const aktualnosci: Collection = {
   path: "src/content/aktualnosci",
   format: "md",
   ui: postUi,
-  defaultItem: () => ({ draft: true, date: new Date().toISOString() }),
+  defaultItem: () => ({ draft: true, authors: ["michal"], date: new Date().toISOString() }),
   fields: [
     ...headFields,
     {

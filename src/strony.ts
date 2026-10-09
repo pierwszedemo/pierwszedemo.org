@@ -2,7 +2,7 @@ import founders from "./content/strony/fundatorzy.json" with { type: "json" };
 import activities from "./content/strony/dzialania.json" with { type: "json" };
 import homepage from "./content/strony/strona-glowna.json" with { type: "json" };
 import foundationPage from "./content/strony/fundacja.json" with { type: "json" };
-import { OLA_ID, PERSON_ID } from "./consts";
+import { AUTHORS, OLA_ID, PERSON_ID, type AuthorKey } from "./consts";
 
 /*
  * Treści edytowane w Tinie (src/content/strony/*.json), złożone z polami,
@@ -26,6 +26,21 @@ export const FOUNDERS = [
   { id: "michal", schemaId: PERSON_ID, ...founders.michal },
   { id: "ola", schemaId: OLA_ID, ...founders.ola },
 ] as const;
+
+/** Autorzy wpisu w kolejności z frontmattera – podpis i `author` w JSON-LD. */
+export const authorsOf = (keys: readonly AuthorKey[]) =>
+  keys.map((key) => FOUNDERS.find((founder) => founder.id === key)!);
+
+/** `author` do JSON-LD: odnośniki do węzłów Person, które BaseLayout już emituje. */
+export const authorJsonLd = (keys: readonly AuthorKey[]) =>
+  authorsOf(keys).map((author) => ({ "@id": author.schemaId }));
+
+/**
+ * Autorzy całego działu (węzeł Blog) – każdy, kto podpisał choć jeden wpis
+ * na liście, w kolejności z `AUTHORS`.
+ */
+export const sectionAuthorJsonLd = (entries: { data: { authors: readonly AuthorKey[] } }[]) =>
+  authorJsonLd(AUTHORS.filter((key) => entries.some((entry) => entry.data.authors.includes(key))));
 
 /**
  * Działania – § 6 statutu przełożony na programy, którymi fundacja faktycznie
