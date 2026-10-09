@@ -57,6 +57,26 @@
   }
 }
 
+/* Przełączniki w ustawieniach cookies: biblioteka rysuje je na 50×23 px,
+   o piksel poniżej minimum celu dotyku z WCAG 2.5.8 (24 px). Gałka i jej
+   przesunięcie rosną razem z torem. */
+#cc-main .section__toggle,
+#cc-main .section__toggle-wrapper,
+#cc-main .toggle__icon,
+#cc-main .toggle__label {
+  height: 24px;
+  width: 52px;
+}
+
+#cc-main .toggle__icon-circle {
+  height: 24px;
+  width: 24px;
+}
+
+#cc-main .section__toggle:checked ~ .toggle__icon .toggle__icon-circle {
+  transform: translateX(28px);
+}
+
 /* Etykiety monospace: wielkie litery + rozstrzelenie, powtarzane w całym
    projekcie. Jedna klasa zamiast pięciu utilities przy każdym użyciu. */
 /* Pasmo z kolumną boczną po lewej / po prawej. Jedna definicja zamiast
@@ -208,10 +228,13 @@
   margin-top: 0;
 }
 
+/* Kolor body, nie muted: tło paska jest półprzezroczyste, a nad czarnym
+   pasmem rozmycie ciemnieje do ~#d4d4d4 – muted daje tam 3,48:1, poniżej AA. */
 #cc-main .cm__desc {
   font-size: 0.75rem;
   line-height: 1.4;
   white-space: nowrap;
+  color: var(--color-body);
 }
 
 /* „Ustawienia" jako link w zdaniu – trzeci przycisk zabierałby całą linię.
@@ -226,9 +249,11 @@
   transition: color 0.2s;
 }
 
+/* Hover grubszym podkreśleniem, nie kolorem muted – z tego samego powodu
+   co kolor opisu wyżej. */
 #cc-main .cm__desc button:hover,
 #cc-main .cm__desc a:hover {
-  color: var(--color-muted);
+  text-decoration-thickness: 2px;
 }
 
 #cc-main .cm__btns {
