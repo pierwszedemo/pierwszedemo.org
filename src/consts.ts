@@ -208,7 +208,7 @@ export const DATE_PREFIX = /^\d{4}-\d{2}-\d{2}-/;
 // i dla linków w banerze cookies (src/scripts/consent.ts).
 // ---------------------------------------------------------------------------
 export const PRIVACY_POLICY_PATH = "/polityka-prywatnosci";
-export const PRIVACY_POLICY_UPDATED = "2026-10-04";
+export const PRIVACY_POLICY_UPDATED = "2026-10-09";
 
 /** Nazwa cookie z decyzją użytkownika – pada też w treści polityki. */
 export const CONSENT_COOKIE = "mm_consent";
