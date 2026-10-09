@@ -63,6 +63,12 @@ const base = (image: ImageFunction) => ({
    */
   draft: z.boolean().default(false),
   /**
+   * Opublikowany, ale niewidoczny: ma adres, kartę OG i jest w sitemapie,
+   * tylko nie trafia na listy, stronę główną, prev/next, RSS ani llms.txt –
+   * dostanie się tu tylko ktoś z bezpośrednim linkiem albo z wyszukiwarki.
+   */
+  unlisted: z.boolean().default(false),
+  /**
    * ID utworu z open.spotify.com/track/<id> – osadza odtwarzacz w kolumnie
    * „W skrócie". Pole zamiast iframe'u w markdownie, bo korpus wpisu
    * dopuszcza tylko akapity, ##, ###, linki, strong i em. Odtwarzacz ładuje

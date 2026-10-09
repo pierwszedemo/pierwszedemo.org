@@ -163,7 +163,12 @@ the bare slug. Drafts are `draft: true` in the frontmatter – they stay in the
 collection and `collections.ts` drops them, so a draft has no URL and is in no
 list, sitemap, RSS or llms.txt (`astro.config.mjs` skips them by the same
 field). They used to be `_`-prefixed files, but Tina cannot rename a file, so
-publishing from the CMS would have been impossible. Posts are loaded through the content collections
+publishing from the CMS would have been impossible. `unlisted: true` is the
+middle state: the post has its URL, OG card and sitemap entry, but no list,
+homepage, prev/next link, RSS or llms.txt points to it. `getSortedArticles()` /
+`getSortedNews()` return listed posts only; `getPublished*()` (post routes and
+OG cards) include unlisted ones, and `nextListed()` picks the next link from the
+listed set so no page links to an unlisted post. Posts are loaded through the content collections
 (`src/content.config.ts`) with a zod schema: `title`, `lead` (the "W skrócie"
 column, doubling as the meta description), `category` (wiedza only), `kind`, `date`,
 `updated?`, `keyphrase?`, `draft`, `spotifyTrackId?` (embeds a Spotify
@@ -576,8 +581,9 @@ follows directly from a statutory goal). The line is drawn by purpose, not by
 person: a founder's project appears here only when it *is* a foundation
 activity (the concert series she hosts, a workshop she runs) and only with the
 role stated next to her name. Never as promotion of a release – the interview
-about her single was moved to a draft (`2026-09-18-ola-geppert-ioanni-wywiad.md`, `draft: true`)
-for that reason, the EP left the „Teraz" panel, and Michał's bio mentions the
+about her single (`2026-09-18-ola-geppert-ioanni-wywiad.md`) is
+`unlisted: true` for that reason – reachable by its own link, never featured
+by the site – the EP left the „Teraz" panel, and Michał's bio mentions the
 single in one clause. A grant assessor reading „foundation = the founder's
 promotion vehicle" is the risk this guards against.
 
