@@ -39,7 +39,7 @@ const transfer = [
   },
   {
     label: "Numer konta",
-    value: FOUNDATION.iban || "podamy po wpisie fundacji do KRS",
+    value: FOUNDATION.iban || "w trakcie rejestracji KRS",
   },
   { label: "Tytuł przelewu", value: DONATION_TITLE },
 ] as const;
@@ -148,9 +148,6 @@ const link = "underline decoration-1 underline-offset-4";
             pkt 9 ustawy o PIT), firmy do 10% (art. 18 ust. 1 pkt 1 ustawy
             o CIT). Dowodem jest potwierdzenie przelewu z tytułem „{DONATION_TITLE}”
             – nie potrzebujesz od nas żadnego dodatkowego dokumentu.
-          </p>
-          <p>
-            Fundacja nie posiada jeszcze statusu organizacji pożytku publicznego.
           </p>
         </div>
       </section>
