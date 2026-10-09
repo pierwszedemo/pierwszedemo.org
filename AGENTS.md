@@ -169,16 +169,23 @@ Posts are markdown in `src/content/wiedza/` or `src/content/aktualnosci/`,
 named `YYYY-MM-DD-<slug>.md` so the directory lists chronologically. The date prefix is **not** part of the URL:
 `generateId` in `content.config.ts` strips it (`DATE_PREFIX` in `consts.ts`,
 shared with the sitemap `lastmod` map in `astro.config.mjs`), so `post.id` is
-the bare slug. Drafts are `draft: true` in the frontmatter – they stay in the
-collection and `collections.ts` drops them, so a draft has no URL and is in no
-list, sitemap, RSS or llms.txt (`astro.config.mjs` skips them by the same
-field). They used to be `_`-prefixed files, but Tina cannot rename a file, so
-publishing from the CMS would have been impossible. `unlisted: true` is the
-middle state: the post has its URL, OG card and sitemap entry, but no list,
-homepage, prev/next link, RSS or llms.txt points to it. `getSortedArticles()` /
-`getSortedNews()` return listed posts only; `getPublished*()` (post routes and
-OG cards) include unlisted ones, and `nextListed()` picks the next link from the
-listed set so no page links to an unlisted post. Posts are loaded through the content collections
+the bare slug. Three visibility states, all set in the frontmatter:
+
+- **listed** (default) – lists, homepage, prev/next, RSS, llms.txt, sitemap.
+- **`unlisted: true`** – own URL, OG card and sitemap entry, indexable, but no
+  list, homepage, prev/next link, RSS or llms.txt points to it.
+- **`draft: true`** – a preview to send by link before publishing: own URL and
+  OG card, but `noindex, nofollow`, no JSON-LD, an orange „To jest podgląd”
+  band above the nav (`--color-preview`, the one colour outside the mock), and
+  it is in no list, sitemap (`draftPaths` in `astro.config.mjs`), RSS or
+  llms.txt, nor in the `/blog/*` redirects.
+
+`getSortedArticles()` / `getSortedNews()` return listed posts only;
+`getRoutedArticles()` / `getRoutedNews()` (post routes and OG cards) return
+everything, and `nextListed()` picks the next link from the listed set so no
+page links to an unlisted post or a draft. Drafts used to be `_`-prefixed files,
+but Tina cannot rename a file, so publishing from the CMS would have been
+impossible. Posts are loaded through the content collections
 (`src/content.config.ts`) with a zod schema: `title`, `lead` (the "W skrócie"
 column, doubling as the meta description), `authors` (required list of
 founder keys from `AUTHORS` in `consts.ts` – no default, an empty list fails

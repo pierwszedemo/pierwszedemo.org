@@ -73,6 +73,11 @@ const articleJsonLd = {
   keywords,
 };
 
+// Szkic ma adres, żeby dało się go komuś wysłać przed publikacją, ale to nie
+// jest strona serwisu: noindex, bez danych strukturalnych (BaseLayout i tak
+// pomija węzeł strony przy noindex) i z paskiem, że to podgląd.
+const isDraft = entry.data.draft;
+
 const breadcrumb = breadcrumbJsonLd(
   [
     { name: "Start", path: "/" },
@@ -90,9 +95,20 @@ const breadcrumb = breadcrumbJsonLd(
   ogType="article"
   ogImage={ogImage}
   dateModified={modified}
-  extraJsonLd={[articleJsonLd, breadcrumb]}
+  extraJsonLd={isDraft ? [] : [articleJsonLd, breadcrumb]}
+  robots={isDraft ? "noindex, nofollow" : undefined}
 >
   <div class="flex min-h-dvh flex-col">
+    {
+      isDraft && (
+        <div role="note" class="border-b border-ink bg-preview px-5 py-4 text-ink md:px-8">
+          <p class="label leading-[1.6]">
+            <strong class="font-semibold">To jest podgląd.</strong> Szkic – nie ma go na
+            stronie ani w wyszukiwarkach, widzi go tylko ktoś z tym linkiem.
+          </p>
+        </div>
+      )
+    }
     <Nav active={section.label} />
 
     <main id="tresc" class="flex flex-1 flex-col">
