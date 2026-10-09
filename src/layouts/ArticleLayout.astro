@@ -142,8 +142,8 @@ const breadcrumb = breadcrumbJsonLd(
              wpada w oko komuś, kto przelatuje stronę wzrokiem – czego samo
              pogrubienie nie robi, bo `strong` to tu tylko waga 600.
              Wcięcie jak w nagłówku, żeby cytat stał w osi tekstu wpisu.
-             figure + blockquote, nie <aside>: complementary w <main> to
-             osobny region dla czytnika, a to cytat z rozmowy. */
+             figure + blockquote, bo to cytat z rozmowy – czytnik ogłasza go
+             jako cytat, a autor w figcaption jest z nim powiązany. */
           entry.data.pullquote && (
             <figure class="border-b border-ink px-5 py-10 md:px-8 md:pl-[calc(var(--post-aside)_+_2rem)]">
               <blockquote>
@@ -167,13 +167,13 @@ const breadcrumb = breadcrumbJsonLd(
         <div
           class="grid flex-1 grid-cols-[minmax(0,1fr)] md:grid-cols-[var(--post-aside)_minmax(0,1fr)]"
         >
-          {/* div, nie <aside>: lead to streszczenie tego wpisu, nie treść poboczna,
-              a landmark complementary zagnieżdżony w <main> czytnik ekranu
-              ogłasza jako osobny region strony. */}
-          <div
+          {/* axe zgłasza tu landmark-complementary-is-top-level – fałszywy alarm:
+              <aside> w <article> bez nazwy dostępnej nie jest landmarkiem
+              (HTML-AAM), więc czytnik nie ogłasza go jako osobnego regionu. */}
+          <aside
             class="border-b border-hairline px-5 py-9 md:border-r md:border-b-0 md:px-8"
           >
-            {/* Sticky na wewnętrznym divie, nie na kolumnie: kolumna musi zostać
+            {/* Sticky na wewnętrznym divie, nie na aside: aside musi zostać
                 pełnej wysokości, żeby border-r biegł przez całe pasmo treści.
                 Tylko od md – poniżej kolumny są ułożone jedna pod drugą.
                 top-9 = pionowy padding aside, żeby przyklejona treść stawała
@@ -218,7 +218,7 @@ const breadcrumb = breadcrumbJsonLd(
               }
               <slot name="aside" />
             </div>
-          </div>
+          </aside>
 
           <div
             class:list={[

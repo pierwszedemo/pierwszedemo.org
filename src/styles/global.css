@@ -8,7 +8,9 @@
 
   /* Kolory odczytane z projektu (Swiss, kierunek 2). */
   --color-ink: #101010; /* tekst, twarde linie, bloki na negatywie */
-  --color-muted: #6f6d68; /* etykiety, metadane, nieaktywna nawigacja */
+  /* Muted trzyma 7:1 (WCAG AAA) na bieli i na panelu – deklaracja dostępności
+     to obiecuje. Każdy jaśniejszy szary tekstu łamie tę obietnicę. */
+  --color-muted: #4f4d48; /* etykiety, metadane, nieaktywna nawigacja */
   --color-body: #3c3a36; /* akapity */
   --color-hairline: #e4e2dd; /* linie WEWNĄTRZ pasma (kontra ink między pasmami) */
   --color-panel: #f4f2ee; /* tło slotu na zdjęcie */
@@ -229,7 +231,7 @@
 }
 
 /* Kolor body, nie muted: tło paska jest półprzezroczyste, a nad czarnym
-   pasmem rozmycie ciemnieje do ~#d4d4d4 – muted daje tam 3,48:1, poniżej AA. */
+   pasmem rozmycie ciemnieje do ~#d4d4d4 – muted daje tam 5,7:1, body 7,66:1. */
 #cc-main .cm__desc {
   font-size: 0.75rem;
   line-height: 1.4;
