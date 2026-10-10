@@ -8,10 +8,10 @@ export const prerender = true;
 // dynamiczną, więc karta cyklu nie wymaga wpisu w kolekcji bloga. Nadtytuł
 // podmieniony – domyślny to byline managera, a ta karta zapowiada wydarzenie.
 export const GET: APIRoute = async () => {
-  const png = await renderOgCard({
-    eyebrow: "Cykl koncertów piosenki autorskiej – Trójmiasto 2027",
-    title: CONCERT_SERIES_NAME,
-    badge: "Wstęp wolny",
-  });
-  return new Response(png, { headers: OG_HEADERS });
+	const png = await renderOgCard({
+		eyebrow: "Cykl koncertów piosenki autorskiej – Trójmiasto 2027",
+		title: CONCERT_SERIES_NAME,
+		badge: "Wstęp wolny",
+	});
+	return new Response(png, { headers: OG_HEADERS });
 };

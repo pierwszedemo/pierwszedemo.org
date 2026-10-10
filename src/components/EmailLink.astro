@@ -12,8 +12,8 @@ import { CONTACT_EMAIL } from "../consts";
  * sam slot: tekst w slocie i `mailto:` muszą wskazywać tę samą skrzynkę.
  */
 interface Props {
-  address?: string;
-  class?: string;
+	address?: string;
+	class?: string;
 }
 const { address = CONTACT_EMAIL, class: className } = Astro.props;
 ---

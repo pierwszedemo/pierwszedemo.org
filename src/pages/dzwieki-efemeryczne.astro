@@ -2,20 +2,20 @@
 import { Image } from "astro:assets";
 import kasoil from "../assets/dzwieki-efemeryczne/kasoil.jpg";
 import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Footer from "../components/Footer.astro";
 import EmailLink from "../components/EmailLink.astro";
+import Footer from "../components/Footer.astro";
 import {
-  CONCERT_SERIES_NAME,
-  CONCERT_SERIES_OG,
-  CONCERT_SERIES_PATH,
-  ORGANIZATION_ID,
-  FOUNDATION_PATH,
-  SITE_NAME,
-  SITE_URL,
-  withUtm,
-DZWIEKI_EMAIL,
+	CONCERT_SERIES_NAME,
+	CONCERT_SERIES_OG,
+	CONCERT_SERIES_PATH,
+	DZWIEKI_EMAIL,
+	FOUNDATION_PATH,
+	ORGANIZATION_ID,
+	SITE_NAME,
+	SITE_URL,
+	withUtm,
 } from "../consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd } from "../schema";
 
 /*
@@ -42,8 +42,8 @@ const EDITION = "edycja I";
  * HTML nie zmienia się między buildami.
  */
 const noise = (seed: number) => {
-  const value = Math.sin(seed * 12.9898) * 43758.5453;
-  return value - Math.floor(value);
+	const value = Math.sin(seed * 12.9898) * 43758.5453;
+	return value - Math.floor(value);
 };
 const FADE_SPREAD = 2.3;
 // Szum rozciągnięty do pełnego zakresu 0–1: pierwsza litera rusza w zerowej
@@ -51,9 +51,7 @@ const FADE_SPREAD = 2.3;
 // ze stałym opóźnieniem dawał prawie sekundę stojącego tytułu – ruch wyglądał
 // na spóźniony, a nie na zamierzony.
 const letterCount = [...NAME].filter((char) => /\p{L}/u.test(char)).length;
-const samples = Array.from({ length: letterCount }, (_, index) =>
-  noise(index + 1),
-);
+const samples = Array.from({ length: letterCount }, (_, index) => noise(index + 1));
 const low = Math.min(...samples);
 const span = Math.max(...samples) - low;
 // Cykl jednej litery: 5–10 s, z czego gaśnięcie i powrót zajmują pierwsze
@@ -63,55 +61,55 @@ const CYCLE_MIN = 5;
 const CYCLE_RANGE = 5;
 let letterIndex = 0;
 const titleWords = NAME.split(" ").map((word) =>
-  [...word].map((char) => {
-    // Kropka kończąca nazwę zostaje – to jedyny stały punkt tytułu.
-    if (char === ".") return { char, style: null };
-    const index = letterIndex++;
-    const delay = ((samples[index] - low) / span) * FADE_SPREAD;
-    const cycle = CYCLE_MIN + noise(index + 101) * CYCLE_RANGE;
-    return {
-      char,
-      style: `animation-delay:${delay.toFixed(2)}s;animation-duration:${cycle.toFixed(2)}s`,
-    };
-  }),
+	[...word].map((char) => {
+		// Kropka kończąca nazwę zostaje – to jedyny stały punkt tytułu.
+		if (char === ".") return { char, style: null };
+		const index = letterIndex++;
+		const delay = ((samples[index] - low) / span) * FADE_SPREAD;
+		const cycle = CYCLE_MIN + noise(index + 101) * CYCLE_RANGE;
+		return {
+			char,
+			style: `animation-delay:${delay.toFixed(2)}s;animation-duration:${cycle.toFixed(2)}s`,
+		};
+	}),
 );
 
 const canonical = new URL(CONCERT_SERIES_PATH, SITE_URL).href;
 const description =
-  "Cykl kameralnych koncertów piosenki autorskiej w Trójmieście: Gdańsk, Sopot i Gdynia, kwiecień–wrzesień 2027. Trzy równe sety każdego wieczoru, wstęp wolny.";
+	"Cykl kameralnych koncertów piosenki autorskiej w Trójmieście: Gdańsk, Sopot i Gdynia, kwiecień–wrzesień 2027. Trzy równe sety każdego wieczoru, wstęp wolny.";
 
 const RULES = [
-  {
-    no: "01",
-    title: "Autorstwo",
-    text: "Warunkiem udziału jest własny repertuar: tekst i muzyka autorstwa wykonawcy lub wykonawczyni.",
-  },
-  {
-    no: "02",
-    title: "Równe sety",
-    text: "Około 30 minut. Bez podziału na gwiazdę i support.",
-  },
-  {
-    no: "03",
-    title: "Trzy miasta",
-    text: "Gdańsk, Sopot i Gdynia – kameralne sale na 40–60 osób.",
-  },
-  {
-    no: "04",
-    title: "Wstęp wolny",
-    text: "Bezpłatne wejściówki; około 50 osób na koncert.",
-  },
-  {
-    no: "05",
-    title: "Nagrania",
-    text: "Audio i wideo z każdego koncertu.",
-  },
+	{
+		no: "01",
+		title: "Autorstwo",
+		text: "Warunkiem udziału jest własny repertuar: tekst i muzyka autorstwa wykonawcy lub wykonawczyni.",
+	},
+	{
+		no: "02",
+		title: "Równe sety",
+		text: "Około 30 minut. Bez podziału na gwiazdę i support.",
+	},
+	{
+		no: "03",
+		title: "Trzy miasta",
+		text: "Gdańsk, Sopot i Gdynia – kameralne sale na 40–60 osób.",
+	},
+	{
+		no: "04",
+		title: "Wstęp wolny",
+		text: "Bezpłatne wejściówki; około 50 osób na koncert.",
+	},
+	{
+		no: "05",
+		title: "Nagrania",
+		text: "Audio i wideo z każdego koncertu.",
+	},
 ] as const;
 
 const CONCERTS = [
-  { no: "01", city: "Gdańsk", when: "Kwiecień 2027", start: "2027-04" },
-  { no: "02", city: "Sopot", when: "Czerwiec 2027", start: "2027-06" },
-  { no: "03", city: "Gdynia", when: "Wrzesień 2027", start: "2027-09" },
+	{ no: "01", city: "Gdańsk", when: "Kwiecień 2027", start: "2027-04" },
+	{ no: "02", city: "Sopot", when: "Czerwiec 2027", start: "2027-06" },
+	{ no: "03", city: "Gdynia", when: "Wrzesień 2027", start: "2027-09" },
 ] as const;
 
 /*
@@ -119,43 +117,43 @@ const CONCERTS = [
  * 1600 px i pozbawione metadanych – ta sama zasada co przy michal.jpg.
  */
 const ARTISTS = [
-  {
-    // Wycięta sylwetka z kliszy, spłaszczona na --color-ink z marginesem nad
-    // głową; źródło ma 670 px szerokości i nie ma z czego zrobić większego.
-    image: ola,
-    imageAlt:
-      "Ola Geppert na scenie – czarno-białe zdjęcie: chustka na głowie, długie czarne rękawiczki, mikrofon trzymany oburącz przy ustach",
-    imagePosition: "object-top",
-    role: "Artystka i host",
-    name: "Ola Geppert",
-    city: "Gdańsk",
-    genres: "alt-pop / indie / dark pop",
-    bio: "Songwriterka, wokalistka i performerka z Gdańska. Siedem singli od 2022 r.\n\nOd 2026 w duecie z Ioannim: „To nie ja” (10.09.2026), „Do nieba” i „Szkło” (16.10.2026), i sześcioutworowa EP-ka (27.11.2026).\n\nAbsolwentka projektowania graficznego ASP w Łodzi.",
-    href: withUtm("https://olageppert.pl/l", "dzwieki-efemeryczne"),
-    linkLabel: "olageppert.pl",
-  },
-  {
-    image: kasoil,
-    imageAlt:
-      "Kasoil – portret: długie, falowane włosy z grzywką, dłonie w srebrnych pierścieniach wyciągnięte w stronę obiektywu",
-    // Twarz siedzi w górnej tercji kadru 2:3.
-    imagePosition: "object-[center_25%]",
-    role: "Artystka",
-    name: "Kasoil",
-    city: "Gdańsk",
-    genres: "R&B / neosoul",
-    bio: "Kasoil, czyli Kasia Nurczyk, to wokalistka i autorka tekstów z trójmiejskiej sceny, która tworzy solowo z producentem Ajzeją. Łączy R&B i neosoul z elektroniką.\n\nPo debiutanckim albumie „Głód” (2024) trafiła do finału „Będzie Głośno” radiowej Czwórki.\n\nW 2026 roku z zespołem znalazła się w line-upach Great September, NEXT FEST i SEA YOU.",
-    href: "https://open.spotify.com/artist/6irQVvdoIUnHCFUQWBnMRK",
-    linkLabel: "Spotify",
-  },
+	{
+		// Wycięta sylwetka z kliszy, spłaszczona na --color-ink z marginesem nad
+		// głową; źródło ma 670 px szerokości i nie ma z czego zrobić większego.
+		image: ola,
+		imageAlt:
+			"Ola Geppert na scenie – czarno-białe zdjęcie: chustka na głowie, długie czarne rękawiczki, mikrofon trzymany oburącz przy ustach",
+		imagePosition: "object-top",
+		role: "Artystka i host",
+		name: "Ola Geppert",
+		city: "Gdańsk",
+		genres: "alt-pop / indie / dark pop",
+		bio: "Songwriterka, wokalistka i performerka z Gdańska. Siedem singli od 2022 r.\n\nOd 2026 w duecie z Ioannim: „To nie ja” (10.09.2026), „Do nieba” i „Szkło” (16.10.2026), i sześcioutworowa EP-ka (27.11.2026).\n\nAbsolwentka projektowania graficznego ASP w Łodzi.",
+		href: withUtm("https://olageppert.pl/l", "dzwieki-efemeryczne"),
+		linkLabel: "olageppert.pl",
+	},
+	{
+		image: kasoil,
+		imageAlt:
+			"Kasoil – portret: długie, falowane włosy z grzywką, dłonie w srebrnych pierścieniach wyciągnięte w stronę obiektywu",
+		// Twarz siedzi w górnej tercji kadru 2:3.
+		imagePosition: "object-[center_25%]",
+		role: "Artystka",
+		name: "Kasoil",
+		city: "Gdańsk",
+		genres: "R&B / neosoul",
+		bio: "Kasoil, czyli Kasia Nurczyk, to wokalistka i autorka tekstów z trójmiejskiej sceny, która tworzy solowo z producentem Ajzeją. Łączy R&B i neosoul z elektroniką.\n\nPo debiutanckim albumie „Głód” (2024) trafiła do finału „Będzie Głośno” radiowej Czwórki.\n\nW 2026 roku z zespołem znalazła się w line-upach Great September, NEXT FEST i SEA YOU.",
+		href: "https://open.spotify.com/artist/6irQVvdoIUnHCFUQWBnMRK",
+		linkLabel: "Spotify",
+	},
 ] as const;
 
 const breadcrumb = breadcrumbJsonLd(
-  [
-    { name: "Start", path: "/" },
-    { name: NAME, path: CONCERT_SERIES_PATH },
-  ],
-  canonical,
+	[
+		{ name: "Start", path: "/" },
+		{ name: NAME, path: CONCERT_SERIES_PATH },
+	],
+	canonical,
 );
 
 /*
@@ -164,44 +162,41 @@ const breadcrumb = breadcrumbJsonLd(
  * koncert dostaje własny Event z `superEvent` wskazującym na ten węzeł.
  */
 const seriesJsonLd = {
-  "@type": "EventSeries",
-  "@id": `${canonical}#cykl`,
-  name: `${NAME}. ${EDITION}`,
-  description,
-  url: canonical,
-  startDate: CONCERTS[0].start,
-  endDate: CONCERTS[CONCERTS.length - 1].start,
-  eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
-  isAccessibleForFree: true,
-  inLanguage: "pl",
-  organizer: { "@id": ORGANIZATION_ID },
-  location: CONCERTS.map((concert) => ({
-    "@type": "City",
-    name: concert.city,
-  })),
-  performer: ARTISTS.map((artist) => ({
-    "@type": "MusicGroup",
-    name: artist.name,
-  })),
+	"@type": "EventSeries",
+	"@id": `${canonical}#cykl`,
+	name: `${NAME}. ${EDITION}`,
+	description,
+	url: canonical,
+	startDate: CONCERTS[0].start,
+	endDate: CONCERTS[CONCERTS.length - 1].start,
+	eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+	isAccessibleForFree: true,
+	inLanguage: "pl",
+	organizer: { "@id": ORGANIZATION_ID },
+	location: CONCERTS.map((concert) => ({
+		"@type": "City",
+		name: concert.city,
+	})),
+	performer: ARTISTS.map((artist) => ({
+		"@type": "MusicGroup",
+		name: artist.name,
+	})),
 };
 
 // Ten sam szkielet pasm co /fundacja: etykieta w kolumnie bocznej
 // (5 modułów), treść od linii 5, tytuły pozycji w torze `3 moduły − 2 rem`,
 // żeby opisy startowały na osi linii 8.
 const row = "grid border-b border-hairline md:grid-aside-left";
-const rowLabel =
-  "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
+const rowLabel = "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
 const rowBody = "px-5 py-7 md:px-8 md:py-10 lg:px-10";
-const prose =
-  "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
+const prose = "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
 const list = "divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10";
 const item =
-  "grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
+	"grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
 // Wiersz artystki ma dwa rzędy, więc odstęp pionowy nie może być tym samym
 // 2 rem co odstęp między torami – nazwa odkleiłaby się od własnego zdjęcia.
 const artistItem = `${item} gap-y-4 md:gap-x-8 md:gap-y-4`;
-const itemText =
-  "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
+const itemText = "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
 const link = "underline decoration-1 underline-offset-4";
 ---
 

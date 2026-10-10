@@ -1,15 +1,9 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
+import { FOUNDATION, FOUNDATION_PATH, SITE_NAME, SITE_URL, STATUTE_PATH } from "../consts";
 import { Content as Statut } from "../documents/statut.md";
-import {
-  FOUNDATION,
-  FOUNDATION_PATH,
-  SITE_NAME,
-  SITE_URL,
-  STATUTE_PATH,
-} from "../consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd } from "../schema";
 
 /*
@@ -23,12 +17,12 @@ import { breadcrumbJsonLd } from "../schema";
  */
 const canonical = new URL(STATUTE_PATH, SITE_URL).href;
 const breadcrumb = breadcrumbJsonLd(
-  [
-    { name: "Start", path: "/" },
-    { name: "Fundacja", path: FOUNDATION_PATH },
-    { name: "Statut", path: STATUTE_PATH },
-  ],
-  canonical,
+	[
+		{ name: "Start", path: "/" },
+		{ name: "Fundacja", path: FOUNDATION_PATH },
+		{ name: "Statut", path: STATUTE_PATH },
+	],
+	canonical,
 );
 const registered = Boolean(FOUNDATION.krs);
 ---

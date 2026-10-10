@@ -1,19 +1,13 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Nav from "../../components/Nav.astro";
+import { getSortedArticles, isoDate, readingMinutes } from "../../collections";
 import Footer from "../../components/Footer.astro";
 import ListRow from "../../components/ListRow.astro";
+import Nav from "../../components/Nav.astro";
 import SupportBand from "../../components/SupportBand.astro";
-import { getSortedArticles, isoDate, readingMinutes } from "../../collections";
+import { KNOWLEDGE_PATH, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import { authorJsonLd, sectionAuthorJsonLd } from "../../strony";
-import {
-  KNOWLEDGE_PATH,
-  ORGANIZATION_ID,
-  SITE_NAME,
-  SITE_URL,
-  WEBSITE_ID,
-} from "../../consts";
 
 const entries = await getSortedArticles();
 const count = String(entries.length).padStart(2, "0");
@@ -21,53 +15,53 @@ const canonical = new URL(KNOWLEDGE_PATH, SITE_URL).href;
 const entryUrl = (id: string) => new URL(`${KNOWLEDGE_PATH}/${id}`, SITE_URL).href;
 
 const description =
-  "Baza wiedzy o branży muzycznej dla początkujących artystów: tantiemy i organizacje zbiorowego zarządzania, dystrybucja, wydawnictwa, booking, press kit, stypendia i dotacje.";
+	"Baza wiedzy o branży muzycznej dla początkujących artystów: tantiemy i organizacje zbiorowego zarządzania, dystrybucja, wydawnictwa, booking, press kit, stypendia i dotacje.";
 
 // Węzeł `Blog` zbiera wpisy w jedną encję, a `ItemList` daje im kolejność –
 // bez niej lista jest dla robota kilkunastoma niepowiązanymi linkami.
 const blogJsonLd = {
-  "@type": "Blog",
-  "@id": `${canonical}#blog`,
-  name: `Baza wiedzy – ${SITE_NAME}`,
-  description,
-  url: canonical,
-  inLanguage: "pl",
-  author: sectionAuthorJsonLd(entries),
-  publisher: { "@id": ORGANIZATION_ID },
-  isPartOf: { "@id": WEBSITE_ID },
-  blogPost: entries.map((entry) => ({
-    "@type": "BlogPosting",
-    "@id": `${entryUrl(entry.id)}#post`,
-    headline: entry.data.title,
-    description: entry.data.lead,
-    url: entryUrl(entry.id),
-    articleSection: entry.data.category,
-    datePublished: isoDateTime(entry.data.date),
-    dateModified: isoDateTime(entry.data.updated ?? entry.data.date),
-    author: authorJsonLd(entry.data.authors),
-  })),
+	"@type": "Blog",
+	"@id": `${canonical}#blog`,
+	name: `Baza wiedzy – ${SITE_NAME}`,
+	description,
+	url: canonical,
+	inLanguage: "pl",
+	author: sectionAuthorJsonLd(entries),
+	publisher: { "@id": ORGANIZATION_ID },
+	isPartOf: { "@id": WEBSITE_ID },
+	blogPost: entries.map((entry) => ({
+		"@type": "BlogPosting",
+		"@id": `${entryUrl(entry.id)}#post`,
+		headline: entry.data.title,
+		description: entry.data.lead,
+		url: entryUrl(entry.id),
+		articleSection: entry.data.category,
+		datePublished: isoDateTime(entry.data.date),
+		dateModified: isoDateTime(entry.data.updated ?? entry.data.date),
+		author: authorJsonLd(entry.data.authors),
+	})),
 };
 
 const itemListJsonLd = {
-  "@type": "ItemList",
-  "@id": `${canonical}#lista`,
-  name: `Baza wiedzy ${SITE_NAME}`,
-  numberOfItems: entries.length,
-  itemListOrder: "https://schema.org/ItemListOrderDescending",
-  itemListElement: entries.map((entry, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    url: entryUrl(entry.id),
-    name: entry.data.title,
-  })),
+	"@type": "ItemList",
+	"@id": `${canonical}#lista`,
+	name: `Baza wiedzy ${SITE_NAME}`,
+	numberOfItems: entries.length,
+	itemListOrder: "https://schema.org/ItemListOrderDescending",
+	itemListElement: entries.map((entry, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		url: entryUrl(entry.id),
+		name: entry.data.title,
+	})),
 };
 
 const breadcrumb = breadcrumbJsonLd(
-  [
-    { name: "Start", path: "/" },
-    { name: "Wiedza", path: KNOWLEDGE_PATH },
-  ],
-  canonical,
+	[
+		{ name: "Start", path: "/" },
+		{ name: "Wiedza", path: KNOWLEDGE_PATH },
+	],
+	canonical,
 );
 ---
 

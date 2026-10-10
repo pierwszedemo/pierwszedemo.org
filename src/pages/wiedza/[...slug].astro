@@ -1,12 +1,12 @@
 ---
-import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { type Article, getRoutedArticles, getSortedArticles, nextListed } from "../../collections";
 import Byline from "../../components/Byline.astro";
-import { getSortedArticles, getRoutedArticles, nextListed, type Article } from "../../collections";
 import { KNOWLEDGE_PATH } from "../../consts";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
 
 interface Props {
-  entry: Article;
-  next?: Article;
+	entry: Article;
+	next?: Article;
 }
 
 // Redundantne przy `output: "static"`, ale zostaje jako zabezpieczenie: gdyby
@@ -15,12 +15,12 @@ interface Props {
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const listed = await getSortedArticles();
-  return (await getRoutedArticles()).map((entry) => ({
-    params: { slug: entry.id },
-    // Lista jest posortowana malejąco, więc „następny" w czytaniu to starszy wpis.
-    props: { entry, next: nextListed(entry, listed) },
-  }));
+	const listed = await getSortedArticles();
+	return (await getRoutedArticles()).map((entry) => ({
+		params: { slug: entry.id },
+		// Lista jest posortowana malejąco, więc „następny" w czytaniu to starszy wpis.
+		props: { entry, next: nextListed(entry, listed) },
+	}));
 }
 
 const { entry, next } = Astro.props;

@@ -1,14 +1,14 @@
 ---
-import EmailLink from "./EmailLink.astro";
 import {
-  ACCESSIBILITY_PATH,
-  FOUNDATION,
-  FOUNDATION_PATH,
-  INSTAGRAM_URL,
-  PRIVACY_POLICY_PATH,
-  STATUTE_PATH,
-  registryValue,
+	ACCESSIBILITY_PATH,
+	FOUNDATION,
+	FOUNDATION_PATH,
+	INSTAGRAM_URL,
+	PRIVACY_POLICY_PATH,
+	registryValue,
+	STATUTE_PATH,
 } from "../consts";
+import EmailLink from "./EmailLink.astro";
 
 // Stopka fundacji to dwa wiersze. Górny: nazwa, KRS / NIP / REGON i kontakt –
 // tory 5/3/3/5 jak w nawigacji, te same linie siatki. Adresu siedziby tu nie
@@ -19,9 +19,9 @@ import {
 // między wierszami jest hairline (wnętrze pasma), zewnętrzna – ink.
 const cell = "px-5 py-4 md:py-[19px] lg:px-8";
 const registry = [
-  { label: "KRS", value: registryValue(FOUNDATION.krs) },
-  { label: "NIP", value: registryValue(FOUNDATION.nip) },
-  { label: "REGON", value: registryValue(FOUNDATION.regon) },
+	{ label: "KRS", value: registryValue(FOUNDATION.krs) },
+	{ label: "NIP", value: registryValue(FOUNDATION.nip) },
+	{ label: "REGON", value: registryValue(FOUNDATION.regon) },
 ];
 ---
 

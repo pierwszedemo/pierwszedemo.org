@@ -11,8 +11,7 @@ import type { MdastPluginDefinition } from "satteri";
 // dopasowanie i został bez twardej spacji.
 // `\n` jest w klasie celowo – miękki łamacz w markdownie renderuje się jako
 // zwykła spacja, więc spójnik na końcu linii źródła to dokładnie ten sam problem.
-const HANGING =
-  /(?<![\p{L}\p{N}])([aiouwzAIOUWZ])[ \t\n]+(?=[\p{L}\p{N}„”"'(])/gu;
+const HANGING = /(?<![\p{L}\p{N}])([aiouwzAIOUWZ])[ \t\n]+(?=[\p{L}\p{N}„”"'(])/gu;
 
 /** Dokleja spójnik do następnego słowa niełamliwą spacją. */
 export const fixHanging = (text: string) => text.replace(HANGING, "$1 ");
@@ -25,10 +24,10 @@ export const fixHanging = (text: string) => text.replace(HANGING, "$1 ");
  * zostają nietknięte.
  */
 export const satteriHanging: MdastPluginDefinition = {
-  name: "hanging-conjunctions",
-  text(node, ctx) {
-    const value = fixHanging(node.value);
-    // Węzły są tylko do odczytu – mutacje idą przez kontekst.
-    if (value !== node.value) ctx.setProperty(node, "value", value);
-  },
+	name: "hanging-conjunctions",
+	text(node, ctx) {
+		const value = fixHanging(node.value);
+		// Węzły są tylko do odczytu – mutacje idą przez kontekst.
+		if (value !== node.value) ctx.setProperty(node, "value", value);
+	},
 };

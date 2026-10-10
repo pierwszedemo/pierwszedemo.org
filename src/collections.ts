@@ -1,4 +1,4 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 import { wordCount } from "./schema";
 
 export type Article = CollectionEntry<"wiedza">;
@@ -11,18 +11,18 @@ export type News = CollectionEntry<"aktualnosci">;
  * deterministyczny.
  */
 const byDateDesc = <T extends { id: string; data: { date: Date } }>(a: T, b: T) =>
-  b.data.date.getTime() - a.data.date.getTime() || a.id.localeCompare(b.id);
+	b.data.date.getTime() - a.data.date.getTime() || a.id.localeCompare(b.id);
 
 type Flags = { data: { draft: boolean; unlisted: boolean } };
 const listed = ({ data }: Flags) => !data.draft && !data.unlisted;
 
 /** Wpisy widoczne w serwisie: listy, strona główna, prev/next, RSS, llms.txt. */
 export async function getSortedArticles(): Promise<Article[]> {
-  return (await getCollection("wiedza", listed)).sort(byDateDesc);
+	return (await getCollection("wiedza", listed)).sort(byDateDesc);
 }
 
 export async function getSortedNews(): Promise<News[]> {
-  return (await getCollection("aktualnosci", listed)).sort(byDateDesc);
+	return (await getCollection("aktualnosci", listed)).sort(byDateDesc);
 }
 
 /**
@@ -33,11 +33,11 @@ export async function getSortedNews(): Promise<News[]> {
  * (astro.config.mjs).
  */
 export async function getRoutedArticles(): Promise<Article[]> {
-  return (await getCollection("wiedza")).sort(byDateDesc);
+	return (await getCollection("wiedza")).sort(byDateDesc);
 }
 
 export async function getRoutedNews(): Promise<News[]> {
-  return (await getCollection("aktualnosci")).sort(byDateDesc);
+	return (await getCollection("aktualnosci")).sort(byDateDesc);
 }
 
 /**
@@ -46,7 +46,7 @@ export async function getRoutedNews(): Promise<News[]> {
  * `unlisted` ani do szkicu; ten sam wzór daje im następnika z listy.
  */
 export const nextListed = <T extends { id: string; data: { date: Date } }>(entry: T, list: T[]) =>
-  list.find((other) => byDateDesc(entry, other) < 0);
+	list.find((other) => byDateDesc(entry, other) < 0);
 
 /**
  * Czas czytania liczony z treści przy buildzie, nie wpisywany do frontmattera.
@@ -54,7 +54,7 @@ export const nextListed = <T extends { id: string; data: { date: Date } }>(entry
  * policzy słów przed zapisem. Wzór jak w skillu blog-post-factory.
  */
 export const readingMinutes = (entry: Article | News) =>
-  Math.max(2, Math.round(wordCount(entry.body ?? "") / 180));
+	Math.max(2, Math.round(wordCount(entry.body ?? "") / 180));
 
 /** `YYYY-MM-DD` – do atrybutu datetime, sitemapy i widocznych dat. */
 export const isoDate = (date: Date) => date.toISOString().slice(0, 10);
@@ -64,12 +64,12 @@ export const isoMonth = (date: Date) => isoDate(date).slice(0, 7);
 
 /** Data po polsku: „4 października 2026”. */
 export const plDate = (date: Date) =>
-  new Intl.DateTimeFormat("pl-PL", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    timeZone: "UTC",
-  }).format(date);
+	new Intl.DateTimeFormat("pl-PL", {
+		day: "numeric",
+		month: "long",
+		year: "numeric",
+		timeZone: "UTC",
+	}).format(date);
 
 /**
  * Czy w treści stoi obrazek (`![alt](ścieżka)`). Wpis z obrazkiem nie dostaje

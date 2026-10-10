@@ -1,16 +1,16 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Nav from "../components/Nav.astro";
-import Footer from "../components/Footer.astro";
-import EmailLink from "../components/EmailLink.astro";
-import SupportBand from "../components/SupportBand.astro";
 import TinaIsland from "@tinacms/astro/TinaIsland.astro";
-import HomeHero from "../components/islands/HomeHero.astro";
-import HomeTeraz from "../components/islands/HomeTeraz.astro";
-import HomeKontakt from "../components/islands/HomeKontakt.astro";
-import { wrappers } from "../components/islands/wrappers";
 import { getSortedNews, isoDate } from "../collections";
+import EmailLink from "../components/EmailLink.astro";
+import Footer from "../components/Footer.astro";
+import HomeHero from "../components/islands/HomeHero.astro";
+import HomeKontakt from "../components/islands/HomeKontakt.astro";
+import HomeTeraz from "../components/islands/HomeTeraz.astro";
+import { wrappers } from "../components/islands/wrappers";
+import Nav from "../components/Nav.astro";
+import SupportBand from "../components/SupportBand.astro";
 import { HOME_CITY, NEWS_KINDS, NEWS_PATH, SITE_NAME } from "../consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { ACTIVITIES_DOC, HOMEPAGE_DOC } from "../strony";
 import { fixHanging } from "../typography";
 

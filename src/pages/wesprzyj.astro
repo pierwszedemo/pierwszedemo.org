@@ -1,18 +1,18 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Nav from "../components/Nav.astro";
-import Footer from "../components/Footer.astro";
 import EmailLink from "../components/EmailLink.astro";
+import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
 import {
-  CONTACT_EMAIL,
-  DONATION_TITLE,
-  FOUNDATION,
-  FOUNDATION_PATH,
-  HOME_CITY,
-  SITE_NAME,
-  SITE_URL,
-  SUPPORT_PATH,
+	CONTACT_EMAIL,
+	DONATION_TITLE,
+	FOUNDATION,
+	FOUNDATION_PATH,
+	HOME_CITY,
+	SITE_NAME,
+	SITE_URL,
+	SUPPORT_PATH,
 } from "../consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd } from "../schema";
 
 /*
@@ -24,58 +24,55 @@ import { breadcrumbJsonLd } from "../schema";
  */
 const canonical = new URL(SUPPORT_PATH, SITE_URL).href;
 const breadcrumb = breadcrumbJsonLd(
-  [
-    { name: "Start", path: "/" },
-    { name: "Wesprzyj", path: SUPPORT_PATH },
-  ],
-  canonical,
+	[
+		{ name: "Start", path: "/" },
+		{ name: "Wesprzyj", path: SUPPORT_PATH },
+	],
+	canonical,
 );
 
 const transfer = [
-  { label: "Odbiorca", value: FOUNDATION.name },
-  {
-    label: "Adres",
-    value: `${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}`,
-  },
-  {
-    label: "Numer konta",
-    value: FOUNDATION.iban || "w trakcie rejestracji KRS",
-  },
-  { label: "Tytuł przelewu", value: DONATION_TITLE },
+	{ label: "Odbiorca", value: FOUNDATION.name },
+	{
+		label: "Adres",
+		value: `${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}`,
+	},
+	{
+		label: "Numer konta",
+		value: FOUNDATION.iban || "w trakcie rejestracji KRS",
+	},
+	{ label: "Tytuł przelewu", value: DONATION_TITLE },
 ] as const;
 
 const WAYS = [
-  {
-    no: "01",
-    id: "darowizna",
-    title: "Darowizna",
-    text: "Jednorazowa albo stała, dowolnej wysokości. Każda złotówka przeznaczana jest na cele statutowe: koncerty, nagrania, warsztaty i wsparcie konkretnych twórców.",
-  },
-  {
-    no: "02",
-    id: "wolontariat",
-    title: "Wolontariat",
-    text: "Przy wydarzeniach potrzebujemy pomocy. Napisz, co Cię interesuje, w czym chcesz nam pomóc i ile masz czasu – odezwiemy się przed najbliższym wydarzeniem.",
-  },
-  {
-    no: "03",
-    id: "partnerstwo",
-    title: "Partnerstwo",
-    text: "Sala na koncert, studio na sesję, sprzęt, druk, patronat medialny albo wsparcie finansowe konkretnego projektu.",
-  },
+	{
+		no: "01",
+		id: "darowizna",
+		title: "Darowizna",
+		text: "Jednorazowa albo stała, dowolnej wysokości. Każda złotówka przeznaczana jest na cele statutowe: koncerty, nagrania, warsztaty i wsparcie konkretnych twórców.",
+	},
+	{
+		no: "02",
+		id: "wolontariat",
+		title: "Wolontariat",
+		text: "Przy wydarzeniach potrzebujemy pomocy. Napisz, co Cię interesuje, w czym chcesz nam pomóc i ile masz czasu – odezwiemy się przed najbliższym wydarzeniem.",
+	},
+	{
+		no: "03",
+		id: "partnerstwo",
+		title: "Partnerstwo",
+		text: "Sala na koncert, studio na sesję, sprzęt, druk, patronat medialny albo wsparcie finansowe konkretnego projektu.",
+	},
 ] as const;
 
 const row = "grid border-b border-hairline md:grid-aside-left";
-const rowLabel =
-  "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
+const rowLabel = "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
 const rowBody = "px-5 py-7 md:px-8 md:py-10 lg:px-10";
-const prose =
-  "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
+const prose = "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
 const list = "divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10";
 const item =
-  "grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
-const itemText =
-  "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
+	"grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
+const itemText = "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
 const link = "underline decoration-1 underline-offset-4";
 ---
 

@@ -1,15 +1,8 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
-import {
-  ACCESSIBILITY_PATH,
-  CONTACT_EMAIL,
-  FOUNDATION,
-  SITE_HOST,
-  SITE_NAME,
-  SITE_URL,
-} from "../consts";
+import Nav from "../components/Nav.astro";
+import { ACCESSIBILITY_PATH, CONTACT_EMAIL, FOUNDATION, SITE_HOST, SITE_NAME, SITE_URL } from "../consts";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
 /*
  * Deklaracja dostępności. Ustawa z 4 kwietnia 2019 r. obejmuje organizację
@@ -23,33 +16,33 @@ const PUBLISHED = "2026-10-09";
 const REVIEWED = "2026-10-09";
 
 const SECTIONS = [
-  {
-    title: "Stan",
-    paragraphs: [
-      `${SITE_NAME} zobowiązuje się zapewnić dostępność strony ${SITE_HOST} zgodnie z ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych. Niniejsze oświadczenie dotyczy strony ${SITE_URL}.`,
-      "Strona jest zgodna z ustawą. Wszystkie treści są dostępne z klawiatury, mają widoczny fokus, link „Przejdź do treści” na początku każdej strony pozwala pominąć nawigację, nagłówki tworzą logiczną strukturę, zdjęcia mają opisy alternatywne, a kontrast tekstu do tła przekracza 7:1. Jedynym ruchem na stronie jest animacja tytułu na stronie cyklu koncertów – wyłącza ją ustawienie systemowe ograniczenia ruchu.",
-    ],
-  },
-  {
-    title: "Przygotowanie",
-    paragraphs: [
-      `Deklarację sporządzono dnia ${PUBLISHED}, na podstawie samooceny przeprowadzonej przez fundację. Ostatni przegląd: ${REVIEWED}.`,
-      "Na stronie można używać standardowych skrótów klawiaturowych przeglądarki. Nie ma skrótów własnych, które mogłyby wchodzić w konflikt z technologiami wspomagającymi.",
-    ],
-  },
-  {
-    title: "Informacje zwrotne",
-    paragraphs: [
-      `Jeśli coś na stronie jest niedostępne, napisz na ${CONTACT_EMAIL}. Tą samą drogą możesz poprosić o udostępnienie informacji w innej formie, np. o odczytanie treści albo przesłanie jej w formacie dostępnym. Odpowiadamy w ciągu 7 dni; jeśli to niemożliwe, podajemy termin, nie dłuższy niż 2 miesiące.`,
-      "Jeżeli odmówimy albo nie dotrzymamy terminu, przysługuje Ci skarga do fundacji, a po wyczerpaniu tej drogi – wniosek do Rzecznika Praw Obywatelskich (bip.brpo.gov.pl).",
-    ],
-  },
-  {
-    title: "Dostępność architektoniczna",
-    paragraphs: [
-      `Fundacja nie prowadzi biura obsługi – siedziba (${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}) jest adresem rejestrowym. Koncerty i wydarzenia odbywają się w salach partnerów; informację o dostępności konkretnej sali podajemy przy każdym wydarzeniu.`,
-    ],
-  },
+	{
+		title: "Stan",
+		paragraphs: [
+			`${SITE_NAME} zobowiązuje się zapewnić dostępność strony ${SITE_HOST} zgodnie z ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych. Niniejsze oświadczenie dotyczy strony ${SITE_URL}.`,
+			"Strona jest zgodna z ustawą. Wszystkie treści są dostępne z klawiatury, mają widoczny fokus, link „Przejdź do treści” na początku każdej strony pozwala pominąć nawigację, nagłówki tworzą logiczną strukturę, zdjęcia mają opisy alternatywne, a kontrast tekstu do tła przekracza 7:1. Jedynym ruchem na stronie jest animacja tytułu na stronie cyklu koncertów – wyłącza ją ustawienie systemowe ograniczenia ruchu.",
+		],
+	},
+	{
+		title: "Przygotowanie",
+		paragraphs: [
+			`Deklarację sporządzono dnia ${PUBLISHED}, na podstawie samooceny przeprowadzonej przez fundację. Ostatni przegląd: ${REVIEWED}.`,
+			"Na stronie można używać standardowych skrótów klawiaturowych przeglądarki. Nie ma skrótów własnych, które mogłyby wchodzić w konflikt z technologiami wspomagającymi.",
+		],
+	},
+	{
+		title: "Informacje zwrotne",
+		paragraphs: [
+			`Jeśli coś na stronie jest niedostępne, napisz na ${CONTACT_EMAIL}. Tą samą drogą możesz poprosić o udostępnienie informacji w innej formie, np. o odczytanie treści albo przesłanie jej w formacie dostępnym. Odpowiadamy w ciągu 7 dni; jeśli to niemożliwe, podajemy termin, nie dłuższy niż 2 miesiące.`,
+			"Jeżeli odmówimy albo nie dotrzymamy terminu, przysługuje Ci skarga do fundacji, a po wyczerpaniu tej drogi – wniosek do Rzecznika Praw Obywatelskich (bip.brpo.gov.pl).",
+		],
+	},
+	{
+		title: "Dostępność architektoniczna",
+		paragraphs: [
+			`Fundacja nie prowadzi biura obsługi – siedziba (${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}) jest adresem rejestrowym. Koncerty i wydarzenia odbywają się w salach partnerów; informację o dostępności konkretnej sali podajemy przy każdym wydarzeniu.`,
+		],
+	},
 ] as const;
 ---
 

@@ -9,17 +9,17 @@ import { fixHanging } from "../typography";
  * do treści: data, etykieta i strzałka mają stałą długość.
  */
 interface Props {
-  href: string;
-  title: string;
-  /** Lewa komórka – data (ISO) albo inny krótki tekst mono. */
-  left: string;
-  leftDatetime?: string;
-  /** Prawa etykieta – kategoria albo rodzaj wpisu. */
-  label: string;
-  /** Drobna linia pod etykietą: `notatka · 2 min`. */
-  sub?: string;
-  first?: boolean;
-  last?: boolean;
+	href: string;
+	title: string;
+	/** Lewa komórka – data (ISO) albo inny krótki tekst mono. */
+	left: string;
+	leftDatetime?: string;
+	/** Prawa etykieta – kategoria albo rodzaj wpisu. */
+	label: string;
+	/** Drobna linia pod etykietą: `notatka · 2 min`. */
+	sub?: string;
+	first?: boolean;
+	last?: boolean;
 }
 const { href, title, left, leftDatetime, label, sub, first, last } = Astro.props;
 ---

@@ -1,20 +1,14 @@
 ---
-import { render } from "astro:content";
 import { Image } from "astro:assets";
-import BaseLayout from "./BaseLayout.astro";
-import Nav from "../components/Nav.astro";
+import { render } from "astro:content";
+import { type Article, hasBodyImage, isoDate, type News, readingMinutes } from "../collections";
 import Footer from "../components/Footer.astro";
-import { hasBodyImage, isoDate, readingMinutes, type Article, type News } from "../collections";
+import Nav from "../components/Nav.astro";
+import { NAV, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../consts";
 import { breadcrumbJsonLd, isoDateTime, wordCount } from "../schema";
 import { authorJsonLd } from "../strony";
 import { fixHanging } from "../typography";
-import {
-  NAV,
-  ORGANIZATION_ID,
-  SITE_NAME,
-  SITE_URL,
-  WEBSITE_ID,
-} from "../consts";
+import BaseLayout from "./BaseLayout.astro";
 
 /**
  * Wspólny szkielet strony wpisu dla bazy wiedzy i aktualności: pasek
@@ -24,24 +18,23 @@ import {
  * prev/next – to przychodzi w propsach.
  */
 interface Props {
-  entry: Article | News;
-  /** Dział, do którego należy wpis – nazwa i ścieżka listy. */
-  section: { label: (typeof NAV)[number]["label"]; href: string };
-  /** Środkowa komórka paska metadanych: kategoria albo rodzaj wpisu. */
-  meta: string;
-  /** Etykieta pod kategorią na liście i w JSON-LD (`notatka · 2 min`). */
-  kindLabel?: string;
-  /** Dwie łamy działają tylko na krótkim tekście – patrz komentarz przy treści. */
-  twoColumns: boolean;
-  next?: { href: string; title: string };
-  /** Słowa kluczowe do JSON-LD; kategoria i fraza główna, jeśli są. */
-  keywords: string[];
-  /** Tekst paska prev/next, gdy wpis jest najstarszy w dziale. */
-  oldestLabel: string;
+	entry: Article | News;
+	/** Dział, do którego należy wpis – nazwa i ścieżka listy. */
+	section: { label: (typeof NAV)[number]["label"]; href: string };
+	/** Środkowa komórka paska metadanych: kategoria albo rodzaj wpisu. */
+	meta: string;
+	/** Etykieta pod kategorią na liście i w JSON-LD (`notatka · 2 min`). */
+	kindLabel?: string;
+	/** Dwie łamy działają tylko na krótkim tekście – patrz komentarz przy treści. */
+	twoColumns: boolean;
+	next?: { href: string; title: string };
+	/** Słowa kluczowe do JSON-LD; kategoria i fraza główna, jeśli są. */
+	keywords: string[];
+	/** Tekst paska prev/next, gdy wpis jest najstarszy w dziale. */
+	oldestLabel: string;
 }
 
-const { entry, section, meta, twoColumns, next, keywords, oldestLabel } =
-  Astro.props;
+const { entry, section, meta, twoColumns, next, keywords, oldestLabel } = Astro.props;
 const { Content } = await render(entry);
 const path = `${section.href}/${entry.id}`;
 const canonical = new URL(path, SITE_URL).href;
@@ -53,24 +46,24 @@ const ogImage = `/og/${entry.id}.png`;
 // Autorem jest człowiek (podpis pod wpisem), wydawcą – fundacja. Google
 // czyta `author` jako sygnał E-E-A-T i nie lubi, gdy autorem jest organizacja.
 const articleJsonLd = {
-  "@type": "BlogPosting",
-  "@id": `${canonical}#post`,
-  headline: entry.data.title,
-  description: entry.data.lead,
-  url: canonical,
-  articleSection: meta,
-  datePublished: isoDateTime(entry.data.date),
-  dateModified: isoDateTime(modified),
-  inLanguage: "pl",
-  author: authorJsonLd(entry.data.authors),
-  publisher: { "@id": ORGANIZATION_ID },
-  isPartOf: { "@id": WEBSITE_ID },
-  mainEntityOfPage: { "@id": canonical },
-  image: new URL(ogImage, SITE_URL).href,
-  wordCount: wordCount(entry.body ?? ""),
-  // ISO 8601 – ta sama liczba, którą widać w pasku metadanych wpisu.
-  timeRequired: `PT${readingMinutes(entry)}M`,
-  keywords,
+	"@type": "BlogPosting",
+	"@id": `${canonical}#post`,
+	headline: entry.data.title,
+	description: entry.data.lead,
+	url: canonical,
+	articleSection: meta,
+	datePublished: isoDateTime(entry.data.date),
+	dateModified: isoDateTime(modified),
+	inLanguage: "pl",
+	author: authorJsonLd(entry.data.authors),
+	publisher: { "@id": ORGANIZATION_ID },
+	isPartOf: { "@id": WEBSITE_ID },
+	mainEntityOfPage: { "@id": canonical },
+	image: new URL(ogImage, SITE_URL).href,
+	wordCount: wordCount(entry.body ?? ""),
+	// ISO 8601 – ta sama liczba, którą widać w pasku metadanych wpisu.
+	timeRequired: `PT${readingMinutes(entry)}M`,
+	keywords,
 };
 
 // Szkic ma adres, żeby dało się go komuś wysłać przed publikacją, ale to nie
@@ -79,12 +72,12 @@ const articleJsonLd = {
 const isDraft = entry.data.draft;
 
 const breadcrumb = breadcrumbJsonLd(
-  [
-    { name: "Start", path: "/" },
-    { name: section.label, path: section.href },
-    { name: entry.data.title, path },
-  ],
-  canonical,
+	[
+		{ name: "Start", path: "/" },
+		{ name: section.label, path: section.href },
+		{ name: entry.data.title, path },
+	],
+	canonical,
 );
 ---
 
