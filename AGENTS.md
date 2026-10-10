@@ -11,11 +11,20 @@ bun run build     # Tina admin (cached, scripts/build-tina.mjs) + astro build (n
 bun run build:local  # the same without TinaCloud – for a build on a machine without the keys
 bun run preview   # astro preview
 bun run deploy    # astro build + wrangler deploy (Workers Builds does the same on push)
+bun run check     # biome check (lint + format), read-only
+bun run lint      # biome check --write --unsafe – fixes what it can
 ```
 
-No test suite, no linter, no formatter. `@astrojs/check` is not a dependency, so
-`bun run build` is the only gate in the repo – it is what validates the content
-collection schema. Type checking otherwise comes from the editor
+Biome lints and formats (`biome.json`, copied from splitwiser: tabs, 110
+columns, organised imports). A husky `pre-commit` hook runs it through
+lint-staged on staged files only. In `.astro` files Biome sees only the
+frontmatter, never the template, so `noUnusedImports` is off there – an import
+used only in the markup looked unused, and the unsafe fix would have deleted
+it. Excluded on purpose: `src/content/strony/` (Tina writes those JSON files in
+its own format, see „TinaCMS”), `tina/tina-lock.json`, `skills-lock.json` and
+`instagram/` (generated output). No test suite. `@astrojs/check` is not a
+dependency, so `bun run build` is the only gate for the content collection
+schema. Type checking otherwise comes from the editor
 (`@typescript/native-preview` is a devDependency); `tsconfig.json` extends
 `astro/tsconfigs/base`.
 
