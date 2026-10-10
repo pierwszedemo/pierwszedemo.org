@@ -1,0 +1,157 @@
+{
+	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true,
+		"defaultBranch": "main"
+	},
+	"files": {
+		"ignoreUnknown": false,
+		"includes": [
+			"**",
+			"!**/package.json",
+			"!**/bun.lock",
+			"!**/src/content/strony",
+			"!**/tina/tina-lock.json",
+			"!**/skills-lock.json",
+			"!**/instagram",
+			"!**/*.svg"
+		]
+	},
+	"formatter": {
+		"lineWidth": 110
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
+		}
+	},
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"preset": "recommended",
+			"complexity": {
+				"noForEach": "off",
+				"noImportantStyles": "off"
+			},
+			"correctness": {
+				"useUniqueElementIds": "off",
+				"noUnusedFunctionParameters": "off",
+				"noUnusedVariables": "off",
+				"noUnusedImports": {
+					"options": {},
+					"level": "warn",
+					"fix": "unsafe"
+				},
+				"useExhaustiveDependencies": "error",
+				"noEmptyPattern": "off"
+			},
+			"style": {
+				"useSelfClosingElements": "off",
+				"noDescendingSpecificity": "off",
+				"noUnusedTemplateLiteral": "off",
+				"noUselessElse": "off",
+				"useTemplate": "off",
+				"noDefaultExport": "error",
+				"noNamespace": "error",
+				"useForOf": "error",
+				"noRestrictedGlobals": {
+					"level": "error",
+					"options": {
+						"deniedGlobals": {
+							"name": "This is the deprecated `window.name` browser global — declare a local variable instead.",
+							"event": "This is the deprecated `window.event` browser global — use the handler's event parameter instead.",
+							"status": "This is the `window.status` browser global — declare a local variable instead."
+						}
+					}
+				},
+				"noParameterAssign": "off",
+				"noNonNullAssertion": "off",
+				"useAsConstAssertion": "error",
+				"useDefaultParameterLast": "error",
+				"useEnumInitializers": "error",
+				"useSingleVarDeclarator": "error",
+				"useNumberNamespace": "error",
+				"noInferrableTypes": "error"
+			},
+			"suspicious": {
+				"useIterableCallbackReturn": "off",
+				"noUnknownAtRules": "off",
+				"noEmptyInterface": "off",
+				"noArrayIndexKey": "off",
+				"noImplicitAnyLet": "error",
+				"noExplicitAny": "error"
+			},
+			"a11y": {
+				"useSemanticElements": "off",
+				"noRedundantRoles": "off",
+				"noLabelWithoutControl": "off",
+				"noNoninteractiveTabindex": "off",
+				"noSvgWithoutTitle": "off"
+			},
+			"security": {
+				"noBlankTarget": "off"
+			}
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["**/*.astro"],
+			"linter": {
+				"rules": {
+					"style": {
+						"useConst": "off",
+						"useImportType": "off"
+					},
+					"correctness": {
+						"noUnusedImports": "off"
+					}
+				}
+			}
+		},
+		{
+			"includes": [
+				"**/*.d.ts",
+				"**/*.config.ts",
+				"**/*.config.mjs",
+				"**/tina/config.ts",
+				"**/proxy.ts",
+				"**/src/worker/index.ts",
+				"**/middleware.ts",
+				"**/tests/integration/global-setup.ts",
+				"**/src/app/**/default.tsx",
+				"**/src/app/**/error.tsx",
+				"**/src/app/**/global-error.tsx",
+				"**/src/app/**/layout.tsx",
+				"**/src/app/**/template.tsx",
+				"**/src/app/**/loading.tsx",
+				"**/src/app/**/not-found.tsx",
+				"**/src/app/**/forbidden.tsx",
+				"**/src/app/**/unauthorized.tsx",
+				"**/src/app/**/opengraph-image.tsx",
+				"**/src/app/**/icon.tsx",
+				"**/src/app/**/manifest.ts",
+				"**/src/app/**/page.tsx",
+				"**/src/app/**/robots.ts",
+				"**/src/app/**/route.tsx",
+				"**/src/app/**/route.ts",
+				"**/src/app/**/sitemap.ts"
+			],
+			"linter": {
+				"rules": {
+					"style": {
+						"noDefaultExport": "off"
+					}
+				}
+			}
+		}
+	]
+}

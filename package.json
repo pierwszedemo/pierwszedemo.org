@@ -8,7 +8,10 @@
     "build:local": "tinacms build --local --skip-cloud-checks && astro build",
     "preview": "astro preview",
     "deploy": "bun run build && wrangler deploy",
-    "astro": "astro"
+    "astro": "astro",
+    "lint": "biome check --write --unsafe",
+    "check": "biome check",
+    "prepare": "husky"
   },
   "dependencies": {
     "@astrojs/cloudflare": "14.3.4",
@@ -20,9 +23,12 @@
     "vanilla-cookieconsent": "3.1.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.15",
     "@tailwindcss/vite": "4.3.3",
     "@tinacms/cli": "4.0.1",
     "@typescript/native-preview": "7.0.0-dev.20260707.2",
+    "husky": "9.1.7",
+    "lint-staged": "17.6.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "satori": "0.47.1",
@@ -33,5 +39,10 @@
   },
   "engines": {
     "node": ">=20"
+  },
+  "lint-staged": {
+    "*": [
+      "bun biome check --write --unsafe --staged --no-errors-on-unmatched --files-ignore-unknown=true"
+    ]
   }
 }
