@@ -6,6 +6,6 @@ import { tinaField } from "@tinacms/astro/tina-field";
  * Astro w ogóle nie wypisało atrybutu i produkcyjny HTML został czysty.
  */
 export const field = (object: unknown, property?: string, index?: number) =>
-  // Typy `tinaField` zakładają obiekt z wygenerowanego klienta Tiny; tu
-  // dostaje też zwykłe JSON-y z buildu, dla których i tak zwraca "".
-  tinaField(object as never, property as never, index) || undefined;
+	// Typy `tinaField` zakładają obiekt z wygenerowanego klienta Tiny; tu
+	// dostaje też zwykłe JSON-y z buildu, dla których i tak zwraca "".
+	tinaField(object as never, property as never, index) || undefined;

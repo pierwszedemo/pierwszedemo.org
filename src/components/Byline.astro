@@ -1,6 +1,6 @@
 ---
 import { isoDate } from "../collections";
-import { FOUNDATION_PATH, type AuthorKey } from "../consts";
+import { type AuthorKey, FOUNDATION_PATH } from "../consts";
 import { authorsOf } from "../strony";
 
 /**
@@ -18,8 +18,8 @@ import { authorsOf } from "../strony";
  * `rel="author"` mówi to samo przeglądarce i wyszukiwarce.
  */
 interface Props {
-  authors: readonly AuthorKey[];
-  updated?: Date;
+	authors: readonly AuthorKey[];
+	updated?: Date;
 }
 const { authors, updated } = Astro.props;
 ---

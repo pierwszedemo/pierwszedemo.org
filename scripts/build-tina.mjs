@@ -24,15 +24,15 @@ hash.update(`${branch}\0${process.env.PUBLIC_TINA_CLIENT_ID ?? ""}`);
 const cacheDir = `node_modules/.astro/tina-admin/${hash.digest("hex").slice(0, 16)}`;
 
 if (existsSync(cacheDir)) {
-  for (const out of OUTPUTS) {
-    rmSync(out, { recursive: true, force: true });
-    cpSync(`${cacheDir}/${out}`, out, { recursive: true });
-  }
-  console.log(`[tina] panel z cache (${cacheDir})`);
+	for (const out of OUTPUTS) {
+		rmSync(out, { recursive: true, force: true });
+		cpSync(`${cacheDir}/${out}`, out, { recursive: true });
+	}
+	console.log(`[tina] panel z cache (${cacheDir})`);
 } else {
-  execSync("tinacms build --skip-cloud-checks --skip-search-index", { stdio: "inherit" });
-  // Stare wpisy wylatują, żeby cache nie puchł z każdą zmianą konfiguracji.
-  rmSync("node_modules/.astro/tina-admin", { recursive: true, force: true });
-  for (const out of OUTPUTS) cpSync(out, `${cacheDir}/${out}`, { recursive: true });
-  console.log(`[tina] panel zbudowany i zapisany w ${cacheDir}`);
+	execSync("tinacms build --skip-cloud-checks --skip-search-index", { stdio: "inherit" });
+	// Stare wpisy wylatują, żeby cache nie puchł z każdą zmianą konfiguracji.
+	rmSync("node_modules/.astro/tina-admin", { recursive: true, force: true });
+	for (const out of OUTPUTS) cpSync(out, `${cacheDir}/${out}`, { recursive: true });
+	console.log(`[tina] panel zbudowany i zapisany w ${cacheDir}`);
 }

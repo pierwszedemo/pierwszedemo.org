@@ -1,20 +1,20 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "pierwszedemo",
-  "compatibility_date": "2026-10-01",
-  // Trasa /tina-island/[name] (edycja wizualna w Tinie) renderuje się na
-  // żądanie i trzyma kontekst żądania w AsyncLocalStorage z node:async_hooks.
-  "compatibility_flags": ["nodejs_compat"],
-  // Domena podpięta jako Custom Domain – Cloudflare sam zakłada rekord DNS
-  // i certyfikat. www nie jest tu dopisane: przekierowanie www → apex to
-  // reguła strefy (Redirect Rules), nie zadanie workera.
-  "routes": [{ "pattern": "pierwszedemo.org", "custom_domain": true }],
-  "assets": {
-    "directory": "./dist",
-    // Kanoniczne adresy są bez ukośnika na końcu (trailingSlash: "never").
-    // To odpowiednik `cleanUrls` + `trailingSlash: false` z dawnego vercel.json:
-    // /fundacja serwuje fundacja.html, a /fundacja/ przekierowuje na /fundacja.
-    "html_handling": "drop-trailing-slash",
-    "not_found_handling": "404-page"
-  }
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "pierwszedemo",
+	"compatibility_date": "2026-10-01",
+	// Trasa /tina-island/[name] (edycja wizualna w Tinie) renderuje się na
+	// żądanie i trzyma kontekst żądania w AsyncLocalStorage z node:async_hooks.
+	"compatibility_flags": ["nodejs_compat"],
+	// Domena podpięta jako Custom Domain – Cloudflare sam zakłada rekord DNS
+	// i certyfikat. www nie jest tu dopisane: przekierowanie www → apex to
+	// reguła strefy (Redirect Rules), nie zadanie workera.
+	"routes": [{ "pattern": "pierwszedemo.org", "custom_domain": true }],
+	"assets": {
+		"directory": "./dist",
+		// Kanoniczne adresy są bez ukośnika na końcu (trailingSlash: "never").
+		// To odpowiednik `cleanUrls` + `trailingSlash: false` z dawnego vercel.json:
+		// /fundacja serwuje fundacja.html, a /fundacja/ przekierowuje na /fundacja.
+		"html_handling": "drop-trailing-slash",
+		"not_found_handling": "404-page"
+	}
 }

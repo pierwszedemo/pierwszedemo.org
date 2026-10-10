@@ -23,30 +23,30 @@ const MUTED = "#6f6d68";
 const OUTPUT = "assets/dzwieki-efemeryczne-1080.png";
 
 const fonts = [
-  {
-    name: "Archivo",
-    data: readFileSync("src/assets/fonts/Archivo-SemiBold.ttf"),
-    weight: 600,
-    style: "normal",
-  },
-  {
-    name: "IBM Plex Mono",
-    data: readFileSync("src/assets/fonts/IBMPlexMono-Medium.ttf"),
-    weight: 500,
-    style: "normal",
-  },
+	{
+		name: "Archivo",
+		data: readFileSync("src/assets/fonts/Archivo-SemiBold.ttf"),
+		weight: 600,
+		style: "normal",
+	},
+	{
+		name: "IBM Plex Mono",
+		data: readFileSync("src/assets/fonts/IBMPlexMono-Medium.ttf"),
+		weight: 500,
+		style: "normal",
+	},
 ];
 
 const el = (type, style, children) => ({
-  type,
-  props: { style, ...(children === undefined ? {} : { children }) },
+	type,
+	props: { style, ...(children === undefined ? {} : { children }) },
 });
 
 const mono = {
-  fontFamily: "IBM Plex Mono",
-  fontSize: 22,
-  letterSpacing: "0.18em",
-  textTransform: "uppercase",
+	fontFamily: "IBM Plex Mono",
+	fontSize: 22,
+	letterSpacing: "0.18em",
+	textTransform: "uppercase",
 };
 
 // Nazwa łamana ręcznie na słowa: satori nie ma `text-wrap: balance`, a przy
@@ -54,78 +54,70 @@ const mono = {
 const lines = CONCERT_SERIES_NAME.split(" ");
 
 const svg = await satori(
-  el(
-    "div",
-    {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "space-between",
-      width: "100%",
-      height: "100%",
-      backgroundColor: "#ffffff",
-      color: INK,
-      fontFamily: "Archivo",
-    },
-    [
-      el(
-        "div",
-        { ...mono, color: MUTED, padding: `${PADDING}px ${PADDING}px 0` },
-        "Cykl koncertów piosenki autorskiej",
-      ),
-      el("div", { display: "flex", flexDirection: "column" }, [
-        el(
-          "div",
-          {
-            display: "flex",
-            flexDirection: "column",
-            padding: `0 ${PADDING}px 48px`,
-            // 158 px to największy stopień, przy którym „efemeryczne.” mieści
-            // się między marginesami. Światło luźniejsze niż −0.035em z karty
-            // OG: przy tej wielkości „r” zlewało się z „y”, a ogonek „ę”
-            // wchodził w drugi wiersz – stąd też interlinia 1, nie 0.95.
-            fontSize: 158,
-            lineHeight: 1,
-            letterSpacing: "-0.02em",
-          },
-          // W Archivo SemiBold ramię „r” styka się z „y” nawet bez kerningu –
-          // przy tym stopniu widać to jako zlaną plamę. Wiersz jest więc
-          // rozcięty między tymi literami, a druga część dostaje własny
-          // odstęp; letter-spacing na całym wierszu rozluźniłby wszystko.
-          lines.map((line) =>
-            el(
-              "div",
-              { display: "flex" },
-              line
-                .split(/(?<=r)(?=y)/)
-                .map((part, index) =>
-                  el("div", index > 0 ? { marginLeft: "0.045em" } : {}, part),
-                ),
-            ),
-          ),
-        ),
-        el(
-          "div",
-          {
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderTop: `2px solid ${INK}`,
-            padding: `34px ${PADDING}px`,
-          },
-          [
-            el("div", { fontSize: 26 }, WORDMARK),
-            el("div", { ...mono, color: MUTED }, "Trójmiasto 2027"),
-          ],
-        ),
-      ]),
-    ],
-  ),
-  { width: SIZE, height: SIZE, fonts },
+	el(
+		"div",
+		{
+			display: "flex",
+			flexDirection: "column",
+			justifyContent: "space-between",
+			width: "100%",
+			height: "100%",
+			backgroundColor: "#ffffff",
+			color: INK,
+			fontFamily: "Archivo",
+		},
+		[
+			el(
+				"div",
+				{ ...mono, color: MUTED, padding: `${PADDING}px ${PADDING}px 0` },
+				"Cykl koncertów piosenki autorskiej",
+			),
+			el("div", { display: "flex", flexDirection: "column" }, [
+				el(
+					"div",
+					{
+						display: "flex",
+						flexDirection: "column",
+						padding: `0 ${PADDING}px 48px`,
+						// 158 px to największy stopień, przy którym „efemeryczne.” mieści
+						// się między marginesami. Światło luźniejsze niż −0.035em z karty
+						// OG: przy tej wielkości „r” zlewało się z „y”, a ogonek „ę”
+						// wchodził w drugi wiersz – stąd też interlinia 1, nie 0.95.
+						fontSize: 158,
+						lineHeight: 1,
+						letterSpacing: "-0.02em",
+					},
+					// W Archivo SemiBold ramię „r” styka się z „y” nawet bez kerningu –
+					// przy tym stopniu widać to jako zlaną plamę. Wiersz jest więc
+					// rozcięty między tymi literami, a druga część dostaje własny
+					// odstęp; letter-spacing na całym wierszu rozluźniłby wszystko.
+					lines.map((line) =>
+						el(
+							"div",
+							{ display: "flex" },
+							line
+								.split(/(?<=r)(?=y)/)
+								.map((part, index) => el("div", index > 0 ? { marginLeft: "0.045em" } : {}, part)),
+						),
+					),
+				),
+				el(
+					"div",
+					{
+						display: "flex",
+						justifyContent: "space-between",
+						alignItems: "center",
+						borderTop: `2px solid ${INK}`,
+						padding: `34px ${PADDING}px`,
+					},
+					[el("div", { fontSize: 26 }, WORDMARK), el("div", { ...mono, color: MUTED }, "Trójmiasto 2027")],
+				),
+			]),
+		],
+	),
+	{ width: SIZE, height: SIZE, fonts },
 );
 
-await Bun.write(
-  OUTPUT,
-  await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer(),
-);
+await Bun.write(OUTPUT, await sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer());
 
 console.log(`Grafika zapisana: ${OUTPUT}`);

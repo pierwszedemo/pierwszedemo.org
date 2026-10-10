@@ -1,58 +1,58 @@
 ---
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-import michal from "../assets/michal.jpg";
 import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
+import michal from "../assets/michal.jpg";
 import ConsentManager from "../components/ConsentManager.astro";
 import {
-  CONTACT_EMAIL,
-  FOUNDATION,
-  FOUNDATION_PATH,
-  CF_BEACON_TOKEN,
-  GA_ID,
-  GOALS,
-  HOME_CITY,
-  INSTAGRAM_URL,
-  LAST_CONTENT_UPDATE,
-  ORGANIZATION_ID,
-  PERSON_ID,
-  PERSON_PROFILES,
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  SITE_URL,
-  WEBSITE_ID,
+	CF_BEACON_TOKEN,
+	CONTACT_EMAIL,
+	FOUNDATION,
+	FOUNDATION_PATH,
+	GA_ID,
+	GOALS,
+	HOME_CITY,
+	INSTAGRAM_URL,
+	LAST_CONTENT_UPDATE,
+	ORGANIZATION_ID,
+	PERSON_ID,
+	PERSON_PROFILES,
+	SITE_DESCRIPTION,
+	SITE_NAME,
+	SITE_URL,
+	WEBSITE_ID,
 } from "../consts";
-import { FOUNDERS } from "../strony";
 import { isoDateTime } from "../schema";
+import { FOUNDERS } from "../strony";
 import "../styles/global.css";
 
 interface Props {
-  title: string;
-  description?: string;
-  canonicalPath?: string;
-  robots?: string;
-  ogType?: string;
-  /** Ścieżka do karty OG 1200×630. Wpisy podstawiają własną z /og/<slug>.png. */
-  ogImage?: string;
-  /** Typ węzła strony w @graph – strona główna jest profilem fundacji. */
-  schemaPageType?: "WebPage" | "ProfilePage" | "CollectionPage";
-  /** Dodatkowe węzły dopinane do schema.org @graph (np. BlogPosting). */
-  extraJsonLd?: Record<string, unknown>[];
-  /** Data (YYYY-MM-DD wystarczy) – schema.org dateModified tej strony.
-   * Na pełne ISO 8601 rozwija ją `isoDateTime()` niżej. */
-  dateModified?: string;
+	title: string;
+	description?: string;
+	canonicalPath?: string;
+	robots?: string;
+	ogType?: string;
+	/** Ścieżka do karty OG 1200×630. Wpisy podstawiają własną z /og/<slug>.png. */
+	ogImage?: string;
+	/** Typ węzła strony w @graph – strona główna jest profilem fundacji. */
+	schemaPageType?: "WebPage" | "ProfilePage" | "CollectionPage";
+	/** Dodatkowe węzły dopinane do schema.org @graph (np. BlogPosting). */
+	extraJsonLd?: Record<string, unknown>[];
+	/** Data (YYYY-MM-DD wystarczy) – schema.org dateModified tej strony.
+	 * Na pełne ISO 8601 rozwija ją `isoDateTime()` niżej. */
+	dateModified?: string;
 }
 
 const {
-  title,
-  description = SITE_DESCRIPTION,
-  canonicalPath = Astro.url.pathname,
-  robots = "index, follow, max-image-preview:large",
-  ogType = "website",
-  ogImage = "/og.png",
-  schemaPageType = "WebPage",
-  extraJsonLd = [],
-  dateModified = LAST_CONTENT_UPDATE,
+	title,
+	description = SITE_DESCRIPTION,
+	canonicalPath = Astro.url.pathname,
+	robots = "index, follow, max-image-preview:large",
+	ogType = "website",
+	ogImage = "/og.png",
+	schemaPageType = "WebPage",
+	extraJsonLd = [],
+	dateModified = LAST_CONTENT_UPDATE,
 } = Astro.props;
 
 const site = Astro.site ?? new URL(SITE_URL);
@@ -65,113 +65,110 @@ const photos = { michal, ola } as const;
 // w stopce i w polityce prywatności. Numery z KRS trafiają tu dopiero, gdy
 // są – puste pola są pomijane, bo pusty `taxID` to błąd walidacji.
 const organizationJsonLd = {
-  "@type": "NGO",
-  "@id": ORGANIZATION_ID,
-  name: SITE_NAME,
-  legalName: FOUNDATION.name,
-  alternateName: "Pierwsze Demo",
-  url: site.href,
-  description: SITE_DESCRIPTION,
-  email: `mailto:${CONTACT_EMAIL}`,
-  logo: new URL("/web-app-manifest-512x512.png", site).href,
-  ...(FOUNDATION.nip ? { taxID: FOUNDATION.nip } : {}),
-  ...(FOUNDATION.krs
-    ? {
-        identifier: {
-          "@type": "PropertyValue",
-          propertyID: "KRS",
-          value: FOUNDATION.krs,
-        },
-      }
-    : {}),
-  nonprofitStatus: "https://schema.org/NonprofitType",
-  founder: FOUNDERS.map((person) => ({ "@id": person.schemaId })),
-  member: FOUNDERS.map((person) => ({
-    "@type": "OrganizationRole",
-    member: { "@id": person.schemaId },
-    roleName: person.role,
-  })),
-  knowsAbout: GOALS,
-  areaServed: { "@type": "Country", name: "Polska" },
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: FOUNDATION.street,
-    postalCode: FOUNDATION.postalCode,
-    addressLocality: FOUNDATION.city,
-    addressCountry: "PL",
-  },
-  sameAs: [INSTAGRAM_URL],
+	"@type": "NGO",
+	"@id": ORGANIZATION_ID,
+	name: SITE_NAME,
+	legalName: FOUNDATION.name,
+	alternateName: "Pierwsze Demo",
+	url: site.href,
+	description: SITE_DESCRIPTION,
+	email: `mailto:${CONTACT_EMAIL}`,
+	logo: new URL("/web-app-manifest-512x512.png", site).href,
+	...(FOUNDATION.nip ? { taxID: FOUNDATION.nip } : {}),
+	...(FOUNDATION.krs
+		? {
+				identifier: {
+					"@type": "PropertyValue",
+					propertyID: "KRS",
+					value: FOUNDATION.krs,
+				},
+			}
+		: {}),
+	nonprofitStatus: "https://schema.org/NonprofitType",
+	founder: FOUNDERS.map((person) => ({ "@id": person.schemaId })),
+	member: FOUNDERS.map((person) => ({
+		"@type": "OrganizationRole",
+		member: { "@id": person.schemaId },
+		roleName: person.role,
+	})),
+	knowsAbout: GOALS,
+	areaServed: { "@type": "Country", name: "Polska" },
+	address: {
+		"@type": "PostalAddress",
+		streetAddress: FOUNDATION.street,
+		postalCode: FOUNDATION.postalCode,
+		addressLocality: FOUNDATION.city,
+		addressCountry: "PL",
+	},
+	sameAs: [INSTAGRAM_URL],
 };
 
 // Dwie osoby, dwa węzły Person – obie są członkami Zarządu, więc obie
 // dostają `memberOf` i `worksFor`; profile zewnętrzne ma na razie tylko
 // Michał (`PERSON_PROFILES`), Ola – własną stronę.
 const peopleJsonLd = FOUNDERS.map((person) => ({
-  "@type": "Person",
-  "@id": person.schemaId,
-  name: person.fullName,
-  ...(person.name !== person.fullName ? { alternateName: person.name } : {}),
-  url: `${new URL(FOUNDATION_PATH, site).href}#${person.id}`,
-  jobTitle: `${person.role}, ${person.jobTitle}`,
-  email: `mailto:${person.email}`,
-  description: person.bio[0],
-  image: new URL(photos[person.id].src, site).href,
-  homeLocation: {
-    "@type": "Place",
-    name: HOME_CITY,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: HOME_CITY,
-      addressCountry: "PL",
-    },
-  },
-  worksFor: { "@id": ORGANIZATION_ID },
-  memberOf: { "@id": ORGANIZATION_ID },
-  sameAs:
-    person.schemaId === PERSON_ID
-      ? PERSON_PROFILES.map((profile) => profile.href)
-      : [person.href],
+	"@type": "Person",
+	"@id": person.schemaId,
+	name: person.fullName,
+	...(person.name !== person.fullName ? { alternateName: person.name } : {}),
+	url: `${new URL(FOUNDATION_PATH, site).href}#${person.id}`,
+	jobTitle: `${person.role}, ${person.jobTitle}`,
+	email: `mailto:${person.email}`,
+	description: person.bio[0],
+	image: new URL(photos[person.id].src, site).href,
+	homeLocation: {
+		"@type": "Place",
+		name: HOME_CITY,
+		address: {
+			"@type": "PostalAddress",
+			addressLocality: HOME_CITY,
+			addressCountry: "PL",
+		},
+	},
+	worksFor: { "@id": ORGANIZATION_ID },
+	memberOf: { "@id": ORGANIZATION_ID },
+	sameAs: person.schemaId === PERSON_ID ? PERSON_PROFILES.map((profile) => profile.href) : [person.href],
 }));
 
 const websiteJsonLd = {
-  "@type": "WebSite",
-  "@id": WEBSITE_ID,
-  url: site.href,
-  name: SITE_NAME,
-  description: SITE_DESCRIPTION,
-  inLanguage: "pl",
-  publisher: { "@id": ORGANIZATION_ID },
-  about: { "@id": ORGANIZATION_ID },
+	"@type": "WebSite",
+	"@id": WEBSITE_ID,
+	url: site.href,
+	name: SITE_NAME,
+	description: SITE_DESCRIPTION,
+	inLanguage: "pl",
+	publisher: { "@id": ORGANIZATION_ID },
+	about: { "@id": ORGANIZATION_ID },
 };
 
 // Strony z noindex (404) nie dostają własnego węzła – nie ma czego indeksować.
 const pageJsonLd = robots.includes("noindex")
-  ? null
-  : {
-      "@type": schemaPageType,
-      "@id": canonical,
-      url: canonical,
-      name: title,
-      description,
-      inLanguage: "pl",
-      isPartOf: { "@id": WEBSITE_ID },
-      primaryImageOfPage: ogImageUrl,
-      dateModified: isoDateTime(dateModified),
-      // ProfilePage opisuje fundację wprost; pozostałe strony tylko jej dotyczą.
-      ...(schemaPageType === "ProfilePage"
-        ? { mainEntity: { "@id": ORGANIZATION_ID } }
-        : { about: { "@id": ORGANIZATION_ID } }),
-    };
+	? null
+	: {
+			"@type": schemaPageType,
+			"@id": canonical,
+			url: canonical,
+			name: title,
+			description,
+			inLanguage: "pl",
+			isPartOf: { "@id": WEBSITE_ID },
+			primaryImageOfPage: ogImageUrl,
+			dateModified: isoDateTime(dateModified),
+			// ProfilePage opisuje fundację wprost; pozostałe strony tylko jej dotyczą.
+			...(schemaPageType === "ProfilePage"
+				? { mainEntity: { "@id": ORGANIZATION_ID } }
+				: { about: { "@id": ORGANIZATION_ID } }),
+		};
 
 const jsonLd = {
-  "@context": "https://schema.org",
-  "@graph": [
-    organizationJsonLd,
-    ...peopleJsonLd,
-    websiteJsonLd,
-    ...(pageJsonLd ? [pageJsonLd] : []),
-    ...extraJsonLd,
-  ],
+	"@context": "https://schema.org",
+	"@graph": [
+		organizationJsonLd,
+		...peopleJsonLd,
+		websiteJsonLd,
+		...(pageJsonLd ? [pageJsonLd] : []),
+		...extraJsonLd,
+	],
 };
 ---
 

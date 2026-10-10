@@ -1,32 +1,32 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Nav from "../components/Nav.astro";
+import TinaIsland from "@tinacms/astro/TinaIsland.astro";
+import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
+import michal from "../assets/michal.jpg";
+import EmailLink from "../components/EmailLink.astro";
 import Footer from "../components/Footer.astro";
 import HeroPhoto from "../components/HeroPhoto.astro";
-import EmailLink from "../components/EmailLink.astro";
-import SupportBand from "../components/SupportBand.astro";
-import TinaIsland from "@tinacms/astro/TinaIsland.astro";
-import FundacjaNaglowek from "../components/islands/FundacjaNaglowek.astro";
-import FundacjaMisja from "../components/islands/FundacjaMisja.astro";
 import FundacjaDzialania from "../components/islands/FundacjaDzialania.astro";
+import FundacjaMisja from "../components/islands/FundacjaMisja.astro";
+import FundacjaNaglowek from "../components/islands/FundacjaNaglowek.astro";
 import Fundator from "../components/islands/Fundator.astro";
 import { wrappers } from "../components/islands/wrappers";
-import michal from "../assets/michal.jpg";
-import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
+import Nav from "../components/Nav.astro";
+import SupportBand from "../components/SupportBand.astro";
 import {
-  CONTACT_EMAIL,
-  FOUNDATION,
-  FOUNDATION_PATH,
-  GOALS,
-  HOME_CITY,
-  SITE_NAME,
-  SITE_URL,
-  STATUTE_PATH,
-  SUPPORT_PATH,
-  registryValue,
+	CONTACT_EMAIL,
+	FOUNDATION,
+	FOUNDATION_PATH,
+	GOALS,
+	HOME_CITY,
+	registryValue,
+	SITE_NAME,
+	SITE_URL,
+	STATUTE_PATH,
+	SUPPORT_PATH,
 } from "../consts";
-import { ACTIVITIES_DOC, FOUNDATION_PAGE_DOC, FOUNDERS, FOUNDERS_DOC } from "../strony";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd } from "../schema";
+import { ACTIVITIES_DOC, FOUNDATION_PAGE_DOC, FOUNDERS, FOUNDERS_DOC } from "../strony";
 import { fixHanging } from "../typography";
 
 /*
@@ -37,38 +37,38 @@ import { fixHanging } from "../typography";
  */
 const canonical = new URL(FOUNDATION_PATH, SITE_URL).href;
 const breadcrumb = breadcrumbJsonLd(
-  [
-    { name: "Start", path: "/" },
-    { name: "Fundacja", path: FOUNDATION_PATH },
-  ],
-  canonical,
+	[
+		{ name: "Start", path: "/" },
+		{ name: "Fundacja", path: FOUNDATION_PATH },
+	],
+	canonical,
 );
 
 const registry = [
-  { label: "Nazwa", value: FOUNDATION.name },
-  {
-    label: "Siedziba",
-    value: `${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}`,
-  },
-  { label: "KRS", value: registryValue(FOUNDATION.krs) },
-  { label: "NIP", value: registryValue(FOUNDATION.nip) },
-  { label: "REGON", value: registryValue(FOUNDATION.regon) },
-  { label: "Sąd rejestrowy", value: FOUNDATION.court },
-  { label: "Nadzór", value: FOUNDATION.minister },
-  { label: "Forma", value: "fundacja" },
+	{ label: "Nazwa", value: FOUNDATION.name },
+	{
+		label: "Siedziba",
+		value: `${FOUNDATION.street}, ${FOUNDATION.postalCode} ${FOUNDATION.city}`,
+	},
+	{ label: "KRS", value: registryValue(FOUNDATION.krs) },
+	{ label: "NIP", value: registryValue(FOUNDATION.nip) },
+	{ label: "REGON", value: registryValue(FOUNDATION.regon) },
+	{ label: "Sąd rejestrowy", value: FOUNDATION.court },
+	{ label: "Nadzór", value: FOUNDATION.minister },
+	{ label: "Forma", value: "fundacja" },
 ] as const;
 
 const photos = {
-  michal: {
-    src: michal,
-    alt: "Michał Miszczyszyn w niebieskiej kurtce, w tle panorama Bergen",
-    position: "object-[center_35%]",
-  },
-  ola: {
-    src: ola,
-    alt: "Ola Geppert na scenie – czarno-białe zdjęcie: chustka na głowie, długie czarne rękawiczki, mikrofon trzymany oburącz przy ustach",
-    position: "object-top",
-  },
+	michal: {
+		src: michal,
+		alt: "Michał Miszczyszyn w niebieskiej kurtce, w tle panorama Bergen",
+		position: "object-[center_35%]",
+	},
+	ola: {
+		src: ola,
+		alt: "Ola Geppert na scenie – czarno-białe zdjęcie: chustka na głowie, długie czarne rękawiczki, mikrofon trzymany oburącz przy ustach",
+		position: "object-top",
+	},
 } as const;
 
 import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../styles/fundacja";

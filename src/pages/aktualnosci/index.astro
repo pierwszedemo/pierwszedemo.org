@@ -1,20 +1,13 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Nav from "../../components/Nav.astro";
+import { getSortedNews, isoDate, readingMinutes } from "../../collections";
 import Footer from "../../components/Footer.astro";
 import ListRow from "../../components/ListRow.astro";
+import Nav from "../../components/Nav.astro";
 import SupportBand from "../../components/SupportBand.astro";
-import { getSortedNews, isoDate, readingMinutes } from "../../collections";
+import { NEWS_KINDS, NEWS_PATH, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import { authorJsonLd, sectionAuthorJsonLd } from "../../strony";
-import {
-  NEWS_KINDS,
-  NEWS_PATH,
-  ORGANIZATION_ID,
-  SITE_NAME,
-  SITE_URL,
-  WEBSITE_ID,
-} from "../../consts";
 
 const entries = await getSortedNews();
 const count = String(entries.length).padStart(2, "0");
@@ -22,51 +15,51 @@ const canonical = new URL(NEWS_PATH, SITE_URL).href;
 const entryUrl = (id: string) => new URL(`${NEWS_PATH}/${id}`, SITE_URL).href;
 
 const description =
-  "Aktualności Fundacji Pierwsze Demo: koncerty i wydarzenia, relacje, rozmowy z artystami, komunikaty i sprawozdania z projektów.";
+	"Aktualności Fundacji Pierwsze Demo: koncerty i wydarzenia, relacje, rozmowy z artystami, komunikaty i sprawozdania z projektów.";
 
 const blogJsonLd = {
-  "@type": "Blog",
-  "@id": `${canonical}#blog`,
-  name: `Aktualności – ${SITE_NAME}`,
-  description,
-  url: canonical,
-  inLanguage: "pl",
-  author: sectionAuthorJsonLd(entries),
-  publisher: { "@id": ORGANIZATION_ID },
-  isPartOf: { "@id": WEBSITE_ID },
-  blogPost: entries.map((entry) => ({
-    "@type": "BlogPosting",
-    "@id": `${entryUrl(entry.id)}#post`,
-    headline: entry.data.title,
-    description: entry.data.lead,
-    url: entryUrl(entry.id),
-    articleSection: NEWS_KINDS[entry.data.kind],
-    datePublished: isoDateTime(entry.data.date),
-    dateModified: isoDateTime(entry.data.updated ?? entry.data.date),
-    author: authorJsonLd(entry.data.authors),
-  })),
+	"@type": "Blog",
+	"@id": `${canonical}#blog`,
+	name: `Aktualności – ${SITE_NAME}`,
+	description,
+	url: canonical,
+	inLanguage: "pl",
+	author: sectionAuthorJsonLd(entries),
+	publisher: { "@id": ORGANIZATION_ID },
+	isPartOf: { "@id": WEBSITE_ID },
+	blogPost: entries.map((entry) => ({
+		"@type": "BlogPosting",
+		"@id": `${entryUrl(entry.id)}#post`,
+		headline: entry.data.title,
+		description: entry.data.lead,
+		url: entryUrl(entry.id),
+		articleSection: NEWS_KINDS[entry.data.kind],
+		datePublished: isoDateTime(entry.data.date),
+		dateModified: isoDateTime(entry.data.updated ?? entry.data.date),
+		author: authorJsonLd(entry.data.authors),
+	})),
 };
 
 const itemListJsonLd = {
-  "@type": "ItemList",
-  "@id": `${canonical}#lista`,
-  name: `Aktualności ${SITE_NAME}`,
-  numberOfItems: entries.length,
-  itemListOrder: "https://schema.org/ItemListOrderDescending",
-  itemListElement: entries.map((entry, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    url: entryUrl(entry.id),
-    name: entry.data.title,
-  })),
+	"@type": "ItemList",
+	"@id": `${canonical}#lista`,
+	name: `Aktualności ${SITE_NAME}`,
+	numberOfItems: entries.length,
+	itemListOrder: "https://schema.org/ItemListOrderDescending",
+	itemListElement: entries.map((entry, index) => ({
+		"@type": "ListItem",
+		position: index + 1,
+		url: entryUrl(entry.id),
+		name: entry.data.title,
+	})),
 };
 
 const breadcrumb = breadcrumbJsonLd(
-  [
-    { name: "Start", path: "/" },
-    { name: "Aktualności", path: NEWS_PATH },
-  ],
-  canonical,
+	[
+		{ name: "Start", path: "/" },
+		{ name: "Aktualności", path: NEWS_PATH },
+	],
+	canonical,
 );
 ---
 

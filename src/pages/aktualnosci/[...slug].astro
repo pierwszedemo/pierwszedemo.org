@@ -1,22 +1,22 @@
 ---
-import ArticleLayout from "../../layouts/ArticleLayout.astro";
+import { getRoutedNews, getSortedNews, type News, nextListed, readingMinutes } from "../../collections";
 import Byline from "../../components/Byline.astro";
-import { getSortedNews, getRoutedNews, nextListed, readingMinutes, type News } from "../../collections";
 import { NEWS_KINDS, NEWS_PATH } from "../../consts";
+import ArticleLayout from "../../layouts/ArticleLayout.astro";
 
 interface Props {
-  entry: News;
-  next?: News;
+	entry: News;
+	next?: News;
 }
 
 export const prerender = true;
 
 export async function getStaticPaths() {
-  const listed = await getSortedNews();
-  return (await getRoutedNews()).map((entry) => ({
-    params: { slug: entry.id },
-    props: { entry, next: nextListed(entry, listed) },
-  }));
+	const listed = await getSortedNews();
+	return (await getRoutedNews()).map((entry) => ({
+		params: { slug: entry.id },
+		props: { entry, next: nextListed(entry, listed) },
+	}));
 }
 
 const { entry, next } = Astro.props;

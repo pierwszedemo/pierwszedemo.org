@@ -1,10 +1,5 @@
 import type { APIRoute } from "astro";
-import {
-  getRoutedArticles,
-  getRoutedNews,
-  type Article,
-  type News,
-} from "../../collections";
+import { type Article, getRoutedArticles, getRoutedNews, type News } from "../../collections";
 import { NEWS_KINDS } from "../../consts";
 import { OG_HEADERS, renderOgCard } from "../../og";
 
@@ -15,25 +10,23 @@ export const prerender = true;
 // kolekcje dzielą jedną przestrzeń slugów; gdyby kiedyś się zderzyły, build
 // zgłosi zduplikowaną trasę.
 export async function getStaticPaths() {
-  const articles = await getRoutedArticles();
-  const news = await getRoutedNews();
-  return [
-    ...articles.map((entry) => ({
-      params: { slug: entry.id },
-      props: { title: entry.data.title, badge: entry.data.category },
-    })),
-    ...news.map((entry) => ({
-      params: { slug: entry.id },
-      props: { title: entry.data.title, badge: NEWS_KINDS[entry.data.kind] },
-    })),
-  ];
+	const articles = await getRoutedArticles();
+	const news = await getRoutedNews();
+	return [
+		...articles.map((entry) => ({
+			params: { slug: entry.id },
+			props: { title: entry.data.title, badge: entry.data.category },
+		})),
+		...news.map((entry) => ({
+			params: { slug: entry.id },
+			props: { title: entry.data.title, badge: NEWS_KINDS[entry.data.kind] },
+		})),
+	];
 }
 
-export const GET: APIRoute<{ title: string; badge: string }> = async ({
-  props,
-}) => {
-  const png = await renderOgCard({ title: props.title, badge: props.badge });
-  return new Response(png, { headers: OG_HEADERS });
+export const GET: APIRoute<{ title: string; badge: string }> = async ({ props }) => {
+	const png = await renderOgCard({ title: props.title, badge: props.badge });
+	return new Response(png, { headers: OG_HEADERS });
 };
 
 // Typy trzymane w jednym miejscu, żeby endpoint nie importował kolekcji

@@ -2,6 +2,6 @@
 // typy daje wtyczka Astro do TypeScriptu, ale goły `tsgo` – jedyny typecheck
 // w tym repo – jej nie ma i bez tej deklaracji nie rozwiązuje modułu.
 declare module "*.astro" {
-  const component: import("astro/runtime/server/index.js").AstroComponentFactory;
-  export default component;
+	const component: import("astro/runtime/server/index.js").AstroComponentFactory;
+	export default component;
 }

@@ -30,26 +30,22 @@ const FRAME = 4;
 const GAP = 7;
 const INK = "#101010";
 
-const font = opentype.parse(
-  readFileSync("src/assets/fonts/Archivo-SemiBold.ttf").buffer,
-);
+const font = opentype.parse(readFileSync("src/assets/fonts/Archivo-SemiBold.ttf").buffer);
 
 /** Ta wersja opentype.js nie ma getBoundingBox — zakres liczymy z komend. */
 function bounds(path) {
-  const xs = [];
-  const ys = [];
-  for (const command of path.commands) {
-    for (const key of ["x", "x1", "x2"])
-      if (command[key] !== undefined) xs.push(command[key]);
-    for (const key of ["y", "y1", "y2"])
-      if (command[key] !== undefined) ys.push(command[key]);
-  }
-  return {
-    x1: Math.min(...xs),
-    y1: Math.min(...ys),
-    x2: Math.max(...xs),
-    y2: Math.max(...ys),
-  };
+	const xs = [];
+	const ys = [];
+	for (const command of path.commands) {
+		for (const key of ["x", "x1", "x2"]) if (command[key] !== undefined) xs.push(command[key]);
+		for (const key of ["y", "y1", "y2"]) if (command[key] !== undefined) ys.push(command[key]);
+	}
+	return {
+		x1: Math.min(...xs),
+		y1: Math.min(...ys),
+		x2: Math.max(...xs),
+		y2: Math.max(...ys),
+	};
 }
 
 /**
@@ -59,15 +55,12 @@ function bounds(path) {
  * szerokość.
  */
 function monogram(padding) {
-  const raw = bounds(font.getPath(GLYPH, 0, 0, FONT_SIZE));
-  const fontSize = Math.min(
-    FONT_SIZE,
-    (FONT_SIZE * (SIZE - 2 * padding)) / (raw.x2 - raw.x1),
-  );
-  const { x1, y1, x2, y2 } = bounds(font.getPath(GLYPH, 0, 0, fontSize));
-  const dx = (SIZE - (x2 - x1)) / 2 - x1;
-  const dy = (SIZE - (y2 - y1)) / 2 - y1;
-  return font.getPath(GLYPH, dx, dy, fontSize).toPathData(3);
+	const raw = bounds(font.getPath(GLYPH, 0, 0, FONT_SIZE));
+	const fontSize = Math.min(FONT_SIZE, (FONT_SIZE * (SIZE - 2 * padding)) / (raw.x2 - raw.x1));
+	const { x1, y1, x2, y2 } = bounds(font.getPath(GLYPH, 0, 0, fontSize));
+	const dx = (SIZE - (x2 - x1)) / 2 - x1;
+	const dy = (SIZE - (y2 - y1)) / 2 - y1;
+	return font.getPath(GLYPH, dx, dy, fontSize).toPathData(3);
 }
 
 const framed = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}">
@@ -92,18 +85,15 @@ const bare = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZ
 await Bun.write("public/favicon.svg", framed);
 
 const render = (size, svg = framed) =>
-  sharp(Buffer.from(svg), { density: 512 })
-    .resize(size, size)
-    .png({ compressionLevel: 9 })
-    .toBuffer();
+	sharp(Buffer.from(svg), { density: 512 }).resize(size, size).png({ compressionLevel: 9 }).toBuffer();
 
 for (const [file, size] of [
-  ["public/favicon-96x96.png", 96],
-  ["public/apple-touch-icon.png", 180],
-  ["public/web-app-manifest-192x192.png", 192],
-  ["public/web-app-manifest-512x512.png", 512],
+	["public/favicon-96x96.png", 96],
+	["public/apple-touch-icon.png", 180],
+	["public/web-app-manifest-192x192.png", 192],
+	["public/web-app-manifest-512x512.png", 512],
 ]) {
-  await Bun.write(file, await render(size));
+	await Bun.write(file, await render(size));
 }
 
 // Zdjęcie profilowe na Facebooka / Instagram. Platformy pokazują je w kółku,
@@ -152,9 +142,7 @@ await Bun.write("public/bimi.svg", bimi);
 // `file`) bierze go jako signed char i 128 wychodzi im jako -128. 96 mieści
 // się poniżej progu i żaden parser nie musi zgadywać.
 const sizes = [96, 64, 48, 32, 16];
-const pngs = await Promise.all(
-  sizes.map((size) => render(size, size >= 64 ? framed : bare)),
-);
+const pngs = await Promise.all(sizes.map((size) => render(size, size >= 64 ? framed : bare)));
 
 const header = Buffer.alloc(6);
 header.writeUInt16LE(1, 2); // typ: ikona
@@ -162,20 +150,17 @@ header.writeUInt16LE(sizes.length, 4);
 
 let offset = header.length + 16 * sizes.length;
 const entries = pngs.map((png, index) => {
-  const entry = Buffer.alloc(16);
-  entry.writeUInt8(sizes[index], 0); // szerokość
-  entry.writeUInt8(sizes[index], 1); // wysokość
-  entry.writeUInt16LE(1, 4); // planes
-  entry.writeUInt16LE(32, 6); // bity na piksel
-  entry.writeUInt32LE(png.length, 8);
-  entry.writeUInt32LE(offset, 12);
-  offset += png.length;
-  return entry;
+	const entry = Buffer.alloc(16);
+	entry.writeUInt8(sizes[index], 0); // szerokość
+	entry.writeUInt8(sizes[index], 1); // wysokość
+	entry.writeUInt16LE(1, 4); // planes
+	entry.writeUInt16LE(32, 6); // bity na piksel
+	entry.writeUInt32LE(png.length, 8);
+	entry.writeUInt32LE(offset, 12);
+	offset += png.length;
+	return entry;
 });
 
-await Bun.write(
-  "public/favicon.ico",
-  Buffer.concat([header, ...entries, ...pngs]),
-);
+await Bun.write("public/favicon.ico", Buffer.concat([header, ...entries, ...pngs]));
 
 console.log(`Ikony przegenerowane (${sizes.join("/")} px w .ico).`);

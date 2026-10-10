@@ -1,13 +1,13 @@
 ---
-import EmailLink from "../EmailLink.astro";
 import { withUtm } from "../../consts";
 import type { FoundersDoc } from "../../strony";
 import { itemText, link } from "../../styles/fundacja";
 import { fixHanging } from "../../typography";
+import EmailLink from "../EmailLink.astro";
 import { field } from "./field";
 
 interface Props {
-  person: FoundersDoc[keyof FoundersDoc];
+	person: FoundersDoc[keyof FoundersDoc];
 }
 const { person } = Astro.props;
 ---

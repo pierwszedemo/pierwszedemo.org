@@ -23,19 +23,19 @@ const DESKTOP = 624;
 const SHADOW = 68 * 2;
 
 const card = await renderOgCard({
-  title: "Kariera to strategia.",
-  width: WIDTH,
-  height: DESKTOP - SHADOW,
-  paddingX: 200,
+	title: "Kariera to strategia.",
+	width: WIDTH,
+	height: DESKTOP - SHADOW,
+	paddingX: 200,
 });
 const band = (HEIGHT - DESKTOP) / 2;
 
 await Bun.write(
-  "assets/facebook-cover-1640x856.png",
-  await sharp(card)
-    .extend({ top: band, bottom: band + SHADOW, background: "#ffffff" })
-    .png({ compressionLevel: 9 })
-    .toBuffer(),
+	"assets/facebook-cover-1640x856.png",
+	await sharp(card)
+		.extend({ top: band, bottom: band + SHADOW, background: "#ffffff" })
+		.png({ compressionLevel: 9 })
+		.toBuffer(),
 );
 
 console.log("Okładka zapisana: assets/facebook-cover-1640x856.png");
