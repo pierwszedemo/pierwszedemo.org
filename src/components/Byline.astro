@@ -5,9 +5,10 @@ import { authorsOf } from "../strony";
 
 /**
  * Podpis pod wpisem w kolumnie „W skrócie”. Wpisy są pisane w pierwszej
- * osobie – podpis z funkcją w fundacji mówi czytelnikowi, czyj to głos,
- * bez przepisywania tekstów na głos organizacji. Przy dwóch autorach każdy
- * dostaje własną linijkę, żeby nazwisko nie odkleiło się od funkcji.
+ * osobie – podpis mówi czytelnikowi, czyj to głos, bez przepisywania tekstów
+ * na głos organizacji. Samo imię i nazwisko, bez funkcji w zarządzie: funkcja
+ * brzmiała jak pismo urzędowe, a kto jest kim, mówi bio, do którego prowadzi
+ * link. Przy dwóch autorach każdy dostaje własną linijkę.
  *
  * `label` ma interlinię 1 – dobrą dla jednej linijki etykiety, ale podpis
  * i data aktualizacji to dwie linie i przy 1 sklejały się w blok.
@@ -33,7 +34,7 @@ const { authors, updated } = Astro.props;
           rel="author"
           class="underline underline-offset-4 transition-colors hover:text-ink"
         >
-          {author.name}, {author.role.toLowerCase()}
+          {author.name}
         </a>
       </>
     ))
