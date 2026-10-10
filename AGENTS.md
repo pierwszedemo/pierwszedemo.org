@@ -600,18 +600,17 @@ commercial page is gone: paid management is one of the foundation's
 programmes (§ 7 of the statute, odpłatna działalność pożytku publicznego),
 described on `/fundacja#kariera`, never as a company offer.
 
-**Founders' own projects on the foundation's site.** Ola is both Vice-President
-and a young artist the foundation can legitimately support (statute § 5 covers
-her; § 9 allows using the foundation's assets for a founder only when it
-follows directly from a statutory goal). The line is drawn by purpose, not by
-person: a founder's project appears here only when it *is* a foundation
-activity (the concert series she hosts, a workshop she runs) and only with the
-role stated next to her name. Never as promotion of a release – the interview
+**Avoid conflict of interest.** Ola is both Vice-President and a young artist
+of the kind the foundation exists to support (statute § 5). § 9 allows using
+the foundation's assets for a founder only when it follows directly from a
+statutory goal, so the line is drawn by purpose, not by person: a founder's
+project appears here only when it *is* a foundation activity (the concert
+series she hosts, a workshop she runs), and always with her role stated next
+to her name. The site does not promote founders' own releases: the interview
 about her single (`2026-09-18-ola-geppert-ioanni-wywiad.md`) is
-`unlisted: true` for that reason – reachable by its own link, never featured
-by the site – the EP left the „Teraz" panel, and Michał's bio mentions the
-single in one clause. A grant assessor reading „foundation = the founder's
-promotion vehicle" is the risk this guards against.
+`unlisted: true` – it has its own URL but no list or panel features it – her
+EP is not in the „Teraz" panel, and Michał's bio mentions the single in one
+clause.
 
 The footer is two rows. The top row carries the name, KRS / NIP / REGON and
 e-mail on the same 5/3/3/5 tracks as the nav. The registered address is not
