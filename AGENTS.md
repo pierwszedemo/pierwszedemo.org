@@ -494,6 +494,14 @@ indent) are never typed as pixels – they are multiples of the grid module belo
 
 ## Conventions
 
+- **The repo is public** (`github.com/pierwszedemo/pierwszedemo.org`), history
+  included. Never commit secrets – keys go in `.env` (gitignored) and the
+  Workers Builds settings, `.env.example` holds only names. Images must be
+  metadata-stripped before the first commit (see the founders' photos below),
+  because removing EXIF later leaves the original in history. A `draft: true`
+  post is readable in the repo the moment it is pushed, before anyone gets
+  the preview link – anything that must stay private until publication does
+  not belong in a commit.
 - **Polish** for user-facing copy, code comments and commit messages. Commits are
   Conventional Commits with a Polish subject, e.g.
   `feat(blog): kolejność wpisów i linki prev/next`.
