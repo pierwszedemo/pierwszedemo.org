@@ -107,9 +107,10 @@ export const NAV = [
 
 // ---------------------------------------------------------------------------
 // Fundacja – dane rejestrowe, wpis do KRS z 15.10.2026. Puste pole = numeru
-// jeszcze nie ma (REGON nadaje GUS dopiero po wpisie); strony pokazują wtedy
-// `REGISTRY_PENDING`. Uzupełnij tu i nic więcej nie trzeba zmieniać: stopka,
-// /fundacja, polityka prywatności i JSON-LD czytają z tego obiektu.
+// jeszcze nie ma; strony pokazują wtedy `REGISTRY_PENDING`. REGON w formie
+// 9-cyfrowej – 14-cyfrowa z „00000” na końcu to zapis jednostki lokalnej.
+// Uzupełnij tu i nic więcej nie trzeba zmieniać: stopka, /fundacja, polityka
+// prywatności i JSON-LD czytają z tego obiektu.
 // ---------------------------------------------------------------------------
 export const FOUNDATION = {
 	name: SITE_NAME,
@@ -118,7 +119,7 @@ export const FOUNDATION = {
 	city: HOME_CITY,
 	krs: "0001272868",
 	nip: "9571207822",
-	regon: "",
+	regon: "545957931",
 	/** Numer rachunku do darowizn – zakładany po wpisie do KRS. */
 	iban: "",
 	court: "Sąd Rejonowy Gdańsk-Północ w Gdańsku, VII Wydział Gospodarczy KRS",
