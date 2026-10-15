@@ -55,7 +55,7 @@ export type AuthorKey = keyof typeof AUTHOR_LABELS;
 export const AUTHORS = Object.keys(AUTHOR_LABELS) as [AuthorKey, ...AuthorKey[]];
 
 /** Data ostatniej zmiany treści – trafia do sitemap.lastmod i dateModified. */
-export const LAST_CONTENT_UPDATE = "2026-10-09";
+export const LAST_CONTENT_UPDATE = "2026-10-15";
 
 /**
  * Identyfikator pomiaru GA4 (G-XXXXXXXXXX). Pusty łańcuch = gtag.js w ogóle
@@ -106,23 +106,25 @@ export const NAV = [
 ] as const;
 
 // ---------------------------------------------------------------------------
-// Fundacja – dane rejestrowe. Puste pole = fundacja jeszcze przed wpisem do
-// KRS; strony pokazują wtedy `REGISTRY_PENDING` zamiast numeru. Po wpisie
-// uzupełnij tu i nic więcej nie trzeba zmieniać: stopka, /fundacja, polityka
-// prywatności i JSON-LD czytają z tego obiektu.
+// Fundacja – dane rejestrowe, wpis do KRS z 15.10.2026. Puste pole = numeru
+// jeszcze nie ma (REGON nadaje GUS dopiero po wpisie); strony pokazują wtedy
+// `REGISTRY_PENDING`. Uzupełnij tu i nic więcej nie trzeba zmieniać: stopka,
+// /fundacja, polityka prywatności i JSON-LD czytają z tego obiektu.
 // ---------------------------------------------------------------------------
 export const FOUNDATION = {
 	name: SITE_NAME,
 	street: "ul. Stolema 6H/2",
 	postalCode: "80-177",
 	city: HOME_CITY,
-	krs: "",
-	nip: "",
+	krs: "0001272868",
+	nip: "9571207822",
 	regon: "",
 	/** Numer rachunku do darowizn – zakładany po wpisie do KRS. */
 	iban: "",
 	court: "Sąd Rejonowy Gdańsk-Północ w Gdańsku, VII Wydział Gospodarczy KRS",
-	minister: "minister właściwy do spraw kultury i ochrony dziedzictwa narodowego",
+	/** Organ nadzoru dosłownie jak w odpisie z KRS – statut wymienia tylko ministra. */
+	supervision:
+		"minister właściwy do spraw kultury i ochrony dziedzictwa narodowego, Prezydent Miasta Gdańska",
 } as const;
 
 export const REGISTRY_PENDING = "w trakcie rejestracji";

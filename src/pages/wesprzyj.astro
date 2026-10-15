@@ -19,8 +19,8 @@ import { breadcrumbJsonLd } from "../schema";
  * Jedno wejście dla darczyńcy, wolontariusza i partnera. Bez formularzy
  * i bramki płatności: przelew na konto fundacji to nie zbiórka publiczna,
  * nie wymaga zgłoszenia ani regulaminu, a formularz pociągnąłby za sobą
- * klauzulę RODO i nowy wiersz w polityce. Numer konta pojawia się po
- * wpisie do KRS – do tego czasu sekcja mówi wprost, że go jeszcze nie ma.
+ * klauzulę RODO i nowy wiersz w polityce. Konto zakłada się dopiero po
+ * wpisie do KRS – dopóki go nie ma, sekcja mówi to wprost.
  */
 const canonical = new URL(SUPPORT_PATH, SITE_URL).href;
 const breadcrumb = breadcrumbJsonLd(
@@ -39,7 +39,7 @@ const transfer = [
 	},
 	{
 		label: "Numer konta",
-		value: FOUNDATION.iban || "w trakcie rejestracji KRS",
+		value: FOUNDATION.iban || "w trakcie zakładania",
 	},
 	{ label: "Tytuł przelewu", value: DONATION_TITLE },
 ] as const;

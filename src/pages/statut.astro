@@ -11,9 +11,9 @@ import { breadcrumbJsonLd } from "../schema";
  * czytnikiem ekranu i podlinkować do paragrafu. Źródłem jest
  * src/documents/statut.md – plik poza kolekcjami, bo to jeden dokument,
  * nie strumień wpisów. Statut ustalono uchwałą Fundatorów 8 października
- * 2026 (akt notarialny Rep. A nr 4056/2026); do wpisu fundacja nie ma
- * osobowości prawnej (§ 1 ust. 4) i strona to mówi. Po wpisie wystarczy
- * uzupełnić numer KRS w consts.ts.
+ * 2026 (akt notarialny Rep. A nr 4056/2026); do wpisu do KRS
+ * (15.10.2026) fundacja nie miała osobowości prawnej (§ 1 ust. 4), więc
+ * nagłówek pokazuje numer KRS albo, bez niego, że wpisu jeszcze nie ma.
  */
 const canonical = new URL(STATUTE_PATH, SITE_URL).href;
 const breadcrumb = breadcrumbJsonLd(

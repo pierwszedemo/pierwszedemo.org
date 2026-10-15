@@ -58,12 +58,16 @@ Query strings are preserved. The list is closed – no post dated after
 `BLOG_RETIRED_ON` ever lived under `/blog/` – so it never needs updating. A
 test of these must assert the hop count, not only the final URL.
 
-The foundation is not yet in KRS. `FOUNDATION.krs/nip/regon/iban` in
-`consts.ts` are empty strings and every page renders `REGISTRY_PENDING`
-through `registryValue()` instead; filling them in is the only change needed
-after registration (footer, `/fundacja`, `/wesprzyj`, privacy policy, JSON-LD
-and `llms.txt` all read that object). The site went live without waiting for
-it (see „Launch”).
+The foundation is in KRS since 2026-10-15 (KRS 0001272868, NIP 9571207822).
+`FOUNDATION.regon` and `FOUNDATION.iban` in `consts.ts` are still empty
+strings: GUS assigns REGON only after the KRS entry, and the bank account is
+opened after it. An empty registry field renders `REGISTRY_PENDING` through
+`registryValue()` (an empty `iban` renders „w trakcie zakładania” on
+`/wesprzyj`); filling it in is the only change needed (footer, `/fundacja`,
+`/wesprzyj`, privacy policy, JSON-LD and `llms.txt` all read that object).
+`FOUNDATION.supervision` is copied from the KRS extract, which names the
+mayor of Gdańsk next to the minister – the statute names only the minister.
+The site went live a week before the entry (see „Launch”).
 
 The layout is a transcription of a Claude Design canvas project
 (`380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`),
@@ -545,8 +549,8 @@ indent) are never typed as pixels – they are multiples of the grid module belo
 
 ## Launch
 
-Live and indexable since 2026-10-09, **before** the foundation is in KRS
-(registry fields render `REGISTRY_PENDING`). Worker `pierwszedemo`, account
+Live and indexable since 2026-10-09, a week **before** the KRS entry
+(2026-10-15). Worker `pierwszedemo`, account
 „Fundacja Pierwsze Demo”, `custom_domain` route in `wrangler.jsonc`, built by
 Workers Builds from `main`; `fundacja` was fast-forwarded into it and the Tina
 branch fallback says `main`. `public/_headers` keeps only `/admin` out of the
@@ -558,8 +562,8 @@ Vercel project and domain are gone. The `.com` zone's BIMI record points at
 `.org/bimi.svg`, because a BIMI fetcher does not follow redirects. Never remove
 the `.com` rule – Search Console's change of address depends on its 301s.
 
-Once the foundation is in KRS: fill `FOUNDATION.krs/nip/regon/iban` in
-`consts.ts`, bump `LAST_CONTENT_UPDATE` and deploy.
+When REGON or the account number arrives: fill `FOUNDATION.regon` /
+`FOUNDATION.iban` in `consts.ts`, bump `LAST_CONTENT_UPDATE` and deploy.
 
 ## Not built yet
 
