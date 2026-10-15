@@ -71,7 +71,7 @@ export const GA_ID = "G-MHM5P6X3TG";
  * automatycznym wstrzykiwaniem w panelu – wtedy skrypt na stronie byłby
  * niewidoczny w repo, a polityka prywatności i tak musi go wymieniać.
  */
-export const CF_BEACON_TOKEN = "";
+export const CF_BEACON_TOKEN = "0bf9a41324e14b0e9fb62c54bc2e96ad";
 
 /** Marka w lewej komórce nagłówka. Bez ® – nazwa fundacji nie jest znakiem zarejestrowanym. */
 export const WORDMARK = SITE_NAME;
