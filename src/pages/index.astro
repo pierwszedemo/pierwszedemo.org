@@ -1,6 +1,6 @@
 ---
 import TinaIsland from "@tinacms/astro/TinaIsland.astro";
-import { getSortedArticles, getSortedNews } from "../collections";
+import { getSortedNews } from "../collections";
 import EmailLink from "../components/EmailLink.astro";
 import Footer from "../components/Footer.astro";
 import HeroCollage from "../components/home/HeroCollage.astro";
@@ -13,27 +13,17 @@ import HomeTeraz from "../components/islands/HomeTeraz.astro";
 import { wrappers } from "../components/islands/wrappers";
 import Nav from "../components/Nav.astro";
 import PostCard from "../components/PostCard.astro";
-import { HOME_CITY, KNOWLEDGE_PATH, NEWS_KINDS, NEWS_PATH, SITE_NAME } from "../consts";
+import { HOME_CITY, NEWS_KINDS, NEWS_PATH, SITE_NAME } from "../consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { ACTIVITIES_DOC, FOUNDERS_DOC, HOMEPAGE_DOC } from "../strony";
 
-// Trzy najnowsze wpisy z obu działów naraz – strona główna ma pokazywać, że
-// fundacja żyje, a nie dublować list. Wpis z bazy wiedzy dostaje etykietę
-// działu, aktualność – swój rodzaj („Relacja”, „Ogłoszenie”).
-const latest = [
-	...(await getSortedNews()).map((entry) => ({
-		entry,
-		href: `${NEWS_PATH}/${entry.id}`,
-		label: NEWS_KINDS[entry.data.kind],
-	})),
-	...(await getSortedArticles()).map((entry) => ({
-		entry,
-		href: `${KNOWLEDGE_PATH}/${entry.id}`,
-		label: "Wiedza",
-	})),
-]
-	.sort((a, b) => b.entry.data.date.getTime() - a.entry.data.date.getTime())
-	.slice(0, 3);
+// Trzy najnowsze aktualności – strona główna ma pokazywać, że fundacja żyje,
+// a nie dublować list. Bez wpisów z bazy wiedzy: ta ma własną kartę niżej.
+const latest = (await getSortedNews()).slice(0, 3).map((entry) => ({
+	entry,
+	href: `${NEWS_PATH}/${entry.id}`,
+	label: NEWS_KINDS[entry.data.kind],
+}));
 
 const sectionHeading = "font-serif text-page leading-[0.95] tracking-[-0.02em]";
 ---
@@ -93,7 +83,9 @@ const sectionHeading = "font-serif text-page leading-[0.95] tracking-[-0.02em]";
               Wszystkie aktualności <span aria-hidden="true">→</span>
             </a>
           </div>
-          <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">
+          {/* Stałe trzy kolumny, nie auto-fit: przy dwóch aktualnościach karty
+              rozciągały się na pół strony i ilustracje robiły się olbrzymie. */}
+          <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {
               latest.map(({ entry, href, label }, index) => (
                 <li>
