@@ -73,8 +73,10 @@ export const GA_ID = "G-MHM5P6X3TG";
  */
 export const CF_BEACON_TOKEN = "0bf9a41324e14b0e9fb62c54bc2e96ad";
 
-/** Marka w lewej komórce nagłówka. Bez ® – nazwa fundacji nie jest znakiem zarejestrowanym. */
+/** Marka na karcie OG. Bez ® – nazwa fundacji nie jest znakiem zarejestrowanym. */
 export const WORDMARK = SITE_NAME;
+/** Logotyp w nawigacji i stopce: małymi literami, Instrument Serif – jak w makiecie. */
+export const LOGOTYPE = "pierwsze demo";
 
 // ---------------------------------------------------------------------------
 // Ścieżki stron – jedno miejsce, bo każda pada w nawigacji, okruszkach,
@@ -95,15 +97,20 @@ export const CONCERT_SERIES_NAME = "dźwięki efemeryczne.";
 export const CONCERT_SERIES_OG = `/og${CONCERT_SERIES_PATH}.png`;
 
 /**
- * Nawigacja: marka i trzy pozycje, cztery komórki jak w makiecie. „Wesprzyj”
- * celowo nie jest tu – ma własne pasmo na stronach, a czwarta pozycja
- * wymagałaby przebudowy siatki 2×2 w Nav.astro.
+ * Nawigacja z makiety „Wersja 2”: cztery linki i pigułka „Dołącz” (`JOIN_PATH`).
+ * „Wesprzyj” celowo nie jest tu – ma własne pasmo nad stopką i kartę w sekcji
+ * „Dołącz” na stronie głównej. „Co robimy” prowadzi do pełnych opisów działań
+ * na /fundacja, nie do skrótu na stronie głównej.
  */
 export const NAV = [
-	{ label: "Fundacja", href: FOUNDATION_PATH },
+	{ label: "O nas", href: FOUNDATION_PATH },
+	{ label: "Co robimy", href: `${FOUNDATION_PATH}#dzialania` },
 	{ label: "Wiedza", href: KNOWLEDGE_PATH },
 	{ label: "Aktualności", href: NEWS_PATH },
 ] as const;
+
+/** Sekcja „Dołącz” na stronie głównej – cel pigułki w nawigacji i przycisku w hero. */
+export const JOIN_PATH = "/#dolacz";
 
 // ---------------------------------------------------------------------------
 // Fundacja – dane rejestrowe, wpis do KRS z 15.10.2026. Puste pole = numeru

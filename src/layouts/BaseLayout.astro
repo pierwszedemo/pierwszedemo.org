@@ -1,8 +1,6 @@
 ---
 import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
-import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
-import michal from "../assets/michal.jpg";
 import ConsentManager from "../components/ConsentManager.astro";
 import {
 	CF_BEACON_TOKEN,
@@ -22,6 +20,7 @@ import {
 	SITE_URL,
 	WEBSITE_ID,
 } from "../consts";
+import { FOUNDER_PHOTOS } from "../photos";
 import { isoDateTime } from "../schema";
 import { FOUNDERS } from "../strony";
 import "../styles/global.css";
@@ -58,7 +57,6 @@ const {
 const site = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(canonicalPath, site).href;
 const ogImageUrl = new URL(ogImage, site).href;
-const photos = { michal, ola } as const;
 
 // Fundacja jest podmiotem strony: `NGO` to podtyp Organization, który Google
 // rozumie, a `foundingDate`, `taxID` i `legalName` to te same dane, co
@@ -115,7 +113,7 @@ const peopleJsonLd = FOUNDERS.map((person) => ({
 	jobTitle: `${person.role}, ${person.jobTitle}`,
 	email: `mailto:${person.email}`,
 	description: person.bio[0],
-	image: new URL(photos[person.id].src, site).href,
+	image: new URL(FOUNDER_PHOTOS[person.id].src.src, site).href,
 	homeLocation: {
 		"@type": "Place",
 		name: HOME_CITY,
@@ -181,7 +179,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <link rel="canonical" href={canonical} />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#fbfaf7" />
 
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -205,7 +203,8 @@ const jsonLd = {
       href="/rss.xml"
     />
 
-    <Font cssVariable="--font-archivo" preload />
+    <Font cssVariable="--font-instrument-sans" preload />
+    <Font cssVariable="--font-instrument-serif" preload />
     <Font cssVariable="--font-ibm-plex-mono" preload />
 
     <meta property="og:type" content={ogType} />
@@ -302,7 +301,7 @@ const jsonLd = {
   </head>
 
   <body
-    class="min-h-dvh bg-white font-sans text-ink antialiased [text-rendering:optimizeLegibility]"
+    class="min-h-dvh bg-paper font-sans text-ink antialiased [text-rendering:optimizeLegibility]"
   >
     {/* WCAG 2.4.1: pierwszy cel tabulatora, widoczny dopiero z fokusem.
         Każdy <main> w serwisie ma id="tresc". */}

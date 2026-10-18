@@ -17,8 +17,11 @@ import FundacjaDzialania from "./components/islands/FundacjaDzialania.astro";
 import FundacjaMisja from "./components/islands/FundacjaMisja.astro";
 import FundacjaNaglowek from "./components/islands/FundacjaNaglowek.astro";
 import Fundator from "./components/islands/Fundator.astro";
+import HomeDolacz from "./components/islands/HomeDolacz.astro";
+import HomeDzialania from "./components/islands/HomeDzialania.astro";
 import HomeHero from "./components/islands/HomeHero.astro";
 import HomeKontakt from "./components/islands/HomeKontakt.astro";
+import HomeONas from "./components/islands/HomeONas.astro";
 import HomeTeraz from "./components/islands/HomeTeraz.astro";
 import { wrappers } from "./components/islands/wrappers";
 import type { ActivitiesDoc, FoundationPageDoc, FoundersDoc, HomepageDoc } from "./strony";
@@ -35,9 +38,27 @@ const doc = <T>(result: unknown, key: string) => (result as Result<T>).data[key]
 
 export const islands: IslandRegistry = {
 	"home-hero": {
-		fetch: async () => Promise.all([getHome(), getActivities()]),
+		fetch: getHome,
 		component: HomeHero,
 		wrapper: wrappers["home-hero"],
+		propsFromData: (data) => ({ home: doc<HomepageDoc>(data, "stronaGlowna") }),
+	},
+	"home-o-nas": {
+		fetch: async () => Promise.all([getHome(), getFounders()]),
+		component: HomeONas,
+		wrapper: wrappers["home-o-nas"],
+		propsFromData: (data) => {
+			const [home, founders] = data as [unknown, unknown];
+			return {
+				home: doc<HomepageDoc>(home, "stronaGlowna"),
+				founders: doc<FoundersDoc>(founders, "fundatorzy"),
+			};
+		},
+	},
+	"home-dzialania": {
+		fetch: async () => Promise.all([getHome(), getActivities()]),
+		component: HomeDzialania,
+		wrapper: wrappers["home-dzialania"],
 		propsFromData: (data) => {
 			const [home, activities] = data as [unknown, unknown];
 			return {
@@ -50,6 +71,12 @@ export const islands: IslandRegistry = {
 		fetch: getHome,
 		component: HomeTeraz,
 		wrapper: wrappers["home-teraz"],
+		propsFromData: (data) => ({ home: doc<HomepageDoc>(data, "stronaGlowna") }),
+	},
+	"home-dolacz": {
+		fetch: getHome,
+		component: HomeDolacz,
+		wrapper: wrappers["home-dolacz"],
 		propsFromData: (data) => ({ home: doc<HomepageDoc>(data, "stronaGlowna") }),
 	},
 	"home-kontakt": {

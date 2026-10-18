@@ -1,0 +1,53 @@
+---
+import { FOUNDATION_PATH } from "../../consts";
+import type { FoundersDoc, HomepageDoc } from "../../strony";
+import { fixHanging } from "../../typography";
+import Accent from "../Accent.astro";
+import { field } from "./field";
+
+interface Props {
+	home: HomepageDoc;
+	founders: FoundersDoc;
+}
+const { home, founders } = Astro.props;
+
+// Pigułka mówi „Michał – prezes”, nie pełną funkcję z KRS: to przedstawienie
+// się, a pełne dane zarządu są na /fundacja, dokąd pigułka prowadzi.
+const people = Object.entries(founders).map(([id, person]) => ({
+	id,
+	person,
+	firstName: person.name.split(" ")[0],
+	role: person.role.replace(/ Zarządu$/, "").toLowerCase(),
+}));
+---
+
+<p
+  class="font-serif text-post leading-[1.02] tracking-[-0.015em] text-balance"
+  data-tina-field={field(home, "about")}
+>
+  <Accent text={home.about} class="text-lime" />
+</p>
+<p class="max-w-[38.75rem] text-[19px] text-fog" data-tina-field={field(home, "aboutText")}>
+  {fixHanging(home.aboutText)}
+</p>
+<ul class="flex flex-wrap gap-3">
+  {
+    people.map(({ id, person, firstName, role }) => (
+      <li data-tina-field={field(person)}>
+        <a
+          href={`${FOUNDATION_PATH}#${id}`}
+          class="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-body px-[18px] transition-colors hover:border-white"
+        >
+          <strong class="font-semibold">{firstName}</strong>
+          <span class="text-fog">– {role}</span>
+        </a>
+      </li>
+    ))
+  }
+  <li
+    class="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-dashed border-muted px-[18px] text-fog"
+  >
+    + może Ty?
+    <a href="#dolacz" class="text-lime underline underline-offset-4 hover:no-underline">Dołącz</a>
+  </li>
+</ul>

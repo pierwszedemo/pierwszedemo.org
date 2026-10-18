@@ -8,13 +8,12 @@
 import { prose, rowBody } from "../../styles/fundacja";
 
 export const wrappers = {
-	"home-hero": {
-		tag: "div",
-		className:
-			"flex min-w-0 flex-col justify-between gap-14 border-b border-ink px-5 py-12 md:border-r md:border-b-0 md:px-8 md:pt-16 md:pb-11",
-	},
-	"home-teraz": { tag: "ul", className: "flex flex-col gap-6" },
-	"home-kontakt": { tag: "p", className: "mt-2 max-w-[40ch] text-sm leading-[1.6] text-body" },
+	"home-hero": { tag: "div", className: "flex min-w-0 flex-[999_1_32.5rem] flex-col gap-8" },
+	"home-o-nas": { tag: "div", className: "flex min-w-0 flex-[1_1_35rem] flex-col gap-8" },
+	"home-dzialania": { tag: "div", className: "flex flex-col gap-10 md:gap-14" },
+	"home-teraz": { tag: "div", className: "flex flex-col gap-6" },
+	"home-dolacz": { tag: "div", className: "wrap flex flex-col gap-12 py-20 md:py-30" },
+	"home-kontakt": { tag: "p", className: "text-body" },
 	"fundacja-naglowek": { tag: "header", className: "grid border-b border-ink lg:grid-aside-right" },
 	"fundacja-misja": { tag: "div", className: `${rowBody} ${prose}` },
 	"fundacja-dzialania": { tag: "ul", className: "divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10" },

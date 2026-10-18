@@ -3,16 +3,19 @@
     {
       "id": "koncerty",
       "label": "Koncerty i wydarzenia",
+      "summary": "Pierwsze sceny, wspólne koncerty i spotkania z publicznością.",
       "description": "Kameralne koncerty, showcase’y i przeglądy, na których młodzi twórcy grają własny repertuar dla publiczności."
     },
     {
       "id": "nagrania",
       "label": "Nagrania i wydawnictwa",
+      "summary": "Pomoc przy nagraniu, produkcji i wydaniu pierwszych utworów.",
       "description": "Pomoc w nagraniu, wydaniu i promocji pierwszych singli i EP-ek: od planu wydawniczego, przez dystrybucję cyfrową i materiały prasowe, po kontakt z mediami i playlistami."
     },
     {
       "id": "wiedza",
       "label": "Wiedza o branży",
+      "summary": "Jak działa branża muzyczna – bez skrótów i bez żargonu.",
       "description": "Baza wiedzy, warsztaty i konsultacje o tym, jak działa branża muzyczna: tantiemy i organizacje zbiorowego zarządzania, dystrybucja, booking, press kit, stypendia i dotacje.",
       "href": "/wiedza",
       "linkLabel": "Baza wiedzy"
@@ -20,11 +23,13 @@
     {
       "id": "kariera",
       "label": "Wsparcie w karierze",
+      "summary": "Doradztwo, kontakty i pierwsze kroki zawodowe w muzyce.",
       "description": "Management, promocja i dystrybucja dla artystów, którzy mają materiał i chcą pracować regularnie."
     },
     {
       "id": "prawo-i-zdrowie",
       "label": "Prawo i zdrowie psychiczne",
+      "summary": "Umowy, prawa autorskie i dbanie o siebie na scenie i poza nią.",
       "description": "Porady prawników w sprawach praw autorskich i umów z wytwórnią, wydawcą czy organizatorem. Konsultacje z psychologiem, grupy wsparcia i warsztaty o zdrowiu psychicznym – bo kariera w muzyce to także presja, niepewność i praca bez etatu."
     }
   ]

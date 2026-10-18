@@ -130,16 +130,27 @@ export default defineConfig({
 	fonts: [
 		{
 			provider: fontProviders.google(),
-			name: "Archivo",
-			cssVariable: "--font-archivo",
+			name: "Instrument Sans",
+			cssVariable: "--font-instrument-sans",
 			weights: [400, 500, 600, 700],
 			// `italic` jest tu dla kursywy w treści wpisu. Bez tego wariantu
-			// przeglądarka pochyla Archivo syntetycznie – to skos nałożony na krój
+			// przeglądarka pochyla krój syntetycznie – to skos nałożony na krój
 			// prosty, nie prawdziwa kursywa. Przeglądarka pobiera tylko te pliki,
 			// które faktycznie są użyte, więc wpis bez kursywy nic nie płaci.
 			styles: ["normal", "italic"],
 			subsets: ["latin", "latin-ext"], // latin-ext = polskie diakrytyki
 			fallbacks: ["system-ui", "sans-serif"],
+		},
+		{
+			// Krój nagłówków. Ma tylko odmianę 400 – akcent w nagłówku to kursywa,
+			// nigdy pogrubienie (`font-bold` na nim przeglądarka by podrabiała).
+			provider: fontProviders.google(),
+			name: "Instrument Serif",
+			cssVariable: "--font-instrument-serif",
+			weights: [400],
+			styles: ["normal", "italic"],
+			subsets: ["latin", "latin-ext"],
+			fallbacks: ["Georgia", "serif"],
 		},
 		{
 			provider: fontProviders.google(),

@@ -31,3 +31,16 @@ export const satteriHanging: MdastPluginDefinition = {
 		if (value !== node.value) ctx.setProperty(node, "value", value);
 	},
 };
+
+/**
+ * Akcent w nagłówku z Tiny: słowa w `*gwiazdkach*` dostają kursywę albo kolor
+ * („Co *robimy*”, „Hej, robimy *fajne rzeczy*…”). Pole w Tinie to zwykły
+ * tekst, więc znacznik musi dać się wpisać z klawiatury – gwiazdki znaczą
+ * to samo co w markdownie. Spójniki są doklejane przed podziałem, żeby
+ * „i *coś*” nie zostawiło „i” na końcu wiersza.
+ */
+export const accentParts = (text: string) =>
+	fixHanging(text.replace(/(?<![\p{L}\p{N}])([aiouwzAIOUWZ]) \*/gu, "$1\u00a0*"))
+		.split(/\*([^*]+)\*/)
+		.map((part, index) => ({ text: part, accent: index % 2 === 1 }))
+		.filter((part) => part.text);

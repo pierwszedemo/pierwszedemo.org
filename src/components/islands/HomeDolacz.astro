@@ -1,0 +1,65 @@
+---
+import { STATUTE_PATH, SUPPORT_PATH } from "../../consts";
+import type { HomepageDoc } from "../../strony";
+import { fixHanging } from "../../typography";
+import Accent from "../Accent.astro";
+import EmailLink from "../EmailLink.astro";
+import { field } from "./field";
+
+interface Props {
+	home: HomepageDoc;
+}
+const { home } = Astro.props;
+
+// Karty są stałe (obiekt, nie lista w Tinie), bo każda ma inne wyjście:
+// muzycy i organizatorzy piszą na adres fundacji, darczyńcy idą na /wesprzyj.
+const cards = [
+	{ key: "muzycy", class: "bg-orange" },
+	{ key: "organizatorzy", class: "bg-lime" },
+	{ key: "darczyncy", class: "border border-hairline bg-paper" },
+] as const;
+---
+
+<div class="flex flex-wrap items-end justify-between gap-6">
+  <h2
+    id="dolacz-naglowek"
+    class="max-w-[47.5rem] font-serif text-page leading-[0.95] tracking-[-0.02em] text-balance"
+    data-tina-field={field(home, "join")}
+  >
+    <Accent text={home.join} />
+  </h2>
+  <p class="max-w-[23.75rem] text-body" data-tina-field={field(home, "joinIntro")}>
+    {fixHanging(home.joinIntro)}
+  </p>
+</div>
+<ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-5">
+  {
+    cards.map(({ key, class: background }) => {
+      const card = home.joinCards[key];
+      return (
+        <li
+          class={`flex min-h-95 flex-col justify-between gap-10 rounded-[28px] p-8 ${background}`}
+          data-tina-field={field(card)}
+        >
+          <span class="font-serif text-[28px] leading-tight italic">{card.audience}</span>
+          <div class="flex flex-col gap-4">
+            <h3 class="font-serif text-[40px] leading-none text-balance">{fixHanging(card.title)}</h3>
+            <p class:list={[key === "darczyncy" && "text-body"]}>{fixHanging(card.text)}</p>
+            {key === "darczyncy" ? (
+              <div class="flex flex-wrap items-center gap-4">
+                <a href={SUPPORT_PATH} class="btn btn-ghost">
+                  {card.cta}
+                </a>
+                <a href={STATUTE_PATH} class="font-semibold text-blue underline-offset-4 hover:underline">
+                  Statut
+                </a>
+              </div>
+            ) : (
+              <EmailLink class="btn btn-ink self-start">{card.cta}</EmailLink>
+            )}
+          </div>
+        </li>
+      );
+    })
+  }
+</ul>

@@ -1,4 +1,5 @@
 ---
+import { INSTAGRAM_URL } from "../../consts";
 import type { HomepageDoc } from "../../strony";
 import { fixHanging } from "../../typography";
 import { field } from "./field";
@@ -9,4 +10,9 @@ interface Props {
 const { home } = Astro.props;
 ---
 
-<span data-tina-field={field(home, "contact")}>{fixHanging(home.contact)}</span>
+{/* Spacje jawnie: Astro ucina białe znaki na styku tekstu i znacznika. */}
+<span data-tina-field={field(home, "contact")}>{fixHanging(home.contact)}</span>{" "}
+Śledź nas też na{" "}
+<a href={INSTAGRAM_URL} target="_blank" rel="noopener" class="text-blue underline underline-offset-4 hover:text-blue-deep"
+  >Instagramie<span class="sr-only"> (otwiera się w nowej karcie)</span></a
+>.

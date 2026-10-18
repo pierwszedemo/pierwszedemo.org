@@ -1,5 +1,6 @@
 ---
-import { NAV, WORDMARK } from "../consts";
+import { JOIN_PATH, LOGOTYPE, NAV } from "../consts";
+import Logo from "./Logo.astro";
 
 interface Props {
 	/** Podświetla pozycję w menu – wartość równa NAV[n].label. */
@@ -8,42 +9,37 @@ interface Props {
 
 const { active } = Astro.props;
 
-// Wewnętrzne linie w pasmie są jasne (hairline), samo pasmo zamyka twarda
-// linia ink – ta różnica trzyma całą siatkę projektu.
-const cell = "px-5 py-4 md:px-8 md:py-[22px]";
-
-// Cztery komórki jak w makiecie: marka i trzy pozycje menu. Kontaktu tu nie ma –
-// adres e-mail mieszka w sekcjach „Kontakt" na stronach. Tory 5/3/3/5 z 16
-// modułów siatki, nie cztery równe: skrajne komórki mają szerokość kolumny
-// bocznej (`--aside`), więc ich linie biegną dalej przez stronę – lewa przez
-// „W skrócie" i etykiety sekcji, prawa przez zdjęcie w hero. Na telefonie
-// siatka 2×2, stąd liczenie obramowań z indeksu: lewa komórka rzędu dostaje
-// border-r, drugi rząd border-t.
+// Na telefonie „Dołącz” stoi w jednym rzędzie z logotypem, a linki schodzą
+// pod spód (`order`) – inaczej pigułka spadała sama do trzeciego wiersza.
+// Linki dostają pionowy padding, żeby cel dotyku miał 24 px (WCAG 2.5.8).
 ---
 
-<nav
-  class="grid grid-cols-2 border-b border-ink md:grid-cols-[5fr_3fr_3fr_5fr]"
-  aria-label="Główna"
->
-  <a
-    href="/"
-    class={`${cell} border-r border-hairline text-[15px] font-bold tracking-[0.02em]`}
-  >
-    {WORDMARK}
+<header class="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-5">
+  <a href="/" class="flex items-center gap-3 text-ink transition-colors hover:text-blue">
+    <Logo class="size-10 shrink-0" />
+    <span class="font-serif text-[28px] leading-none tracking-[-0.01em]"
+      ><span class="sr-only">Fundacja </span>{LOGOTYPE}</span
+    >
   </a>
-  {
-    NAV.map((item, index) => (
-      <a
-        href={item.href}
-        class={`${cell} border-hairline text-sm ${
-          index % 2 === 1 ? "border-r" : ""
-        } ${index >= 1 ? "border-t" : ""} md:border-t-0 ${
-          index < NAV.length - 1 ? "md:border-r" : "md:border-r-0"
-        } ${active === item.label ? "font-semibold text-ink" : "text-muted"}`}
-        aria-current={active === item.label ? "page" : undefined}
-      >
-        {item.label}
-      </a>
-    ))
-  }
-</nav>
+  <a href={JOIN_PATH} class="btn btn-ink md:order-last">Dołącz</a>
+  <nav aria-label="Główna" class="w-full md:ml-auto md:w-auto">
+    <ul class="flex flex-wrap gap-x-5 font-medium md:gap-x-7">
+      {
+        NAV.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={[
+                "inline-block py-2 transition-colors hover:text-blue",
+                active === item.label && "underline decoration-2 underline-offset-8",
+              ]}
+              aria-current={active === item.label ? "page" : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+</header>

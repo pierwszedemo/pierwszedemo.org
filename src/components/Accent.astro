@@ -1,0 +1,12 @@
+---
+import { accentParts } from "../typography";
+
+/** Tekst z akcentem `*…*` (patrz `accentParts`); `class` trafia na <em>. */
+interface Props {
+	text: string;
+	class?: string;
+}
+const { text, class: className } = Astro.props;
+---
+
+{accentParts(text).map((part) => (part.accent ? <em class={className}>{part.text}</em> : part.text))}

@@ -1,0 +1,48 @@
+---
+import { FOUNDATION_PATH } from "../../consts";
+import type { ActivitiesDoc, HomepageDoc } from "../../strony";
+import { fixHanging } from "../../typography";
+import ActivityIcon from "../home/ActivityIcon.astro";
+import { field } from "./field";
+
+interface Props {
+	home: HomepageDoc;
+	activities: ActivitiesDoc;
+}
+const { home, activities } = Astro.props;
+---
+
+<div class="flex flex-wrap items-end justify-between gap-6">
+  <h2 id="co-robimy-naglowek" class="font-serif text-page leading-[0.95] tracking-[-0.02em]">
+    Co <em>robimy</em>
+  </h2>
+  <p class="max-w-[23.75rem] text-body" data-tina-field={field(home, "activitiesIntro")}>
+    {fixHanging(home.activitiesIntro)}
+  </p>
+</div>
+{
+  /* Wiersz prowadzi do pełnego opisu na /fundacja – tutaj stoi tylko skrót
+     (`summary`). Ikona znika na telefonie: sama spadałaby do osobnego
+     wiersza pod opisem. */
+}
+<ol class="border-t-[1.5px] border-ink">
+  {
+    activities.activities.map((activity, index) => (
+      <li class="border-b border-hairline" data-tina-field={field(activity)}>
+        <a
+          href={`${FOUNDATION_PATH}#${activity.id}`}
+          class="group flex flex-wrap items-center gap-x-4 gap-y-3 py-7 md:gap-x-8 md:py-9"
+        >
+          <span class="flex-[0_0_2rem] font-mono md:flex-[0_0_3.5rem] text-[15px] text-muted">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <h3 class="flex-[1_1_15rem] font-serif text-item leading-none text-balance group-hover:italic">
+            {fixHanging(activity.label)}
+          </h3>
+          <p class="flex-[1_1_17.5rem] text-body">{fixHanging(activity.summary)}</p>
+          <ActivityIcon index={index} class="hidden size-14 flex-none sm:block" />
+        </a>
+      </li>
+    ))
+  }
+</ol>

@@ -276,23 +276,36 @@ const person = (name: string, label: string): TinaField => ({
 	],
 });
 
+const ACCENT = "Słowa w *gwiazdkach* dostają akcent (kursywę albo kolor).";
+
+const joinCard = (name: string, label: string): TinaField => ({
+	type: "object",
+	name,
+	label,
+	fields: [
+		{ type: "string", name: "audience", label: "Do kogo (kursywa nad tytułem)", required: true },
+		{ type: "string", name: "title", label: "Tytuł", required: true },
+		paragraphs("text", "Opis"),
+		{ type: "string", name: "cta", label: "Tekst przycisku", required: true },
+	],
+});
+
 const stronaGlowna = singleton("stronaGlowna", "Strona główna", "strona-glowna", "/", [
-	paragraphs(
-		"slogan",
-		"Slogan",
-		"Największy tekst na stronie. Nowa linia = złamanie wiersza na szerokim ekranie.",
-	),
+	paragraphs("slogan", "Slogan", `Największy tekst na stronie. ${ACCENT}`),
 	paragraphs("intro", "Akapit pod sloganem"),
+	paragraphs("about", "„Kim jesteśmy” – duże zdanie", ACCENT),
+	paragraphs("aboutText", "„Kim jesteśmy” – akapit"),
+	paragraphs("activitiesIntro", "„Co robimy” – zdanie obok nagłówka"),
 	{
 		type: "object",
 		name: "teraz",
-		label: "Panel „Teraz”",
+		label: "Pasmo „Teraz”",
 		description: "Projekty fundacji. Wydawnictwa fundatorów tu nie trafiają – patrz zasady w AGENTS.md.",
 		list: true,
 		ui: { itemProps: (item) => ({ label: item?.name }) },
 		fields: [
-			{ type: "string", name: "name", label: "Nazwa", required: true },
-			{ type: "string", name: "meta", label: "Podpis", required: true },
+			{ type: "string", name: "name", label: "Nazwa", description: ACCENT, required: true },
+			paragraphs("meta", "Opis"),
 			{
 				type: "string",
 				name: "href",
@@ -300,6 +313,20 @@ const stronaGlowna = singleton("stronaGlowna", "Strona główna", "strona-glowna
 				description: "Ścieżka na stronie (/wiedza) albo pełny adres – zewnętrzne dostają UTM-y.",
 				required: true,
 			},
+			{ type: "string", name: "cta", label: "Tekst przycisku", required: true },
+		],
+	},
+	paragraphs("join", "„Dołącz” – nagłówek", ACCENT),
+	paragraphs("joinIntro", "„Dołącz” – zdanie obok nagłówka"),
+	{
+		type: "object",
+		name: "joinCards",
+		label: "„Dołącz” – karty",
+		description: "Dwie pierwsze karty prowadzą do e-maila fundacji, trzecia – do /wesprzyj i statutu.",
+		fields: [
+			joinCard("muzycy", "Dla muzyków"),
+			joinCard("organizatorzy", "Dla organizatorów i edukatorów"),
+			joinCard("darczyncy", "Dla partnerów i darczyńców"),
 		],
 	},
 	paragraphs("contact", "Tekst w sekcji „Kontakt”"),
@@ -345,7 +372,14 @@ const dzialania = singleton("dzialania", "Działania", "dzialania", "/fundacja",
 				required: true,
 			},
 			{ type: "string", name: "label", label: "Nazwa", required: true },
-			paragraphs("description", "Opis"),
+			{
+				type: "string",
+				name: "summary",
+				label: "Skrót (strona główna)",
+				description: "Jedno zdanie w wierszu „Co robimy”. Pełny opis jest niżej.",
+				required: true,
+			},
+			paragraphs("description", "Opis (/fundacja)"),
 			{ type: "string", name: "href", label: "Link (opcjonalny)" },
 			{ type: "string", name: "linkLabel", label: "Tekst linku" },
 		],

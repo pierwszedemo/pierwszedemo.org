@@ -70,36 +70,47 @@ field would render `REGISTRY_PENDING` through `registryValue()` (an empty
 mayor of Gdańsk next to the minister – the statute names only the minister.
 The site went live a week before the entry (see „Launch”).
 
-The layout is a transcription of a Claude Design canvas project
-(`380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`),
-turn 2 – the "Swiss" direction: `2a` strona główna, `2b` lista wpisów,
-`2c` pojedynczy wpis. The mock is a fixed 1280×800 absolutely-positioned card;
-everything here is the responsive rebuild of it. When changing layout, compare
-against that file – it is the spec.
+Two design sources, layered:
 
-### One 16-column grid
+- **„Wersja 2”** – the Claude Design canvas „Pierwsze Demo — redesign”
+  (`https://claude.ai/artifact/8Mmnxoays3QZQmRpP9LjLh`, artboard
+  `Wersja-2.dc.html`, „Wersja 2 — Instrument Serif”). It is the spec for the
+  homepage, the nav, the footer, the support band and every token in `@theme`
+  (palette, Instrument Serif/Sans, pill buttons, rounded cards). It draws only
+  the homepage, so the subpages take its palette and type but keep the grid below.
+- **The „Swiss” mock** – Claude Design project
+  `380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`,
+  turn 2: `2a` strona główna, `2b` lista wpisów, `2c` pojedynczy wpis. Still the
+  spec for the *structure* of the subpages (lists, posts, /fundacja,
+  /wesprzyj, legal pages): the 16-column grid and the two rule weights below.
+  A fixed 1280×800 absolutely-positioned card; the pages are its responsive rebuild.
 
-The mock is 1280 px wide and every measure in it is a multiple of 80 px, so the
+When changing layout, compare against the matching file – it is the spec.
+
+### One 16-column grid (subpages)
+
+The Swiss mock is 1280 px wide and every measure in it is a multiple of 80 px, so the
 site runs on 16 modules: `--col: 6.25cqw` in `global.css`, with `<main>` as the
 container. `cqw` and not `%`/`vw`: a percentage inside a nested grid resolves
 against the parent, and `vw` includes the scrollbar gutter, so only `cqw` gives
 the same module at every nesting depth. The container is `<main>`, never
 `<body>` – `container-type` implies layout containment, which would turn body
-into the containing block for the fixed cookie banner. Nav, footer and the
-post's prev/next bar sit outside `<main>`; they are full-width bands, so `fr`
-and `%` are exact there.
+into the containing block for the fixed cookie banner. `<main>` is also capped
+at 80rem and centred (`global.css`), the same box as the `wrap` utility the nav
+and footer use – above 1280 px the bands would otherwise run edge to edge while
+the nav's logo sat 300 px in. The homepage lifts the cap (`max-w-none`): its
+sections are full-bleed colour bands with `wrap` inside. The post's prev/next
+bar sits outside `<main>` and copies the cap.
 
 Vertical lines may only fall on **5, 8 and 11**:
 
-- `--aside` = 5 modules (the mock's 400 px) is the one side column – the
-  „Teraz" panel on `/`, founders' photos and section labels on `/fundacja`,
+- `--aside` = 5 modules (the mock's 400 px) is the one side column –
+  founders' photos and section labels on `/fundacja`,
   `/wesprzyj` and the privacy policy, „W skrócie" on a post. Use `grid-aside-left` / `grid-aside-right`,
   never a width typed in place; that is how a 400 px photo column and a 320 px
   nav cell ended up 80 px apart on the same page.
-- Nav and footer are `5fr 3fr 3fr 5fr`, not four equal cells, so their outer
-  dividers continue down the page as the aside line – on the left or the right.
-- Line 8 is the page middle: news/contact on `/`, title/description in the
-  lists on `/fundacja` and `/wesprzyj`.
+- Line 8 is the page middle: title/description in the lists on `/fundacja`
+  and `/wesprzyj`.
 - The post meta bar is 5 / 6 / 5.
 - **Exception:** blog list rows keep the mock's content-sized tracks
   (`150px 1fr 190px 70px`). A row is a list item, not a band with a side column;
@@ -115,10 +126,11 @@ its line – title, pullquote and list titles all share that axis.
 
 ### Two rule weights hold the grid together
 
-Structural borders between major bands are `border-ink` (#101010). Borders
-between cells *inside* a band are `border-hairline` (#e4e2dd). Mixing them up is
-the fastest way to make the design stop looking like the design. Zero border
-radius anywhere.
+Structural borders between major bands are `border-ink` (#15151a). Borders
+between cells *inside* a band are `border-hairline` (#e6e3dc). Mixing them up is
+the fastest way to make the design stop looking like the design. Inside the
+grid nothing is rounded; „Wersja 2” elements laid on top of it – pill buttons
+(`btn`), the support band card, the homepage cards – are.
 
 ### `src/consts.ts` is the content database
 
@@ -129,8 +141,9 @@ categories and news kinds (`NEWS_KINDS`) live here and are imported by
 `NEWS_KINDS` feed the zod enums in `src/content.config.ts`, so adding one is
 one edit.
 
-What Tina edits lives as JSON in `src/content/strony/` – homepage copy and the
-„Teraz” panel (`strona-glowna.json`), the `/fundacja` heading and mission
+What Tina edits lives as JSON in `src/content/strony/` – homepage copy, the
+„Teraz” band and the three „Dołącz” cards (`strona-glowna.json`), the
+`/fundacja` heading and mission
 (`fundacja.json`), founders with bios (`fundatorzy.json`), programmes
 (`dzialania.json`) – and is assembled in `src/strony.ts` into
 `HOMEPAGE`, `PROJECTS`, `FOUNDERS` and `ACTIVITIES`, together with the fields
@@ -142,7 +155,10 @@ from `consts.ts` on purpose: the consent banner script imports `consts.ts`,
 and a default JSON import is not tree-shaken – the bios ended up in browser
 JavaScript. Never import `strony.ts` from `src/scripts/`. JSON text has plain
 spaces; templates run `fixHanging()` on it, because a hand-typed `&nbsp;`
-does not survive an edit in Tina. `GOALS` (the statute), `FOUNDATION` and
+does not survive an edit in Tina. Homepage headings mark their accent word with
+`*asterisks*` („Hej, robimy *fajne rzeczy*…”) – `accentParts()` in
+`typography.ts` and `Accent.astro` turn it into `<em>` (italic or colour, the
+page decides). The fields say so in their Tina description. `GOALS` (the statute), `FOUNDATION` and
 `PRIVACY_*` (legal text) stay in code deliberately.
 
 `LAST_CONTENT_UPDATE` must be bumped by hand – it drives JSON-LD `dateModified`
@@ -312,7 +328,11 @@ files; React exists only there.
   as `draft: true`.
 - Four singleton collections over `src/content/strony/*.json`
   (`stronaGlowna`, `fundacja`, `fundatorzy`, `dzialania`) – create/delete
-  disabled. A list of paragraphs is `paragraphList()`: with `list: true`,
+  disabled. Each activity has a one-line `summary` (the homepage „Co robimy”
+  row) next to the full `description` (/fundacja). The „Dołącz” cards are an
+  object keyed `muzycy` / `organizatorzy` / `darczyncy`, not a list, because
+  each has a different exit in code: the first two `EmailLink`, the third
+  `/wesprzyj` + statute. A list of paragraphs is `paragraphList()`: with `list: true`,
   `ui.component` replaces the whole list widget (one textarea for the array,
   and a save would turn it into a string), so the per-item widget goes in
   `ui.field`. Tina
@@ -359,10 +379,13 @@ files; React exists only there.
   whole wrapper element.
 
 `<TinaIsland>` can give its wrapper only a class – no `id`, no `aria-*` – so
-islands wrap elements that need neither (`wrappers.ts`): the hero column, the
-„Teraz” list, the contact sentence, the `/fundacja` header and mission body,
-the activities list, each founder's text column. Founders' photos stay outside: an `<Image>` rendered on demand in the
-Worker has no build-time optimised file. Each island adds one inline bootstrap
+islands wrap elements that need neither (`wrappers.ts`), and a section with an
+anchor or `aria-labelledby` stays in the page with the island *inside* it (the
+`h2` it points to may live in the island). Homepage: hero text column, „Kim
+jesteśmy”, „Co robimy”, „Teraz”, „Dołącz”, the contact sentence. `/fundacja`:
+header, mission body, activities list, each founder's text column. Photos stay
+outside – the founders' slots and the homepage collage: an `<Image>` rendered on
+demand in the Worker has no build-time optimised file. Each island adds one inline bootstrap
 `<script>` that does nothing outside the `/admin` iframe; that is the only
 production HTML cost. `src/astro-modules.d.ts` exists because bare `tsgo`
 cannot resolve a `.astro` import from `islands.ts`.
@@ -410,7 +433,9 @@ rasterises. Two constraints are load-bearing:
 
 Posts live under `/og/<slug>.png` rather than `/wiedza/<slug>/og.png` so they don't
 collide with the `[...slug]` catch-all. The eyebrow is the foundation's name,
-not a person's.
+not a person's. The cards (and the favicons, social assets and Instagram
+graphics) still draw the Swiss look in Archivo – „Wersja 2” has not reached
+them yet.
 
 ### Favicons
 
@@ -488,16 +513,27 @@ before the law requires it – the first municipal grant makes it mandatory.
 
 ### Styling conventions
 
-Light Swiss look on `#ffffff`. Tokens in `@theme`: `--color-ink`, `--color-muted`,
-`--color-body`, `--color-hairline`, `--color-panel`, plus a fluid type scale
-(`--text-hero`, `--text-page`, `--text-post`, `--text-row`, `--text-roster`) whose
-`clamp()` maxima are the mock's 1280 px values. Archivo (display + sans) and
-IBM Plex Mono are self-hosted through Astro's Fonts API in `astro.config.mjs`;
-both need the `latin-ext` subset for Polish diacritics.
+„Wersja 2” on warm white (`--color-paper`, #fbfaf7 – `bg-white` is for cards
+that must stand off the page). Tokens in `@theme`: `ink`, `body`, `muted`
+(7:1, AAA – the accessibility statement promises it), `hairline`, `panel`,
+`fog` (secondary text on ink), and six accents – `blue` (also the link colour,
+6.3:1 on paper), `orange`, `lime`, `pink`, `sun`, `mint`. Text on an accent is
+ink, except white on blue. A fluid type scale (`--text-hero`, `-page`, `-band`,
+`-post`, `-item`, `-row`) with the 1440 px mock's values as `clamp()` maxima.
 
-Recurring micro-label pattern is the `label` utility in `global.css`
-(mono, 12px, `0.2em` tracking, uppercase) – use it instead of respelling those
-five utilities.
+Type: **Instrument Serif** (400 only, with italic) for every heading and the
+logotype – the accent inside a heading is italic, never bold, because the
+browser would fake a bold. **Instrument Sans** for text, **IBM Plex Mono** only
+for numbers (activity numbers, dates in lists). All three are self-hosted
+through Astro's Fonts API in `astro.config.mjs` with the `latin-ext` subset for
+Polish diacritics.
+
+Utilities in `global.css`: `label` (sans 600, 13 px, `0.08em`, uppercase – use
+it instead of respelling those five utilities), `wrap` (the 80rem content box
+with the grid's side padding), `btn` + `btn-ink` / `btn-ghost` / `btn-light`
+(+ `btn-lg`) for the pill buttons – sizes go through `--btn-px`/`--btn-py`,
+because two utilities setting `padding` are ordered by the stylesheet, not by
+the class attribute.
 
 The global `:focus-visible` outline is inside `@layer base` on purpose: unlayered
 rules beat Tailwind utilities, and the blog rows need to override the outline
@@ -570,32 +606,36 @@ Registry data is complete since 2026-10-20 (KRS, NIP, REGON, account).
 Annual reports (the first, for 2026, is due in 2027 – `/fundacja#sprawozdania`
 already has the slot and the sentence), a grant-logo band („Dofinansowano ze
 środków…" is mandatory on the site from the day a MKiDN or city grant is
-signed), a new visual design (the current
-Swiss layout was kept on purpose for the conversion).
+signed), „Wersja 2” layouts for the subpages (the canvas draws only the
+homepage), a joint photo of the founders for the hero polaroid (it holds the
+two portraits from /fundacja side by side until then).
 
-The homepage `<h1>` is the mono eyebrow „(Fundacja Pierwsze Demo – Wsparcie
-młodych twórców muzycznych – Gdańsk)", not the slogan – the slogan carries no
-keywords and the h1 is the strongest on-page signal. Visually nothing changed:
-the h1 stays a small label and „Pierwsze demo to początek." is still the
-largest text on the page, as a `<p>`. Don't "fix" this back by promoting the
-slogan.
+The homepage `<h1>` is the pill above the slogan, „Fundacja Pierwsze Demo ·
+wsparcie młodych twórców muzycznych · Gdańsk", not the slogan – the slogan
+carries no keywords and the h1 is the strongest on-page signal. Visually the
+h1 is a small label and „Hej, robimy fajne rzeczy dla młodej muzyki." is the
+largest text on the page, as a `<p>`. The canvas draws the slogan as the h1;
+don't "fix" this back by promoting it.
 
 `src/assets/michal.jpg` is a phone snapshot and
 `src/assets/dzwieki-efemeryczne/ola-geppert.jpg` a 670 px stage shot – both
-fill the founders' slots on `/fundacja` until proper portraits exist. Anything
+fill the founders' slots on `/fundacja` and the homepage polaroid until proper
+portraits exist. `src/photos.ts` (`FOUNDER_PHOTOS`) holds them with their alt
+text and crop, for both places and the JSON-LD `Person.image`. Anything
 dropped in there must be pre-rotated and metadata-stripped first (the original
 carried an EXIF orientation tag and GPS coordinates). `HeroPhoto.astro` takes
 `src`/`alt`/`caption` props and clips `widths` to the source size, because
 Astro refuses to upscale.
 
-The nav is four cells (marka / Fundacja / Wiedza / Aktualności), same count as
-the mock, on 5/3/3/5 tracks (see the 16-column grid above). „Wesprzyj" is
-deliberately not a nav item: it is the `SupportBand.astro` band above the
-footer on the pages that make sense as a donor's entry point. There is no
-Kontakt cell; the address is shown verbatim in the „Kontakt" sections of `/`,
-`/fundacja` and `/wesprzyj` instead. `Nav.astro` lays out 2×2 on mobile with
-borders computed from the item index – a fourth entry in `NAV` means reworking
-it. Outbound links to artists and projects go through `withUtm()`.
+The nav is the logotype (`Logo.astro` + „pierwsze demo” in serif), four links
+(O nas → /fundacja, Co robimy → /fundacja#dzialania, Wiedza, Aktualności) and
+the „Dołącz” pill (`JOIN_PATH`, the homepage section). On a phone the pill
+stays in the logotype's row and the links drop below. „Wesprzyj” is
+deliberately not a nav item: it is the `SupportBand.astro` card above the
+footer on the pages that make sense as a donor's entry point, and the third
+„Dołącz” card on `/`. The e-mail address is shown verbatim in the „Kontakt"
+sections of `/`, `/fundacja` and `/wesprzyj`. Outbound links to artists and
+projects go through `withUtm()`.
 
 ### Keyword positioning (2026-10-04)
 
@@ -622,14 +662,12 @@ series she hosts, a workshop she runs), and always with her role stated next
 to her name. The site does not promote founders' own releases: the interview
 about her single (`2026-09-18-ola-geppert-ioanni-wywiad.md`) is
 `unlisted: true` – it has its own URL but no list or panel features it – her
-EP is not in the „Teraz" panel, and Michał's bio mentions the single in one
+EP is not in the „Teraz" band, and Michał's bio mentions the single in one
 clause.
 
-The footer is two rows. The top row carries the name, KRS / NIP / REGON and
-e-mail on the same 5/3/3/5 tracks as the nav. The registered address is not
-there on purpose: art. 5 of the e-services act wants it „bezpośrednio
-dostępny”, not on every page, so the footer links „Dane rejestrowe” to
-`/fundacja#dane` instead; the bottom row is the four-cell band (`© /
-Instagram / Cookies / Statut · Prywatność · Dostępność`) with borders computed
-from cell index, so a fifth cell means reworking `Footer.astro`, not pushing
-one more item in.
+The footer is the dark band from the canvas: logotype, „Dane fundacji” (KRS /
+NIP / REGON), „Dokumenty” (statute, privacy, the Cookies button, accessibility
+statement) and „Kontakt”, then the accent-colour stripe and ©. The registered
+address is not there on purpose: art. 5 of the e-services act wants it
+„bezpośrednio dostępny”, not on every page, so the footer links „Dane
+rejestrowe” to `/fundacja#dane` instead.

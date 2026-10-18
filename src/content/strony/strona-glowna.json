@@ -1,12 +1,38 @@
 {
-  "slogan": "Pierwsze demo\nto początek.",
-  "intro": "Fundacja wspiera młodych i początkujących twórców muzycznych: organizuje koncerty, pomaga nagrać i wydać pierwsze piosenki i uczy, jak działa branża.",
+  "slogan": "Hej, robimy *fajne rzeczy* dla młodej muzyki.",
+  "intro": "Koncerty, nagrania, wiedza o branży i ludzie, którzy pomogą Ci zacząć. Pierwsze demo to dopiero początek – zobacz, co robimy, i dołącz.",
+  "about": "Na razie jesteśmy *we dwoje* – i dopiero się rozkręcamy.",
+  "aboutText": "Założyliśmy fundację we dwoje: manager i artystka. Jedno z nas wie, jak wygląda początek kariery od strony kalendarza i umów, drugie – od strony sceny.",
+  "activitiesIntro": "Pięć rzeczy, w których pomagamy młodym i początkującym twórcom muzycznym.",
   "teraz": [
     {
-      "name": "Baza wiedzy",
-      "meta": "jak działa branża – bez skrótów",
-      "href": "/wiedza"
+      "name": "Baza *wiedzy*",
+      "meta": "Jak działa branża – bez skrótów. Tantiemy, dystrybucja, umowy, promocja: wszystko, czego nikt nie tłumaczy na początku.",
+      "href": "/wiedza",
+      "cta": "Otwórz bazę wiedzy"
     }
   ],
-  "contact": "Tworzysz muzykę i chcesz zagrać, nagrać albo zapytać? Napisz. Organizujesz, wydajesz, uczysz? Też napisz."
+  "join": "Zobacz i *dołącz.* Jest tu miejsce dla Ciebie.",
+  "joinIntro": "Niezależnie od tego, czy grasz, organizujesz, uczysz, czy chcesz nas wesprzeć.",
+  "joinCards": {
+    "muzycy": {
+      "audience": "dla muzyków",
+      "title": "Grasz, piszesz, nagrywasz?",
+      "text": "Napisz, czym się zajmujesz – zaprosimy na koncert, pomożemy z nagraniem albo podpowiemy, od czego zacząć.",
+      "cta": "Zgłoś się"
+    },
+    "organizatorzy": {
+      "audience": "dla organizatorów i edukatorów",
+      "title": "Masz scenę, salę albo wiedzę?",
+      "text": "Szukamy miejsc, wydarzeń i ludzi, którzy chcą dzielić się doświadczeniem z młodymi twórcami.",
+      "cta": "Współpracujmy"
+    },
+    "darczyncy": {
+      "audience": "dla partnerów i darczyńców",
+      "title": "Chcesz, żeby było tego więcej?",
+      "text": "Partnerstwa, granty i darowizny pomagają nam robić więcej koncertów, nagrań i spotkań.",
+      "cta": "Wesprzyj fundację"
+    }
+  },
+  "contact": "Muzycy, organizatorzy, edukatorzy, instytucje – każdy temat jest dobry na początek."
 }

@@ -3,30 +3,47 @@
 @import "./prose.css";
 
 @theme {
-	--font-sans: var(--font-archivo), system-ui, sans-serif;
+	--font-sans: var(--font-instrument-sans), system-ui, sans-serif;
+	--font-serif: var(--font-instrument-serif), Georgia, serif;
 	--font-mono: var(--font-ibm-plex-mono), ui-monospace, monospace;
 
-	/* Kolory odczytane z projektu (Swiss, kierunek 2). */
-	--color-ink: #101010; /* tekst, twarde linie, bloki na negatywie */
-	/* Muted trzyma 7:1 (WCAG AAA) na bieli i na panelu – deklaracja dostępności
-     to obiecuje. Każdy jaśniejszy szary tekstu łamie tę obietnicę. */
-	--color-muted: #4f4d48; /* etykiety, metadane, nieaktywna nawigacja */
-	--color-body: #3c3a36; /* akapity */
-	--color-hairline: #e4e2dd; /* linie WEWNĄTRZ pasma (kontra ink między pasmami) */
-	--color-panel: #f4f2ee; /* tło slotu na zdjęcie */
-	/* Jedyny kolor spoza makiety: pasek „to jest podgląd” na szkicach. Ma
-     odstawać od reszty strony – ink na nim daje 8:1, czyli też AAA. */
+	/* Kolory z projektu „Wersja 2” (canvas „Pierwsze Demo — redesign”). */
+	--color-paper: #fbfaf7; /* tło strony – ciepła biel, nie #fff */
+	--color-ink: #15151a; /* tekst, twarde linie, ciemne pasma */
+	/* Muted trzyma 7:1 (WCAG AAA) na paper, bieli i panelu – deklaracja
+     dostępności to obiecuje. Każdy jaśniejszy szary tekstu łamie tę obietnicę. */
+	--color-muted: #55555f; /* etykiety, metadane, daty */
+	--color-body: #3a3a42; /* akapity; też linie na ciemnym tle */
+	--color-hairline: #e6e3dc; /* linie wewnątrz pasma (kontra ink między pasmami) */
+	--color-panel: #f1eee8; /* tło bloków w panelu cookies, slot bez zdjęcia */
+	--color-fog: #c9c7c0; /* tekst drugiego planu na ink – 10:1 */
+
+	/* Akcenty. Tekst na nich jest zawsze ink (pomarańcz 5,9:1, limonka 15:1),
+     a na niebieskim – biały (6,6:1). Niebieski to też kolor linków na paper
+     (6,3:1); pozostałe akcenty nie niosą tekstu na jasnym tle. */
+	--color-blue: #2b3bff;
+	--color-blue-deep: #1a26b8; /* hover linku */
+	--color-orange: #ff5a1f;
+	--color-lime: #d4ff3a;
+	--color-pink: #ff8ad8;
+	--color-sun: #ffc93c;
+	--color-mint: #3bd68a;
+	--color-rec: #ff3b30; /* kropka „REC” w hero – ozdoba, nie tekst */
+	/* Pasek „to jest podgląd” na szkicach. Ma odstawać od reszty strony – ink
+     na nim daje 8:1, czyli też AAA. */
 	--color-preview: #ff8a00;
 
-	/* Skala typograficzna – wartości z makiety 1280px jako górna granica. */
-	--text-hero: clamp(3.25rem, 9.25vw, 7.375rem); /* 118px @ 1280 */
-	--text-page: clamp(2.75rem, 7.2vw, 5.75rem); /* 92px @ 1280 */
-	--text-post: clamp(2.25rem, 5vw, 4rem); /* 64px */
-	--text-row: clamp(1.375rem, 2.2vw, 1.6875rem); /* 27px */
-	--text-roster: clamp(1.625rem, 2.6vw, 2rem); /* 32px */
+	/* Skala typograficzna – górne granice to wartości z makiety 1440 px.
+     Nagłówki są w Instrument Serif 400: krój ma małe oczko, więc stopnie są
+     większe niż przy dawnym Archivo półgrubym. */
+	--text-hero: clamp(4rem, 8.4vw, 8.5rem); /* 136px */
+	--text-page: clamp(3rem, 6vw, 5.5rem); /* 88px – h2 sekcji, h1 podstron */
+	--text-band: clamp(3.5rem, 7vw, 7rem); /* 112px – pasmo „Teraz” */
+	--text-post: clamp(2.5rem, 5vw, 4.5rem); /* 72px – tytuł wpisu, lead „Kim jesteśmy” */
+	--text-item: clamp(2rem, 3.4vw, 3rem); /* 48px – wiersze „Co robimy” */
+	--text-row: clamp(1.625rem, 2.4vw, 2rem); /* 32px – tytuły na listach, karty */
 }
 
-/* Siatka projektu jest zbudowana na twardych krawędziach – żadnych zaokrągleń. */
 :root {
 	scrollbar-gutter: stable;
 
@@ -60,6 +77,16 @@
 		outline: 2px solid var(--color-ink);
 		outline-offset: 2px;
 	}
+
+	/* Podstrony to pasma siatki 16 kolumn na całą szerokość. Powyżej 1280 px
+     rozjeżdżały się z nawigacją i stopką, których treść stoi w kontenerze
+     80rem, więc <main> ma ten sam kontener. Strona główna to pasma z własnym
+     tłem na całą szerokość – zdejmuje go przez `max-w-none`. */
+	main {
+		width: 100%;
+		max-width: 80rem;
+		margin-inline: auto;
+	}
 }
 
 /* Przełączniki w ustawieniach cookies: biblioteka rysuje je na 50×23 px,
@@ -82,8 +109,6 @@
 	transform: translateX(28px);
 }
 
-/* Etykiety monospace: wielkie litery + rozstrzelenie, powtarzane w całym
-   projekcie. Jedna klasa zamiast pięciu utilities przy każdym użyciu. */
 /* Pasmo z kolumną boczną po lewej / po prawej. Jedna definicja zamiast
    szerokości wpisywanej na każdej stronie osobno – tak rozjechały się 400 px
    zdjęcia i 320 px nawigacji. */
@@ -94,13 +119,75 @@
 	grid-template-columns: minmax(0, 1fr) var(--aside);
 }
 
+/* Etykiety: wielkie litery + rozstrzelenie, powtarzane w całym projekcie.
+   Jedna klasa zamiast pięciu utilities przy każdym użyciu. Monospace został
+   tylko przy liczbach (numery działań, daty na listach). */
 @utility label {
-	font-family: var(--font-mono);
-	font-weight: 500;
-	font-size: 0.75rem;
-	line-height: 1;
-	letter-spacing: 0.2em;
+	font-family: var(--font-sans);
+	font-weight: 600;
+	font-size: 0.8125rem;
+	line-height: 1.2;
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
+}
+
+/* Kontener treści: nawigacja, stopka i sekcje strony głównej. Ten sam
+   lewy brzeg co pasma podstron (px-5 / md:px-8), żeby tekst stał w jednej
+   linii na każdej stronie. */
+@utility wrap {
+	width: 100%;
+	max-width: 80rem;
+	margin-inline: auto;
+	padding-inline: 1.25rem;
+	@media (width >= 48rem) {
+		padding-inline: 2rem;
+	}
+}
+
+/* Przyciski-pigułki z makiety: pełny (ink → niebieski na hover) i obrysowany
+   (wypełnia się na hover). 44 px wysokości – minimalny cel dotyku. */
+@utility btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 2.75rem;
+	/* Zmienne, nie padding w `btn-lg`: dwa utilities z tą samą własnością
+	   rozstrzyga kolejność w arkuszu, a nie kolejność w atrybucie class. */
+	padding: var(--btn-py, 0.75rem) var(--btn-px, 1.375rem);
+	border-radius: 999px;
+	font-weight: 600;
+	line-height: 1.2;
+	text-decoration: none;
+	transition:
+		background-color 0.2s,
+		color 0.2s;
+}
+@utility btn-lg {
+	--btn-py: 1rem;
+	--btn-px: 1.75rem;
+	font-size: 1.125rem;
+}
+@utility btn-ink {
+	background: var(--color-ink);
+	color: #fff;
+	&:hover {
+		background: var(--color-blue);
+	}
+}
+@utility btn-ghost {
+	border: 1.5px solid var(--color-ink);
+	color: var(--color-ink);
+	&:hover {
+		background: var(--color-ink);
+		color: #fff;
+	}
+}
+@utility btn-light {
+	background: #fff;
+	color: var(--color-ink);
+	&:hover {
+		background: var(--color-lime);
+	}
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -289,11 +376,12 @@
 	white-space: nowrap;
 }
 
-/* Nagłówek panelu w typografii strony: Archivo półgruby, ciasny trekking. */
+/* Nagłówek panelu w typografii strony: Instrument Serif jak nagłówki sekcji. */
 #cc-main .pm__title {
-	font-weight: 600;
-	font-size: 1.5rem;
-	letter-spacing: -0.02em;
+	font-family: var(--font-serif);
+	font-weight: 400;
+	font-size: 2rem;
+	letter-spacing: -0.01em;
 }
 
 /* Odmowa musi być tak samo widoczna jak zgoda (wytyczne UODO/EROD) – oba

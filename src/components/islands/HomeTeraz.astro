@@ -2,34 +2,49 @@
 import { withUtm } from "../../consts";
 import type { HomepageDoc } from "../../strony";
 import { fixHanging } from "../../typography";
+import Accent from "../Accent.astro";
 import { field } from "./field";
 
 interface Props {
 	home: HomepageDoc;
 }
 const { home } = Astro.props;
+
+// Limonkowe koło jest na telefonie małe i wciśnięte w róg: biały nagłówek na
+// limonce ma kontrast 1,2:1, a na wąskim ekranie nagłówek sięga prawej krawędzi.
 ---
 
 {
   home.teraz.map((project) => {
     const external = project.href.startsWith("http");
     return (
-      <li data-tina-field={field(project)}>
+      <article
+        class="relative flex flex-wrap items-end justify-between gap-10 overflow-hidden rounded-[32px] bg-blue p-[clamp(2rem,5vw,4.5rem)] text-white"
+        data-tina-field={field(project)}
+      >
+        <span
+          class="absolute -top-20 -right-20 size-40 rounded-full bg-lime md:-top-35 md:-right-15 md:size-95"
+          aria-hidden="true"
+        />
+        <div class="relative flex min-w-0 flex-[999_1_30rem] flex-col gap-5">
+          <span class="self-start rounded-full bg-white px-3.5 py-[7px] text-sm font-semibold tracking-[0.06em] text-ink uppercase">
+            Teraz
+          </span>
+          <h2 class="font-serif text-band leading-[0.9] tracking-[-0.02em] text-balance">
+            <Accent text={project.name} />
+          </h2>
+          <p class="max-w-[32.5rem] text-[21px] text-[#e3e7ff]">{fixHanging(project.meta)}</p>
+        </div>
         <a
           href={external ? withUtm(project.href, "teraz") : project.href}
           target={external ? "_blank" : undefined}
           rel={external ? "noopener" : undefined}
-          class="group flex flex-col gap-1.5"
+          class="btn btn-lg btn-light relative"
         >
-          <span class="text-roster font-semibold tracking-[-0.02em] underline decoration-1 underline-offset-[6px] group-hover:decoration-2">
-            {fixHanging(project.name)}
-          </span>
-          <span class="label text-white/60">
-            {fixHanging(project.meta)}
-            {external && <span class="sr-only"> (otwiera się w nowej karcie)</span>}
-          </span>
+          {project.cta}
+          {external && <span class="sr-only"> (otwiera się w nowej karcie)</span>}
         </a>
-      </li>
+      </article>
     );
   })
 }

@@ -1,7 +1,5 @@
 ---
 import TinaIsland from "@tinacms/astro/TinaIsland.astro";
-import ola from "../assets/dzwieki-efemeryczne/ola-geppert.jpg";
-import michal from "../assets/michal.jpg";
 import EmailLink from "../components/EmailLink.astro";
 import Footer from "../components/Footer.astro";
 import HeroPhoto from "../components/HeroPhoto.astro";
@@ -25,6 +23,7 @@ import {
 	SUPPORT_PATH,
 } from "../consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { FOUNDER_PHOTOS } from "../photos";
 import { breadcrumbJsonLd } from "../schema";
 import { ACTIVITIES_DOC, FOUNDATION_PAGE_DOC, FOUNDERS, FOUNDERS_DOC } from "../strony";
 import { fixHanging } from "../typography";
@@ -58,19 +57,6 @@ const registry = [
 	{ label: "Forma", value: "fundacja" },
 ] as const;
 
-const photos = {
-	michal: {
-		src: michal,
-		alt: "Michał Miszczyszyn w niebieskiej kurtce, w tle panorama Bergen",
-		position: "object-[center_35%]",
-	},
-	ola: {
-		src: ola,
-		alt: "Ola Geppert na scenie – czarno-białe zdjęcie: chustka na głowie, długie czarne rękawiczki, mikrofon trzymany oburącz przy ustach",
-		position: "object-top",
-	},
-} as const;
-
 import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../styles/fundacja";
 ---
 
@@ -81,7 +67,7 @@ import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../st
   extraJsonLd={[breadcrumb]}
 >
   <div class="flex min-h-dvh flex-col">
-    <Nav active="Fundacja" />
+    <Nav active="O nas" />
 
     <main id="tresc" class="flex-1">
       <TinaIsland name="fundacja-naglowek" wrapper={wrappers["fundacja-naglowek"]} primary>
@@ -135,7 +121,7 @@ import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../st
         </h2>
         {
           FOUNDERS.map((person) => {
-            const photo = photos[person.id];
+            const photo = FOUNDER_PHOTOS[person.id];
             return (
               <article
                 id={person.id}
@@ -179,7 +165,7 @@ import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../st
         <h2 id="dokumenty" class={rowLabel}>Dokumenty</h2>
         <ul class={list}>
           <li class={item}>
-            <h3 class="text-row font-semibold">Statut</h3>
+            <h3 class="font-serif text-row">Statut</h3>
             <p class={itemText}>
               Pełny tekst statutu:{' '}
               <a href={STATUTE_PATH} class={link}>
@@ -188,7 +174,7 @@ import { item, itemText, link, list, prose, row, rowBody, rowLabel } from "../st
             </p>
           </li>
           <li class={item} id="sprawozdania">
-            <h3 class="text-row font-semibold">Sprawozdania</h3>
+            <h3 class="font-serif text-row">Sprawozdania</h3>
             <div class={`flex flex-col gap-3 ${itemText}`}>
               <p>
                 Co roku Zarząd składa ministrowi sprawozdanie z działalności

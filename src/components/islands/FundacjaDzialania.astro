@@ -13,7 +13,7 @@ const { activities } = Astro.props;
 {
   activities.activities.map((activity, index) => (
     <li class={item} id={activity.id} data-tina-field={field(activity)}>
-      <h3 class="flex items-baseline justify-between gap-4 text-row font-semibold md:flex-col md:items-start md:gap-2">
+      <h3 class="flex items-baseline justify-between gap-4 font-serif text-row md:flex-col md:items-start md:gap-2">
         <span data-tina-field={field(activity, "label")}>{activity.label}</span>
         <span class="label text-muted">({String(index + 1).padStart(2, "0")})</span>
       </h3>

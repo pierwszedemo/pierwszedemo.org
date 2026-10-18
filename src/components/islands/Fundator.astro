@@ -13,7 +13,7 @@ const { person } = Astro.props;
 ---
 
 <h3 class="flex flex-col gap-2">
-  <span class="text-row font-semibold" data-tina-field={field(person, "fullName")}>{person.fullName}</span>
+  <span class="font-serif text-row" data-tina-field={field(person, "fullName")}>{person.fullName}</span>
   <span class="label text-muted">
     ({person.role} · {person.jobTitle})
   </span>

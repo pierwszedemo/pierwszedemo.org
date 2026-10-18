@@ -4,72 +4,79 @@ import {
 	FOUNDATION,
 	FOUNDATION_PATH,
 	INSTAGRAM_URL,
+	LOGOTYPE,
 	PRIVACY_POLICY_PATH,
 	registryValue,
+	SITE_TAGLINE,
 	STATUTE_PATH,
+	SUPPORT_PATH,
 } from "../consts";
 import EmailLink from "./EmailLink.astro";
 
-// Stopka fundacji to dwa wiersze. Górny: nazwa, KRS / NIP / REGON i kontakt –
-// tory 5/3/3/5 jak w nawigacji, te same linie siatki. Adresu siedziby tu nie
-// ma: art. 5 ustawy o świadczeniu usług drogą elektroniczną każe podać go
-// „bezpośrednio dostępnie”, nie na każdej stronie – wystarcza link do danych
-// rejestrowych na /fundacja, gdzie adres stoi w całości. Dolny to
-// cztery komórki jak dawniej: ©, Instagram, Cookies i linki prawne. Linia
-// między wierszami jest hairline (wnętrze pasma), zewnętrzna – ink.
-const cell = "px-5 py-4 md:py-[19px] lg:px-8";
+// Ciemna stopka z makiety: logotyp, dane rejestrowe, dokumenty, kontakt.
+// Adresu siedziby tu nie ma: art. 5 ustawy o świadczeniu usług drogą
+// elektroniczną każe podać go „bezpośrednio dostępnie”, nie na każdej
+// stronie – wystarcza link do danych rejestrowych na /fundacja, gdzie adres
+// stoi w całości.
 const registry = [
 	{ label: "KRS", value: registryValue(FOUNDATION.krs) },
 	{ label: "NIP", value: registryValue(FOUNDATION.nip) },
 	{ label: "REGON", value: registryValue(FOUNDATION.regon) },
 ];
+const link = "transition-colors hover:text-white";
+const heading = "font-semibold text-white";
+// Pasek w kolorach akcentów – proporcje z makiety.
+const stripe = [
+	["bg-orange", 3],
+	["bg-sun", 1],
+	["bg-pink", 2],
+	["bg-blue", 4],
+	["bg-lime", 1],
+] as const;
 ---
 
-<footer class="border-t border-ink text-[13px] text-muted">
-  <div class="grid grid-cols-2 border-b border-hairline md:grid-cols-[5fr_3fr_3fr_5fr]">
-    <p class={`${cell} col-span-2 border-b border-hairline md:col-span-1 md:border-r md:border-b-0`}>
-      <span class="font-semibold text-ink">{FOUNDATION.name}</span><br />
-      <a href={`${FOUNDATION_PATH}#dane`} class="underline underline-offset-4 transition-colors hover:text-ink">Dane rejestrowe</a>
-    </p>
-    <dl class={`${cell} border-r border-hairline md:col-span-2`}>
-      {
-        registry.map((item) => (
-          <div class="flex gap-2">
-            <dt class="w-14 shrink-0">{item.label}</dt>
-            <dd>{item.value}</dd>
-          </div>
-        ))
-      }
-    </dl>
-    <p class={cell}>
-      <EmailLink class="underline underline-offset-4 transition-colors hover:text-ink" />
-    </p>
-  </div>
-  <div class="grid grid-cols-2 md:grid-cols-[5fr_3fr_3fr_5fr]">
-    <div class={`${cell} border-r border-b border-hairline md:border-b-0`}>
-      © {new Date().getFullYear()}
+<footer class="bg-ink text-[15px] text-fog">
+  <div class="wrap flex flex-col gap-12 pt-16 pb-10">
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="flex flex-col gap-3">
+        <span class="font-serif text-4xl leading-none text-white">{LOGOTYPE}</span>
+        <span>Fundacja – {SITE_TAGLINE.toLowerCase()}.</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <h2 class={heading}>Dane fundacji</h2>
+        <dl class="flex flex-col gap-2">
+          {
+            registry.map((item) => (
+              <div class="flex gap-1.5">
+                <dt>{item.label}</dt>
+                <dd>{item.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <a href={`${FOUNDATION_PATH}#dane`} class={`${link} underline underline-offset-4`}>Dane rejestrowe</a>
+      </div>
+      <div class="flex flex-col items-start gap-2">
+        <h2 class={heading}>Dokumenty</h2>
+        <a href={STATUTE_PATH} class={link}>Statut</a>
+        <a href={PRIVACY_POLICY_PATH} class={link}>Prywatność</a>
+        <!-- Panel otwiera delegowany listener w ConsentManager.astro – dzięki temu
+             przycisk działa też po podmianie DOM przez ClientRouter. -->
+        <button type="button" data-cc-preferences class={`${link} cursor-pointer text-left`}>Cookies</button>
+        <a href={ACCESSIBILITY_PATH} class={link}>Deklaracja dostępności</a>
+      </div>
+      <div class="flex flex-col gap-2">
+        <h2 class={heading}>Kontakt</h2>
+        <EmailLink class={`${link} break-all`} />
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener" class={link}>
+          Instagram<span class="sr-only"> (otwiera się w nowej karcie)</span>
+        </a>
+        <a href={SUPPORT_PATH} class={link}>Wesprzyj fundację</a>
+      </div>
     </div>
-    <a
-      href={INSTAGRAM_URL}
-      target="_blank"
-      rel="noopener"
-      class={`${cell} border-b border-hairline underline underline-offset-4 transition-colors hover:text-ink md:border-r md:border-b-0`}
-    >
-      Instagram
-    </a>
-    <!-- Panel otwiera delegowany listener w ConsentManager.astro – dzięki temu
-         przycisk działa też po podmianie DOM przez ClientRouter. -->
-    <button
-      type="button"
-      data-cc-preferences
-      class={`${cell} cursor-pointer border-r border-hairline text-left underline underline-offset-4 transition-colors hover:text-ink`}
-    >
-      Cookies
-    </button>
-    <p class={`${cell} flex flex-wrap gap-x-5 gap-y-1`}>
-      <a href={STATUTE_PATH} class="underline underline-offset-4 transition-colors hover:text-ink">Statut</a>
-      <a href={PRIVACY_POLICY_PATH} class="underline underline-offset-4 transition-colors hover:text-ink">Prywatność</a>
-      <a href={ACCESSIBILITY_PATH} class="underline underline-offset-4 transition-colors hover:text-ink">Dostępność</a>
-    </p>
+    <div class="flex h-3.5 gap-1.5" aria-hidden="true">
+      {stripe.map(([color, grow]) => <span class={`${color} rounded-full`} style={`flex: ${grow}`} />)}
+    </div>
+    <p>© {new Date().getFullYear()} {FOUNDATION.name}</p>
   </div>
 </footer>

@@ -1,0 +1,100 @@
+---
+import { isoDate, plDate } from "../../collections";
+import { fixHanging } from "../../typography";
+
+/**
+ * Karta wpisu w „Co się dzieje”. Ilustracja to jedna z trzech kompozycji
+ * z makiety, wybierana pozycją na liście, nie wpisem – trzy sąsiednie karty
+ * zawsze się różnią. Wersja makiety miała na kartach napisy z konkretnych
+ * wpisów („GS’26”, „pierwszy raz!”); tu zostały same kształty, bo karta
+ * pokazuje ten wpis, który akurat jest najnowszy.
+ */
+interface Props {
+	href: string;
+	title: string;
+	date: Date;
+	label: string;
+	variant: number;
+}
+const { href, title, date, label, variant } = Astro.props;
+const art = variant % 3;
+const pill = "absolute left-4 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-ink";
+---
+
+<a href={href} class="group flex flex-col gap-5">
+  <div
+    class:list={[
+      "relative aspect-[4/3] overflow-hidden rounded-[20px]",
+      art === 0 && "bg-blue",
+      art === 1 && "bg-linear-135 from-lime to-sun",
+      art === 2 && "bg-linear-160 from-pink to-orange",
+    ]}
+  >
+    {
+      art === 0 && (
+        <svg
+          viewBox="0 0 400 300"
+          preserveAspectRatio="xMidYMid slice"
+          aria-hidden="true"
+          class="absolute inset-0 size-full drop-shadow-[0_4px_0_rgb(21_21_26/0.35)]"
+        >
+          <polygon points="-40,340 110,-20 190,-20" fill="#ff8ad8" />
+          <polygon points="-40,340 250,-20 320,-20" fill="#d4ff3a" />
+          <circle cx="335" cy="62" r="74" fill="#fbfaf7" />
+          <circle cx="352" cy="50" r="30" fill="#15151a" />
+          <polygon points="-40,340 430,40 430,118" fill="#ff5a1f" />
+          <polygon points="-40,340 430,196 430,236" fill="#ffc93c" />
+          <polygon points="210,120 232,108 238,134" fill="#fbfaf7" />
+          <polygon points="60,70 78,62 84,84 66,90" fill="#ffc93c" />
+          <polygon points="300,170 318,176 306,192" fill="#ff8ad8" />
+          <polygon
+            points="-48,218 -36,206 -24,218 -12,206 0,218 12,206 24,218 36,206 48,218 60,206 72,218 84,206 96,218 108,206 120,218 132,206 144,218 156,206 168,218 180,206 192,218 204,206 216,218 228,206 240,218 252,206 264,218 276,206 288,218 300,206 312,218 324,206 336,218 348,206 360,218 372,206 384,218 396,206 408,218 420,206 432,218 444,206 456,218 468,206 468,268 -48,268"
+            fill="#15151a"
+            transform="rotate(-14 200 237)"
+          />
+        </svg>
+      )
+    }
+    {
+      art === 1 && (
+        <>
+          <span class="absolute -top-[20%] -left-[10%] aspect-square w-[60%] rounded-full bg-pink" />
+          <span class="absolute inset-x-0 bottom-0 h-[38%] bg-ink" />
+          <span class="absolute inset-x-0 bottom-[38%] h-4 bg-[repeating-linear-gradient(90deg,#15151a_0_16px,transparent_16px_32px)]" />
+          <svg viewBox="0 0 100 100" aria-hidden="true" class="absolute top-[10%] right-[8%] w-[42%] -rotate-10">
+            <polygon
+              points="50,0 58,22 80,10 72,33 96,34 77,50 96,66 72,67 80,90 58,78 50,100 42,78 20,90 28,67 4,66 23,50 4,34 28,33 20,10 42,22"
+              fill="#2b3bff"
+            />
+          </svg>
+        </>
+      )
+    }
+    {
+      art === 2 && (
+        <>
+          <svg
+            viewBox="0 0 400 300"
+            preserveAspectRatio="xMidYMax slice"
+            aria-hidden="true"
+            class="absolute inset-0 size-full"
+          >
+            <path d="M40 300 A160 160 0 0 1 360 300 Z" fill="#15151a" />
+            <path d="M90 300 A110 110 0 0 1 310 300 Z" fill="#ffc93c" />
+            <path d="M140 300 A60 60 0 0 1 260 300 Z" fill="#2b3bff" />
+          </svg>
+          <span class="absolute inset-0 bg-[radial-gradient(rgb(21_21_26/0.25)_1.3px,transparent_1.7px)] bg-size-[7px_7px] mix-blend-multiply" />
+        </>
+      )
+    }
+    <span class:list={[pill, art === 1 ? "bottom-4" : "top-4"]}>{label}</span>
+  </div>
+  <div>
+    <time datetime={isoDate(date)} class="text-[15px] text-muted">{plDate(date)}</time>
+    <h3
+      class="mt-1.5 font-serif text-row leading-[1.05] text-balance decoration-1 underline-offset-[5px] group-hover:underline"
+    >
+      {fixHanging(title)}
+    </h3>
+  </div>
+</a>

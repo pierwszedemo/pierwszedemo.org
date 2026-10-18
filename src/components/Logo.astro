@@ -1,0 +1,17 @@
+---
+/**
+ * Znak fundacji z makiety: płyta z pomarańczową naklejką. Ozdoba obok
+ * logotypu, więc `aria-hidden` – nazwę niesie tekst linku.
+ */
+interface Props {
+	class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<svg viewBox="0 0 40 40" aria-hidden="true" class={className}>
+  <circle cx="20" cy="20" r="20" fill="#15151a"></circle>
+  <circle cx="20" cy="20" r="14" fill="none" stroke="#3a3a42" stroke-width="1.5"></circle>
+  <circle cx="20" cy="20" r="7" fill="#ff5a1f"></circle>
+  <circle cx="20" cy="20" r="1.8" fill="#fbfaf7"></circle>
+</svg>
