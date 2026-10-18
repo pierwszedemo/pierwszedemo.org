@@ -12,7 +12,7 @@
 	--color-ink: #15151a; /* tekst, twarde linie, ciemne pasma */
 	/* Muted trzyma 7:1 (WCAG AAA) na paper, bieli i panelu – deklaracja
      dostępności to obiecuje. Każdy jaśniejszy szary tekstu łamie tę obietnicę. */
-	--color-muted: #55555f; /* etykiety, metadane, daty */
+	--color-muted: #4a4a53; /* etykiety, metadane, daty – makieta ma #55555f, ale ten na panelu daje 6,4:1 */
 	--color-body: #3a3a42; /* akapity; też linie na ciemnym tle */
 	--color-hairline: #e6e3dc; /* linie wewnątrz pasma (kontra ink między pasmami) */
 	--color-panel: #f1eee8; /* tło bloków w panelu cookies, slot bez zdjęcia */

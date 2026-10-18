@@ -98,10 +98,16 @@ Parts, in `src/components/`:
   `scroll-mt-6`.
 - `ContactBlock` – „Po prostu *napisz.*” and the address, as on `/`.
 - `PostCard` – the illustrated card (three compositions, chosen by position);
-  `ListRow` – the index row (mono date, serif title, pill, arrow; italic title
-  on hover). Lists show the three newest as cards and the rest as rows.
+  `ListRow` – the index row (mono date, serif title, pill, arrow; the title
+  underlines on hover – italic changed its width and the row jumped). Lists show the three newest as cards and the rest as rows.
 - `HeroPhoto` – a rounded photo card with a pill caption; `SupportBand` – the
   orange „Wesprzyj” card above the footer.
+
+Bands alternate so two neighbours never share a background. On `/` that is
+paper (hero), ink („Kim jesteśmy”), white („Co robimy”), panel („Co się
+dzieje”), ink („Teraz” – the blue card sits on it), white („Dołącz”), panel
+(contact), ink (footer). White against paper is a hair's difference, so the
+alternation with white uses `panel`.
 
 Rounded corners, pills and colour cards are the language; the one structural
 rule left is a 1.5 px ink line on top of an index list (activities, goals,
@@ -318,8 +324,10 @@ files; React exists only there.
   disabled. Each activity has a one-line `summary` (the homepage „Co robimy”
   row) next to the full `description` (/fundacja). The „Dołącz” cards are an
   object keyed `muzycy` / `organizatorzy` / `darczyncy`, not a list, because
-  each has a different exit in code: the first two `EmailLink`, the third
-  `/wesprzyj` + statute. A list of paragraphs is `paragraphList()`: with `list: true`,
+  each has a different exit in code: musicians and organisers `EmailLink`,
+  donors `/wesprzyj` + statute + a tax-deduction line. On the page the
+  donors' card comes first and biggest (orange, two columns by two rows) –
+  without donors the foundation does neither of the other two. A list of paragraphs is `paragraphList()`: with `list: true`,
   `ui.component` replaces the whole list widget (one textarea for the array,
   and a save would turn it into a string), so the per-item widget goes in
   `ui.field`. Tina
@@ -511,7 +519,8 @@ before the law requires it – the first municipal grant makes it mandatory.
 
 „Wersja 2” on warm white (`--color-paper`, #fbfaf7 – `bg-white` is for cards
 that must stand off the page). Tokens in `@theme`: `ink`, `body`, `muted`
-(7:1, AAA – the accessibility statement promises it), `hairline`, `panel`,
+(#4a4a53, darker than the canvas's #55555f, which gives only 6.4:1 on `panel`
+– the accessibility statement promises text above 7:1), `hairline`, `panel`,
 `fog` (secondary text on ink), and six accents – `blue` (also the link colour,
 6.3:1 on paper), `orange`, `lime`, `pink`, `sun`, `mint`. Text on an accent is
 ink, except white on blue. A fluid type scale (`--text-hero`, `-page`, `-band`,

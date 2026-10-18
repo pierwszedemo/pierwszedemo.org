@@ -72,46 +72,57 @@ const sectionHeading = "font-serif text-page leading-[0.95] tracking-[-0.02em]";
       </div>
     </section>
 
-    <section id="co-robimy" class="wrap py-20 md:py-30" aria-labelledby="co-robimy-naglowek">
-      <TinaIsland name="home-dzialania" wrapper={wrappers["home-dzialania"]}>
-        <HomeDzialania home={HOMEPAGE_DOC} activities={ACTIVITIES_DOC} />
-      </TinaIsland>
+    {/* Tła pasm na przemian: paper, ink, biel, panel, ink („Teraz”), biel,
+        panel, ink (stopka) – dwie sąsiednie sekcje nigdy nie stoją na tym
+        samym tle. Biel i paper różnią się o włos, więc z bielą przeplata się
+        panel. */}
+    <section id="co-robimy" class="bg-white" aria-labelledby="co-robimy-naglowek">
+      <div class="wrap py-20 md:py-30">
+        <TinaIsland name="home-dzialania" wrapper={wrappers["home-dzialania"]}>
+          <HomeDzialania home={HOMEPAGE_DOC} activities={ACTIVITIES_DOC} />
+        </TinaIsland>
+      </div>
     </section>
 
-    <section class="wrap pb-20 md:pb-30" aria-labelledby="dzieje-naglowek">
-      <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
-        <h2 id="dzieje-naglowek" class={sectionHeading}>Co się <em>dzieje</em></h2>
-        <a href={NEWS_PATH} class="font-semibold text-blue underline-offset-4 hover:underline">
-          Wszystkie aktualności <span aria-hidden="true">→</span>
-        </a>
+    <section class="bg-panel" aria-labelledby="dzieje-naglowek">
+      <div class="wrap py-20 md:py-30">
+        <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+          <h2 id="dzieje-naglowek" class={sectionHeading}>Co się <em>dzieje</em></h2>
+          <a href={NEWS_PATH} class="font-semibold text-blue underline-offset-4 hover:underline">
+            Wszystkie aktualności <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">
+          {
+            latest.map(({ entry, href, label }, index) => (
+              <li>
+                <PostCard href={href} title={entry.data.title} date={entry.data.date} label={label} variant={index} />
+              </li>
+            ))
+          }
+        </ul>
       </div>
-      <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">
-        {
-          latest.map(({ entry, href, label }, index) => (
-            <li>
-              <PostCard href={href} title={entry.data.title} date={entry.data.date} label={label} variant={index} />
-            </li>
-          ))
-        }
-      </ul>
     </section>
 
     {/* Projekty w toku – dawny czarny panel „Teraz” z hero. Strona fundacji
-        pokazuje, co się dzieje, nie kto za nią stoi. */}
-    <section class="wrap pb-20 md:pb-30" aria-label="Teraz">
-      <TinaIsland name="home-teraz" wrapper={wrappers["home-teraz"]}>
-        <HomeTeraz home={HOMEPAGE_DOC} />
-      </TinaIsland>
+        pokazuje, co się dzieje, nie kto za nią stoi. Niebieska karta stoi na
+        ciemnym paśmie. */}
+    <section class="bg-ink" aria-label="Teraz">
+      <div class="wrap py-20 md:py-30">
+        <TinaIsland name="home-teraz" wrapper={wrappers["home-teraz"]}>
+          <HomeTeraz home={HOMEPAGE_DOC} />
+        </TinaIsland>
+      </div>
     </section>
 
-    <section id="dolacz" class="border-y border-hairline bg-white" aria-labelledby="dolacz-naglowek">
+    <section id="dolacz" class="bg-white" aria-labelledby="dolacz-naglowek">
       <TinaIsland name="home-dolacz" wrapper={wrappers["home-dolacz"]}>
         <HomeDolacz home={HOMEPAGE_DOC} />
       </TinaIsland>
     </section>
 
-    <section id="kontakt" class="wrap py-20 md:py-30" aria-labelledby="kontakt-naglowek">
-      <div class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] items-end gap-10">
+    <section id="kontakt" class="bg-panel" aria-labelledby="kontakt-naglowek">
+      <div class="wrap grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] items-end gap-10 py-20 md:py-30">
         <h2 id="kontakt-naglowek" class={sectionHeading}>Po prostu <em>napisz.</em></h2>
         <div class="flex flex-col gap-4">
           <EmailLink

@@ -50,7 +50,7 @@ const FONTS = [
 export const PALETTE = {
 	paper: "#fbfaf7",
 	ink: "#15151a",
-	muted: "#55555f",
+	muted: "#4a4a53",
 	hairline: "#e6e3dc",
 	blue: "#2b3bff",
 	orange: "#ff5a1f",

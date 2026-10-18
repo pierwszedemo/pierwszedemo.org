@@ -4,7 +4,8 @@ import { fixHanging } from "../typography";
 /**
  * Wiersz listy wpisów – wspólny dla bazy wiedzy i aktualności. Ten sam
  * język co „Co robimy” na stronie głównej: data w mono, tytuł serifem,
- * etykieta w pigułce, a na hover kursywa tytułu zamiast odwróconego tła.
+ * etykieta w pigułce, a na hover podkreślenie tytułu jak na kartach wpisów
+ * (nie kursywa – zmienia szerokość tytułu i wiersz skacze).
  * Tory dopasowane do treści: data, etykieta i strzałka mają stałą długość,
  * reszta należy do tytułu – to po niego się tu przychodzi.
  */
@@ -31,7 +32,7 @@ const { href, title, left, leftDatetime, label, sub } = Astro.props;
       {leftDatetime ? <time datetime={leftDatetime}>{left}</time> : left}
     </span>
     <span
-      class="order-1 font-serif text-row leading-[1.05] text-balance group-hover:italic md:order-none"
+      class="order-1 font-serif text-row leading-[1.05] text-balance decoration-1 underline-offset-[5px] group-hover:underline md:order-none"
     >
       {fixHanging(title)}
     </span>

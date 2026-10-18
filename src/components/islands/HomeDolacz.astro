@@ -12,12 +12,14 @@ interface Props {
 const { home } = Astro.props;
 
 // Karty są stałe (obiekt, nie lista w Tinie), bo każda ma inne wyjście:
-// muzycy i organizatorzy piszą na adres fundacji, darczyńcy idą na /wesprzyj.
-const cards = [
-	{ key: "muzycy", class: "bg-orange" },
-	{ key: "organizatorzy", class: "bg-lime" },
-	{ key: "darczyncy", class: "border border-hairline bg-paper" },
+// darczyńcy idą na /wesprzyj, muzycy i organizatorzy piszą na adres fundacji.
+// Darczyńcy stoją pierwsi i najwięksi – to jedyna karta, od której zależy,
+// czy fundacja zrobi cokolwiek z pozostałych dwóch.
+const people = [
+	{ key: "muzycy", class: "bg-lime" },
+	{ key: "organizatorzy", class: "border border-hairline bg-paper" },
 ] as const;
+const donors = home.joinCards.darczyncy;
 ---
 
 <div class="flex flex-wrap items-end justify-between gap-6">
@@ -32,31 +34,40 @@ const cards = [
     {fixHanging(home.joinIntro)}
   </p>
 </div>
-<ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-5">
+<ul class="grid gap-5 md:grid-cols-3">
+  <li
+    class="flex min-h-95 flex-col justify-between gap-10 rounded-[28px] bg-orange p-8 md:col-span-2 md:row-span-2 md:p-12"
+    data-tina-field={field(donors)}
+  >
+    <span class="font-serif text-[28px] leading-tight italic md:text-[34px]">{fixHanging(donors.audience)}</span>
+    <div class="flex max-w-[34rem] flex-col gap-5">
+      <h3 class="font-serif text-[clamp(2.75rem,5vw,4.5rem)] leading-[0.95] text-balance">
+        {fixHanging(donors.title)}
+      </h3>
+      <p class="text-lg">{fixHanging(donors.text)}</p>
+      <p class="text-[15px]">
+        Darowiznę odliczysz od podatku: do 6% dochodu, firmy do 10%.{" "}
+        <a href={`${SUPPORT_PATH}#podatek`} class="underline underline-offset-4 hover:no-underline">Jak to działa</a>
+      </p>
+      <div class="flex flex-wrap items-center gap-5">
+        <a href={SUPPORT_PATH} class="btn btn-lg btn-ink">{donors.cta}</a>
+        <a href={STATUTE_PATH} class="font-semibold underline underline-offset-4 hover:no-underline">Statut</a>
+      </div>
+    </div>
+  </li>
   {
-    cards.map(({ key, class: background }) => {
+    people.map(({ key, class: background }) => {
       const card = home.joinCards[key];
       return (
         <li
-          class={`flex min-h-95 flex-col justify-between gap-10 rounded-[28px] p-8 ${background}`}
+          class={`flex min-h-80 flex-col justify-between gap-8 rounded-[28px] p-8 ${background}`}
           data-tina-field={field(card)}
         >
-          <span class="font-serif text-[28px] leading-tight italic">{card.audience}</span>
+          <span class="font-serif text-[26px] leading-tight italic">{fixHanging(card.audience)}</span>
           <div class="flex flex-col gap-4">
-            <h3 class="font-serif text-[40px] leading-none text-balance">{fixHanging(card.title)}</h3>
-            <p class:list={[key === "darczyncy" && "text-body"]}>{fixHanging(card.text)}</p>
-            {key === "darczyncy" ? (
-              <div class="flex flex-wrap items-center gap-4">
-                <a href={SUPPORT_PATH} class="btn btn-ghost">
-                  {card.cta}
-                </a>
-                <a href={STATUTE_PATH} class="font-semibold text-blue underline-offset-4 hover:underline">
-                  Statut
-                </a>
-              </div>
-            ) : (
-              <EmailLink class="btn btn-ink self-start">{card.cta}</EmailLink>
-            )}
+            <h3 class="font-serif text-[36px] leading-none text-balance">{fixHanging(card.title)}</h3>
+            <p class:list={[key === "organizatorzy" && "text-body"]}>{fixHanging(card.text)}</p>
+            <EmailLink class="btn btn-ink self-start">{card.cta}</EmailLink>
           </div>
         </li>
       );
