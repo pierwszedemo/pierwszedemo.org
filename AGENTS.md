@@ -521,9 +521,12 @@ before the law requires it – the first municipal grant makes it mandatory.
 that must stand off the page). Tokens in `@theme`: `ink`, `body`, `muted`
 (#4a4a53, darker than the canvas's #55555f, which gives only 6.4:1 on `panel`
 – the accessibility statement promises text above 7:1), `hairline`, `panel`,
-`fog` (secondary text on ink), and six accents – `blue` (also the link colour,
-6.3:1 on paper), `orange`, `lime`, `pink`, `sun`, `mint`. Text on an accent is
-ink, except white on blue. A fluid type scale (`--text-hero`, `-page`, `-band`,
+`fog` (secondary text on ink), and six accents – `blue` (also the link colour),
+`orange`, `lime`, `pink`, `sun`, `mint`. Text on an accent is ink, except white
+(or `#f2f4ff`) on blue. Blue and orange are a step off the canvas (#2b3bff →
+#2230e0, #ff5a1f → #ff7d40) for the same 7:1 promise: the canvas values give
+links 6.3:1 and ink on orange 5.8:1. Check any new text/background pair against
+7:1 before using it. A fluid type scale (`--text-hero`, `-page`, `-band`,
 `-post`, `-item`, `-row`) with the 1440 px mock's values as `clamp()` maxima.
 
 Type: **Instrument Serif** (400 only, with italic) for every heading and the

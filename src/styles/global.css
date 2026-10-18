@@ -18,12 +18,15 @@
 	--color-panel: #f1eee8; /* tło bloków w panelu cookies, slot bez zdjęcia */
 	--color-fog: #c9c7c0; /* tekst drugiego planu na ink – 10:1 */
 
-	/* Akcenty. Tekst na nich jest zawsze ink (pomarańcz 5,9:1, limonka 15:1),
-     a na niebieskim – biały (6,6:1). Niebieski to też kolor linków na paper
-     (6,3:1); pozostałe akcenty nie niosą tekstu na jasnym tle. */
-	--color-blue: #2b3bff;
+	/* Akcenty. Tekst na nich jest zawsze ink, a na niebieskim – biały. Deklaracja
+     dostępności obiecuje kontrast tekstu powyżej 7:1, więc niebieski i pomarańcz
+     są o krok ciemniejszy / jaśniejszy niż na makiecie (#2b3bff, #ff5a1f – tam
+     6,3:1 i 5,8:1): niebieski jako link ma 7,8:1 na paper i 7,1:1 na panelu,
+     biały na nim 8,2:1, ink na pomarańczu 7,2:1. Pozostałe akcenty nie niosą
+     tekstu na jasnym tle. */
+	--color-blue: #2230e0;
 	--color-blue-deep: #1a26b8; /* hover linku */
-	--color-orange: #ff5a1f;
+	--color-orange: #ff7d40;
 	--color-lime: #d4ff3a;
 	--color-pink: #ff8ad8;
 	--color-sun: #ffc93c;

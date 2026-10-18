@@ -31,7 +31,7 @@ const { id, heading, intro, tone = "paper", class: className } = Astro.props;
     <div class="mb-10 flex flex-wrap items-end justify-between gap-6 md:mb-14">
       <h2
         id={`${id}-naglowek`}
-        class="max-w-[16ch] font-serif text-[clamp(2.75rem,5.5vw,5rem)] leading-[0.95] tracking-[-0.02em] text-balance"
+        class="max-w-[24ch] font-serif text-[clamp(2.75rem,5.5vw,5rem)] leading-[0.95] tracking-[-0.02em] text-balance"
       >
         <Accent text={heading} class={tone === "ink" ? "text-lime" : undefined} />
       </h2>
