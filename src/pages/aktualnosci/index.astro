@@ -10,14 +10,12 @@ import { NEWS_KINDS, NEWS_PATH, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import { authorJsonLd, sectionAuthorJsonLd } from "../../strony";
-import { plural } from "../../typography";
 
 const entries = await getSortedNews();
 // Trzy najnowsze jako karty, jak „Co się dzieje” na stronie głównej, reszta
 // jako wiersze. Kolejność ta sama – karty to po prostu początek listy.
 const latest = entries.slice(0, 3);
 const older = entries.slice(3);
-const count = `${entries.length} ${plural(entries.length, ["wpis", "wpisy", "wpisów"])}`;
 const canonical = new URL(NEWS_PATH, SITE_URL).href;
 const entryUrl = (id: string) => new URL(`${NEWS_PATH}/${id}`, SITE_URL).href;
 
@@ -80,7 +78,7 @@ const breadcrumb = breadcrumbJsonLd(
   <Nav active="Aktualności" />
 
   <main id="tresc">
-    <PageHeader eyebrow={`${SITE_NAME} · aktualności`} title="*Aktualności*" intro={`Wydarzenia, relacje, rozmowy i sprawozdania z projektów fundacji. ${count}, od najnowszego.`} dot="bg-pink" />
+    <PageHeader eyebrow={`${SITE_NAME} · aktualności`} title="*Aktualności*" intro="Wydarzenia, relacje, rozmowy i sprawozdania z projektów fundacji." dot="bg-pink" />
 
     <section class="wrap pb-16 md:pb-24" aria-label="Najnowsze">
       <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">

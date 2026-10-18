@@ -10,14 +10,12 @@ import { KNOWLEDGE_PATH, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import { authorJsonLd, sectionAuthorJsonLd } from "../../strony";
-import { plural } from "../../typography";
 
 const entries = await getSortedArticles();
 // Trzy najnowsze jako karty, jak „Co się dzieje” na stronie głównej, reszta
 // jako wiersze. Kolejność ta sama – karty to po prostu początek listy.
 const latest = entries.slice(0, 3);
 const older = entries.slice(3);
-const count = `${entries.length} ${plural(entries.length, ["wpis", "wpisy", "wpisów"])}`;
 const canonical = new URL(KNOWLEDGE_PATH, SITE_URL).href;
 const entryUrl = (id: string) => new URL(`${KNOWLEDGE_PATH}/${id}`, SITE_URL).href;
 
@@ -82,7 +80,7 @@ const breadcrumb = breadcrumbJsonLd(
   <Nav active="Wiedza" />
 
   <main id="tresc">
-    <PageHeader eyebrow={`${SITE_NAME} · baza wiedzy`} title="Baza *wiedzy*" intro={`Jak działa branża muzyczna – bez skrótów. ${count}, od najnowszego.`} dot="bg-blue" />
+    <PageHeader eyebrow={`${SITE_NAME} · baza wiedzy`} title="Baza *wiedzy*" intro="Jak działa branża muzyczna – bez skrótów." dot="bg-blue" />
 
     <section class="wrap pb-16 md:pb-24" aria-label="Najnowsze">
       <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">

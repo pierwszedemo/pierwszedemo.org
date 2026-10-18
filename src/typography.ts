@@ -44,14 +44,3 @@ export const accentParts = (text: string) =>
 		.split(/\*([^*]+)\*/)
 		.map((part, index) => ({ text: part, accent: index % 2 === 1 }))
 		.filter((part) => part.text);
-
-/**
- * Polska liczba mnoga: `plural(5, ["wpis", "wpisy", "wpisów"])` → „wpisów”.
- * Reguła: 1 → pierwsza forma, końcówka 2–4 (poza 12–14) → druga, reszta → trzecia.
- */
-export const plural = (count: number, [one, few, many]: readonly [string, string, string]) => {
-	if (count === 1) return one;
-	const tens = count % 100;
-	const units = count % 10;
-	return units >= 2 && units <= 4 && (tens < 12 || tens > 14) ? few : many;
-};
