@@ -28,6 +28,7 @@ import {
 	render,
 	requireRepoRoot,
 	resolvePostDir,
+	serif,
 } from "./lib.mjs";
 
 const slug = process.argv[2];
@@ -90,11 +91,7 @@ const coverSlide = () => {
 	const lines = hook
 		.split("\n")
 		.map((line) =>
-			el(
-				"div",
-				{ fontSize: size, fontWeight: 600, lineHeight: 1.04, letterSpacing: "-0.035em", maxWidth: 912 },
-				line,
-			),
+			el("div", { ...serif(size), lineHeight: 1.04, letterSpacing: "-0.015em", maxWidth: 912 }, line),
 		);
 	return frame(false, [
 		header(cover.eyebrow ?? "Blog", no(1)),
@@ -121,7 +118,7 @@ const contentSlide = (s, i) => {
 		el("div", { display: "flex", flexGrow: 1, flexDirection: "column", justifyContent: "center" }, [
 			el(
 				"div",
-				{ fontSize: headingSize, fontWeight: 600, lineHeight: 1.1, letterSpacing: "-0.02em", maxWidth: 912 },
+				{ ...serif(headingSize), lineHeight: 1.1, letterSpacing: "-0.02em", maxWidth: 912 },
 				glue(heading),
 			),
 			// 38 px to ~14 px po przeskalowaniu do szerokości telefonu – mniej
@@ -155,10 +152,10 @@ const ctaSlide = () =>
 					el(
 						"div",
 						{
-							fontSize: 84,
-							fontWeight: 600,
+							...serif(84),
+
 							lineHeight: 1.12,
-							letterSpacing: "-0.03em",
+							letterSpacing: "-0.015em",
 							marginTop: i ? 8 : 0,
 						},
 						line,

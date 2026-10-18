@@ -1,11 +1,11 @@
 {
-	"name": "Pierwsze Demo – Manager artystów",
+	"name": "Fundacja Pierwsze Demo",
 	"short_name": "Pierwsze Demo",
 	"lang": "pl",
 	"start_url": "/",
 	"display": "minimal-ui",
-	"background_color": "#ffffff",
-	"theme_color": "#ffffff",
+	"background_color": "#fbfaf7",
+	"theme_color": "#fbfaf7",
 	"icons": [
 		{
 			"src": "/web-app-manifest-192x192.png",

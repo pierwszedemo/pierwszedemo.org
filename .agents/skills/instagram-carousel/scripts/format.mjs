@@ -12,7 +12,7 @@
  *             oddzielone hairline. Lista, której karuzela nie ma.
  *   pytanie – jeden slajd, tekst wyśrodkowany w hairline'owej ramce, wielki
  *             „?” w mono. Karuzela jest zawsze lewa i bez ramki.
- *   liczba  – jeden slajd, kadr dzielony: góra negatyw z liczbą w Archivo
+ *   liczba  – jeden slajd, kadr dzielony: góra negatyw z liczbą w Instrument Serif
  *             ~340 px, dół biel ze zdaniem i stopką. Jedyny format z dwoma
  *             tłami w jednym kadrze.
  *
@@ -39,10 +39,12 @@ import {
 	mono,
 	PAD,
 	PANEL,
+	PAPER,
 	readSpec,
 	render,
 	requireRepoRoot,
 	resolvePostDir,
+	serif,
 } from "./lib.mjs";
 
 const FORMATS = ["mit", "zapisz", "pytanie", "liczba"];
@@ -94,10 +96,10 @@ if (format === "mit") {
 						"div",
 						{
 							marginTop: 40,
-							fontSize: size(spec.mit),
-							fontWeight: 600,
+							...serif(size(spec.mit)),
+
 							lineHeight: 1.08,
-							letterSpacing: "-0.03em",
+							letterSpacing: "-0.015em",
 							maxWidth: 912,
 							textDecoration: "line-through",
 							textDecorationColor: MUTED_ON_INK,
@@ -126,10 +128,10 @@ if (format === "mit") {
 						"div",
 						{
 							marginTop: 40,
-							fontSize: size(spec.fakt),
-							fontWeight: 600,
+							...serif(size(spec.fakt)),
+
 							lineHeight: 1.08,
-							letterSpacing: "-0.03em",
+							letterSpacing: "-0.015em",
 							maxWidth: 912,
 						},
 						glue(spec.fakt),
@@ -167,10 +169,10 @@ if (format === "zapisz") {
 					el(
 						"div",
 						{
-							fontSize: 56,
-							fontWeight: 600,
+							...serif(56),
+
 							lineHeight: 1.08,
-							letterSpacing: "-0.025em",
+							letterSpacing: "-0.015em",
 							maxWidth: 912,
 							marginBottom: 36,
 						},
@@ -235,10 +237,10 @@ if (format === "pytanie") {
 						"div",
 						{
 							marginTop: 40,
-							fontSize: size,
-							fontWeight: 600,
+							...serif(size),
+
 							lineHeight: 1.1,
-							letterSpacing: "-0.03em",
+							letterSpacing: "-0.015em",
 							maxWidth: 800,
 						},
 						glue(spec.pytanie),
@@ -267,7 +269,13 @@ if (format === "liczba") {
 	nodes = [
 		el(
 			"div",
-			{ display: "flex", flexDirection: "column", width: "100%", height: "100%", fontFamily: "Archivo" },
+			{
+				display: "flex",
+				flexDirection: "column",
+				width: "100%",
+				height: "100%",
+				fontFamily: "Instrument Sans",
+			},
 			[
 				el(
 					"div",
@@ -285,7 +293,7 @@ if (format === "liczba") {
 						header(eyebrow, "Liczba", true),
 						el(
 							"div",
-							{ fontSize: size, fontWeight: 600, lineHeight: 0.95, letterSpacing: "-0.06em", marginLeft: -8 },
+							{ ...serif(size), lineHeight: 0.95, letterSpacing: "-0.015em", marginLeft: -8 },
 							spec.liczba,
 						),
 					],
@@ -297,13 +305,13 @@ if (format === "liczba") {
 						flexDirection: "column",
 						padding: PAD,
 						paddingTop: 64,
-						backgroundColor: "#ffffff",
+						backgroundColor: PAPER,
 						color: INK,
 					},
 					[
 						el(
 							"div",
-							{ fontSize: 44, fontWeight: 600, lineHeight: 1.2, letterSpacing: "-0.02em", maxWidth: 880 },
+							{ ...serif(44), lineHeight: 1.2, letterSpacing: "-0.02em", maxWidth: 880 },
 							glue(spec.zdanie),
 						),
 						...(spec.zrodlo ? [el("div", { ...mono, marginTop: 28, color: MUTED }, spec.zrodlo)] : []),

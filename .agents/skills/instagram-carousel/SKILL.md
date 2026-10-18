@@ -1,6 +1,6 @@
 ---
 name: instagram-carousel
-description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.org – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony (biel, twarda linia, Archivo, IBM Plex Mono); wynik ląduje w instagram/_<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
+description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.org – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony („Wersja 2”: ciepła biel, Instrument Serif i Sans, płyta, pasek akcentów); wynik ląduje w instagram/_<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
 ---
 
 # instagram-carousel
@@ -204,17 +204,17 @@ z tym samym zestawem plików co karuzela (`spec.json`, `NN.png`, `alt.txt`,
 poszło.
 
 **Design celowo odbiega od karuzeli**, żeby profil nie zlał się w ścianę
-białych kadrów z tekstem po lewej. Ramy (nagłówek z etykietą, stopka
-z wordmarkiem, kadr 4:5) są wspólne – to one robią serię. Różni się środek
+jasnych kadrów z tekstem po lewej. Ramy (nagłówek z etykietą, stopka z płytą,
+logotypem i paskiem akcentów, kadr 4:5) są wspólne – to one robią serię. Różni się środek
 i tego nie ujednolicaj z powrotem:
 
 - **mit** – dwa slajdy w odwróconej kolejności niż karuzela: 01 negatyw,
-  etykieta `MIT` w mono 120 px, zdanie przekreślone; 02 biel, `FAKT`, teza
+  etykieta `MIT` w mono 120 px, zdanie przekreślone; 02 jasny, `FAKT`, teza
   wpisu, opcjonalne rozwinięcie. Spec:
   `{ "eyebrow", "mit" (≤110), "fakt" (≤140), "rozwiniecie"? (≤220) }`.
   Mit ma być zdaniem, które ktoś naprawdę mówi („Wytwórnia szuka talentów”),
   nie słomianą kukłą. Fakt to teza wpisu, nie jej zaprzeczenie słowo w słowo.
-- **zapisz** – jeden slajd na tle `panel` (krem #f4f2ee), tytuł i 3–6
+- **zapisz** – jeden slajd na tle `PANEL` (limonka #d4ff3a), tytuł i 3–6
   numerowanych wierszy oddzielonych hairline. Spec:
   `{ "eyebrow", "tytul" (≤60), "punkty": [3–6 × ≤90] }`. Punkty to rzeczy do
   *zrobienia* albo *sprawdzenia*, wzięte z wpisu – format działa, bo ktoś chce
@@ -226,8 +226,8 @@ i tego nie ujednolicaj z powrotem:
   słowie albo liczbie – „Ile rolek leży Ci na dysku?” działa, „Co sądzisz
   o strategii w socialach?” nie. Najlepsze pytanie to takie, które wpis już
   zadaje na końcu.
-- **liczba** – jeden slajd, kadr dzielony: góra negatyw z liczbą w Archivo 340 px (do 5 znaków;
-  dłuższe schodzą do 260/200), dół biel ze zdaniem i stopką. Jedyny format
+- **liczba** – jeden slajd, kadr dzielony: góra negatyw z liczbą w Instrument Serif (do 5 znaków
+  największa, dłuższe schodzą o dwa stopnie), dół jasny ze zdaniem i stopką. Jedyny format
   z dwoma tłami w jednym kadrze – nie dodawaj podziału gdzie indziej. Spec:
   `{ "eyebrow", "liczba" (≤9, np. „0 zł”, „24,99 $”, „28 dni”), "zdanie"
   (≤170), "zrodlo"? (≤60, mono pod zdaniem) }`. Zasada 2 obowiązuje
@@ -250,14 +250,15 @@ Te same bramki na cudzysłów i em dash.
 ## Pliki i konwencje
 
 - `scripts/lib.mjs` – wspólne ramy: kadr, paleta, fonty, nagłówek, stopka,
-  walidacja, zapis PNG + alt. Layout celowo trzyma się `src/og.ts`: te same
-  kolory, ta sama stopka z wordmarkiem, ta sama para krojów.
+  walidacja, zapis PNG + alt. Layout celowo trzyma się `src/og.ts` i bierze
+  stamtąd paletę, pasek akcentów i znak płyty: te same kolory, ta sama
+  stopka, te same kroje. Nagłówki idą przez `serif(px)` – stopień rośnie
+  o 18%, bo limity znaków skalibrowano pod dawne Archivo półgrube.
 - `scripts/generate.mjs` – karuzela; `scripts/format.mjs` – formaty
   pojedyncze. Oba tylko składają środek kadru z klocków `lib.mjs`. Nowy
   format = nowa gałąź w `format.mjs`, nie nowy skrypt.
-- `assets/Archivo-Regular.ttf` – odmiana do akapitów na slajdach, zvendorowana
-  tu, bo `src/assets/fonts/` trzyma tylko to, czego używają karty OG, a satori
-  czyta wyłącznie statyczne TTF.
+- Fonty to statyczne TTF z `src/assets/fonts/` (te same co karty OG) –
+  satori nie czyta woff2 ani fontów zmiennych.
 - `instagram/` w korzeniu repo to katalog wynikowy – po podkatalogu na
   każdy post (`<data>-<slug>-<typ>`, z `_` na początku dopóki post nie
   poszedł na Instagram). Pliki się commituje: są częścią historii promocji

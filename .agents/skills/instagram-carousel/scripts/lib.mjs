@@ -1,20 +1,23 @@
 /**
  * Wspólny język wizualny grafik na Instagram – to, co łączy karuzelę
  * (generate.mjs) z formatami pojedynczymi (format.mjs): kadr 4:5, paleta
- * strony, para krojów, nagłówek z etykietą i numeracją, stopka z wordmarkiem.
- * Formaty różnią się układem środka kadru; ramy mają identyczne, bo to one
- * robią z profilu serię.
+ * strony („Wersja 2”), Instrument Serif w nagłówkach i Instrument Sans
+ * w tekście, nagłówek z etykietą i numeracją, stopka z płytą, logotypem
+ * i paskiem akcentów – jak stopka strony i karty OG (src/og.ts, skąd idą
+ * paleta, pasek i znak). Formaty różnią się układem środka kadru; ramy mają
+ * identyczne, bo to one robią z profilu serię.
  *
  * Dlaczego satori, a nie SVG w sharpie: sharp renderuje SVG librsvg, który
- * sięga po *systemowe* fonty – Archivo nie ma na tej maszynie. Satori dostaje
- * TTF wprost i zamienia tekst na ścieżki. Regular jest zvendorowany w assets/
- * obok skryptu, bo src/assets/fonts trzyma tylko odmiany potrzebne kartom OG.
+ * sięga po *systemowe* fonty – Instrument Serif nie ma na tej maszynie.
+ * Satori dostaje TTF wprost (te same pliki co karty OG, src/assets/fonts)
+ * i zamienia tekst na ścieżki.
  */
 import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
-import { HOME_CITY, SITE_HOST, SITE_NAME, SITE_TAGLINE, WORDMARK } from "../../../../src/consts.ts";
+import { LOGOTYPE, SITE_HOST } from "../../../../src/consts.ts";
+import { PALETTE, RECORD_SVG, STRIPE } from "../../../../src/og.ts";
 
 // 4:5 – najwyższy kadr, jaki Instagram pokazuje w feedzie bez przycinania;
 // kwadrat oddaje ~20% wysokości ekranu sąsiednim postom.
@@ -22,13 +25,15 @@ export const WIDTH = 1080;
 export const HEIGHT = 1350;
 export const PAD = 84;
 
-export const INK = "#101010";
-export const MUTED = "#6f6d68";
-export const BODY = "#3c3a36";
-export const HAIRLINE = "#e4e2dd";
-export const PANEL = "#f4f2ee";
-/** Odpowiednik muted na negatywie – hairline z palety strony. */
-export const MUTED_ON_INK = "#a6a49f";
+export const PAPER = PALETTE.paper;
+export const INK = PALETTE.ink;
+export const MUTED = PALETTE.muted;
+export const BODY = "#3a3a42";
+export const HAIRLINE = PALETTE.hairline;
+/** Tło formatu „zapisz” – limonka, żeby lista odstawała od białych kadrów w siatce profilu. */
+export const PANEL = PALETTE.lime;
+/** Odpowiednik muted na negatywie – `fog` z palety strony. */
+export const MUTED_ON_INK = "#c9c7c0";
 
 // Ścieżki od process.cwd(): skrypty czytają pliki spoza swojego katalogu
 // (fonty OG, instagram/<data>-<slug>/), więc i tak wymagają startu z korzenia
@@ -36,7 +41,7 @@ export const MUTED_ON_INK = "#a6a49f";
 const font = (path) => readFileSync(resolve(process.cwd(), path));
 
 export function requireRepoRoot() {
-	if (!existsSync(resolve(process.cwd(), "src/assets/fonts/Archivo-SemiBold.ttf"))) {
+	if (!existsSync(resolve(process.cwd(), "src/assets/fonts/InstrumentSerif-Regular.ttf"))) {
 		console.error("Nie widzę src/assets/fonts – uruchom skrypt z katalogu głównego repo.");
 		process.exit(1);
 	}
@@ -124,12 +129,29 @@ export function failOn(errors) {
 // ---------------------------------------------------------------------------
 export const FONTS = [
 	{
-		name: "Archivo",
-		data: font(".agents/skills/instagram-carousel/assets/Archivo-Regular.ttf"),
+		name: "Instrument Serif",
+		data: font("src/assets/fonts/InstrumentSerif-Regular.ttf"),
 		weight: 400,
 		style: "normal",
 	},
-	{ name: "Archivo", data: font("src/assets/fonts/Archivo-SemiBold.ttf"), weight: 600, style: "normal" },
+	{
+		name: "Instrument Serif",
+		data: font("src/assets/fonts/InstrumentSerif-Italic.ttf"),
+		weight: 400,
+		style: "italic",
+	},
+	{
+		name: "Instrument Sans",
+		data: font("src/assets/fonts/InstrumentSans-Regular.ttf"),
+		weight: 400,
+		style: "normal",
+	},
+	{
+		name: "Instrument Sans",
+		data: font("src/assets/fonts/InstrumentSans-SemiBold.ttf"),
+		weight: 600,
+		style: "normal",
+	},
 	{
 		name: "IBM Plex Mono",
 		data: font("src/assets/fonts/IBMPlexMono-Medium.ttf"),
@@ -145,6 +167,27 @@ export const el = (type, style, children) => ({
 	props: { style, ...(children === undefined ? {} : { children }) },
 });
 
+/**
+ * Nagłówek w Instrument Serif. Krój ma małe oczko, więc stopień rośnie o 18%
+ * względem wartości, na które skalibrowano limity znaków (dawne Archivo
+ * półgrube) – serif jest też o tyle węższy, więc wiersze łamią się podobnie.
+ */
+export const serif = (px) => ({
+	fontFamily: "Instrument Serif",
+	fontWeight: 400,
+	fontSize: Math.round(px * 1.18),
+});
+
+/** Etykieta jak utility `label` na stronie: Instrument Sans półgruby, wersaliki. */
+export const label = {
+	fontFamily: "Instrument Sans",
+	fontWeight: 600,
+	fontSize: 24,
+	letterSpacing: "0.08em",
+	textTransform: "uppercase",
+};
+
+/** Mono zostaje tylko przy liczbach (numer slajdu, adres na CTA). */
 export const mono = {
 	fontFamily: "IBM Plex Mono",
 	fontWeight: 500,
@@ -162,57 +205,66 @@ export const pageNo = (i, total) => `${String(i).padStart(2, "0")}/${String(tota
 /** Nagłówek i stopka są wspólne dla wszystkich grafik – to one robią serię. */
 export const header = (left, right, onInk) =>
 	el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" }, [
-		el("div", { ...mono, color: onInk ? MUTED_ON_INK : MUTED }, left),
+		el("div", { ...label, color: onInk ? MUTED_ON_INK : MUTED }, left),
 		el("div", { ...mono, color: onInk ? "#ffffff" : INK }, right),
 	]);
 
-export const footer = (onInk) =>
-	el(
-		"div",
-		{
-			display: "flex",
-			justifyContent: "space-between",
-			alignItems: "flex-start",
-			borderTop: `3px solid ${onInk ? "#ffffff" : INK}`,
-			paddingTop: 30,
-		},
-		[
-			el("div", { display: "flex", flexDirection: "column" }, [
-				el("div", { fontSize: 30, fontWeight: 600 }, WORDMARK),
-				// Podpis człowieka pod marką: mniejszy stopień i ciaśniejsze rozstrzelenie
-				// niż w `mono`, bo 46 znaków z trackingiem 0.2em nie mieści się obok adresu.
-				el(
-					"div",
-					{
-						...mono,
-						fontSize: 17,
-						letterSpacing: "0.08em",
-						marginTop: 10,
-						color: onInk ? MUTED_ON_INK : MUTED,
-					},
-					`${SITE_NAME} – ${SITE_TAGLINE} – ${HOME_CITY}`,
-				),
-			]),
-			el("div", { ...mono, color: onInk ? MUTED_ON_INK : MUTED }, SITE_HOST),
-		],
-	);
+/** Płyta z nawigacji jako obrazek – satori pomija zagnieżdżony <svg>. */
+const recordMark = (size) => ({
+	type: "img",
+	props: {
+		src: `data:image/svg+xml;base64,${Buffer.from(RECORD_SVG).toString("base64")}`,
+		width: size,
+		height: size,
+	},
+});
 
-/** `bg` inne niż biel/ink (np. PANEL) traktujemy jak jasne tło. */
+export const footer = (onInk) =>
+	el("div", { display: "flex", flexDirection: "column", gap: 30 }, [
+		el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" }, [
+			el("div", { display: "flex", alignItems: "center", gap: 18 }, [
+				recordMark(52),
+				el("div", { fontFamily: "Instrument Serif", fontSize: 44, letterSpacing: "-0.01em" }, LOGOTYPE),
+			]),
+			el(
+				"div",
+				{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 24, color: onInk ? MUTED_ON_INK : MUTED },
+				SITE_HOST,
+			),
+		]),
+		// Pasek akcentów ze stopki strony – na każdym kadrze, jak podpis serii.
+		el(
+			"div",
+			{ display: "flex", gap: 8, height: 14 },
+			STRIPE.map(([color, grow]) => el("div", { flexGrow: grow, borderRadius: 999, backgroundColor: color })),
+		),
+	]);
+
+/** `bg` inne niż paper/ink (np. PANEL) traktujemy jak jasne tło. */
+// Padding na dziecku, nie na korzeniu: satori liczy `100%` korzenia bez
+// paddingu, więc stopka i prawa krawędź wyjeżdżały poza kadr.
 export const frame = (onInk, children, bg) =>
 	el(
 		"div",
 		{
 			display: "flex",
-			flexDirection: "column",
-			justifyContent: "space-between",
 			width: "100%",
 			height: "100%",
-			padding: PAD,
-			backgroundColor: bg ?? (onInk ? INK : "#ffffff"),
+			backgroundColor: bg ?? (onInk ? INK : PAPER),
 			color: onInk ? "#ffffff" : INK,
-			fontFamily: "Archivo",
+			fontFamily: "Instrument Sans",
 		},
-		children,
+		el(
+			"div",
+			{
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "space-between",
+				flexGrow: 1,
+				padding: PAD,
+			},
+			children,
+		),
 	);
 
 /**

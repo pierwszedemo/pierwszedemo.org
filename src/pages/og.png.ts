@@ -1,10 +1,11 @@
 import type { APIRoute } from "astro";
 import { OG_HEADERS, renderOgCard } from "../og";
+import { HOMEPAGE } from "../strony";
 
 export const prerender = true;
 
 export const GET: APIRoute = async () => {
-	// Bez `badge` – domyślny to adres serwisu, liczony z SITE_URL.
-	const png = await renderOgCard({ title: "Pierwsze demo to początek." });
+	// Slogan z Tiny, z akcentem jak w hero. Bez `badge` – w stopce adres serwisu.
+	const png = await renderOgCard({ title: HOMEPAGE.slogan });
 	return new Response(png, { headers: OG_HEADERS });
 };

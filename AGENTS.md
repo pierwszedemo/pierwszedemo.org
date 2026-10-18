@@ -409,20 +409,32 @@ are resources, not pages.
 
 `/og.png` (homepage) and `/og/<slug>.png` (posts) are drawn at build time by
 `src/og.ts` – satori lays the card out and converts text to paths, sharp
-rasterises. Two constraints are load-bearing:
+rasterises. The card is the site in miniature: paper background, the eyebrow
+pill, the title in Instrument Serif (`*accent*` in blue, as in the hero – the
+homepage card takes the slogan from Tina), the record mark, the logotype, a
+category pill and the accent stripe from the footer. `PALETTE`, `STRIPE` and
+`RECORD_SVG` there are the one copy every generated image reads – favicons,
+the Facebook cover and the Instagram frames import them. Satori quirks that
+bite: padding on the root element is added *outside* `100%` (it pushed the
+footer off the card – pad a child instead), a nested `<svg>` element is
+dropped (the record goes in as a data-URI `img`), and text with two styles
+must be split into word boxes (`titleWords`). Two constraints are load-bearing:
 
 - Fonts are vendored as **TTF** in `src/assets/fonts/`. Astro's Fonts API caches
   woff2, which satori cannot read; and handing plain SVG to sharp would render
-  through librsvg, which resolves *system* fonts – Archivo exists on neither this
-  machine nor the Cloudflare builder.
+  through librsvg, which resolves *system* fonts – Instrument Serif exists on
+  neither this machine nor the Cloudflare builder. Static instances only
+  (`InstrumentSerif-Regular/Italic`, `InstrumentSans-Regular/SemiBold`):
+  satori does not read variable fonts.
 - Paths resolve from `process.cwd()`, never `import.meta.url`: Vite bundles the
   module into `dist/server/.prerender/chunks/`, where the TTFs are not.
 
 Posts live under `/og/<slug>.png` rather than `/wiedza/<slug>/og.png` so they don't
 collide with the `[...slug]` catch-all. The eyebrow is the foundation's name,
-not a person's. The cards (and the favicons, social assets and Instagram
-graphics) still draw the Swiss look in Archivo – „Wersja 2” has not reached
-them yet.
+not a person's. `/og/dzwieki-efemeryczne.png` alone keeps the Swiss card
+(`renderSwissCard`, Archivo + IBM Plex Mono) – like its page; so does
+`scripts/generate-dzwieki.mjs`. Those two are the only reason the Archivo TTF
+is still in `src/assets/fonts/`.
 
 ### Favicons
 
@@ -430,41 +442,38 @@ them yet.
 multi-size `.ico` from one source. Run it by hand (`bun scripts/generate-favicons.mjs`),
 not in the build — icons change once every few years and the output is committed.
 
-The „PD" monogram is a **path baked from Archivo**, never `<text>`. The first
-version used `<text font-family="Archivo, …">` and every raster came out as an
-empty square: sharp rasterises SVG through librsvg, which resolves *system*
-fonts. A visitor's browser rendering `favicon.svg` has the same problem. If you
-restyle the icon, keep the glyph as an outline.
+The icon is the record from the nav (`RECORD_SVG`): circles only, no text.
+The old „PD" monogram had to be a path baked from the font – sharp rasterises
+SVG through librsvg, which resolves *system* fonts, and so does a visitor's
+browser rendering `favicon.svg` – and at 16 px its stems fell below a pixel.
+A dark disc with an orange centre has neither problem. If the icon ever gets
+letters again, bake them as outlines, never `<text>`.
 
-Two variants come out of the same monogram: `favicon.svg` and the ≥96 px PNGs
-keep the mock's frame, the 16/32/48 px entries inside `.ico` drop it. Framed,
-two letters at 16 px leave the stems below a pixel and „PD" smears into a grey
-block — the frame is what has to go, not the second letter.
+The tab icons (`favicon.svg`, `.ico`, 96 px) are the bare disc on
+transparency; the „app" icons (`apple-touch-icon`, manifest 192/512) put it on
+the paper colour with a margin, because iOS fills transparency with black and
+masks the corners.
 
 `public/bimi.svg` (BIMI logo for DMARC) comes out of the same script: SVG Tiny PS
 (`version="1.2"`, `baseProfile="tiny-ps"`, `<title>` first, no `x`/`y` on the
-root, no scripts/styles/images/external refs – validators reject each of these).
-Mail clients crop it to a circle, so the ring sits inside the edge; never hand
+root, no scripts/styles/images/external refs – validators reject each of these;
+the circles are computed directly rather than through a `<g transform>`).
+Mail clients crop it to a circle, so the disc sits inside the edge; never hand
 it a transparent background. Referenced from the DNS `default._bimi` TXT record,
 which is outside the repo.
-
-Monogram padding is counted from the frame's *inner* edge (`FRAME + GAP`), not
-the viewBox — the stroke sits at x=2 with width 4, so a padding equal to the
-frame thickness puts the letters flush against it.
 
 ### Social assets (`assets/`)
 
 Files uploaded by hand to Facebook/Instagram, not served by the site – hence
 outside `public/`. `generate-favicons.mjs` also writes `assets/profile-1080.png`:
-the monogram in a **circular** ring (platforms show the profile picture as a
-circle, so a square frame would lose its corners) with a wider margin than the
-icons. `scripts/generate-social.mjs` (`bun scripts/generate-social.mjs`) writes
+the record on the paper colour with a wide margin (platforms crop the profile
+picture to a circle). `scripts/generate-social.mjs` (`bun scripts/generate-social.mjs`) writes
 `assets/facebook-cover-1640x856.png` through `renderOgCard()` – `src/og.ts`
 takes `width`/`height`/`paddingX` for that. Facebook shows two crops of one
 cover: desktop the centre 1640×624 band, mobile the centre ~1522×856 column, so
 the card is drawn at 1640×624 with 200 px side margins and padded to 856 with
-white bands – desktop gets the card pixel-for-pixel, mobile the same card with
-breathing room.
+paper-coloured bands – desktop gets the card pixel-for-pixel, mobile the same
+card with breathing room. Its title is the homepage slogan from Tina.
 
 ### Analytics & consent
 
@@ -561,12 +570,12 @@ on a dark band.
   once the post is up, so `ls instagram/` doubles as the queue; an existing
   bare directory is reused on regeneration so a posted post never gets a
   duplicate next to it.
-  `scripts/lib.mjs` holds the shared frame and mirrors `src/og.ts` (satori +
-  sharp, same palette and footer); `generate.mjs` draws the carousel,
-  `format.mjs` the single formats. The skill vendors its own
-  `Archivo-Regular.ttf` because `src/assets/fonts/` holds only what the OG
-  cards use. `instagram/` output is committed – it is the promotion history
-  of a post.
+  `scripts/lib.mjs` holds the shared frame and imports palette, stripe and
+  record mark from `src/og.ts` (satori + sharp, same fonts and footer);
+  `generate.mjs` draws the carousel, `format.mjs` the single formats.
+  `instagram/` output is committed – it is the promotion history of a post,
+  so graphics already posted in the Swiss look stay as they are; only new
+  ones come out in „Wersja 2”.
 
 ## Launch
 
