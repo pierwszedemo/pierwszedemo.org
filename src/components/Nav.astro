@@ -12,34 +12,38 @@ const { active } = Astro.props;
 // Na telefonie „Dołącz” stoi w jednym rzędzie z logotypem, a linki schodzą
 // pod spód (`order`) – inaczej pigułka spadała sama do trzeciego wiersza.
 // Linki dostają pionowy padding, żeby cel dotyku miał 24 px (WCAG 2.5.8).
+// Linia pod spodem na całą szerokość okna, nie kontenera – stąd dwa
+// elementy: <header> niesie linię, `wrap` w środku trzyma treść.
 ---
 
-<header class="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-5">
-  <a href="/" class="flex items-center gap-3 text-ink transition-colors hover:text-blue">
-    <Logo class="size-10 shrink-0" />
-    <span class="font-serif text-[28px] leading-none tracking-[-0.01em]"
-      ><span class="sr-only">Fundacja </span>{LOGOTYPE}</span
-    >
-  </a>
-  <a href={JOIN_PATH} class="btn btn-ink md:order-last">Dołącz</a>
-  <nav aria-label="Główna" class="w-full md:ml-auto md:w-auto">
-    <ul class="flex flex-wrap gap-x-5 font-medium md:gap-x-7">
-      {
-        NAV.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={[
-                "inline-block py-2 transition-colors hover:text-blue",
-                active === item.label && "underline decoration-2 underline-offset-8",
-              ]}
-              aria-current={active === item.label ? "page" : undefined}
-            >
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </nav>
+<header class="border-b border-hairline">
+  <div class="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-5">
+    <a href="/" class="flex items-center gap-3 text-ink transition-colors hover:text-blue">
+      <Logo class="size-10 shrink-0" />
+      <span class="font-serif text-[28px] leading-none tracking-[-0.01em]"
+        ><span class="sr-only">Fundacja </span>{LOGOTYPE}</span
+      >
+    </a>
+    <a href={JOIN_PATH} class="btn btn-ink md:order-last">Dołącz</a>
+    <nav aria-label="Główna" class="w-full md:ml-auto md:w-auto">
+      <ul class="flex flex-wrap gap-x-5 font-medium md:gap-x-7">
+        {
+          NAV.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={[
+                  "inline-block py-2 transition-colors hover:text-blue",
+                  active === item.label && "underline decoration-2 underline-offset-8",
+                ]}
+                aria-current={active === item.label ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
 </header>
