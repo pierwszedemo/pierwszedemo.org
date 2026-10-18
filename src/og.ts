@@ -65,7 +65,7 @@ export const STRIPE = [
 	[PALETTE.sun, 1],
 	[PALETTE.pink, 2],
 	[PALETTE.blue, 4],
-	[PALETTE.lime, 1],
+	[PALETTE.lime, 2],
 ] as const;
 
 interface CardOptions {
