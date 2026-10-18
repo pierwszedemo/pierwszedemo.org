@@ -100,14 +100,13 @@ const el = (type: string, style: Record<string, unknown>, children?: unknown) =>
  */
 export const RECORD_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="${PALETTE.ink}"/><circle cx="20" cy="20" r="14" fill="none" stroke="#3a3a42" stroke-width="1.5"/><circle cx="20" cy="20" r="7" fill="${PALETTE.orange}"/><circle cx="20" cy="20" r="1.8" fill="${PALETTE.paper}"/></svg>`;
 
-const recordMark = (size: number) => ({
+/** SVG jako obrazek z data URI – satori pomija zagnieżdżony element <svg>. */
+const svgImg = (svg: string, width: number, height: number, style: Record<string, unknown> = {}) => ({
 	type: "img",
-	props: {
-		src: `data:image/svg+xml;base64,${Buffer.from(RECORD_SVG).toString("base64")}`,
-		width: size,
-		height: size,
-	},
+	props: { src: `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`, width, height, style },
 });
+
+const recordMark = (size: number) => svgImg(RECORD_SVG, size, size);
 
 const pill = (text: string, background: string, dot?: string) =>
 	el(
@@ -225,6 +224,148 @@ export async function renderOgCard({
 			),
 		),
 		{ width, height, fonts: FONTS },
+	);
+
+	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
+}
+
+/**
+ * Kaseta z hero bez napisu: tekst w SVG wstawionym jako obrazek rasteryzuje
+ * librsvg fontem systemowym, więc etykieta to same paski.
+ */
+const CASSETTE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 140"><rect width="220" height="140" rx="12" fill="${PALETTE.blue}"/><rect x="14" y="14" width="192" height="74" rx="6" fill="${PALETTE.paper}"/><rect x="14" y="14" width="192" height="16" rx="3" fill="${PALETTE.orange}"/><rect x="24" y="46" width="120" height="7" rx="3.5" fill="${PALETTE.hairline}"/><rect x="24" y="62" width="80" height="7" rx="3.5" fill="${PALETTE.hairline}"/><rect x="58" y="96" width="104" height="32" rx="16" fill="${PALETTE.ink}"/><circle cx="80" cy="112" r="11" fill="${PALETTE.paper}"/><circle cx="80" cy="112" r="4" fill="${PALETTE.ink}"/><circle cx="140" cy="112" r="11" fill="${PALETTE.paper}"/><circle cx="140" cy="112" r="4" fill="${PALETTE.ink}"/></svg>`;
+
+/** Zdjęcie z dysku jako data URI, zmniejszone – inaczej karta ważyłaby megabajty. */
+const photoUri = async (file: string) => {
+	const jpeg = await sharp(resolve(process.cwd(), file))
+		.resize({ width: 400 })
+		.jpeg({ quality: 80 })
+		.toBuffer();
+	return `data:image/jpeg;base64,${jpeg.toString("base64")}`;
+};
+
+interface HomeCardOptions {
+	/** Slogan z Tiny; `*akcent*` na niebiesko, jak w hero. */
+	title: string;
+	/** Zdjęcia do polaroidu: plik od korzenia repo i `object-position` w CSS. */
+	photos: readonly { file: string; focus: string }[];
+	/** Podpis pod zdjęciami, jak w hero („to my – …”). */
+	caption: string;
+}
+
+/**
+ * Karta OG strony głównej – hero w miniaturze: slogan po lewej, polaroid
+ * z taśmą, kaseta i naklejka „REC” po prawej, pasek akcentów na dole. Karty
+ * wpisów zostają tekstowe (`renderOgCard`): tam tytułem jest wpis, a nie
+ * fundacja. Wszystko pozycjonowane absolutnie, bo kolaż nachodzi na siebie.
+ */
+export async function renderHomeCard({ title, photos, caption }: HomeCardOptions): Promise<Buffer> {
+	const sources = await Promise.all(photos.map((photo) => photoUri(photo.file)));
+	const at = (style: Record<string, unknown>) => ({ position: "absolute", ...style });
+	const sans = { fontFamily: "Instrument Sans", fontWeight: 600 };
+
+	const svg = await satori(
+		el(
+			"div",
+			{
+				display: "flex",
+				position: "relative",
+				width: "100%",
+				height: "100%",
+				backgroundColor: PALETTE.paper,
+				color: PALETTE.ink,
+				fontFamily: "Instrument Serif",
+			},
+			[
+				el(
+					"div",
+					{
+						...at({ left: 64, top: 56, width: 600, bottom: 96 }),
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "space-between",
+					},
+					[
+						el("div", { display: "flex", alignItems: "center", gap: 14 }, [
+							recordMark(48),
+							el("div", { fontSize: 40, letterSpacing: "-0.01em" }, LOGOTYPE),
+						]),
+						el(
+							"div",
+							{ display: "flex", flexWrap: "wrap", fontSize: 92, lineHeight: 0.92, letterSpacing: "-0.02em" },
+							titleWords(title),
+						),
+						el("div", { ...sans, fontSize: 24, color: PALETTE.muted }, `${SITE_NAME} · ${SITE_HOST}`),
+					],
+				),
+				// Kaseta przed polaroidem w drzewie, więc pod nim – wystaje zza prawej krawędzi.
+				svgImg(CASSETTE_SVG, 200, 127, at({ left: 1010, top: 250, transform: "rotate(8deg)" })),
+				el(
+					"div",
+					{
+						...at({ left: 740, top: 70, width: 340, height: 440 }),
+						display: "flex",
+						flexDirection: "column",
+						padding: "12px 12px 0",
+						backgroundColor: "#ffffff",
+						borderRadius: 6,
+						boxShadow: "0 24px 48px rgba(21,21,26,0.16)",
+						transform: "rotate(-3deg)",
+					},
+					[
+						el(
+							"div",
+							{ display: "flex", gap: 4, height: 360, borderRadius: 3, overflow: "hidden" },
+							sources.map((src, index) => ({
+								type: "img",
+								props: {
+									src,
+									width: 156,
+									height: 360,
+									style: { objectFit: "cover", objectPosition: photos[index].focus },
+								},
+							})),
+						),
+						el("div", { display: "flex", padding: "16px 8px 0", fontStyle: "italic", fontSize: 30 }, caption),
+					],
+				),
+				el("div", {
+					...at({ left: 845, top: 54, width: 130, height: 34 }),
+					backgroundColor: "rgba(212,255,58,0.8)",
+					transform: "rotate(4deg)",
+				}),
+				el(
+					"div",
+					{
+						...at({ right: 56, top: 44 }),
+						...sans,
+						display: "flex",
+						alignItems: "center",
+						gap: 10,
+						padding: "8px 18px",
+						borderRadius: 999,
+						border: `2px solid ${PALETTE.ink}`,
+						backgroundColor: "#ffffff",
+						fontSize: 20,
+						letterSpacing: "0.08em",
+						transform: "rotate(6deg)",
+					},
+					[
+						el("div", { width: 14, height: 14, borderRadius: 999, backgroundColor: "#ff3b30" }),
+						el("div", {}, "REC"),
+						el("div", { letterSpacing: 0, color: PALETTE.muted }, "00:01"),
+					],
+				),
+				el(
+					"div",
+					{ ...at({ left: 64, right: 64, bottom: 40, height: 14 }), display: "flex", gap: 8 },
+					STRIPE.map(([color, grow]) =>
+						el("div", { flexGrow: grow, borderRadius: 999, backgroundColor: color }),
+					),
+				),
+			],
+		),
+		{ width: 1200, height: 630, fonts: FONTS },
 	);
 
 	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
