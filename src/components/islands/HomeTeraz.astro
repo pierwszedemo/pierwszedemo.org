@@ -10,8 +10,9 @@ interface Props {
 }
 const { home } = Astro.props;
 
-// Limonkowe koło jest na telefonie małe i wciśnięte w róg: biały nagłówek na
-// limonce ma kontrast 1,2:1, a na wąskim ekranie nagłówek sięga prawej krawędzi.
+// Limonkowe koło na telefonie siedzi małe w prawym dolnym rogu, nie w górnym:
+// biały nagłówek na limonce ma kontrast 1,2:1, a na wąskim ekranie nagłówek
+// sięga prawej krawędzi. Na dole dotyka go tylko biały przycisk.
 ---
 
 {
@@ -23,13 +24,10 @@ const { home } = Astro.props;
         data-tina-field={field(project)}
       >
         <span
-          class="absolute -top-20 -right-20 size-40 rounded-full bg-lime md:-top-35 md:-right-15 md:size-95"
+          class="absolute -right-16 -bottom-16 size-36 rounded-full bg-lime md:-top-35 md:-right-15 md:bottom-auto md:size-95"
           aria-hidden="true"
         />
         <div class="relative flex min-w-0 flex-[999_1_30rem] flex-col gap-5">
-          <span class="self-start rounded-full bg-white px-3.5 py-[7px] text-sm font-semibold tracking-[0.06em] text-ink uppercase">
-            Teraz
-          </span>
           <h2 class="font-serif text-band leading-[0.9] tracking-[-0.02em] text-balance">
             <Accent text={project.name} />
           </h2>

@@ -14,7 +14,7 @@ const { home, activities } = Astro.props;
 
 <div class="flex flex-wrap items-end justify-between gap-6">
   <h2 id="co-robimy-naglowek" class="font-serif text-page leading-[0.95] tracking-[-0.02em]">
-    Co <em>robimy</em>
+    Co robimy
   </h2>
   <p class="max-w-[23.75rem] text-body" data-tina-field={field(home, "activitiesIntro")}>
     {fixHanging(home.activitiesIntro)}
@@ -36,7 +36,7 @@ const { home, activities } = Astro.props;
           <span class="flex-[0_0_2rem] font-mono md:flex-[0_0_3.5rem] text-[15px] text-muted">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <h3 class="flex-[1_1_15rem] font-serif text-item leading-none text-balance group-hover:italic">
+          <h3 class="flex-[1_1_15rem] font-serif text-item leading-none text-balance decoration-1 underline-offset-[6px] group-hover:underline">
             {fixHanging(activity.label)}
           </h3>
           <p class="flex-[1_1_17.5rem] text-body">{fixHanging(activity.summary)}</p>

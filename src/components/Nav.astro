@@ -17,20 +17,22 @@ const { active } = Astro.props;
 // Przyklejona do góry, więc tło kryjące (paper) i z-index nad treścią, ale pod
 // linkiem „Przejdź do treści” (z-50). Skoki do kotwic omija dzięki
 // `scroll-padding-top` w global.css. Na telefonie niższy padding – dwa wiersze
-// nawigacji zabierają i tak ~110 px ekranu.
+// nawigacji zabierają i tak ~105 px ekranu. Poniżej sm mniejszy logotyp
+// i ciaśniejsze odstępy – przy 360 px pigułka i „Aktualności” spadały do
+// osobnych wierszy i nawigacja rosła do czterech.
 ---
 
 <header class="sticky top-0 z-40 border-b border-hairline bg-paper">
-  <div class="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-1 py-3 md:py-5">
-    <a href="/" class="flex items-center gap-3 text-ink transition-colors hover:text-blue">
-      <Logo class="size-10 shrink-0" />
-      <span class="font-serif text-[28px] leading-none tracking-[-0.01em]"
+  <div class="wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3 md:gap-x-8 md:py-5">
+    <a href="/" class="flex items-center gap-2.5 text-ink transition-colors hover:text-blue sm:gap-3">
+      <Logo class="size-9 shrink-0 sm:size-10" />
+      <span class="font-serif text-[24px] leading-none tracking-[-0.01em] sm:text-[28px]"
         ><span class="sr-only">Fundacja </span>{LOGOTYPE}</span
       >
     </a>
-    <a href={JOIN_PATH} class="btn btn-ink md:order-last">Dołącz</a>
+    <a href={JOIN_PATH} class="btn btn-ink max-sm:[--btn-px:1rem] md:order-last">Dołącz</a>
     <nav aria-label="Główna" class="w-full md:ml-auto md:w-auto">
-      <ul class="flex flex-wrap gap-x-5 font-medium md:gap-x-7">
+      <ul class="flex flex-wrap gap-x-3 text-[15px] font-medium max-[22rem]:gap-x-2 max-[22rem]:text-sm sm:gap-x-5 sm:text-base md:gap-x-7">
         {
           NAV.map((item) => (
             <li>

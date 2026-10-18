@@ -86,7 +86,7 @@ Every page is a stack of full-bleed bands with the content in `wrap` (80rem,
 the same side padding everywhere), so text starts on one line on every page.
 Parts, in `src/components/`:
 
-- `PageHeader` – pill eyebrow, a huge serif h1 with an `*accent*`, a short
+- `PageHeader` – pill eyebrow, a huge serif h1, a short
   paragraph or an `aside` slot on the right. The pill is a `<p>`; on subpages
   the h1 carries the phrase. (The homepage is the reverse – see „Not built
   yet”.)
@@ -105,8 +105,8 @@ Parts, in `src/components/`:
 
 Bands alternate so two neighbours never share a background. On `/` that is
 paper (hero), ink („Kim jesteśmy”), white („Co robimy”), panel („Co się
-dzieje”), ink („Teraz” – the blue card sits on it), white („Dołącz”), panel
-(contact), ink (footer). White against paper is a hair's difference, so the
+dzieje” and, in the same band, the blue project card – on ink it sank),
+white („Dołącz”), panel (contact), ink (footer). White against paper is a hair's difference, so the
 alternation with white uses `panel`.
 
 Rounded corners, pills and colour cards are the language; the one structural
@@ -148,10 +148,13 @@ from `consts.ts` on purpose: the consent banner script imports `consts.ts`,
 and a default JSON import is not tree-shaken – the bios ended up in browser
 JavaScript. Never import `strony.ts` from `src/scripts/`. JSON text has plain
 spaces; templates run `fixHanging()` on it, because a hand-typed `&nbsp;`
-does not survive an edit in Tina. Homepage headings mark their accent word with
+does not survive an edit in Tina. A heading can mark an accent word with
 `*asterisks*` („Hej, robimy *fajne rzeczy*…”) – `accentParts()` in
-`typography.ts` and `Accent.astro` turn it into `<em>` (italic or colour, the
-page decides). The fields say so in their Tina description. `GOALS` (the statute), `FOUNDATION` and
+`typography.ts` and `Accent.astro` turn it into a coloured `<em>` (blue in the
+hero, lime in „Kim jesteśmy”). The accent is colour only, never italic –
+italic words in headings read as random; where the page passes no colour the
+asterisks simply vanish. The Tina field descriptions still say „kursywę albo
+kolor”; only colour is true now. `GOALS` (the statute), `FOUNDATION` and
 `PRIVACY_*` (legal text) stay in code deliberately.
 
 `LAST_CONTENT_UPDATE` must be bumped by hand – it drives JSON-LD `dateModified`
@@ -326,8 +329,8 @@ files; React exists only there.
   object keyed `muzycy` / `organizatorzy` / `darczyncy`, not a list, because
   each has a different exit in code: musicians and organisers `EmailLink`,
   donors `/wesprzyj` + statute + a tax-deduction line. On the page the
-  donors' card comes first and biggest (orange, two columns by two rows) –
-  without donors the foundation does neither of the other two. A list of paragraphs is `paragraphList()`: with `list: true`,
+  donors' card comes first (orange) – without donors the foundation does
+  neither of the other two – but the three tiles are the same size. A list of paragraphs is `paragraphList()`: with `list: true`,
   `ui.component` replaces the whole list widget (one textarea for the array,
   and a save would turn it into a string), so the per-item widget goes in
   `ui.field`. Tina
@@ -505,6 +508,15 @@ listens for `[data-cc-preferences]` (the footer „Cookies" cell and the button 
 the bottom of the privacy policy). Bump `revision` in `consentConfig` when the
 categories or wording change – it re-prompts everyone.
 
+The banner and the preferences panel are styled in `global.css` (`#cc-main`)
+in the site's language: a white rounded card with the orange dot, ink pill
+buttons, rounded category blocks. Button colours go through the library's
+`--cc-btn-primary-*` / `--cc-btn-secondary-*` variables, both set to the same
+pill – refusing must look exactly like accepting. On a phone the card is two
+rows (sentence, then two half-width buttons). The library hides itself from
+automated browsers (`navigator.webdriver`), so a headless screenshot shows no
+banner unless the flag is spoofed.
+
 `PRIVACY_TOOLS` / `PRIVACY_SECTIONS` in `consts.ts` feed both `/polityka-prywatnosci`
 and the wording inside the preferences panel. Adding a third-party script means
 adding a row there too, or the policy becomes false. The data controller is the
@@ -529,9 +541,10 @@ links 6.3:1 and ink on orange 5.8:1. Check any new text/background pair against
 7:1 before using it. A fluid type scale (`--text-hero`, `-page`, `-band`,
 `-post`, `-item`, `-row`) with the 1440 px mock's values as `clamp()` maxima.
 
-Type: **Instrument Serif** (400 only, with italic) for every heading and the
-logotype – the accent inside a heading is italic, never bold, because the
-browser would fake a bold. **Instrument Sans** for text, **IBM Plex Mono** only
+Type: **Instrument Serif** (400 only) for every heading and the logotype –
+never bold (the browser would fake it) and, in headings, never italic. Italic
+is left for small serif labels: the „Dołącz” card kickers and the polaroid
+caption. **Instrument Sans** for text, **IBM Plex Mono** only
 for numbers (activity numbers, dates in lists). All three are self-hosted
 through Astro's Fonts API in `astro.config.mjs` with the `latin-ext` subset for
 Polish diacritics.
@@ -633,8 +646,11 @@ Astro refuses to upscale.
 
 The nav is the logotype (`Logo.astro` + „pierwsze demo” in serif), four links
 (O nas → /fundacja, Co robimy → /fundacja#dzialania, Wiedza, Aktualności) and
-the „Dołącz” pill (`JOIN_PATH`, the homepage section). On a phone the pill
-stays in the logotype's row and the links drop below. „Wesprzyj” is
+the „Dołącz” pill (`JOIN_PATH`, the homepage section). It is sticky (`top-0`,
+opaque paper), and `scroll-padding-top` on `:root` keeps anchor jumps clear
+of it. On a phone the pill stays in the logotype's row and the links drop
+below – two rows from 320 px up, with a smaller logotype and tighter gaps
+below `sm`. „Wesprzyj” is
 deliberately not a nav item: it is the `SupportBand.astro` card above the
 footer on the pages that make sense as a donor's entry point, and the third
 „Dołącz” card on `/`. The e-mail address is shown verbatim in the „Kontakt"

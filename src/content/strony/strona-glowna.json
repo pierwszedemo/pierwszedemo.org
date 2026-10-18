@@ -6,13 +6,13 @@
   "activitiesIntro": "Pięć rzeczy, w których pomagamy młodym i początkującym twórcom muzycznym.",
   "teraz": [
     {
-      "name": "Baza *wiedzy*",
+      "name": "Baza wiedzy",
       "meta": "Jak działa branża – bez skrótów. Tantiemy, dystrybucja, umowy, promocja: wszystko, czego nikt nie tłumaczy na początku.",
       "href": "/wiedza",
       "cta": "Otwórz bazę wiedzy"
     }
   ],
-  "join": "Zobacz i *dołącz.* Jest tu miejsce dla Ciebie.",
+  "join": "Zobacz i dołącz. Jest tu miejsce dla Ciebie.",
   "joinIntro": "Niezależnie od tego, czy grasz, organizujesz, uczysz, czy chcesz nas wesprzeć.",
   "joinCards": {
     "muzycy": {
