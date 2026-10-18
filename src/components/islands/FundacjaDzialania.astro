@@ -1,7 +1,7 @@
 ---
 import type { ActivitiesDoc } from "../../strony";
-import { item, itemText, link } from "../../styles/fundacja";
 import { fixHanging } from "../../typography";
+import ActivityIcon from "../home/ActivityIcon.astro";
 import { field } from "./field";
 
 interface Props {
@@ -11,22 +11,30 @@ const { activities } = Astro.props;
 ---
 
 {
+  /* Ten sam wiersz co „Co robimy” na stronie głównej, tylko z pełnym opisem
+     zamiast skrótu – i bez linku na całym wierszu, bo to jest cel tamtych
+     linków. `id` to kotwica, do której prowadzą strona główna i llms.txt. */
   activities.activities.map((activity, index) => (
-    <li class={item} id={activity.id} data-tina-field={field(activity)}>
-      <h3 class="flex items-baseline justify-between gap-4 font-serif text-row md:flex-col md:items-start md:gap-2">
-        <span data-tina-field={field(activity, "label")}>{activity.label}</span>
-        <span class="label text-muted">({String(index + 1).padStart(2, "0")})</span>
+    <li
+      class="grid scroll-mt-6 grid-cols-[2rem_minmax(0,1fr)] items-start gap-x-4 gap-y-3 border-b border-hairline py-8 md:grid-cols-[3.5rem_minmax(0,1fr)_minmax(0,1.25fr)_3.5rem] md:gap-x-8 md:py-10"
+      id={activity.id}
+      data-tina-field={field(activity)}
+    >
+      <span class="pt-2 font-mono text-[15px] text-muted md:pt-3">{String(index + 1).padStart(2, "0")}</span>
+      <h3 class="font-serif text-item leading-none text-balance" data-tina-field={field(activity, "label")}>
+        {fixHanging(activity.label)}
       </h3>
-      <div class={`flex flex-col gap-3 ${itemText}`}>
+      <div class="col-start-2 flex flex-col gap-3 text-body md:col-start-auto md:pt-1">
         <p data-tina-field={field(activity, "description")}>{fixHanging(activity.description)}</p>
         {activity.href && (
           <p>
-            <a href={activity.href} class={link}>
+            <a href={activity.href} class="text-link font-semibold">
               {activity.linkLabel} <span aria-hidden="true">→</span>
             </a>
           </p>
         )}
       </div>
+      <ActivityIcon index={index} class="hidden size-14 md:block" />
     </li>
   ))
 }

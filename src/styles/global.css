@@ -47,24 +47,23 @@
 :root {
 	scrollbar-gutter: stable;
 
-	/* Siatka 16 kolumn: makieta 1280 px dzieli się na moduły po 80 px
+	/* Siatka 16 kolumn ze szwajcarskiej makiety – dziś używa jej już tylko
+     strona cyklu koncertów (/dzwieki-efemeryczne), reszta serwisu stoi na
+     kontenerze `wrap`. Makieta 1280 px dzieli się na moduły po 80 px
      (160 = 2, 400 = 5, 640 = 8). Jednostką jest cqw, nie % ani vw: procent
      w zagnieżdżonej siatce liczy się od rodzica, a vw wlicza pasek przewijania,
      więc tylko cqw daje tę samą kolumnę na każdym poziomie zagnieżdżenia.
-     Działa wewnątrz <main> (kontener niżej); poza nim – nawigacja, stopka,
-     pasek prev/next – pasma są na pełną szerokość i wystarcza im fr albo %. */
+     Działa wewnątrz <main> (kontener niżej). */
 	--col: 6.25cqw;
-	/* Kolumna boczna = 5 modułów, makietowe 400 px. Nawigacja i stopka dzielą
-     się 5/3/3/5, więc ta sama linia biegnie przez całą stronę – z lewej
-     (wpis, polityka, /fundacja, /wesprzyj) albo z prawej (hero, nagłówki stron).
-     Cztery moduły byłyby równą ćwiartką, ale 320 px minus padding to 256 px,
-     a odtwarzacz Spotify potrzebuje 280. */
+	/* Kolumna boczna = 5 modułów, makietowe 400 px. Cztery moduły byłyby
+     równą ćwiartką, ale 320 px minus padding to 256 px, a odtwarzacz Spotify
+     potrzebuje 280. */
 	--aside: calc(var(--col) * 5);
 }
 
 /* Widoczny focus w całym serwisie. Musi siedzieć w warstwie `base`,
    inaczej reguła bez warstwy wygrywa z utilities Tailwinda i nie da się
-   jej nadpisać tam, gdzie tło jest czarne (wiersze bloga). */
+   jej nadpisać tam, gdzie tło jest ciemne (pasma ink, karta niebieska). */
 @layer base {
 	/* Punkt odniesienia dla --col. Na <main>, nie na <body>: container-type
      zakłada layout containment, a ten zrobiłby z body blok odniesienia dla
@@ -76,16 +75,6 @@
 	:focus-visible {
 		outline: 2px solid var(--color-ink);
 		outline-offset: 2px;
-	}
-
-	/* Podstrony to pasma siatki 16 kolumn na całą szerokość. Powyżej 1280 px
-     rozjeżdżały się z nawigacją i stopką, których treść stoi w kontenerze
-     80rem, więc <main> ma ten sam kontener. Strona główna to pasma z własnym
-     tłem na całą szerokość – zdejmuje go przez `max-w-none`. */
-	main {
-		width: 100%;
-		max-width: 80rem;
-		margin-inline: auto;
 	}
 }
 
@@ -109,9 +98,8 @@
 	transform: translateX(28px);
 }
 
-/* Pasmo z kolumną boczną po lewej / po prawej. Jedna definicja zamiast
-   szerokości wpisywanej na każdej stronie osobno – tak rozjechały się 400 px
-   zdjęcia i 320 px nawigacji. */
+/* Pasmo z kolumną boczną po lewej / po prawej (strona cyklu koncertów).
+   Jedna definicja zamiast szerokości wpisywanej w miejscu. */
 @utility grid-aside-left {
 	grid-template-columns: var(--aside) minmax(0, 1fr);
 }
@@ -141,6 +129,19 @@
 	padding-inline: 1.25rem;
 	@media (width >= 48rem) {
 		padding-inline: 2rem;
+	}
+}
+
+/* Link w tekście: niebieski i podkreślony – sam kolor nie wystarcza
+   (WCAG 1.4.1). Na ciemnym tle strona podmienia kolor na limonkę. */
+@utility text-link {
+	color: var(--color-blue);
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 4px;
+	transition: color 0.2s;
+	&:hover {
+		color: var(--color-blue-deep);
 	}
 }
 

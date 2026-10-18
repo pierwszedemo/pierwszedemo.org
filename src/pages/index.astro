@@ -4,7 +4,6 @@ import { getSortedArticles, getSortedNews } from "../collections";
 import EmailLink from "../components/EmailLink.astro";
 import Footer from "../components/Footer.astro";
 import HeroCollage from "../components/home/HeroCollage.astro";
-import PostCard from "../components/home/PostCard.astro";
 import HomeDolacz from "../components/islands/HomeDolacz.astro";
 import HomeDzialania from "../components/islands/HomeDzialania.astro";
 import HomeHero from "../components/islands/HomeHero.astro";
@@ -13,6 +12,7 @@ import HomeONas from "../components/islands/HomeONas.astro";
 import HomeTeraz from "../components/islands/HomeTeraz.astro";
 import { wrappers } from "../components/islands/wrappers";
 import Nav from "../components/Nav.astro";
+import PostCard from "../components/PostCard.astro";
 import { HOME_CITY, KNOWLEDGE_PATH, NEWS_KINDS, NEWS_PATH, SITE_NAME } from "../consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { ACTIVITIES_DOC, FOUNDERS_DOC, HOMEPAGE_DOC } from "../strony";
@@ -49,14 +49,13 @@ const sectionHeading = "font-serif text-page leading-[0.95] tracking-[-0.02em]";
   <Nav />
 
   {
-    /* Pasma z tłem na całą szerokość, treść w kontenerze `wrap` – stąd
-       `max-w-none` zdejmujące kontener, który <main> ma na podstronach.
+    /* Pasma z tłem na całą szerokość, treść w kontenerze `wrap`.
        Stopień 17 px jak w makiecie – podstrony zostają przy 16.
        Wyspy <TinaIsland> to regiony, które edytor Tiny odświeża na żywo
        (src/islands.ts). Produkcyjny HTML dostaje przy każdej skrypt, który
        nic nie robi poza iframe'em /admin. */
   }
-  <main id="tresc" class="max-w-none text-[17px] leading-[1.55]">
+  <main id="tresc" class="text-[17px] leading-[1.55]">
     <div class="wrap flex flex-wrap items-center gap-14 pt-6 pb-20 md:pt-10 md:pb-28">
       <TinaIsland name="home-hero" wrapper={wrappers["home-hero"]} primary>
         <HomeHero home={HOMEPAGE_DOC} />

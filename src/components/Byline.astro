@@ -10,9 +10,6 @@ import { authorsOf } from "../strony";
  * brzmiała jak pismo urzędowe, a kto jest kim, mówi bio, do którego prowadzi
  * link. Przy dwóch autorach każdy dostaje własną linijkę.
  *
- * `label` ma interlinię 1 – dobrą dla jednej linijki etykiety, ale podpis
- * i data aktualizacji to dwie linie i przy 1 sklejały się w blok.
- *
  * Podpis prowadzi do bio autora na /fundacja – ten sam adres, co `url`
  * węzła Person w JSON-LD, więc czytelnik i robot trafiają w jedno miejsce.
  * `rel="author"` mówi to samo przeglądarce i wyszukiwarce.
@@ -24,7 +21,7 @@ interface Props {
 const { authors, updated } = Astro.props;
 ---
 
-<p class="label leading-[1.8] text-muted">
+<p class="text-sm leading-[1.7] text-muted">
   {
     authorsOf(authors).map((author, index) => (
       <>
@@ -32,7 +29,7 @@ const { authors, updated } = Astro.props;
         <a
           href={`${FOUNDATION_PATH}#${author.id}`}
           rel="author"
-          class="underline underline-offset-4 transition-colors hover:text-ink"
+          class="text-link font-semibold"
         >
           {author.name}
         </a>

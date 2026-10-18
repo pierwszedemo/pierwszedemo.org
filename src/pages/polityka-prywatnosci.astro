@@ -1,6 +1,7 @@
 ---
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
+import PageHeader from "../components/PageHeader.astro";
 import {
 	PRIVACY_POLICY_PATH,
 	PRIVACY_POLICY_UPDATED,
@@ -12,6 +13,12 @@ import {
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const headers = ["Narzędzie", "Dostawca", "Po co", "Zapis na urządzeniu", "Podstawa prawna"];
+
+// Sekcja dokumentu: tytuł serifem z lewej, tekst z prawej, cienka linia nad
+// każdą – ten sam układ w polityce i w deklaracji dostępności.
+const sectionClass =
+	"grid gap-x-16 gap-y-4 border-b border-hairline py-10 md:grid-cols-[minmax(0,18rem)_minmax(0,1fr)] md:py-12";
+const headingClass = "font-serif text-[2rem] leading-[1.05] text-balance";
 ---
 
 <BaseLayout
@@ -20,90 +27,67 @@ const headers = ["Narzędzie", "Dostawca", "Po co", "Zapis na urządzeniu", "Pod
   canonicalPath={PRIVACY_POLICY_PATH}
   dateModified={PRIVACY_POLICY_UPDATED}
 >
-  <div class="flex min-h-dvh flex-col">
-    <Nav />
+  <Nav />
 
-    <main id="tresc" class="flex-1">
-      <header
-        class="flex flex-col gap-6 border-b border-ink px-5 pt-10 pb-9 md:flex-row md:items-end md:justify-between md:px-8 md:pt-13"
-      >
-        <h1 class="font-serif text-page leading-[0.95] tracking-[-0.02em]">
-          Polityka<br />prywatności
-        </h1>
-        <p class="label text-muted md:text-right">
-          Aktualizacja: {PRIVACY_POLICY_UPDATED}
-        </p>
-      </header>
+  <main id="tresc">
+    <PageHeader eyebrow={SITE_NAME} title="Polityka *prywatności*" dot="bg-mint">
+      <p slot="aside" class="label text-muted md:text-right">Aktualizacja: {PRIVACY_POLICY_UPDATED}</p>
+    </PageHeader>
 
-      {
-        PRIVACY_SECTIONS.map((section) => (
-          <section class="grid border-b border-hairline md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-aside-left">
-            <h2 class="label px-5 pt-6 text-muted md:border-r md:border-hairline md:px-8 md:py-9">
-              {section.title}
-            </h2>
-            <div class="flex max-w-[68ch] flex-col gap-4 px-5 py-6 md:px-10 md:py-9">
-              {section.paragraphs.map((paragraph) => (
-                <p class="text-[15.5px] leading-[1.7] text-body">{paragraph}</p>
-              ))}
-            </div>
-          </section>
-        ))
-      }
+    <div class="wrap pb-16 md:pb-24">
+      <div class="border-t-[1.5px] border-ink">
+        {
+          PRIVACY_SECTIONS.map((section) => (
+            <section class={sectionClass}>
+              <h2 class={headingClass}>{section.title}</h2>
+              <div class="flex max-w-[68ch] flex-col gap-4">
+                {section.paragraphs.map((paragraph) => (
+                  <p class="text-[17px] leading-[1.65] text-body">{paragraph}</p>
+                ))}
+              </div>
+            </section>
+          ))
+        }
 
-      <!-- Tabela narzędzi – te same wpisy, które opisuje panel ustawień
-           cookies (src/scripts/consent.ts). -->
-      <section
-        class="grid border-b border-hairline md:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:grid-aside-left"
-      >
-        <h2 class="label px-5 pt-6 text-muted md:border-r md:border-hairline md:px-8 md:py-9">
-          Narzędzia zewnętrzne
-        </h2>
-        <div class="flex flex-col gap-6 px-5 py-6 md:px-10 md:py-9">
-          <div class="-mx-5 overflow-x-auto px-5 md:mx-0 md:px-0">
-            <table class="w-full min-w-[46rem] border-collapse text-left">
-              <thead>
-                <tr class="border-b border-ink">
+        <!-- Tabela narzędzi – te same wpisy, które opisuje panel ustawień
+             cookies (src/scripts/consent.ts). -->
+        <section class={sectionClass}>
+          <h2 class={headingClass}>Narzędzia zewnętrzne</h2>
+          <div class="flex min-w-0 flex-col gap-6">
+            <div class="overflow-x-auto rounded-[20px] border border-hairline bg-white">
+              <table class="w-full min-w-[46rem] border-collapse text-left">
+                <thead>
+                  <tr class="border-b border-hairline">
+                    {
+                      headers.map((header) => (
+                        <th class="label px-5 py-4 text-muted">{header}</th>
+                      ))
+                    }
+                  </tr>
+                </thead>
+                <tbody>
                   {
-                    headers.map((header) => (
-                      <th class="label py-3 pr-6 font-medium text-muted">
-                        {header}
-                      </th>
+                    PRIVACY_TOOLS.map((tool) => (
+                      <tr class="border-b border-hairline align-top last:border-b-0">
+                        <td class="px-5 py-4 text-sm font-semibold">{tool.name}</td>
+                        <td class="px-5 py-4 text-sm text-muted">{tool.provider}</td>
+                        <td class="max-w-[28ch] px-5 py-4 text-sm leading-relaxed text-body">{tool.purpose}</td>
+                        <td class="px-5 py-4 text-sm text-body">{tool.storage}</td>
+                        <td class="px-5 py-4 text-sm text-muted">{tool.basis}</td>
+                      </tr>
                     ))
                   }
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  PRIVACY_TOOLS.map((tool) => (
-                    <tr class="border-b border-hairline align-top">
-                      <td class="py-4 pr-6 text-sm font-semibold">
-                        {tool.name}
-                      </td>
-                      <td class="py-4 pr-6 text-sm text-muted">
-                        {tool.provider}
-                      </td>
-                      <td class="max-w-[28ch] py-4 pr-6 text-sm leading-relaxed text-body">
-                        {tool.purpose}
-                      </td>
-                      <td class="py-4 pr-6 text-sm text-body">{tool.storage}</td>
-                      <td class="py-4 text-sm text-muted">{tool.basis}</td>
-                    </tr>
-                  ))
-                }
-              </tbody>
-            </table>
+                </tbody>
+              </table>
+            </div>
+            <button type="button" data-cc-preferences class="btn btn-ghost cursor-pointer self-start">
+              Zmień ustawienia cookies
+            </button>
           </div>
-          <button
-            type="button"
-            data-cc-preferences
-            class="label cursor-pointer self-start border border-ink px-5 py-3 transition-colors hover:bg-ink hover:text-white"
-          >
-            Zmień ustawienia cookies
-          </button>
-        </div>
-      </section>
-    </main>
+        </section>
+      </div>
+    </div>
+  </main>
 
-    <Footer />
-  </div>
+  <Footer />
 </BaseLayout>

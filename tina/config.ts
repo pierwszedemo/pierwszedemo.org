@@ -337,7 +337,7 @@ const fundacja = singleton("fundacja", "Strona Fundacja", "fundacja", "/fundacja
 		type: "string",
 		name: "heading",
 		label: "Nagłówek (h1)",
-		description: "Największy tekst na /fundacja.",
+		description: `Największy tekst na /fundacja. ${ACCENT}`,
 		required: true,
 	},
 	{ type: "string", name: "tagline", label: "Podtytuł obok nagłówka", required: true },

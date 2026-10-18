@@ -1,6 +1,7 @@
 ---
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
+import PageHeader from "../components/PageHeader.astro";
 import { FOUNDATION, FOUNDATION_PATH, SITE_NAME, SITE_URL, STATUTE_PATH } from "../consts";
 import { Content as Statut } from "../documents/statut.md";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -33,28 +34,18 @@ const registered = Boolean(FOUNDATION.krs);
   canonicalPath={STATUTE_PATH}
   extraJsonLd={[breadcrumb]}
 >
-  <div class="flex min-h-dvh flex-col">
-    <Nav active="O nas" />
-    <main id="tresc" class="flex-1">
-      <header
-        class="flex flex-col gap-6 border-b border-ink px-5 pt-10 pb-9 md:flex-row md:items-end md:justify-between md:px-8 md:pt-13"
-      >
-        <h1 class="font-serif text-page leading-[0.95] tracking-[-0.02em]">
-          Statut
-        </h1>
-        <p class="label text-muted md:text-right">
-          {registered ? `KRS ${FOUNDATION.krs}` : "z 8.10.2026 – przed wpisem do KRS"}
-        </p>
-      </header>
-      <div class="grid md:grid-aside-left">
-        <p class="label px-5 pt-6 text-muted md:border-r md:border-hairline md:px-8 md:py-9">
-          {SITE_NAME}
-        </p>
-        <article class="prose-swiss max-w-[68ch] px-5 py-6 text-body md:px-10 md:py-9">
-          <Statut />
-        </article>
+  <Nav active="O nas" />
+  <main id="tresc">
+    <PageHeader eyebrow={SITE_NAME} title="*Statut*" dot="bg-lime">
+      <p slot="aside" class="label text-muted md:text-right">
+        {registered ? `KRS ${FOUNDATION.krs}` : "z 8.10.2026 – przed wpisem do KRS"}
+      </p>
+    </PageHeader>
+    <article class="wrap pb-16 md:pb-24">
+      <div class="prose-swiss max-w-[68ch] border-t-[1.5px] border-ink pt-10 text-body">
+        <Statut />
       </div>
-    </main>
-    <Footer />
-  </div>
+    </article>
+  </main>
+  <Footer />
 </BaseLayout>

@@ -13,26 +13,23 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   <div class="flex min-h-dvh flex-col">
     <Nav />
 
-    <main id="tresc"
-      class="flex flex-1 flex-col justify-center gap-8 px-5 py-16 md:px-8"
-    >
-      <p class="label text-muted">(404)</p>
-      <h1
-        class="font-serif text-page leading-[0.95] tracking-[-0.02em] text-balance"
+    <main id="tresc" class="wrap flex flex-1 flex-col justify-center gap-8 py-16">
+      <p
+        class="flex items-center gap-2.5 self-start rounded-3xl border border-hairline bg-white py-2 pr-4 pl-2.5 font-mono text-[15px]"
       >
-        Nie ma takiej strony.
-      </h1>
-      <p class="max-w-[44ch] text-lg leading-[1.55] text-body">
-        Adres jest błędny albo strona zmieniła miejsce. Zacznij od strony
-        głównej lub zajrzyj do bazy wiedzy.
+        <span class="size-3 shrink-0 rounded-full bg-rec" aria-hidden="true"></span>
+        404 · 00:00
       </p>
-      <p class="flex flex-wrap gap-x-9 gap-y-3 text-sm font-semibold">
-        <a href="/" class="underline decoration-2 underline-offset-[6px]">
-          Strona główna
-        </a>
-        <a href={KNOWLEDGE_PATH} class="underline decoration-2 underline-offset-[6px]">
-          Baza wiedzy
-        </a>
+      <h1 class="font-serif text-hero leading-[0.92] tracking-[-0.02em] text-balance">
+        Nie ma takiej <em>strony.</em>
+      </h1>
+      <p class="max-w-[44ch] text-xl leading-[1.55] text-body">
+        Adres jest błędny albo strona zmieniła miejsce. Zacznij od strony głównej lub zajrzyj do bazy
+        wiedzy.
+      </p>
+      <p class="flex flex-wrap gap-3">
+        <a href="/" class="btn btn-lg btn-ink">Strona główna</a>
+        <a href={KNOWLEDGE_PATH} class="btn btn-lg btn-ghost">Baza wiedzy</a>
       </p>
     </main>
 

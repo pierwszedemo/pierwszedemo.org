@@ -1,7 +1,6 @@
 ---
 import { withUtm } from "../../consts";
 import type { FoundersDoc } from "../../strony";
-import { itemText, link } from "../../styles/fundacja";
 import { fixHanging } from "../../typography";
 import EmailLink from "../EmailLink.astro";
 import { field } from "./field";
@@ -12,24 +11,22 @@ interface Props {
 const { person } = Astro.props;
 ---
 
-<h3 class="flex flex-col gap-2">
-  <span class="font-serif text-row" data-tina-field={field(person, "fullName")}>{person.fullName}</span>
-  <span class="label text-muted">
-    ({person.role} · {person.jobTitle})
+<h3 class="flex flex-col gap-4">
+  <span class="font-serif text-item leading-none" data-tina-field={field(person, "fullName")}>
+    {person.fullName}
+  </span>
+  <span class="flex flex-wrap gap-2 text-sm font-semibold">
+    <span class="rounded-full bg-lime px-3 py-1.5">{person.role}</span>
+    <span class="rounded-full border border-hairline bg-white px-3 py-1.5">{person.jobTitle}</span>
   </span>
 </h3>
-<div class={`max-w-[62ch] flex flex-col gap-4 ${itemText}`}>
+<div class="flex max-w-[62ch] flex-col gap-4 text-body">
   {person.bio.map((paragraph, index) => (
     <p data-tina-field={field(person, "bio", index)}>{fixHanging(paragraph)}</p>
   ))}
   <p class="flex flex-wrap gap-x-6 gap-y-2">
-    <EmailLink address={person.email} class={link} />
-    <a
-      href={withUtm(person.href, "zespol")}
-      target="_blank"
-      rel="noopener"
-      class={link}
-    >
+    <EmailLink address={person.email} class="text-link" />
+    <a href={withUtm(person.href, "zespol")} target="_blank" rel="noopener" class="text-link">
       {new URL(person.href).host}
       <span class="sr-only"> (otwiera się w nowej karcie)</span>
     </a>

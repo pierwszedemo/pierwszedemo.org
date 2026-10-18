@@ -1,9 +1,10 @@
 ---
-import EmailLink from "../components/EmailLink.astro";
+import ContactBlock from "../components/ContactBlock.astro";
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
+import PageHeader from "../components/PageHeader.astro";
+import Section from "../components/Section.astro";
 import {
-	CONTACT_EMAIL,
 	DONATION_TITLE,
 	FOUNDATION,
 	FOUNDATION_PATH,
@@ -14,6 +15,7 @@ import {
 } from "../consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd } from "../schema";
+import { fixHanging } from "../typography";
 
 /*
  * Jedno wejście dla darczyńcy, wolontariusza i partnera. Bez formularzy
@@ -44,36 +46,33 @@ const transfer = [
 	{ label: "Tytuł przelewu", value: DONATION_TITLE },
 ] as const;
 
+// Trzy karty jak „Dołącz” na stronie głównej. Słowo nad tytułem powtarza
+// podtytuł strony: pieniądze, czas albo miejsce.
 const WAYS = [
 	{
-		no: "01",
 		id: "darowizna",
+		kicker: "pieniądze",
 		title: "Darowizna",
-		text: "Jednorazowa albo stała, dowolnej wysokości. Każda złotówka przeznaczana jest na cele statutowe: koncerty, nagrania, warsztaty i wsparcie konkretnych twórców.",
+		text: "Jednorazowa albo stała, dowolnej wysokości. Każda złotówka przeznaczana jest na cele statutowe: koncerty, nagrania, warsztaty i wsparcie konkretnych twórców.",
+		color: "bg-orange",
 	},
 	{
-		no: "02",
 		id: "wolontariat",
+		kicker: "czas",
 		title: "Wolontariat",
-		text: "Przy wydarzeniach potrzebujemy pomocy. Napisz, co Cię interesuje, w czym chcesz nam pomóc i ile masz czasu – odezwiemy się przed najbliższym wydarzeniem.",
+		text: "Przy wydarzeniach potrzebujemy pomocy. Napisz, co Cię interesuje, w czym chcesz nam pomóc i ile masz czasu – odezwiemy się przed najbliższym wydarzeniem.",
+		color: "bg-lime",
 	},
 	{
-		no: "03",
 		id: "partnerstwo",
+		kicker: "miejsce",
 		title: "Partnerstwo",
 		text: "Sala na koncert, studio na sesję, sprzęt, druk, patronat medialny albo wsparcie finansowe konkretnego projektu.",
+		color: "border border-hairline bg-white",
 	},
 ] as const;
 
-const row = "grid border-b border-hairline md:grid-aside-left";
-const rowLabel = "label px-5 pt-7 text-muted md:border-r md:border-hairline md:px-8 md:py-10";
-const rowBody = "px-5 py-7 md:px-8 md:py-10 lg:px-10";
-const prose = "flex max-w-[62ch] flex-col gap-5 text-[clamp(1.05rem,1.6vw,1.25rem)] leading-[1.6] text-body";
-const list = "divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10";
-const item =
-	"grid gap-2 py-6 md:grid-cols-[minmax(0,0.45fr)_minmax(0,1fr)] md:gap-8 lg:grid-cols-[calc(var(--col)*3_-_2rem)_minmax(0,1fr)]";
-const itemText = "max-w-[52ch] text-[clamp(1rem,1.4vw,1.125rem)] leading-[1.6] text-body";
-const link = "underline decoration-1 underline-offset-4";
+const columnHeading = "font-serif text-item leading-none";
 ---
 
 <BaseLayout
@@ -82,111 +81,104 @@ const link = "underline decoration-1 underline-offset-4";
   canonicalPath={SUPPORT_PATH}
   extraJsonLd={[breadcrumb]}
 >
-  <div class="flex min-h-dvh flex-col">
-    <Nav />
+  <Nav />
 
-    <main id="tresc" class="flex-1">
-      <header class="grid border-b border-ink lg:grid-aside-right">
-        <div class="px-5 pt-10 pb-9 md:px-8 md:pt-13 lg:border-r lg:border-hairline">
-          <p class="label text-muted">({SITE_NAME} – wsparcie)</p>
-          <h1
-            class="mt-5 font-serif text-page leading-[0.95] tracking-[-0.02em] text-balance"
-          >
-            Wesprzyj fundację.
-          </h1>
-        </div>
-        <p
-          class="flex items-end bg-ink px-5 py-7 font-serif text-[clamp(1.75rem,3vw,2.5rem)] leading-[1.05] text-white text-balance md:px-8 lg:bg-transparent lg:text-ink"
+  <main id="tresc">
+    <PageHeader
+      eyebrow={`${SITE_NAME} · wsparcie`}
+      title="Wesprzyj *fundację.*"
+      intro="Pieniądze, czas albo miejsce – każde z tych trzech przybliża kogoś do pierwszego koncertu."
+    />
+
+    <Section id="jak" heading="Jak *pomóc*" class="!pt-0">
+      <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-5">
+        {
+          WAYS.map((way) => (
+            <li
+              id={way.id}
+              class={`flex min-h-80 scroll-mt-6 flex-col justify-between gap-10 rounded-[28px] p-8 ${way.color}`}
+            >
+              <span class="font-serif text-[28px] leading-tight italic">{way.kicker}</span>
+              <div class="flex flex-col gap-4">
+                <h3 class="font-serif text-[40px] leading-none">{way.title}</h3>
+                <p class:list={[way.id === "partnerstwo" && "text-body"]}>{fixHanging(way.text)}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </Section>
+
+    {/* Dane do przelewu w niebieskiej karcie – to jest cel strony, więc
+        stoi tak, jak pasmo „Teraz” na stronie głównej. */}
+    <section id="przelew" class="wrap pb-16 md:pb-24" aria-labelledby="przelew-naglowek">
+      <div
+        class="relative overflow-hidden rounded-[32px] bg-blue p-[clamp(2rem,5vw,4.5rem)] text-white"
+      >
+        <span
+          class="absolute -top-20 -right-20 size-40 rounded-full bg-lime md:-top-35 md:-right-15 md:size-95"
+          aria-hidden="true"
+        ></span>
+        <h2
+          id="przelew-naglowek"
+          class="relative max-w-[12ch] font-serif text-band leading-[0.9] tracking-[-0.02em] text-balance"
         >
-          Pieniądze, czas albo miejsce – każde z tych trzech przybliża kogoś
-          do pierwszego koncertu.
-        </p>
-      </header>
-
-      <section class={row} aria-labelledby="jak">
-        <h2 id="jak" class={rowLabel}>Jak pomóc</h2>
-        <ul class={list}>
-          {
-            WAYS.map((way) => (
-              <li class={item} id={way.id}>
-                <h3 class="flex items-baseline justify-between gap-4 font-serif text-row md:flex-col md:items-start md:gap-2">
-                  <span>{way.title}</span>
-                  <span class="label text-muted">({way.no})</span>
-                </h3>
-                <p class={itemText}>{way.text}</p>
-              </li>
-            ))
-          }
-        </ul>
-      </section>
-
-      <section class={row} aria-labelledby="przelew">
-        <h2 id="przelew" class={rowLabel}>Dane do przelewu</h2>
-        <dl class="divide-y divide-hairline px-5 py-3 md:px-8 lg:px-10">
+          Dane do <em>przelewu</em>
+        </h2>
+        <dl class="relative mt-10 max-w-[48rem] border-t border-white/40">
           {
             transfer.map((entry) => (
-              <div class={`${item} py-4`}>
-                <dt class="label pt-[0.2em] text-muted">{entry.label}</dt>
-                <dd class={`${itemText} ${entry.label === "Numer konta" && FOUNDATION.iban ? "font-mono" : ""}`}>
+              <div class="grid gap-1 border-b border-white/25 py-4 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-8">
+                <dt class="label pt-1 text-[#e3e7ff]">{entry.label}</dt>
+                <dd
+                  class:list={[
+                    "text-xl",
+                    entry.label === "Numer konta" && FOUNDATION.iban && "font-mono tracking-wide",
+                  ]}
+                >
                   {entry.value}
                 </dd>
               </div>
             ))
           }
         </dl>
-      </section>
+      </div>
+    </section>
 
-      <section class={row} aria-labelledby="podatek">
-        <h2 id="podatek" class={rowLabel}>Odliczenie od podatku</h2>
-        <div class={`${rowBody} ${prose} !text-base !max-w-full`}>
-          <p>
-            Darowiznę na cele statutowe fundacji odliczysz od dochodu
-            w rocznym zeznaniu: osoby fizyczne do 6% dochodu (art. 26 ust. 1
-            pkt 9 ustawy o PIT), firmy do 10% (art. 18 ust. 1 pkt 1 ustawy
-            o CIT). Dowodem jest potwierdzenie przelewu z tytułem „{DONATION_TITLE}”
-            – nie potrzebujesz od nas żadnego dodatkowego dokumentu.
+    <section class="border-y border-hairline bg-white">
+      <div class="wrap grid gap-x-16 gap-y-14 py-16 md:grid-cols-2 md:py-24">
+        <div id="podatek" class="flex scroll-mt-6 flex-col gap-6">
+          <h2 class={columnHeading}>Odliczenie od <em>podatku</em></h2>
+          <p class="text-lg leading-[1.6] text-body">
+            Darowiznę na cele statutowe fundacji odliczysz od dochodu w rocznym zeznaniu: osoby
+            fizyczne do 6% dochodu (art. 26 ust. 1 pkt 9 ustawy o PIT), firmy do 10% (art. 18 ust. 1
+            pkt 1 ustawy o CIT). Dowodem jest potwierdzenie przelewu z tytułem „{DONATION_TITLE}” – nie
+            potrzebujesz od nas żadnego dodatkowego dokumentu.
           </p>
         </div>
-      </section>
-
-      <section class={`${row} border-b-ink`} aria-labelledby="na-co">
-        <h2 id="na-co" class={rowLabel}>Na co idą pieniądze</h2>
-        <div class={`${rowBody} ${prose}`}>
-          <p>
-            Na realizację celów statutowych: honoraria dla artystów
-            i techniki na koncertach, wynajem sal i sprzętu, nagrania,
-            dystrybucję i materiały prasowe debiutantów, warsztaty
-            i konsultacje. Członkowie Zarządu nie pobierają wynagrodzenia za
-            pełnienie funkcji, a fundacja nie prowadzi działalności
-            gospodarczej.
-          </p>
-          <p>
-            Co roku publikujemy{" "}
-            <a href={`${FOUNDATION_PATH}#sprawozdania`} class={link}>
-              sprawozdanie z działalności
-            </a>{" "}
-            – z niego dowiesz się, co udało nam się zrealizować.
-          </p>
+        <div id="na-co" class="flex scroll-mt-6 flex-col gap-6">
+          <h2 class={columnHeading}>Na co idą <em>pieniądze</em></h2>
+          <div class="flex flex-col gap-5 text-lg leading-[1.6] text-body">
+            <p>
+              Na realizację celów statutowych: honoraria dla artystów i techniki na koncertach,
+              wynajem sal i sprzętu, nagrania, dystrybucję i materiały prasowe debiutantów, warsztaty
+              i konsultacje. Członkowie Zarządu nie pobierają wynagrodzenia za pełnienie funkcji,
+              a fundacja nie prowadzi działalności gospodarczej.
+            </p>
+            <p>
+              Co roku publikujemy{" "}
+              <a href={`${FOUNDATION_PATH}#sprawozdania`} class="text-link">
+                sprawozdanie z działalności
+              </a>{" "}
+              – z niego dowiesz się, co udało nam się zrealizować.
+            </p>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section
-        class="flex flex-col gap-5 px-5 py-8 md:flex-row md:items-center md:justify-between md:px-8"
-      >
-        <div>
-          <h2 class="label text-muted">Kontakt</h2>
-          <p class="mt-3 text-xl font-semibold">
-            Wolontariat, partnerstwo, darowizna rzeczowa? Napisz.
-          </p>
-        </div>
-        <EmailLink
-          class="label self-start border border-ink px-5 py-4 transition-colors hover:bg-ink hover:text-white md:self-auto"
-        >
-          {CONTACT_EMAIL} <span aria-hidden="true">↗</span>
-        </EmailLink>
-      </section>
-    </main>
+    <ContactBlock heading="Po prostu *napisz.*" text="Wolontariat, partnerstwo, darowizna rzeczowa?" />
+  </main>
 
-    <Footer />
-  </div>
+  <Footer />
 </BaseLayout>

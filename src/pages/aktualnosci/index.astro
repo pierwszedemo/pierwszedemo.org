@@ -3,14 +3,21 @@ import { getSortedNews, isoDate, readingMinutes } from "../../collections";
 import Footer from "../../components/Footer.astro";
 import ListRow from "../../components/ListRow.astro";
 import Nav from "../../components/Nav.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import PostCard from "../../components/PostCard.astro";
 import SupportBand from "../../components/SupportBand.astro";
 import { NEWS_KINDS, NEWS_PATH, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../../consts";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { breadcrumbJsonLd, isoDateTime } from "../../schema";
 import { authorJsonLd, sectionAuthorJsonLd } from "../../strony";
+import { plural } from "../../typography";
 
 const entries = await getSortedNews();
-const count = String(entries.length).padStart(2, "0");
+// Trzy najnowsze jako karty, jak „Co się dzieje” na stronie głównej, reszta
+// jako wiersze. Kolejność ta sama – karty to po prostu początek listy.
+const latest = entries.slice(0, 3);
+const older = entries.slice(3);
+const count = `${entries.length} ${plural(entries.length, ["wpis", "wpisy", "wpisów"])}`;
 const canonical = new URL(NEWS_PATH, SITE_URL).href;
 const entryUrl = (id: string) => new URL(`${NEWS_PATH}/${id}`, SITE_URL).href;
 
@@ -70,42 +77,53 @@ const breadcrumb = breadcrumbJsonLd(
   schemaPageType="CollectionPage"
   extraJsonLd={[blogJsonLd, itemListJsonLd, breadcrumb]}
 >
-  <div class="flex min-h-dvh flex-col">
-    <Nav active="Aktualności" />
+  <Nav active="Aktualności" />
 
-    <main id="tresc" class="flex-1">
-      <div
-        class="flex flex-col gap-6 px-5 pt-10 pb-9 md:flex-row md:items-end md:justify-between md:px-8 md:pt-13"
-      >
-        <h1 class="font-serif text-page leading-[0.95] tracking-[-0.02em]">
-          Aktualności ({count})
-        </h1>
-        <p
-          class="font-mono text-[13px] leading-[1.7] font-medium tracking-[0.16em] text-muted uppercase md:text-right"
-        >
-          Wydarzenia, relacje,<br />rozmowy, sprawozdania
-        </p>
-      </div>
+  <main id="tresc">
+    <PageHeader eyebrow={`${SITE_NAME} · aktualności`} title="*Aktualności*" intro={`Wydarzenia, relacje, rozmowy i sprawozdania z projektów fundacji. ${count}, od najnowszego.`} dot="bg-pink" />
 
-      <ul>
+    <section class="wrap pb-16 md:pb-24" aria-label="Najnowsze">
+      <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">
         {
-          entries.map((entry, index) => (
-            <ListRow
-              href={`${NEWS_PATH}/${entry.id}`}
-              title={entry.data.title}
-              left={isoDate(entry.data.date)}
-              leftDatetime={isoDate(entry.data.date)}
-              label={NEWS_KINDS[entry.data.kind]}
-              sub={`${readingMinutes(entry)} min`}
-              first={index === 0}
-              last={index === entries.length - 1}
-            />
+          latest.map((entry, index) => (
+            <li>
+              <PostCard
+                href={`${NEWS_PATH}/${entry.id}`}
+                title={entry.data.title}
+                date={entry.data.date}
+                label={NEWS_KINDS[entry.data.kind]}
+                variant={index}
+                heading="h2"
+              />
+            </li>
           ))
         }
       </ul>
-    </main>
+    </section>
 
-    <SupportBand />
-    <Footer />
-  </div>
+    {
+      older.length > 0 && (
+        <section class="wrap pb-16 md:pb-24" aria-labelledby="wczesniej">
+          <h2 id="wczesniej" class="mb-8 font-serif text-[clamp(2.25rem,4vw,3.5rem)] leading-none">
+            Wcześniej
+          </h2>
+          <ul class="border-t-[1.5px] border-ink">
+            {older.map((entry) => (
+              <ListRow
+                href={`${NEWS_PATH}/${entry.id}`}
+                title={entry.data.title}
+                left={isoDate(entry.data.date)}
+                leftDatetime={isoDate(entry.data.date)}
+                label={NEWS_KINDS[entry.data.kind]}
+                sub={`${readingMinutes(entry)} min`}
+              />
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </main>
+
+  <SupportBand />
+  <Footer />
 </BaseLayout>

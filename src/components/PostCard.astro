@@ -1,9 +1,10 @@
 ---
-import { isoDate, plDate } from "../../collections";
-import { fixHanging } from "../../typography";
+import { isoDate, plDate } from "../collections";
+import { fixHanging } from "../typography";
 
 /**
- * Karta wpisu w „Co się dzieje”. Ilustracja to jedna z trzech kompozycji
+ * Karta wpisu: „Co się dzieje” na stronie głównej i trzy najnowsze wpisy na
+ * listach. Ilustracja to jedna z trzech kompozycji
  * z makiety, wybierana pozycją na liście, nie wpisem – trzy sąsiednie karty
  * zawsze się różnią. Wersja makiety miała na kartach napisy z konkretnych
  * wpisów („GS’26”, „pierwszy raz!”); tu zostały same kształty, bo karta
@@ -15,8 +16,10 @@ interface Props {
 	date: Date;
 	label: string;
 	variant: number;
+	/** h3 pod nagłówkiem sekcji (strona główna), h2 wprost pod h1 (listy). */
+	heading?: "h2" | "h3";
 }
-const { href, title, date, label, variant } = Astro.props;
+const { href, title, date, label, variant, heading: Heading = "h3" } = Astro.props;
 const art = variant % 3;
 const pill = "absolute left-4 rounded-full bg-white px-3 py-1.5 text-sm font-semibold text-ink";
 ---
@@ -91,10 +94,10 @@ const pill = "absolute left-4 rounded-full bg-white px-3 py-1.5 text-sm font-sem
   </div>
   <div>
     <time datetime={isoDate(date)} class="text-[15px] text-muted">{plDate(date)}</time>
-    <h3
+    <Heading
       class="mt-1.5 font-serif text-row leading-[1.05] text-balance decoration-1 underline-offset-[5px] group-hover:underline"
     >
       {fixHanging(title)}
-    </h3>
+    </Heading>
   </div>
 </a>

@@ -9,9 +9,16 @@ interface Props {
 const { page } = Astro.props;
 ---
 
-<p>
-  <strong data-tina-field={field(page, "missionLead")}>{fixHanging(page.missionLead)}</strong>
+<p
+  class="font-serif text-[clamp(2rem,3.6vw,3.25rem)] leading-[1.05] tracking-[-0.01em] text-balance"
+  data-tina-field={field(page, "missionLead")}
+>
+  {fixHanging(page.missionLead)}
 </p>
-{page.mission.map((paragraph, index) => (
-  <p data-tina-field={field(page, "mission", index)}>{fixHanging(paragraph)}</p>
-))}
+{
+  page.mission.map((paragraph, index) => (
+    <p class="max-w-[38.75rem] text-[19px] leading-[1.55] text-fog" data-tina-field={field(page, "mission", index)}>
+      {fixHanging(paragraph)}
+    </p>
+  ))
+}

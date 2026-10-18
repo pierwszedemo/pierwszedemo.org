@@ -70,67 +70,54 @@ field would render `REGISTRY_PENDING` through `registryValue()` (an empty
 mayor of Gdańsk next to the minister – the statute names only the minister.
 The site went live a week before the entry (see „Launch”).
 
-Two design sources, layered:
+The design is **„Wersja 2”** – the Claude Design canvas „Pierwsze Demo —
+redesign” (`https://claude.ai/artifact/8Mmnxoays3QZQmRpP9LjLh`, artboard
+`Wersja-2.dc.html`, „Wersja 2 — Instrument Serif”). It draws only the
+homepage; every other page is built from the same parts (below), so when
+changing layout, compare against that artboard – it is the spec. The one
+exception is `/dzwieki-efemeryczne`, the concert series' own page, which keeps
+the earlier „Swiss” look (Claude Design project
+`380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`)
+on purpose – the series has its own poster identity.
 
-- **„Wersja 2”** – the Claude Design canvas „Pierwsze Demo — redesign”
-  (`https://claude.ai/artifact/8Mmnxoays3QZQmRpP9LjLh`, artboard
-  `Wersja-2.dc.html`, „Wersja 2 — Instrument Serif”). It is the spec for the
-  homepage, the nav, the footer, the support band and every token in `@theme`
-  (palette, Instrument Serif/Sans, pill buttons, rounded cards). It draws only
-  the homepage, so the subpages take its palette and type but keep the grid below.
-- **The „Swiss” mock** – Claude Design project
-  `380c6364-c5da-4baf-9ab9-c58a88637086`, file `Michal Miszczyszyn - Manager.dc.html`,
-  turn 2: `2a` strona główna, `2b` lista wpisów, `2c` pojedynczy wpis. Still the
-  spec for the *structure* of the subpages (lists, posts, /fundacja,
-  /wesprzyj, legal pages): the 16-column grid and the two rule weights below.
-  A fixed 1280×800 absolutely-positioned card; the pages are its responsive rebuild.
+### Building blocks
 
-When changing layout, compare against the matching file – it is the spec.
+Every page is a stack of full-bleed bands with the content in `wrap` (80rem,
+the same side padding everywhere), so text starts on one line on every page.
+Parts, in `src/components/`:
 
-### One 16-column grid (subpages)
+- `PageHeader` – pill eyebrow, a huge serif h1 with an `*accent*`, a short
+  paragraph or an `aside` slot on the right. The pill is a `<p>`; on subpages
+  the h1 carries the phrase. (The homepage is the reverse – see „Not built
+  yet”.)
+- `Section` – a band (`tone`: paper, white or ink) with a serif h2 and an
+  optional sentence next to it. The anchor `id` sits on the `<section>`, not on
+  the h2 (which gets `<id>-naglowek` for `aria-labelledby`), so a jump to
+  `/fundacja#dane` leaves the band's padding above the heading. Anchored items
+  inside a section (`#michal`, `#sprawozdania`, the activities) get
+  `scroll-mt-6`.
+- `ContactBlock` – „Po prostu *napisz.*” and the address, as on `/`.
+- `PostCard` – the illustrated card (three compositions, chosen by position);
+  `ListRow` – the index row (mono date, serif title, pill, arrow; italic title
+  on hover). Lists show the three newest as cards and the rest as rows.
+- `HeroPhoto` – a rounded photo card with a pill caption; `SupportBand` – the
+  orange „Wesprzyj” card above the footer.
 
-The Swiss mock is 1280 px wide and every measure in it is a multiple of 80 px, so the
-site runs on 16 modules: `--col: 6.25cqw` in `global.css`, with `<main>` as the
-container. `cqw` and not `%`/`vw`: a percentage inside a nested grid resolves
-against the parent, and `vw` includes the scrollbar gutter, so only `cqw` gives
-the same module at every nesting depth. The container is `<main>`, never
-`<body>` – `container-type` implies layout containment, which would turn body
-into the containing block for the fixed cookie banner. `<main>` is also capped
-at 80rem and centred (`global.css`), the same box as the `wrap` utility the nav
-and footer use – above 1280 px the bands would otherwise run edge to edge while
-the nav's logo sat 300 px in. The homepage lifts the cap (`max-w-none`): its
-sections are full-bleed colour bands with `wrap` inside. The post's prev/next
-bar sits outside `<main>` and copies the cap.
+Rounded corners, pills and colour cards are the language; the one structural
+rule left is a 1.5 px ink line on top of an index list (activities, goals,
+registry data, rows) with hairlines between items – the same as „Co robimy”.
 
-Vertical lines may only fall on **5, 8 and 11**:
+### The 16-column grid (concert page only)
 
-- `--aside` = 5 modules (the mock's 400 px) is the one side column –
-  founders' photos and section labels on `/fundacja`,
-  `/wesprzyj` and the privacy policy, „W skrócie" on a post. Use `grid-aside-left` / `grid-aside-right`,
-  never a width typed in place; that is how a 400 px photo column and a 320 px
-  nav cell ended up 80 px apart on the same page.
-- Line 8 is the page middle: title/description in the lists on `/fundacja`
-  and `/wesprzyj`.
-- The post meta bar is 5 / 6 / 5.
-- **Exception:** blog list rows keep the mock's content-sized tracks
-  (`150px 1fr 190px 70px`). A row is a list item, not a band with a side column;
-  on 5 / 7 / 3 / 1 the date sat in 400 px of emptiness and the title lost a
-  third of its width. The rows have no vertical rules, so nothing visibly
-  misses a line.
-
-Four modules would be a tidy quarter, but 320 px minus the column padding is
-256 px and the Spotify player needs 280. For the same reason the post's aside
-has a floor (`--post-aside: max(21.5rem + 1px, --aside)`): below ~1100 px the
-player wins over the grid. Text starts 2 rem (2.5 rem in body columns) after
-its line – title, pullquote and list titles all share that axis.
-
-### Two rule weights hold the grid together
-
-Structural borders between major bands are `border-ink` (#15151a). Borders
-between cells *inside* a band are `border-hairline` (#e6e3dc). Mixing them up is
-the fastest way to make the design stop looking like the design. Inside the
-grid nothing is rounded; „Wersja 2” elements laid on top of it – pill buttons
-(`btn`), the support band card, the homepage cards – are.
+`/dzwieki-efemeryczne` still runs on the Swiss mock's 16 modules: `--col:
+6.25cqw` in `global.css`, with `<main>` as the container. `cqw` and not
+`%`/`vw`: a percentage inside a nested grid resolves against the parent, and
+`vw` includes the scrollbar gutter. The container is `<main>`, never `<body>` –
+`container-type` implies layout containment, which would turn body into the
+containing block for the fixed cookie banner. `--aside` = 5 modules and the
+`grid-aside-left` / `grid-aside-right` utilities exist for that page alone;
+vertical lines fall only on 5, 8 and 11, borders between bands are ink and
+inside a band hairline.
 
 ### `src/consts.ts` is the content database
 
@@ -221,7 +208,7 @@ column, doubling as the meta description), `authors` (required list of
 founder keys from `AUTHORS` in `consts.ts` – no default, an empty list fails
 the build; drives the byline and JSON-LD `author`), `category` (wiedza only), `kind`, `date`,
 `updated?`, `keyphrase?`, `draft`, `spotifyTrackId?` (embeds a Spotify
-player under the lead in the "W skrócie" column – a frontmatter field, never an
+player under the lead in the "W skrócie" card – a frontmatter field, never an
 iframe in the body; the player loads without the consent banner on legitimate
 interest, same convention as olageppert.pl, and has its row in `PRIVACY_TOOLS`).
 `image?` + `imageAlt?` put a picture in the same slot, under the lead – again a
@@ -279,7 +266,7 @@ italic, lists and tables (both styled in `prose.css`, tables wrapped by
 lines that Tailwind Preflight has already stripped. Tina's toolbar offers
 exactly these (`overrides.toolbar` in `tina/config.ts`) – adding a button
 there means adding its styles to `prose.css` in the same change. A `>` quote
-is someone else's words inside the text, quieter than the `pullquote` band
+is someone else's words inside the text, quieter than the `pullquote` card
 (same size as a paragraph, ink colour, hairline rule on the left).
 
 Images in the body (`src/images.ts`, two satteri plugins):
@@ -400,9 +387,9 @@ on `/wiedza` and `/aktualnosci`, `WebPage` elsewhere. Pages contribute extra nod
 the lists add `Blog` + `ItemList`, a post adds `BlogPosting`, and all add
 `BreadcrumbList`. Pages with `robots="noindex"` get no page node.
 
-Breadcrumbs exist only in JSON-LD – the mock's grid has nowhere to put them
-visually, but they give Google a path to render under the result instead of a
-bare URL. `src/schema.ts` holds `breadcrumbJsonLd()`, `isoDateTime()` and `wordCount()`.
+Breadcrumbs are JSON-LD; on a post the section pill above the title (a link
+to the list) is their visible half. They give Google a path to render under
+the result instead of a bare URL. `src/schema.ts` holds `breadcrumbJsonLd()`, `isoDateTime()` and `wordCount()`.
 
 Canonical URLs have **no** trailing slash (`trailingSlash: "never"` in Astro,
 `assets.html_handling: "drop-trailing-slash"` in `wrangler.jsonc`, which serves
@@ -536,11 +523,8 @@ because two utilities setting `padding` are ordered by the stylesheet, not by
 the class attribute.
 
 The global `:focus-visible` outline is inside `@layer base` on purpose: unlayered
-rules beat Tailwind utilities, and the blog rows need to override the outline
-colour to white on their inverted background.
-
-The mock's fixed pixel columns (the 400 px photo column, the 432 px title
-indent) are never typed as pixels – they are multiples of the grid module below.
+rules beat Tailwind utilities, so a page could not override the outline colour
+on a dark band.
 
 ## Conventions
 
@@ -606,8 +590,7 @@ Registry data is complete since 2026-10-20 (KRS, NIP, REGON, account).
 Annual reports (the first, for 2026, is due in 2027 – `/fundacja#sprawozdania`
 already has the slot and the sentence), a grant-logo band („Dofinansowano ze
 środków…" is mandatory on the site from the day a MKiDN or city grant is
-signed), „Wersja 2” layouts for the subpages (the canvas draws only the
-homepage), a joint photo of the founders for the hero polaroid (it holds the
+signed), a joint photo of the founders for the hero polaroid (it holds the
 two portraits from /fundacja side by side until then).
 
 The homepage `<h1>` is the pill above the slogan, „Fundacja Pierwsze Demo ·

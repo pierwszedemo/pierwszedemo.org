@@ -1,0 +1,48 @@
+---
+import Accent from "./Accent.astro";
+
+/**
+ * Sekcja podstrony: pasmo na całą szerokość (tło z `tone`), w nim kontener
+ * `wrap`, nagłówek h2 w serifie z akcentem `*…*` i opcjonalny akapit obok.
+ * Kotwica (`id`) siedzi na sekcji, nie na h2 – przewinięcie do niej zostawia
+ * nad nagłówkiem oddech pasma. h2 dostaje `<id>-naglowek` dla
+ * `aria-labelledby`.
+ */
+interface Props {
+	id: string;
+	heading: string;
+	/** Krótki akapit obok nagłówka; dłuższy tekst idzie w slot. */
+	intro?: string;
+	tone?: "paper" | "white" | "ink";
+	class?: string;
+}
+const { id, heading, intro, tone = "paper", class: className } = Astro.props;
+---
+
+<section
+  id={id}
+  aria-labelledby={`${id}-naglowek`}
+  class:list={[
+    tone === "white" && "border-y border-hairline bg-white",
+    tone === "ink" && "bg-ink text-white",
+  ]}
+>
+  <div class:list={["wrap py-16 md:py-24", className]}>
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-6 md:mb-14">
+      <h2
+        id={`${id}-naglowek`}
+        class="max-w-[16ch] font-serif text-[clamp(2.75rem,5.5vw,5rem)] leading-[0.95] tracking-[-0.02em] text-balance"
+      >
+        <Accent text={heading} class={tone === "ink" ? "text-lime" : undefined} />
+      </h2>
+      {
+        (intro || Astro.slots.has("intro")) && (
+          <p class:list={["max-w-[23.75rem]", tone === "ink" ? "text-fog" : "text-body"]}>
+            <slot name="intro">{intro}</slot>
+          </p>
+        )
+      }
+    </div>
+    <slot />
+  </div>
+</section>

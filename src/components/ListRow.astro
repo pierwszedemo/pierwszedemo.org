@@ -2,11 +2,11 @@
 import { fixHanging } from "../typography";
 
 /**
- * Wiersz listy wpisów – wspólny dla bazy wiedzy i aktualności. Świadomy
- * wyjątek od siatki 16 modułów: wiersz to lista, nie pasmo z kolumną boczną.
- * Na torach 5/7/3/1 data dostawała 400 px pustki, a tytuł – to, po co się tu
- * przychodzi – tracił trzecią część szerokości. Tory z makiety są dopasowane
- * do treści: data, etykieta i strzałka mają stałą długość.
+ * Wiersz listy wpisów – wspólny dla bazy wiedzy i aktualności. Ten sam
+ * język co „Co robimy” na stronie głównej: data w mono, tytuł serifem,
+ * etykieta w pigułce, a na hover kursywa tytułu zamiast odwróconego tła.
+ * Tory dopasowane do treści: data, etykieta i strzałka mają stałą długość,
+ * reszta należy do tytułu – to po niego się tu przychodzi.
  */
 interface Props {
 	href: string;
@@ -14,58 +14,36 @@ interface Props {
 	/** Lewa komórka – data (ISO) albo inny krótki tekst mono. */
 	left: string;
 	leftDatetime?: string;
-	/** Prawa etykieta – kategoria albo rodzaj wpisu. */
+	/** Etykieta w pigułce – kategoria albo rodzaj wpisu. */
 	label: string;
 	/** Drobna linia pod etykietą: `notatka · 2 min`. */
 	sub?: string;
-	first?: boolean;
-	last?: boolean;
 }
-const { href, title, left, leftDatetime, label, sub, first, last } = Astro.props;
+const { href, title, left, leftDatetime, label, sub } = Astro.props;
 ---
 
-<li>
+<li class="border-b border-hairline">
   <a
     href={href}
-    class:list={[
-      "group grid grid-cols-1 items-center gap-y-2 px-5 py-6 transition-colors md:grid-cols-[150px_1fr_190px_70px] md:gap-0 md:px-0 md:py-0",
-      // Wiersz przy focusie robi się czarny, więc domyślny czarny kontur
-      // znika – na inwersji musi być biały, do środka.
-      "hover:bg-ink hover:text-white focus-visible:bg-ink focus-visible:text-white focus-visible:outline-white focus-visible:outline-offset-[-4px]",
-      first ? "border-t border-ink" : "border-t border-hairline",
-      last && "border-b border-hairline",
-    ]}
+    class="group grid grid-cols-1 items-center gap-y-3 py-7 md:grid-cols-[8.5rem_minmax(0,1fr)_13rem_2rem] md:gap-x-8 md:py-8"
   >
-    <span
-      class="order-2 font-mono text-[13px] text-muted group-hover:text-white/70 group-focus-visible:text-white/70 md:order-none md:px-8 md:py-7"
-    >
+    <span class="order-2 font-mono text-sm text-muted md:order-none">
       {leftDatetime ? <time datetime={leftDatetime}>{left}</time> : left}
-      <span class="md:hidden">
-        {" "}– {label}{sub && ` · ${sub}`}
-      </span>
     </span>
-    <span class="order-1 font-serif text-row text-balance md:order-none md:py-7">
+    <span
+      class="order-1 font-serif text-row leading-[1.05] text-balance group-hover:italic md:order-none"
+    >
       {fixHanging(title)}
     </span>
-    <span
-      class="order-3 hidden text-[13px] tracking-[0.14em] text-muted uppercase group-hover:text-white/70 group-focus-visible:text-white/70 md:order-none md:block md:py-7"
-    >
-      {label}
+    <span class="order-3 flex flex-wrap items-center gap-x-3 gap-y-1 md:order-none md:flex-col md:items-start">
+      <span class="rounded-full border border-hairline bg-white px-3 py-1 text-sm font-semibold">{label}</span>
       {/* Notatka i przewodnik różnią się długością trzy-, czterokrotnie,
-          a tytuł tego nie zdradza. Etykieta siedzi tu, a nie pod datą:
-          kolumna daty ma po paddingu 86 px i „przewodnik · 12 min”
-          łamało się na dwie linie. Tu jest 190 px bez paddingu. */}
-      {
-        sub && (
-          <span class="mt-1.5 block font-mono text-[11px] tracking-[0.1em] whitespace-nowrap">
-            {sub}
-          </span>
-        )
-      }
+          a tytuł tego nie zdradza – stąd rodzaj i czas czytania. */}
+      {sub && <span class="font-mono text-xs text-muted">{sub}</span>}
     </span>
     <span
       aria-hidden="true"
-      class="hidden text-[22px] md:block md:px-8 md:py-7 md:text-right"
+      class="hidden text-2xl transition-transform group-hover:translate-x-1 md:block md:text-right"
     >
       →
     </span>

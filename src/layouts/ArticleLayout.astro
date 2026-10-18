@@ -1,7 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { render } from "astro:content";
-import { type Article, hasBodyImage, isoDate, type News, readingMinutes } from "../collections";
+import { type Article, hasBodyImage, isoDate, type News, plDate, readingMinutes } from "../collections";
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
 import { NAV, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../consts";
@@ -11,17 +11,17 @@ import { fixHanging } from "../typography";
 import BaseLayout from "./BaseLayout.astro";
 
 /**
- * Wspólny szkielet strony wpisu dla bazy wiedzy i aktualności: pasek
- * metadanych 5 / 6 / 5, wcięty tytuł, kolumna „W skrócie” i treść. Różnią
- * się tylko tym, co stoi w środkowej komórce paska (kategoria albo rodzaj
- * aktualności), czy treść idzie w dwóch łamach i dokąd prowadzi pasek
- * prev/next – to przychodzi w propsach.
+ * Wspólny szkielet strony wpisu dla bazy wiedzy i aktualności: pigułki
+ * z działem i kategorią nad tytułem, karta „W skrócie” obok treści i dwie
+ * karty prev/next pod nią. Różnią się tylko tym, co stoi w pigułce
+ * (kategoria albo rodzaj aktualności), czy treść idzie w dwóch łamach
+ * i dokąd prowadzą karty – to przychodzi w propsach.
  */
 interface Props {
 	entry: Article | News;
 	/** Dział, do którego należy wpis – nazwa i ścieżka listy. */
 	section: { label: (typeof NAV)[number]["label"]; href: string };
-	/** Środkowa komórka paska metadanych: kategoria albo rodzaj wpisu. */
+	/** Pigułka obok działu: kategoria albo rodzaj wpisu. */
 	meta: string;
 	/** Etykieta pod kategorią na liście i w JSON-LD (`notatka · 2 min`). */
 	kindLabel?: string;
@@ -91,185 +91,162 @@ const breadcrumb = breadcrumbJsonLd(
   extraJsonLd={isDraft ? [] : [articleJsonLd, breadcrumb]}
   robots={isDraft ? "noindex, nofollow" : undefined}
 >
-  <div class="flex min-h-dvh flex-col">
-    {
-      isDraft && (
-        <div role="note" class="border-b border-ink bg-preview px-5 py-4 text-ink md:px-8">
-          <p class="label leading-[1.6]">
-            <strong class="font-semibold">To jest podgląd.</strong> Szkic – nie ma go na
-            stronie ani w wyszukiwarkach, widzi go tylko ktoś z tym linkiem.
-          </p>
-        </div>
-      )
-    }
-    <Nav active={section.label} />
+  {
+    isDraft && (
+      <div role="note" class="bg-preview text-ink">
+        <p class="wrap py-4 text-[15px]">
+          <strong class="font-semibold">To jest podgląd.</strong> Szkic – nie ma go na stronie ani
+          w wyszukiwarkach, widzi go tylko ktoś z tym linkiem.
+        </p>
+      </div>
+    )
+  }
+  <Nav active={section.label} />
 
-    <main id="tresc" class="flex flex-1 flex-col">
-      {/* Kolumna „W skrócie" = kolumna boczna siatki, ale nie węższa niż
-            21.5 rem: odtwarzacz Spotify potrzebuje 280 px, a padding kolumny
-            zabiera 2 × 32 px, a border-r jeszcze 1 px. Od ~1100 px wygrywa siatka. */}
-      <article class="flex flex-1 flex-col md:[--post-aside:max(calc(21.5rem_+_1px),var(--aside))]">
-        <!-- Pasek metadanych: data / kategoria / czas czytania. Tory 5 / 6 / 5
-             z 16 modułów – te same linie co w nawigacji. -->
-        <div
-          class="label grid grid-cols-2 border-b border-ink text-muted md:grid-cols-[var(--aside)_minmax(0,1fr)_var(--aside)]"
+  <main id="tresc">
+    <article>
+      <header class="wrap flex flex-col gap-7 pt-6 pb-12 md:pt-10 md:pb-16">
+        {/* Dział w pigułce to widoczny okruszek – ten sam, co BreadcrumbList
+            w JSON-LD, tylko bez „Start”, który i tak jest pod logotypem. */}
+        <p class="flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px]">
+          <a
+            href={section.href}
+            class="rounded-full border border-hairline bg-white px-3.5 py-1.5 font-semibold transition-colors hover:border-ink"
+          >
+            {section.label}
+          </a>
+          <span class="rounded-full bg-lime px-3.5 py-1.5 font-semibold">{meta}</span>
+          <span class="text-muted">
+            <time datetime={isoDate(entry.data.date)}>{plDate(entry.data.date)}</time> ·{" "}
+            {readingMinutes(entry)} min czytania
+          </span>
+        </p>
+        <h1
+          class="max-w-[20ch] font-serif text-[clamp(2.75rem,6vw,5.5rem)] leading-[0.95] tracking-[-0.02em] text-balance"
         >
-          <div
-            class="border-r border-b border-hairline px-5 py-[18px] md:border-b-0 md:px-8"
-          >
-            <time datetime={isoDate(entry.data.date)}>
-              {isoDate(entry.data.date)}
-            </time>
-          </div>
-          <div
-            class="border-b border-hairline px-5 py-[18px] md:border-r md:border-b-0 md:px-8"
-          >
-            {meta}
-          </div>
-          <div class="col-span-2 px-5 py-[18px] md:col-span-1 md:px-8">
-            {readingMinutes(entry)} min czyt.
-          </div>
-        </div>
+          {/* Niełamliwe spacje tylko w tekście widocznym na stronie – w meta,
+              JSON-LD, RSS-ie i llms.txt to dane dla maszyn, nie typografia. */}
+          {fixHanging(entry.data.title)}
+        </h1>
+      </header>
 
-        <!-- Wcięcie = szerokość kolumny „W skrócie" + 32 px, żeby tytuł
-             zaczynał się w osi tekstu wpisu. -->
-        <header
-          class="border-b border-ink px-5 py-10 md:px-8 md:pl-[calc(var(--post-aside)_+_2rem)]"
-        >
-          <h1
-            class="max-w-[18ch] font-serif text-post leading-[1.02] tracking-[-0.015em] text-balance"
-          >
-            {/* Niełamliwe spacje tylko w tekście widocznym na stronie – w meta,
-                JSON-LD, RSS-ie i llms.txt to dane dla maszyn, nie typografia. */}
-            {fixHanging(entry.data.title)}
-          </h1>
-        </header>
-
-        {
-          /* Wyimek jako osobne pasmo, nie znacznik w treści: korpus wpisu
-             dopuszcza tylko akapity, nagłówki, linki, strong i em, a pasmo
-             wpada w oko komuś, kto przelatuje stronę wzrokiem – czego samo
-             pogrubienie nie robi, bo `strong` to tu tylko waga 600.
-             Wcięcie jak w nagłówku, żeby cytat stał w osi tekstu wpisu.
-             figure + blockquote, bo to cytat z rozmowy – czytnik ogłasza go
-             jako cytat, a autor w figcaption jest z nim powiązany. */
-          entry.data.pullquote && (
-            <figure class="border-b border-ink px-5 py-10 md:px-8 md:pl-[calc(var(--post-aside)_+_2rem)]">
+      {
+        /* Wyimek jako osobna karta, nie znacznik w treści: korpus wpisu
+           dopuszcza tylko akapity, nagłówki, linki, strong i em, a karta
+           wpada w oko komuś, kto przelatuje stronę wzrokiem – czego samo
+           pogrubienie nie robi. figure + blockquote, bo to cytat z rozmowy –
+           czytnik ogłasza go jako cytat, a autor w figcaption jest z nim
+           powiązany. */
+        entry.data.pullquote && (
+          <figure class="wrap pb-12 md:pb-16">
+            <div class="rounded-[28px] bg-lime p-8 md:p-12">
               <blockquote>
-                <p class="font-serif text-row leading-[1.15] text-pretty text-ink">
+                <p class="max-w-[30ch] font-serif text-[clamp(1.75rem,3.2vw,2.75rem)] leading-[1.1] text-pretty">
                   {fixHanging(`„${entry.data.pullquote}”`)}
                 </p>
               </blockquote>
               {entry.data.pullquoteAuthor && (
-                <figcaption class="label mt-[18px] text-muted">
-                  {entry.data.pullquoteAuthor}
-                </figcaption>
+                <figcaption class="label mt-6">{entry.data.pullquoteAuthor}</figcaption>
               )}
-            </figure>
-          )
-        }
-
-        {/* Poniżej md siatka nie ma zadeklarowanych kolumn, a niejawna kolumna
-            `auto` rośnie do min-content treści – przy tabeli 800 px wypychała
-            całą stronę poza ekran zamiast pozwolić wrapperowi ją przewinąć.
-            Stąd jawne `minmax(0, 1fr)` w obu układach i `min-w-0` na komórce. */}
-        <div
-          class="grid flex-1 grid-cols-[minmax(0,1fr)] md:grid-cols-[var(--post-aside)_minmax(0,1fr)]"
-        >
-          {/* axe zgłasza tu landmark-complementary-is-top-level – fałszywy alarm:
-              <aside> w <article> bez nazwy dostępnej nie jest landmarkiem
-              (HTML-AAM), więc czytnik nie ogłasza go jako osobnego regionu. */}
-          <aside
-            class="border-b border-hairline px-5 py-9 md:border-r md:border-b-0 md:px-8"
-          >
-            {/* Sticky na wewnętrznym divie, nie na aside: aside musi zostać
-                pełnej wysokości, żeby border-r biegł przez całe pasmo treści.
-                Tylko od md – poniżej kolumny są ułożone jedna pod drugą.
-                top-9 = pionowy padding aside, żeby przyklejona treść stawała
-                dokładnie tam, gdzie stoi przed scrollem. */}
-            <div class="flex flex-col gap-[18px] md:sticky md:top-9">
-              <h2 class="label text-muted">W skrócie</h2>
-              <p class="text-xl leading-[1.5] font-medium text-body">
-                {fixHanging(entry.data.lead)}
-              </p>
-              {
-                /* Grafika wpisu siedzi pod leadem, nie w treści: kolumna „W skrócie"
-                   ma już stałą szerokość i sticky, a korpus w dwóch łamach
-                   rozerwałby obrazek na granicy kolumny. sizes odpowiada
-                   szerokościom aside: 5 modułów siatki, poniżej ~1100 px 21.5 rem,
-                   pełna szerokość poniżej md. */
-                entry.data.image && (
-                  <Image
-                    src={entry.data.image}
-                    alt={entry.data.imageAlt ?? ""}
-                    widths={[320, 480, 640, 960]}
-                    sizes="(min-width: 1101px) 31.25vw, (min-width: 768px) 21.5rem, 100vw"
-                    class="h-auto w-full"
-                  />
-                )
-              }
-              {
-                /* Wyjątek od zera zaokrągleń: karta odtwarzacza ma własny promień
-                   wewnątrz iframe'u, więc rama musi go powtórzyć, inaczej rogi
-                   świecą tłem. 152 px = kompaktowa karta pojedynczego utworu. */
-                entry.data.spotifyTrackId && (
-                  <iframe
-                    style="border-radius:12px; border:0"
-                    src={`https://open.spotify.com/embed/track/${entry.data.spotifyTrackId}?utm_source=generator&theme=0`}
-                    width="100%"
-                    height="152"
-                    allowfullscreen=""
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                    loading="lazy"
-                    title={`Spotify – odtwarzacz utworu z wpisu „${entry.data.title}”`}
-                  />
-                )
-              }
-              <slot name="aside" />
             </div>
-          </aside>
-
-          <div
-            class:list={[
-              "prose-swiss min-w-0 px-5 py-9 text-body md:px-10",
-              // Dwie łamy działają tylko na krótkiej notatce. Przy przewodniku
-              // łama jest wyższa niż ekran, więc czytelnik musiałby zjechać na
-              // sam dół strony i wrócić na górę po drugą.
-              // Obrazek w treści też wyłącza łamy (patrz hasBodyImage).
-              twoColumns && !hasBodyImage(entry) && "lg:[column-count:2] lg:[column-gap:40px]",
-            ]}
-          >
-            <Content />
-            <slot name="after" />
-          </div>
-        </div>
-      </article>
-    </main>
-
-    <nav
-      aria-label="Inne wpisy"
-      class="mx-auto grid w-full max-w-[80rem] border-t border-ink text-sm md:grid-cols-[max(calc(21.5rem_+_1px),31.25%)_minmax(0,1fr)]"
-    >
-      <a
-        href={section.href}
-        class="border-b border-hairline px-5 py-[21px] text-muted md:border-r md:border-b-0 md:px-8"
-      >
-        <span aria-hidden="true">←</span> {section.label}: wszystkie wpisy
-      </a>
-      {
-        next ? (
-          <a
-            href={next.href}
-            class="flex items-center justify-between gap-4 px-5 py-[21px] md:px-8"
-          >
-            <span class="font-semibold">Następny: {fixHanging(next.title)}</span>
-            <span aria-hidden="true">→</span>
-          </a>
-        ) : (
-          <p class="px-5 py-[21px] text-muted md:px-8">{oldestLabel}</p>
+          </figure>
         )
       }
-    </nav>
-    <Footer />
-  </div>
+
+      {/* Jawne `minmax(0, 1fr)` w obu układach i `min-w-0` na treści: niejawna
+          kolumna `auto` rośnie do min-content, a tabela 800 px wypychała
+          całą stronę poza ekran zamiast pozwolić wrapperowi ją przewinąć.
+          Kolumna „W skrócie” ma co najmniej 17,5 rem – odtwarzacz Spotify
+          potrzebuje 280 px. */}
+      <div
+        class="wrap grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-10 pb-16 md:grid-cols-[17.5rem_minmax(0,1fr)] md:pb-24 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-x-16"
+      >
+        <aside>
+          {/* Sticky tylko od md – poniżej kolumny stoją jedna pod drugą. */}
+          <div class="flex flex-col gap-5 md:sticky md:top-8">
+            <div class="flex flex-col gap-4 rounded-[28px] border border-hairline bg-white p-6">
+              <h2 class="label text-muted">W skrócie</h2>
+              <p class="text-xl leading-[1.45] text-ink">{fixHanging(entry.data.lead)}</p>
+              <slot name="aside" />
+            </div>
+            {
+              /* Grafika wpisu siedzi pod leadem, nie w treści: kolumna ma stałą
+                 szerokość i sticky, a korpus w dwóch łamach rozerwałby obrazek
+                 na granicy kolumny. */
+              entry.data.image && (
+                <Image
+                  src={entry.data.image}
+                  alt={entry.data.imageAlt ?? ""}
+                  widths={[320, 480, 640, 960]}
+                  sizes="(min-width: 1024px) 20rem, (min-width: 768px) 17.5rem, 100vw"
+                  class="h-auto w-full rounded-[20px]"
+                />
+              )
+            }
+            {
+              /* Karta odtwarzacza ma własny promień wewnątrz iframe'u, więc
+                 rama musi go powtórzyć, inaczej rogi świecą tłem. 152 px =
+                 kompaktowa karta pojedynczego utworu. */
+              entry.data.spotifyTrackId && (
+                <iframe
+                  style="border-radius:12px; border:0"
+                  src={`https://open.spotify.com/embed/track/${entry.data.spotifyTrackId}?utm_source=generator&theme=0`}
+                  width="100%"
+                  height="152"
+                  allowfullscreen=""
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"
+                  title={`Spotify – odtwarzacz utworu z wpisu „${entry.data.title}”`}
+                />
+              )
+            }
+          </div>
+        </aside>
+
+        <div
+          class:list={[
+            "prose-swiss min-w-0 text-body",
+            // Dwie łamy działają tylko na krótkiej notatce. Przy przewodniku
+            // łama jest wyższa niż ekran, więc czytelnik musiałby zjechać na
+            // sam dół strony i wrócić na górę po drugą.
+            // Obrazek w treści też wyłącza łamy (patrz hasBodyImage).
+            twoColumns && !hasBodyImage(entry) && "lg:[column-count:2] lg:[column-gap:40px]",
+          ]}
+        >
+          <Content />
+          <slot name="after" />
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <nav aria-label="Inne wpisy" class="wrap grid gap-5 pb-16 md:grid-cols-2 md:pb-24">
+    <a
+      href={section.href}
+      class="group flex flex-col justify-between gap-6 rounded-[28px] border border-hairline bg-white p-8 transition-colors hover:border-ink"
+    >
+      <span class="label text-muted">{section.label}</span>
+      <span class="font-serif text-row leading-[1.05]">
+        <span aria-hidden="true">←</span> Wszystkie wpisy
+      </span>
+    </a>
+    {
+      next ? (
+        <a
+          href={next.href}
+          class="group flex flex-col justify-between gap-6 rounded-[28px] bg-ink p-8 text-white transition-colors hover:bg-blue"
+        >
+          <span class="label text-fog">Następny</span>
+          <span class="font-serif text-row leading-[1.05] text-balance">
+            {fixHanging(next.title)} <span aria-hidden="true">→</span>
+          </span>
+        </a>
+      ) : (
+        <p class="flex items-end rounded-[28px] border border-dashed border-muted p-8 text-muted">
+          {oldestLabel}
+        </p>
+      )
+    }
+  </nav>
+  <Footer />
 </BaseLayout>

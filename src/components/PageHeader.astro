@@ -1,0 +1,44 @@
+---
+import { fixHanging } from "../typography";
+import Accent from "./Accent.astro";
+
+/**
+ * Nagłówek podstrony w języku strony głównej: pigułka nad tytułem, wielki
+ * tytuł w Instrument Serif z akcentem `*…*`, obok krótki tekst albo slot
+ * `aside` (licznik wpisów, numer KRS). Pigułka to zwykły akapit – h1 jest
+ * tytuł, bo na podstronach to on niesie frazę, nie nazwa fundacji.
+ */
+interface Props {
+	eyebrow: string;
+	title: string;
+	/** Akapit po prawej; zamiast niego można podać slot `aside`. */
+	intro?: string;
+	/** Kolor kropki w pigułce – klasa tła z palety. */
+	dot?: string;
+	/** `data-tina-field` tytułu i akapitu – nagłówek /fundacja edytuje Tina. */
+	titleField?: string;
+	introField?: string;
+}
+const { eyebrow, title, intro, dot = "bg-orange", titleField, introField } = Astro.props;
+---
+
+<header class="wrap flex flex-wrap items-end justify-between gap-x-16 gap-y-8 pt-6 pb-14 md:pt-10 md:pb-20">
+  <div class="flex min-w-0 flex-[999_1_30rem] flex-col gap-7">
+    <p
+      class="flex items-center gap-2.5 self-start rounded-3xl border border-hairline bg-white py-2 pr-4 pl-2.5 text-[15px] leading-snug font-semibold"
+    >
+      <span class:list={["size-3 shrink-0 rounded-full", dot]} aria-hidden="true"></span>
+      {eyebrow}
+    </p>
+    <h1 class="font-serif text-hero leading-[0.92] tracking-[-0.02em] text-balance" data-tina-field={titleField}>
+      <Accent text={title} />
+    </h1>
+  </div>
+  {
+    (intro || Astro.slots.has("aside")) && (
+      <div class="flex-[1_1_20rem] text-xl text-body md:max-w-[26rem]">
+        {intro ? <p data-tina-field={introField}>{fixHanging(intro)}</p> : <slot name="aside" />}
+      </div>
+    )
+  }
+</header>
