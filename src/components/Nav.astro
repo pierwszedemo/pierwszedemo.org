@@ -14,10 +14,14 @@ const { active } = Astro.props;
 // Linki dostają pionowy padding, żeby cel dotyku miał 24 px (WCAG 2.5.8).
 // Linia pod spodem na całą szerokość okna, nie kontenera – stąd dwa
 // elementy: <header> niesie linię, `wrap` w środku trzyma treść.
+// Przyklejona do góry, więc tło kryjące (paper) i z-index nad treścią, ale pod
+// linkiem „Przejdź do treści” (z-50). Skoki do kotwic omija dzięki
+// `scroll-padding-top` w global.css. Na telefonie niższy padding – dwa wiersze
+// nawigacji zabierają i tak ~110 px ekranu.
 ---
 
-<header class="border-b border-hairline">
-  <div class="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-5">
+<header class="sticky top-0 z-40 border-b border-hairline bg-paper">
+  <div class="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-1 py-3 md:py-5">
     <a href="/" class="flex items-center gap-3 text-ink transition-colors hover:text-blue">
       <Logo class="size-10 shrink-0" />
       <span class="font-serif text-[28px] leading-none tracking-[-0.01em]"

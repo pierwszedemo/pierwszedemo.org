@@ -151,7 +151,7 @@ const registry = [
           registry.map((entry) => (
             <div class="grid gap-1 border-b border-hairline py-4 md:grid-cols-[14rem_minmax(0,1fr)] md:gap-8">
               <dt class="label pt-1 text-muted">{entry.label}</dt>
-              <dd class="text-lg">{entry.value}</dd>
+              <dd class="text-lg">{fixHanging(entry.value)}</dd>
             </div>
           ))
         }

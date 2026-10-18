@@ -136,7 +136,7 @@ const columnHeading = "font-serif text-item leading-none";
                     entry.label === "Numer konta" && FOUNDATION.iban && "font-mono tracking-wide",
                   ]}
                 >
-                  {entry.value}
+                  {fixHanging(entry.value)}
                 </dd>
               </div>
             ))

@@ -49,6 +49,14 @@
 
 :root {
 	scrollbar-gutter: stable;
+	/* Nawigacja jest przyklejona do góry, więc skok do kotwicy (/fundacja#dane,
+     /#dolacz) zatrzymywałby się pod nią. Wartości to wysokość nawigacji
+     z zapasem: dwa wiersze (113 px na telefonie, 129 px między md a lg – tam
+     linki jeszcze nie mieszczą się obok logotypu), jeden wiersz od lg (85 px). */
+	scroll-padding-top: 8.5rem;
+	@media (width >= 64rem) {
+		scroll-padding-top: 5.5rem;
+	}
 
 	/* Siatka 16 kolumn ze szwajcarskiej makiety – dziś używa jej już tylko
      strona cyklu koncertów (/dzwieki-efemeryczne), reszta serwisu stoi na

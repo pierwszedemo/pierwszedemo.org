@@ -13,8 +13,33 @@ const names = FOUNDERS.map((person) => person.name.split(" ")[0]);
 ---
 
 <div class="relative h-[28rem] min-w-0 flex-[1_1_27.5rem] sm:h-[37.5rem]">
+  {/* Kaseta wsunięta za prawą krawędź polaroidu, na wysokości jego środka –
+      widać szpulę i kawałek etykiety. W makiecie leżała na wierzchu w lewym
+      dolnym rogu i ściągała wzrok na dół, z dala od zdjęcia. Przed <figure>
+      w kodzie, żeby polaroid ją przykrywał; polaroid jest o 4% węższy niż
+      w makiecie, żeby szpula wystawała. Dalej w prawo (`-right`) nie: tam,
+      gdzie kolaż zajmuje całą szerokość, wyjechałaby poza ekran. */}
+  <svg
+    viewBox="0 0 220 140"
+    aria-hidden="true"
+    class="absolute top-[40%] -right-[2%] w-[170px] rotate-8 drop-shadow-[0_8px_14px_rgb(21_21_26/0.18)] sm:w-[210px]"
+  >
+    <rect x="0" y="0" width="220" height="140" rx="12" fill="#2230e0"></rect>
+    <rect x="14" y="14" width="192" height="74" rx="6" fill="#fbfaf7"></rect>
+    <rect x="14" y="14" width="192" height="16" rx="3" fill="#ff7d40"></rect>
+    <text x="24" y="62" font-size="24" fill="#15151a" class="font-serif italic">pierwsze demo</text>
+    <text x="24" y="80" font-size="9" letter-spacing="1.5" fill="#4a4a53" class="font-sans font-semibold"
+      >STRONA A</text
+    >
+    <rect x="58" y="96" width="104" height="32" rx="16" fill="#15151a"></rect>
+    <circle cx="80" cy="112" r="11" fill="#fbfaf7"></circle>
+    <circle cx="80" cy="112" r="4" fill="#15151a"></circle>
+    <circle cx="140" cy="112" r="11" fill="#fbfaf7"></circle>
+    <circle cx="140" cy="112" r="4" fill="#15151a"></circle>
+  </svg>
+
   <figure
-    class="absolute top-[5%] left-[10%] flex h-[80%] w-[74%] -rotate-3 flex-col rounded-md bg-white p-3.5 pb-0 shadow-[0_24px_48px_rgb(21_21_26/0.16)]"
+    class="absolute top-[5%] left-[8%] flex h-[80%] w-[70%] -rotate-3 flex-col rounded-md bg-white p-3.5 pb-0 shadow-[0_24px_48px_rgb(21_21_26/0.16)]"
   >
     <span
       class="absolute -top-[18px] left-1/2 h-[38px] w-[150px] -translate-x-1/2 rotate-4 bg-lime/80"
@@ -39,31 +64,11 @@ const names = FOUNDERS.map((person) => person.name.split(" ")[0]);
         })
       }
     </div>
-    {/* Do prawej, a kaseta niżej i mniejsza niż w makiecie: tam lewy dolny
-        róg polaroidu był pusty, tu stoi podpis. */}
-    <figcaption class="py-4 pr-2 text-right font-serif text-[clamp(1.5rem,2.4vw,1.875rem)] leading-none italic">
+    <figcaption class="py-4 pl-2 font-serif text-[clamp(1.5rem,2.4vw,1.875rem)] leading-none italic">
       to my – {names.join(" i ")}
     </figcaption>
   </figure>
 
-  <svg
-    viewBox="0 0 220 140"
-    aria-hidden="true"
-    class="absolute -bottom-[10%] -left-[4%] w-[150px] sm:-bottom-[6%] -rotate-8 drop-shadow-[0_12px_18px_rgb(21_21_26/0.22)] sm:w-[200px]"
-  >
-    <rect x="0" y="0" width="220" height="140" rx="12" fill="#2230e0"></rect>
-    <rect x="14" y="14" width="192" height="74" rx="6" fill="#fbfaf7"></rect>
-    <rect x="14" y="14" width="192" height="16" rx="3" fill="#ff7d40"></rect>
-    <text x="24" y="62" font-size="24" fill="#15151a" class="font-serif italic">pierwsze demo</text>
-    <text x="24" y="80" font-size="9" letter-spacing="1.5" fill="#55555f" class="font-sans font-semibold"
-      >STRONA A</text
-    >
-    <rect x="58" y="96" width="104" height="32" rx="16" fill="#15151a"></rect>
-    <circle cx="80" cy="112" r="11" fill="#fbfaf7"></circle>
-    <circle cx="80" cy="112" r="4" fill="#15151a"></circle>
-    <circle cx="140" cy="112" r="11" fill="#fbfaf7"></circle>
-    <circle cx="140" cy="112" r="4" fill="#15151a"></circle>
-  </svg>
 
   <span
     class="absolute top-[2%] right-0 inline-flex rotate-6 items-center gap-2.5 rounded-full border-[1.5px] border-ink bg-white px-[18px] py-2.5 font-semibold tracking-[0.08em] shadow-[0_8px_16px_rgb(21_21_26/0.12)]"
