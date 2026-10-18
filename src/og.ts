@@ -185,7 +185,7 @@ export async function renderOgCard({
 				},
 				[
 					el("div", { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 32 }, [
-						pill(eyebrow, "#ffffff", PALETTE.orange),
+						pill(eyebrow, "#ffffff"),
 						recordMark(64),
 					]),
 					el(
