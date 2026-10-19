@@ -423,11 +423,9 @@ are resources, not pages.
 rasterises. A post card (`renderOgCard`) is the site in miniature: paper
 background, the eyebrow pill, the title in Instrument Serif, the record mark,
 the logotype, a category pill and the accent stripe from the footer. The
-homepage card (`renderHomeCard`) is the hero in miniature instead: the Tina
-slogan with its blue `*accent*`, the polaroid with the founders' photos
-(read from disk through `file` in `src/photos.ts` – an imported image is only
-a `/_astro/…` URL at build time – and cropped with `focus`), tape, the „REC”
-sticker and a text-less cassette. `PALETTE`, `STRIPE` and
+homepage card (`renderHomeCard`) is the hero in miniature instead, without
+photos: the Tina slogan with its blue `*accent*`, a big text-less cassette
+with the lime tape, the record behind it and the „REC” sticker. `PALETTE`, `STRIPE` and
 `RECORD_SVG` there are the one copy every generated image reads – favicons,
 the Facebook cover and the Instagram frames import them. Satori quirks that
 bite: padding on the root element is added *outside* `100%` (it pushed the
