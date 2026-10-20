@@ -60,12 +60,12 @@ test of these must assert the hop count, not only the final URL.
 
 The foundation is in KRS since 2026-10-15 (KRS 0001272868, NIP 9571207822,
 REGON 545957931 – the 9-digit form; GUS also prints it as 14 digits ending in
-`00000`, which is the local-unit format). `FOUNDATION.iban` in `consts.ts` is
-still an empty string: the bank account is opened after the KRS entry. An
-empty registry field renders `REGISTRY_PENDING` through
-`registryValue()` (an empty `iban` renders „w trakcie zakładania” on
-`/wesprzyj`); filling it in is the only change needed (footer, `/fundacja`,
-`/wesprzyj`, privacy policy, JSON-LD and `llms.txt` all read that object).
+`00000`, which is the local-unit format). The donation account (Nest Bank,
+since 2026-10-20) is `FOUNDATION.iban`, written as a Polish NRB in groups of
+four digits. Every page reads the registry from that object (footer,
+`/fundacja`, `/wesprzyj`, privacy policy, JSON-LD and `llms.txt`); an empty
+field would render `REGISTRY_PENDING` through `registryValue()` (an empty
+`iban`: „w trakcie zakładania” on `/wesprzyj`).
 `FOUNDATION.supervision` is copied from the KRS extract, which names the
 mayor of Gdańsk next to the minister – the statute names only the minister.
 The site went live a week before the entry (see „Launch”).
@@ -563,8 +563,7 @@ Vercel project and domain are gone. The `.com` zone's BIMI record points at
 `.org/bimi.svg`, because a BIMI fetcher does not follow redirects. Never remove
 the `.com` rule – Search Console's change of address depends on its 301s.
 
-When the account number arrives: fill `FOUNDATION.iban` in `consts.ts`, bump
-`LAST_CONTENT_UPDATE` and deploy.
+Registry data is complete since 2026-10-20 (KRS, NIP, REGON, account).
 
 ## Not built yet
 

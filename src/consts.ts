@@ -55,7 +55,7 @@ export type AuthorKey = keyof typeof AUTHOR_LABELS;
 export const AUTHORS = Object.keys(AUTHOR_LABELS) as [AuthorKey, ...AuthorKey[]];
 
 /** Data ostatniej zmiany treści – trafia do sitemap.lastmod i dateModified. */
-export const LAST_CONTENT_UPDATE = "2026-10-15";
+export const LAST_CONTENT_UPDATE = "2026-10-20";
 
 /**
  * Identyfikator pomiaru GA4 (G-XXXXXXXXXX). Pusty łańcuch = gtag.js w ogóle
@@ -120,8 +120,11 @@ export const FOUNDATION = {
 	krs: "0001272868",
 	nip: "9571207822",
 	regon: "545957931",
-	/** Numer rachunku do darowizn – zakładany po wpisie do KRS. */
-	iban: "",
+	/**
+	 * Numer rachunku do darowizn (Nest Bank) w zapisie NRB po cztery cyfry – tak
+	 * drukują go banki, a aplikacje bankowe przyjmują go ze spacjami.
+	 */
+	iban: "59 1870 1045 2078 1093 0557 0001",
 	court: "Sąd Rejonowy Gdańsk-Północ w Gdańsku, VII Wydział Gospodarczy KRS",
 	/** Organ nadzoru dosłownie jak w odpisie z KRS – statut wymienia tylko ministra. */
 	supervision:
