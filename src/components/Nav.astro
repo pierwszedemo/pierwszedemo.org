@@ -22,7 +22,7 @@ const { active } = Astro.props;
 // osobnych wierszy i nawigacja rosła do czterech.
 ---
 
-<header class="sticky top-0 z-40 border-b border-hairline bg-paper">
+<header data-site-nav class="sticky top-0 z-40 border-b border-hairline bg-paper">
   <div class="wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-1.5 md:gap-x-8 md:py-2.5">
     {/* Nazwa linku wprost: „Fundacja” i logotyp to elementy kolumny flex,
         a z nich czytnik potrafi skleić „Fundacjapierwsze demo”. */}
@@ -52,3 +52,21 @@ const { active } = Astro.props;
     </nav>
   </div>
 </header>
+
+<script>
+  // Wysokość nawigacji zależy od treści – logotyp, linki i pigułka łamią się
+  // na dwa wiersze przy szerokości, której nie wyznacza żaden próg Tailwinda
+  // (dziś ~860 px). CSS ma ją tylko z grubsza, progami; tu mierzymy ją
+  // naprawdę dla scroll-padding i przyklejonej karty „W skrócie”
+  // (`--nav-height` w global.css). Po każdej nawigacji ClientRoutera nagłówek
+  // jest nowym elementem, więc obserwator zaczyna od nowa.
+  let observer: ResizeObserver | undefined;
+  document.addEventListener("astro:page-load", () => {
+    observer?.disconnect();
+    const header = document.querySelector<HTMLElement>("[data-site-nav]");
+    if (!header) return;
+    const root = document.documentElement;
+    observer = new ResizeObserver(() => root.style.setProperty("--nav-height", `${header.offsetHeight}px`));
+    observer.observe(header);
+  });
+</script>

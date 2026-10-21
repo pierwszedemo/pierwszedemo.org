@@ -776,8 +776,11 @@ and in the same size (`<Logo foundation>` – a stacked „Fundacja” added a r
 of height), four links
 (O nas → /fundacja, Co robimy → /fundacja#dzialania, Wiedza, Aktualności) and
 the „Dołącz” pill (`JOIN_PATH`, the homepage section). It is sticky (`top-0`,
-opaque paper), and `scroll-padding-top` on `:root` keeps anchor jumps clear
-of it. On a phone the pill stays in the logotype's row and the links drop
+opaque paper). Its height depends on content – the links drop to a second
+row at a width no breakpoint marks (~860 px today) – so a script in
+`Nav.astro` measures it into `--nav-height`; `--nav-clearance` (height +
+10 px, with per-breakpoint fallbacks in `global.css`) feeds
+`scroll-padding-top` and the `top` of the sticky „W skrócie” card on posts. On a phone the pill stays in the logotype's row and the links drop
 below – two rows from 320 px up, with a smaller logotype and tighter gaps
 below `sm`. „Wesprzyj” is
 deliberately not a nav item: it is the `SupportBand.astro` card above the

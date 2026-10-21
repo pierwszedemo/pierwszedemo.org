@@ -50,13 +50,19 @@
 :root {
 	scrollbar-gutter: stable;
 	/* Nawigacja jest przyklejona do góry, więc skok do kotwicy (/fundacja#dane,
-     /#dolacz) zatrzymywałby się pod nią. Wartości to wysokość nawigacji
-     z zapasem: dwa wiersze (100 px na telefonie, 118 px między md a lg – tam
-     linki jeszcze nie mieszczą się obok logotypu), jeden wiersz od lg (70 px). */
-	scroll-padding-top: 8rem;
+     /#dolacz) zatrzymywałby się pod nią, a przyklejona karta „W skrócie”
+     wjeżdżała pod nią. `--nav-height` mierzy skrypt w Nav.astro – nawigacja
+     łamie się na dwa wiersze przy szerokości zależnej od treści. Tu tylko
+     wartość, zanim skrypt ruszy: najwyższa wersja poniżej lg (118 px, dwa
+     wiersze między md a ~860 px) i jeden wiersz od lg (70 px).
+     `--nav-clearance` dokłada 10 px zapasu; czyta ją scroll-padding i `top`
+     elementów sticky. */
+	--nav-height: 7.375rem;
 	@media (width >= 64rem) {
-		scroll-padding-top: 5rem;
+		--nav-height: 4.375rem;
 	}
+	--nav-clearance: calc(var(--nav-height) + 0.625rem);
+	scroll-padding-top: var(--nav-clearance);
 
 	/* Siatka 16 kolumn ze szwajcarskiej makiety – dziś używa jej już tylko
      strona cyklu koncertów (/dzwieki-efemeryczne), reszta serwisu stoi na

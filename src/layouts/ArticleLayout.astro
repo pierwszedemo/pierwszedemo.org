@@ -163,8 +163,9 @@ const breadcrumb = breadcrumbJsonLd(
         class="wrap grid grid-cols-[minmax(0,1fr)] gap-x-10 gap-y-10 pb-16 md:grid-cols-[17.5rem_minmax(0,1fr)] md:pb-24 lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-x-16"
       >
         <aside>
-          {/* Sticky tylko od md – poniżej kolumny stoją jedna pod drugą. */}
-          <div class="flex flex-col gap-5 md:sticky md:top-8">
+          {/* Sticky tylko od md – poniżej kolumny stoją jedna pod drugą.
+              Pod przyklejoną nawigacją, z odstępem – `--nav-clearance`. */}
+          <div class="flex flex-col gap-5 md:sticky md:top-[calc(var(--nav-clearance)+1.5rem)]">
             <div class="flex flex-col gap-4 rounded-[28px] border border-hairline bg-white p-6">
               <h2 class="label text-muted">W skrócie</h2>
               <p class="text-xl leading-[1.45] text-ink">{fixHanging(entry.data.lead)}</p>
