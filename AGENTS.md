@@ -457,10 +457,13 @@ and text with two styles must be split into word boxes (`titleWords`). Two const
   module into `dist/server/.prerender/chunks/`, where the TTFs are not.
 
 `/fundacja`, `/wiedza`, `/aktualnosci` and `/wesprzyj` have their own cards at
-`/og/strony/<page>.png` (`src/pages/og/strony/[page].png.ts`): the post card
-with the page's pill and title plus its intro paragraph under the title.
-The words come from `PAGE_HEADERS` in `consts.ts` – the same object the
-page's `PageHeader` reads – so a card never says something the page does
+`/og/strony/<page>.png` (`src/pages/og/strony/[page].png.ts`, `renderPageCard`):
+the homepage card's family – ultramarine, the same „Fundacja” + logotype
+lockup (`lockup()`), smaller, at the top with the domain beside it, then the
+page title and its intro paragraph. No slogan pill: the lockup carries the
+name. Homepage and page cards share `brandCard()`, so they cannot drift
+apart. The words come from `PAGE_HEADERS` in `consts.ts` – the same object
+the page's `PageHeader` reads – so a card never says something the page does
 not; `/fundacja` takes its title and intro from Tina (`fundacja.json`). Pages
 without a card of their own fall back to `/og.png`.
 

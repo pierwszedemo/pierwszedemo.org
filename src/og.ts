@@ -83,11 +83,6 @@ interface CardOptions {
 	eyebrow?: string;
 	/** Tytuł; słowa w `*gwiazdkach*` dostają niebieski akcent jak w hero. */
 	title: string;
-	/**
-	 * Akapit pod tytułem – na kartach podstron, jak akapit obok nagłówka
-	 * strony. Krótki tytuł („Baza wiedzy”) bez niego zostawiał pustą kartę.
-	 */
-	intro?: string;
 	/** Pigułka w stopce karty – kategoria wpisu; bez niej adres serwisu. */
 	badge?: string;
 	/** Wymiary płótna; domyślnie karta OG 1200×630. */
@@ -197,20 +192,17 @@ const pill = (text: string, background: string, dot?: string) =>
  * akcent (`*…*`) wymaga rozbicia na słowa. Spójniki są już doklejone twardą
  * spacją (`accentParts` woła `fixHanging`), więc dzielimy tylko po zwykłej.
  */
-const titleWords = (title: string) =>
+const titleWords = (title: string, color: string = PALETTE.ink, accent: string = PALETTE.blue) =>
 	accentParts(title).flatMap((part) =>
 		part.text
 			.split(" ")
 			.filter(Boolean)
-			.map((word) =>
-				el("span", { marginRight: "0.24em", color: part.accent ? PALETTE.blue : PALETTE.ink }, word),
-			),
+			.map((word) => el("span", { marginRight: "0.24em", color: part.accent ? accent : color }, word)),
 	);
 
 export async function renderOgCard({
 	eyebrow = `${SITE_NAME} · ${SITE_TAGLINE.toLowerCase()} · ${HOME_CITY}`,
 	title,
-	intro,
 	badge,
 	width = 1200,
 	height = 630,
@@ -221,10 +213,7 @@ export async function renderOgCard({
 	// więc stopnie są większe niż przy dawnym Archivo.
 	// Niższe płótno (okładka FB) skaluje stopień proporcjonalnie do wysokości.
 	const length = title.replace(/\*/g, "").length;
-	// Z akapitem pod spodem tytuł schodzi o stopień, żeby oba zmieściły się nad stopką.
-	const size = Math.round(
-		(length > 64 ? 82 : length > 40 ? 98 : 118) * Math.min(1, height / 630) * (intro ? 0.85 : 1),
-	);
+	const size = Math.round((length > 64 ? 82 : length > 40 ? 98 : 118) * Math.min(1, height / 630));
 
 	const svg = await satori(
 		el(
@@ -253,37 +242,20 @@ export async function renderOgCard({
 						pill(eyebrow, "#ffffff"),
 						iconMark(64),
 					]),
-					el("div", { display: "flex", flexDirection: "column", gap: 24 }, [
-						el(
-							"div",
-							{
-								display: "flex",
-								flexWrap: "wrap",
-								fontSize: size,
-								lineHeight: 0.95,
-								letterSpacing: "-0.02em",
-								// Satori nie ma `text-wrap: balance`; węższa kolumna trzyma
-								// wiersze w podobnej proporcji, co nagłówki na stronie.
-								maxWidth: Math.min(1000, width - 2 * paddingX),
-							},
-							titleWords(title),
-						),
-						...(intro
-							? [
-									el(
-										"div",
-										{
-											fontFamily: "Instrument Sans",
-											fontSize: 32,
-											lineHeight: 1.3,
-											color: PALETTE.muted,
-											maxWidth: 860,
-										},
-										fixHanging(intro),
-									),
-								]
-							: []),
-					]),
+					el(
+						"div",
+						{
+							display: "flex",
+							flexWrap: "wrap",
+							fontSize: size,
+							lineHeight: 0.95,
+							letterSpacing: "-0.02em",
+							// Satori nie ma `text-wrap: balance`; węższa kolumna trzyma
+							// wiersze w podobnej proporcji, co nagłówki na stronie.
+							maxWidth: Math.min(1000, width - 2 * paddingX),
+						},
+						titleWords(title),
+					),
 					el("div", { display: "flex", flexDirection: "column", gap: 28 }, [
 						el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" }, [
 							wordmark(44),
@@ -313,14 +285,27 @@ export async function renderOgCard({
 }
 
 /**
- * Karta OG strony głównej – kim jesteśmy, bez ozdobników: „Fundacja” i duży
- * logotyp w wariancie ikon (seledyn z pomarańczową falą na ultramarynie), na dole
- * czym się zajmujemy i adres. Słowo „fundacja” ma być czytelne w miniaturze
- * podglądu linku – dawny kolaż z kasetą i płytą chował je w szarej stopce.
- * Ultramaryna zamiast ciepłej bieli, bo to karta całej marki, a nie wpisu,
- * i w strumieniu odróżnia się od kart wpisów (`renderOgCard`).
+ * Karty marki – strona główna i podstrony – na ultramarynie, w barwach ikon
+ * (seledynowy logotyp z pomarańczową falą). Obie zaczynają się tym samym
+ * znakiem: „Fundacja” nad logotypem, więc czytają się jako jedna rodzina
+ * i słowo „fundacja” widać w każdej miniaturze podglądu linku. Karty wpisów
+ * (`renderOgCard`) zostają na ciepłej bieli – tam tytułem jest wpis.
  */
-export async function renderHomeCard(): Promise<Buffer> {
+const lockup = (size: number) =>
+	el("div", { display: "flex", flexDirection: "column", gap: size * 0.05 }, [
+		el(
+			"div",
+			{ fontSize: size * 0.58, lineHeight: 1, letterSpacing: "-0.02em", color: "#ffffff" },
+			"Fundacja",
+		),
+		wordmark(size, LOGO_COLORS.lime),
+	]);
+
+/** Akapit na ultramarynie – biel przygaszona, żeby tytuł i znak zostały wyżej w hierarchii. */
+const ON_BLUE_MUTED = "#dde1ff";
+
+// Padding na dziecku, nie na korzeniu – jak w renderOgCard.
+const brandCard = async (children: unknown[]) => {
 	const svg = await satori(
 		el(
 			"div",
@@ -332,7 +317,6 @@ export async function renderHomeCard(): Promise<Buffer> {
 				color: "#ffffff",
 				fontFamily: "Instrument Serif",
 			},
-			// Padding na dziecku, nie na korzeniu – jak w renderOgCard.
 			el(
 				"div",
 				{
@@ -342,31 +326,68 @@ export async function renderHomeCard(): Promise<Buffer> {
 					flexGrow: 1,
 					padding: "52px 72px 56px",
 				},
-				[
-					el("div", { display: "flex", flexDirection: "column", gap: 10 }, [
-						el("div", { fontSize: 120, lineHeight: 1, letterSpacing: "-0.02em" }, "Fundacja"),
-						wordmark(208, LOGO_COLORS.lime),
-					]),
-					el(
-						"div",
-						{
-							display: "flex",
-							justifyContent: "space-between",
-							alignItems: "flex-end",
-							fontFamily: "Instrument Sans",
-							fontWeight: 600,
-							fontSize: 30,
-						},
-						[dotted(`${SITE_TAGLINE} · ${HOME_CITY}`), el("div", { color: LOGO_COLORS.lime }, SITE_HOST)],
-					),
-				],
+				children,
 			),
 		),
 		{ width: 1200, height: 630, fonts: FONTS },
 	);
-
 	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
-}
+};
+
+/** Strona główna: sam znak, duży, a na dole czym się zajmujemy i adres. */
+export const renderHomeCard = () =>
+	brandCard([
+		lockup(208),
+		el(
+			"div",
+			{
+				display: "flex",
+				justifyContent: "space-between",
+				alignItems: "flex-end",
+				fontFamily: "Instrument Sans",
+				fontWeight: 600,
+				fontSize: 30,
+			},
+			[dotted(`${SITE_TAGLINE} · ${HOME_CITY}`), el("div", { color: LOGO_COLORS.lime }, SITE_HOST)],
+		),
+	]);
+
+/**
+ * Podstrona: znak mały u góry (obok adres), na dole tytuł strony i akapit
+ * z jej nagłówka. Bez pigułki z nazwą i hasłem – nazwę niesie znak.
+ */
+export const renderPageCard = ({ title, intro }: { title: string; intro: string }) => {
+	const length = title.replace(/\*/g, "").length;
+	return brandCard([
+		el("div", { display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, [
+			lockup(104),
+			el(
+				"div",
+				{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 26, color: LOGO_COLORS.lime },
+				SITE_HOST,
+			),
+		]),
+		el("div", { display: "flex", flexDirection: "column", gap: 22 }, [
+			el(
+				"div",
+				{
+					display: "flex",
+					flexWrap: "wrap",
+					fontSize: length > 32 ? 92 : 112,
+					lineHeight: 0.95,
+					letterSpacing: "-0.02em",
+					maxWidth: 1000,
+				},
+				titleWords(title, "#ffffff", LOGO_COLORS.lime),
+			),
+			el(
+				"div",
+				{ fontFamily: "Instrument Sans", fontSize: 30, lineHeight: 1.3, color: ON_BLUE_MUTED, maxWidth: 880 },
+				fixHanging(intro),
+			),
+		]),
+	]);
+};
 
 /**
  * Avatar z płótna „Logo — wybrane”: „demo” w seledynie nad pomarańczową falą, na
