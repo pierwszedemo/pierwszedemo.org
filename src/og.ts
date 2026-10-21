@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
 import { HOME_CITY, LOGOTYPE, SITE_HOST, SITE_TAGLINE, WORDMARK } from "./consts";
+import { COVER_HEIGHT, COVER_QUOTE, COVER_WIDTH, coverArt, coverParams } from "./covers";
 import { LOGO_COLORS, WAVE, waveRadius, waveSvg } from "./logo";
 import { accentParts, fixHanging } from "./typography";
 
@@ -114,6 +115,12 @@ const dotted = (text: string, style: Record<string, unknown> = {}) =>
 			]),
 	);
 
+/** SVG jako obrazek z data URI – satori pomija zagnieżdżony element <svg>. */
+const svgImg = (svg: string, width: number, height: number, style: Record<string, unknown> = {}) => ({
+	type: "img",
+	props: { src: `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`, width, height, style },
+});
+
 /** Fala bez stałej szerokości – rozciąga ją rodzic (kolumna flex). */
 const waveImg = (fill: string, height: number) => ({
 	type: "img",
@@ -179,10 +186,15 @@ const pill = (text: string, background: string, dot?: string) =>
  * i seledynie, na ciepłej bieli wpisów w czerni, jak logotyp w nawigacji.
  * Fala zawsze pomarańczowa.
  */
-const lockup = (size: number, color = "#ffffff", wordmarkColor: string = LOGO_COLORS.lime) =>
-	el("div", { display: "flex", flexDirection: "column", gap: size * 0.05 }, [
+const lockup = (
+	size: number,
+	color = "#ffffff",
+	wordmarkColor: string = LOGO_COLORS.lime,
+	{ wave = LOGO_COLORS.orange, align = "flex-start" } = {},
+) =>
+	el("div", { display: "flex", flexDirection: "column", alignItems: align, gap: size * 0.05 }, [
 		el("div", { fontSize: size * 0.58, lineHeight: 1, letterSpacing: "-0.02em", color }, "Fundacja"),
-		wordmark(size, wordmarkColor),
+		wordmark(size, wordmarkColor, wave),
 	]);
 
 /**
@@ -271,6 +283,116 @@ export async function renderOgCard({
 			),
 		),
 		{ width, height, fonts: FONTS },
+	);
+
+	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
+}
+
+/**
+ * Karta OG wpisu = jego okładka (src/covers.ts): grafika z generatora
+ * Claude Design w kolorystyce i szablonie liczonych ze sluga, a w kolumnie
+ * po drugiej stronie znak „Fundacja / pierwsze demo” u góry, tytuł i pigułka
+ * kategorii na dole. Kolumna 500 px jak w makiecie; przy lustrze grafika
+ * idzie na lewo, a tekst na prawo, wyrównany do prawej krawędzi.
+ */
+export async function renderPostCover({
+	slug,
+	title,
+	badge,
+}: {
+	slug: string;
+	title: string;
+	badge: string;
+}): Promise<Buffer> {
+	const params = coverParams(slug);
+	const { palette: P, back, front, quote } = coverArt(params);
+	const layer = (shapes: string) =>
+		svgImg(
+			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${COVER_WIDTH} ${COVER_HEIGHT}">${shapes}</svg>`,
+			COVER_WIDTH,
+			COVER_HEIGHT,
+			{ position: "absolute", left: 0, top: 0 },
+		);
+	const side = params.mirror ? { right: 64, alignItems: "flex-end" } : { left: 64, alignItems: "flex-start" };
+	const length = title.length;
+
+	const svg = await satori(
+		el(
+			"div",
+			{
+				display: "flex",
+				position: "relative",
+				width: "100%",
+				height: "100%",
+				backgroundColor: P.bg,
+				color: P.text,
+				fontFamily: "Instrument Serif",
+				overflow: "hidden",
+			},
+			[
+				layer(back),
+				...(quote
+					? [
+							el(
+								"div",
+								{
+									position: "absolute",
+									left: COVER_QUOTE.x,
+									top: COVER_QUOTE.top,
+									fontSize: COVER_QUOTE.size,
+									lineHeight: 1,
+									color: quote,
+								},
+								COVER_QUOTE.glyph,
+							),
+						]
+					: []),
+				layer(front),
+				el(
+					"div",
+					{
+						position: "absolute",
+						top: 56,
+						bottom: 56,
+						width: 500,
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "space-between",
+						gap: 24,
+						...side,
+					},
+					[
+						lockup(72, P.text, P.text, { wave: P.wave, align: side.alignItems }),
+						el(
+							"div",
+							{
+								fontSize: length > 48 ? 54 : 62,
+								lineHeight: 1,
+								letterSpacing: "-0.015em",
+								textAlign: params.mirror ? "right" : "left",
+							},
+							fixHanging(title),
+						),
+						el(
+							"div",
+							{
+								display: "flex",
+								padding: "10px 22px",
+								borderRadius: 999,
+								backgroundColor: P.chipBg,
+								color: P.chipText,
+								fontFamily: "Instrument Sans",
+								fontWeight: 600,
+								fontSize: 24,
+								lineHeight: 1.2,
+							},
+							badge,
+						),
+					],
+				),
+			],
+		),
+		{ width: COVER_WIDTH, height: COVER_HEIGHT, fonts: FONTS },
 	);
 
 	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();

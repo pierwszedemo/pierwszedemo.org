@@ -97,7 +97,8 @@ Parts, in `src/components/`:
   inside a section (`#michal`, `#sprawozdania`, the activities) get
   `scroll-mt-6`.
 - `ContactBlock` – „Po prostu *napisz.*” and the address, as on `/`.
-- `PostCard` – the illustrated card (three compositions, chosen by position);
+- `PostCard` – the illustrated card: the post's cover (`src/covers.ts`, see
+  „Post covers”) without the title, cropped to 4:3 from the text side;
   `ListRow` – the index row (mono date, serif title, pill, arrow; the title
   underlines on hover – italic changed its width and the row jumped). Lists show the three newest as cards and the rest as rows.
 - `HeroPhoto` – a rounded photo card with a pill caption; `SupportBand` – the
@@ -441,10 +442,11 @@ are resources, not pages.
 `src/og.ts` – satori lays the card out and converts text to paths, sharp
 rasterises. Every card opens with the same lockup – „Fundacja” over the
 logotype (`lockup()`), so the word „fundacja” reads in any link-preview
-thumbnail and no slogan pill is needed. A post card (`renderOgCard`) is the
-site in miniature: paper background, the lockup in ink with a category pill
-opposite, the title in Instrument Serif and the accent stripe from the
-footer. The homepage card (`renderHomeCard`) is the brand card instead: white
+thumbnail and no slogan pill is needed. A post's card is its cover
+(`renderPostCover`, „Post covers” below). `renderOgCard` – paper background,
+the lockup in ink with a category pill opposite, the title in Instrument Serif
+and the accent stripe from the footer – is left for the Facebook cover
+(`scripts/generate-social.mjs`). The homepage card (`renderHomeCard`) is the brand card instead: white
 „Fundacja” over a big lime logotype with the orange wave on ultramarine (the
 icons' palette), the tagline, city and domain at the bottom – nothing else.
 „Fundacja” must read in a thumbnail; the earlier collage (slogan, cassette,
@@ -482,6 +484,26 @@ collide with the `[...slug]` catch-all. `/og/dzwieki-efemeryczne.png` alone keep
 (`renderSwissCard`, Archivo + IBM Plex Mono) – like its page; so does
 `scripts/generate-dzwieki.mjs`. Those two are the only reason the Archivo TTF
 is still in `src/assets/fonts/`.
+
+### Post covers
+
+Every post (both collections) gets a generated cover – the Claude Design
+system „Okładki — system i generator” (artboard `Cover.dc.html`): 5 templates
+(Scena, Fala, Promienie, Cytat, Kolaż) × 8 colourways × mirror × seed.
+`src/covers.ts` is a faithful port – FNV-1a, the artboard's mulberry32, the
+same order of draws and the same rounding – so the same parameters give the
+same picture in Claude Design (`describeCover()` prints them in its wording).
+Two deliberate differences: the parameters are hashed from the **slug**, not
+the title, so fixing a title in Tina does not reshuffle the cover; and the
+logotype's wave is orange only where it reaches 3:1 against the background
+(WCAG 1.4.11 – in practice black and navy), otherwise the colourway's own wave
+colour, then its text colour. The same cover is the post's OG image
+(`renderPostCover`: shapes as an SVG layer, text through satori – the lockup
+at the top of a 500 px column opposite the art, the title, the category pill)
+and, without text, its card on the site (`PostCard`, inline SVG). The „ of
+the Cytat template is text: satori sets it like the artboard's span, the site
+as `<text>` on the baseline computed from Instrument Serif's metrics
+(`COVER_QUOTE`).
 
 ### Logo and favicons
 

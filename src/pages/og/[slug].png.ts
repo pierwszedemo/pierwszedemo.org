@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { type Article, getRoutedArticles, getRoutedNews, type News } from "../../collections";
 import { NEWS_KINDS } from "../../consts";
-import { OG_HEADERS, renderOgCard } from "../../og";
+import { OG_HEADERS, renderPostCover } from "../../og";
 
 export const prerender = true;
 
@@ -24,8 +24,11 @@ export async function getStaticPaths() {
 	];
 }
 
-export const GET: APIRoute<{ title: string; badge: string }> = async ({ props }) => {
-	const png = await renderOgCard({ title: props.title, badge: props.badge });
+export const GET: APIRoute<{ title: string; badge: string }, { slug: string }> = async ({
+	params,
+	props,
+}) => {
+	const png = await renderPostCover({ slug: params.slug, title: props.title, badge: props.badge });
 	return new Response(png, { headers: OG_HEADERS });
 };
 

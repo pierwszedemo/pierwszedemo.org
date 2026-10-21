@@ -94,14 +94,14 @@ const breadcrumb = breadcrumbJsonLd(
     <section class="wrap pb-16 md:pb-24" aria-label="Najnowsze">
       <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-6">
         {
-          latest.map((entry, index) => (
+          latest.map((entry) => (
             <li>
               <PostCard
                 href={`${KNOWLEDGE_PATH}/${entry.id}`}
+                slug={entry.id}
                 title={entry.data.title}
                 date={entry.data.date}
                 label={entry.data.category}
-                variant={index}
                 heading="h2"
               />
             </li>

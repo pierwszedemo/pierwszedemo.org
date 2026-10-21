@@ -87,9 +87,9 @@ const sectionHeading = "font-serif text-page leading-[0.95] tracking-[-0.02em]";
               rozciągały się na pół strony i ilustracje robiły się olbrzymie. */}
           <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {
-              latest.map(({ entry, href, label }, index) => (
+              latest.map(({ entry, href, label }) => (
                 <li>
-                  <PostCard href={href} title={entry.data.title} date={entry.data.date} label={label} variant={index} />
+                  <PostCard href={href} slug={entry.id} title={entry.data.title} date={entry.data.date} label={label} />
                 </li>
               ))
             }
