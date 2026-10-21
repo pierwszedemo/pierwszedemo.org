@@ -434,10 +434,13 @@ are resources, not pages.
 rasterises. A post card (`renderOgCard`) is the site in miniature: paper
 background, the eyebrow pill, the title in Instrument Serif, the icon tile,
 the logotype (`wordmark()`), a category pill and the accent stripe from the
-footer. The homepage card (`renderHomeCard`) is the hero in miniature instead,
-without photos: the logotype, the Tina slogan with its blue `*accent*`, a big
-text-less cassette with the lime tape, the record behind it and the „REC”
-sticker. `PALETTE`, `STRIPE` and `wordmark()` there are the one copy every
+footer. The homepage card (`renderHomeCard`) is the brand card instead: white
+„Fundacja” over a big lime logotype with the pink wave on ultramarine (the
+icons' palette), the tagline, city and domain at the bottom – nothing else.
+„Fundacja” must read in a thumbnail; the earlier collage (slogan, cassette,
+record, „REC”) hid it in a grey footer line, and the Tina slogan says nothing
+about who we are, so the card does not use it. `PALETTE`, `STRIPE` and
+`wordmark()` there are the one copy every
 generated image reads – the Facebook cover and the Instagram frames import
 them. Satori quirks that bite: padding on the root element is added *outside*
 `100%` (it pushed the footer off the card – pad a child instead), a nested

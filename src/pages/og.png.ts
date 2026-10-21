@@ -1,11 +1,10 @@
 import type { APIRoute } from "astro";
 import { OG_HEADERS, renderHomeCard } from "../og";
-import { HOMEPAGE } from "../strony";
 
 export const prerender = true;
 
 export const GET: APIRoute = async () => {
-	// Hero w miniaturze, ze sloganem z Tiny.
-	const png = await renderHomeCard({ title: HOMEPAGE.slogan });
+	// Karta marki: „Fundacja” i logotyp, bez sloganu – ten nie mówi, kim jesteśmy.
+	const png = await renderHomeCard();
 	return new Response(png, { headers: OG_HEADERS });
 };

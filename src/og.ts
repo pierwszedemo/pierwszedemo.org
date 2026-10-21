@@ -113,9 +113,6 @@ const dotted = (text: string, style: Record<string, unknown> = {}) =>
 			]),
 	);
 
-/** Płyta z kolażu hero (HeroCollage.astro) – na karcie strony głównej za kasetą. */
-const RECORD_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="${PALETTE.ink}"/><circle cx="20" cy="20" r="14" fill="none" stroke="#3a3a42" stroke-width="1.5"/><circle cx="20" cy="20" r="7" fill="${PALETTE.orange}"/><circle cx="20" cy="20" r="1.8" fill="${PALETTE.paper}"/></svg>`;
-
 /** SVG jako obrazek z data URI – satori pomija zagnieżdżony element <svg>. */
 const svgImg = (svg: string, width: number, height: number, style: Record<string, unknown> = {}) => ({
 	type: "img",
@@ -139,7 +136,7 @@ const iconMark = (size: number) => svgImg(iconSvg(size), size, size);
  * rozciąga falę na szerokość słowa, proporcje w `em` jak na stronie. Twarda
  * spacja, bo satori obcina zwykłą na końcu pudełka.
  */
-export const wordmark = (size: number, color: string = PALETTE.ink) => {
+export const wordmark = (size: number, color: string = PALETTE.ink, wave: string = LOGO_COLORS.orange) => {
 	const split = LOGOTYPE.lastIndexOf(" ");
 	return el(
 		"div",
@@ -156,7 +153,7 @@ export const wordmark = (size: number, color: string = PALETTE.ink) => {
 			el("div", {}, `${LOGOTYPE.slice(0, split)}\u00a0`),
 			el("div", { display: "flex", flexDirection: "column", gap: size * 0.12 }, [
 				el("div", {}, LOGOTYPE.slice(split + 1)),
-				waveImg(LOGO_COLORS.orange, size * 0.33),
+				waveImg(wave, size * 0.33),
 			]),
 		],
 	);
@@ -284,91 +281,54 @@ export async function renderOgCard({
 }
 
 /**
- * Kaseta z hero bez napisu: tekst w SVG wstawionym jako obrazek rasteryzuje
- * librsvg fontem systemowym, więc etykieta to same paski.
+ * Karta OG strony głównej – kim jesteśmy, bez ozdobników: „Fundacja” i duży
+ * logotyp w wariancie ikon (seledyn z różową falą na ultramarynie), na dole
+ * czym się zajmujemy i adres. Słowo „fundacja” ma być czytelne w miniaturze
+ * podglądu linku – dawny kolaż z kasetą i płytą chował je w szarej stopce.
+ * Ultramaryna zamiast ciepłej bieli, bo to karta całej marki, a nie wpisu,
+ * i w strumieniu odróżnia się od kart wpisów (`renderOgCard`).
  */
-const CASSETTE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 140"><rect width="220" height="140" rx="12" fill="${PALETTE.blue}"/><rect x="14" y="14" width="192" height="74" rx="6" fill="${PALETTE.paper}"/><rect x="14" y="14" width="192" height="16" rx="3" fill="${PALETTE.orange}"/><rect x="24" y="46" width="120" height="7" rx="3.5" fill="${PALETTE.hairline}"/><rect x="24" y="62" width="80" height="7" rx="3.5" fill="${PALETTE.hairline}"/><rect x="58" y="96" width="104" height="32" rx="16" fill="${PALETTE.ink}"/><circle cx="80" cy="112" r="11" fill="${PALETTE.paper}"/><circle cx="80" cy="112" r="4" fill="${PALETTE.ink}"/><circle cx="140" cy="112" r="11" fill="${PALETTE.paper}"/><circle cx="140" cy="112" r="4" fill="${PALETTE.ink}"/></svg>`;
-
-/**
- * Karta OG strony głównej – hero w miniaturze, bez zdjęć: slogan po lewej,
- * a po prawej duża kaseta z taśmą, za nią płyta ze znaku i naklejka „REC”,
- * na dole pasek akcentów. Karty wpisów zostają tekstowe (`renderOgCard`):
- * tam tytułem jest wpis, a nie fundacja. Wszystko pozycjonowane absolutnie,
- * bo kolaż nachodzi na siebie.
- */
-export async function renderHomeCard({ title }: { title: string }): Promise<Buffer> {
-	const at = (style: Record<string, unknown>) => ({ position: "absolute", ...style });
-	const sans = { fontFamily: "Instrument Sans", fontWeight: 600 };
-
+export async function renderHomeCard(): Promise<Buffer> {
 	const svg = await satori(
 		el(
 			"div",
 			{
 				display: "flex",
-				position: "relative",
 				width: "100%",
 				height: "100%",
-				backgroundColor: PALETTE.paper,
-				color: PALETTE.ink,
+				backgroundColor: LOGO_COLORS.ultramarine,
+				color: "#ffffff",
 				fontFamily: "Instrument Serif",
 			},
-			[
-				el(
-					"div",
-					{
-						...at({ left: 64, top: 56, width: 600, bottom: 96 }),
-						display: "flex",
-						flexDirection: "column",
-						justifyContent: "space-between",
-					},
-					[
-						wordmark(40),
-						el(
-							"div",
-							{ display: "flex", flexWrap: "wrap", fontSize: 92, lineHeight: 0.92, letterSpacing: "-0.02em" },
-							titleWords(title),
-						),
-						dotted(`${SITE_NAME} · ${SITE_HOST}`, { ...sans, fontSize: 24, color: PALETTE.muted }),
-					],
-				),
-				// Kolejność w drzewie = kolejność warstw: płyta pod kasetą, taśma na niej.
-				svgImg(RECORD_SVG, 320, 320, at({ left: 820, top: 96 })),
-				svgImg(CASSETTE_SVG, 400, 255, at({ left: 700, top: 232, transform: "rotate(-6deg)" })),
-				el("div", {
-					...at({ left: 830, top: 214, width: 140, height: 36 }),
-					backgroundColor: "rgba(212,255,58,0.85)",
-					transform: "rotate(-10deg)",
-				}),
-				el(
-					"div",
-					{
-						...at({ right: 56, top: 44 }),
-						...sans,
-						display: "flex",
-						alignItems: "center",
-						gap: 10,
-						padding: "8px 18px",
-						borderRadius: 999,
-						border: `2px solid ${PALETTE.ink}`,
-						backgroundColor: "#ffffff",
-						fontSize: 20,
-						letterSpacing: "0.08em",
-						transform: "rotate(6deg)",
-					},
-					[
-						el("div", { width: 14, height: 14, borderRadius: 999, backgroundColor: "#ff3b30" }),
-						el("div", {}, "REC"),
-						el("div", { letterSpacing: 0, color: PALETTE.muted }, "00:01"),
-					],
-				),
-				el(
-					"div",
-					{ ...at({ left: 64, right: 64, bottom: 40, height: 14 }), display: "flex", gap: 8 },
-					STRIPE.map(([color, grow]) =>
-						el("div", { flexGrow: grow, borderRadius: 999, backgroundColor: color }),
+			// Padding na dziecku, nie na korzeniu – jak w renderOgCard.
+			el(
+				"div",
+				{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "space-between",
+					flexGrow: 1,
+					padding: "52px 72px 56px",
+				},
+				[
+					el("div", { display: "flex", flexDirection: "column", gap: 10 }, [
+						el("div", { fontSize: 120, lineHeight: 1, letterSpacing: "-0.02em" }, "Fundacja"),
+						wordmark(208, LOGO_COLORS.lime, LOGO_COLORS.pink),
+					]),
+					el(
+						"div",
+						{
+							display: "flex",
+							justifyContent: "space-between",
+							alignItems: "flex-end",
+							fontFamily: "Instrument Sans",
+							fontWeight: 600,
+							fontSize: 30,
+						},
+						[dotted(`${SITE_TAGLINE} · ${HOME_CITY}`), el("div", { color: LOGO_COLORS.lime }, SITE_HOST)],
 					),
-				),
-			],
+				],
+			),
 		),
 		{ width: 1200, height: 630, fonts: FONTS },
 	);
