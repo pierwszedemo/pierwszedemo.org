@@ -1,5 +1,15 @@
 {
 	"enabledPlugins": {
-		"cloudflare@claude-plugins-official": true
+		"cloudflare@claude-plugins-official": true,
+		"pierwszedemo@pierwszedemo": true
+	},
+	"extraKnownMarketplaces": {
+		"pierwszedemo": {
+			"source": {
+				"source": "github",
+				"repo": "pierwszedemo/skills"
+			},
+			"autoUpdate": true
+		}
 	}
 }

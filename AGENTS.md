@@ -302,12 +302,6 @@ The content layer caches rendered markdown by file content, not by plugin
 code: after changing a satteri plugin run `astro build --force` once, and
 clear the Workers Builds cache if CI renders the old output.
 
-A pierwszedemo skill writes to these rules;
-its knowledge-base posts stay without images, and news posts get only photos
-the user supplies. Its `references/fundatorzy.md` is the one source of what a
-post may say about the founders – including what stays private (unannounced
-release dates, the story behind lyrics) – and it asks who signs every post.
-
 ### TinaCMS
 
 Tina edits the markdown in place and commits to the repo through **TinaCloud**
@@ -754,9 +748,9 @@ decision, and reduced motion switches it off.
 - Skills live in `.agents/skills/`; `.claude/skills/` holds symlinks to them.
   `seo`, `accessibility` and `frontend-design` are vendored from GitHub and
   pinned in `skills-lock.json` – this project cares about all three.
-  The pierwszedemo skills and `instagram-carousel` are this repo's own skills and
-  are deliberately *not* in `skills-lock.json`: that file pins upstream skills
-  by `computedHash`, and a locally authored one would fail every sync.
+  `instagram-carousel` is this repo's own skill and is deliberately *not* in
+  `skills-lock.json`: that file pins upstream skills by `computedHash`, and a
+  locally authored one would fail every sync.
 - `instagram-carousel` turns a published post into Instagram graphics: a
   1080×1350 (4:5) carousel (cover / 1–4 content slides / CTA) or one of three
   single-post formats (`mit` / `zapisz` / `pytanie` / `liczba`) whose layouts deliberately
