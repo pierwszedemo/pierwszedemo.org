@@ -227,7 +227,9 @@ export const PERSON_PROFILES = [
 /**
  * Kategorie bazy wiedzy. Kategoria opisuje efekt pracy, o której jest wpis,
  * a nie temat, o który zahacza – „budżet trasy" to Finanse, choć dotyczy
- * koncertów.
+ * koncertów. „Twórczość” i „Zdrowie” doszły z działaniami fundacji (warsztat
+ * twórczy, zdrowie psychiczne); prawo nie ma własnej kategorii, bo umowa to
+ * efekt pracy w Zarządzaniu, a tantiemy – w Finansach.
  */
 export const CATEGORIES = [
 	"Promocja",
@@ -237,6 +239,8 @@ export const CATEGORIES = [
 	"Finanse",
 	"Zarządzanie",
 	"Branża",
+	"Twórczość",
+	"Zdrowie",
 ] as const;
 
 export type Category = (typeof CATEGORIES)[number];
