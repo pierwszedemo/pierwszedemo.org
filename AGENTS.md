@@ -456,6 +456,14 @@ and text with two styles must be split into word boxes (`titleWords`). Two const
 - Paths resolve from `process.cwd()`, never `import.meta.url`: Vite bundles the
   module into `dist/server/.prerender/chunks/`, where the TTFs are not.
 
+`/fundacja`, `/wiedza`, `/aktualnosci` and `/wesprzyj` have their own cards at
+`/og/strony/<page>.png` (`src/pages/og/strony/[page].png.ts`): the post card
+with the page's pill and title plus its intro paragraph under the title.
+The words come from `PAGE_HEADERS` in `consts.ts` – the same object the
+page's `PageHeader` reads – so a card never says something the page does
+not; `/fundacja` takes its title and intro from Tina (`fundacja.json`). Pages
+without a card of their own fall back to `/og.png`.
+
 Posts live under `/og/<slug>.png` rather than `/wiedza/<slug>/og.png` so they don't
 collide with the `[...slug]` catch-all. The eyebrow is the foundation's name,
 not a person's. `/og/dzwieki-efemeryczne.png` alone keeps the Swiss card

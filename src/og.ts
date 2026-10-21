@@ -4,7 +4,7 @@ import satori from "satori";
 import sharp from "sharp";
 import { HOME_CITY, LOGOTYPE, SITE_HOST, SITE_NAME, SITE_TAGLINE, WORDMARK } from "./consts";
 import { iconSvg, LOGO_COLORS, WAVE, waveRadius, waveSvg } from "./logo";
-import { accentParts } from "./typography";
+import { accentParts, fixHanging } from "./typography";
 
 /**
  * Karty OG 1200×630 w języku strony („Wersja 2”): ciepła biel, pigułka nad
@@ -38,6 +38,12 @@ const FONTS = [
 		data: font("src/assets/fonts/InstrumentSerif-Italic.ttf"),
 		weight: 400 as const,
 		style: "italic" as const,
+	},
+	{
+		name: "Instrument Sans",
+		data: font("src/assets/fonts/InstrumentSans-Regular.ttf"),
+		weight: 400 as const,
+		style: "normal" as const,
 	},
 	{
 		name: "Instrument Sans",
@@ -77,6 +83,11 @@ interface CardOptions {
 	eyebrow?: string;
 	/** Tytuł; słowa w `*gwiazdkach*` dostają niebieski akcent jak w hero. */
 	title: string;
+	/**
+	 * Akapit pod tytułem – na kartach podstron, jak akapit obok nagłówka
+	 * strony. Krótki tytuł („Baza wiedzy”) bez niego zostawiał pustą kartę.
+	 */
+	intro?: string;
 	/** Pigułka w stopce karty – kategoria wpisu; bez niej adres serwisu. */
 	badge?: string;
 	/** Wymiary płótna; domyślnie karta OG 1200×630. */
@@ -199,6 +210,7 @@ const titleWords = (title: string) =>
 export async function renderOgCard({
 	eyebrow = `${SITE_NAME} · ${SITE_TAGLINE.toLowerCase()} · ${HOME_CITY}`,
 	title,
+	intro,
 	badge,
 	width = 1200,
 	height = 630,
@@ -209,7 +221,10 @@ export async function renderOgCard({
 	// więc stopnie są większe niż przy dawnym Archivo.
 	// Niższe płótno (okładka FB) skaluje stopień proporcjonalnie do wysokości.
 	const length = title.replace(/\*/g, "").length;
-	const size = Math.round((length > 64 ? 82 : length > 40 ? 98 : 118) * Math.min(1, height / 630));
+	// Z akapitem pod spodem tytuł schodzi o stopień, żeby oba zmieściły się nad stopką.
+	const size = Math.round(
+		(length > 64 ? 82 : length > 40 ? 98 : 118) * Math.min(1, height / 630) * (intro ? 0.85 : 1),
+	);
 
 	const svg = await satori(
 		el(
@@ -238,20 +253,37 @@ export async function renderOgCard({
 						pill(eyebrow, "#ffffff"),
 						iconMark(64),
 					]),
-					el(
-						"div",
-						{
-							display: "flex",
-							flexWrap: "wrap",
-							fontSize: size,
-							lineHeight: 0.95,
-							letterSpacing: "-0.02em",
-							// Satori nie ma `text-wrap: balance`; węższa kolumna trzyma
-							// wiersze w podobnej proporcji, co nagłówki na stronie.
-							maxWidth: Math.min(1000, width - 2 * paddingX),
-						},
-						titleWords(title),
-					),
+					el("div", { display: "flex", flexDirection: "column", gap: 24 }, [
+						el(
+							"div",
+							{
+								display: "flex",
+								flexWrap: "wrap",
+								fontSize: size,
+								lineHeight: 0.95,
+								letterSpacing: "-0.02em",
+								// Satori nie ma `text-wrap: balance`; węższa kolumna trzyma
+								// wiersze w podobnej proporcji, co nagłówki na stronie.
+								maxWidth: Math.min(1000, width - 2 * paddingX),
+							},
+							titleWords(title),
+						),
+						...(intro
+							? [
+									el(
+										"div",
+										{
+											fontFamily: "Instrument Sans",
+											fontSize: 32,
+											lineHeight: 1.3,
+											color: PALETTE.muted,
+											maxWidth: 860,
+										},
+										fixHanging(intro),
+									),
+								]
+							: []),
+					]),
 					el("div", { display: "flex", flexDirection: "column", gap: 28 }, [
 						el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" }, [
 							wordmark(44),

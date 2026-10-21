@@ -16,6 +16,7 @@ import {
 	FOUNDATION_PATH,
 	GOALS,
 	HOME_CITY,
+	pageOgImage,
 	registryValue,
 	SITE_NAME,
 	SITE_URL,
@@ -63,6 +64,7 @@ const registry = [
   title={`O fundacji – cele, działania, zarząd | ${SITE_NAME}`}
   description={`${SITE_NAME} z ${HOME_CITY}a: cele statutowe, programy, fundatorzy i zarząd, dane rejestrowe, statut i sprawozdania.`}
   canonicalPath={FOUNDATION_PATH}
+  ogImage={pageOgImage("fundacja")}
   extraJsonLd={[breadcrumb]}
 >
   <Nav active="O nas" />

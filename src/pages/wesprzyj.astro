@@ -9,6 +9,8 @@ import {
 	FOUNDATION,
 	FOUNDATION_PATH,
 	HOME_CITY,
+	PAGE_HEADERS,
+	pageOgImage,
 	SITE_NAME,
 	SITE_URL,
 	SUPPORT_PATH,
@@ -79,16 +81,13 @@ const columnHeading = "font-serif text-item leading-none";
   title={`Wesprzyj fundację – darowizna, wolontariat, partnerstwo | ${SITE_NAME}`}
   description={`Jak wesprzeć ${SITE_NAME} z ${HOME_CITY}a: darowizna na cele statutowe z odliczeniem od podatku, wolontariat przy koncertach, partnerstwo firm i instytucji.`}
   canonicalPath={SUPPORT_PATH}
+  ogImage={pageOgImage("wesprzyj")}
   extraJsonLd={[breadcrumb]}
 >
   <Nav />
 
   <main id="tresc">
-    <PageHeader
-      eyebrow={`${SITE_NAME} · wsparcie`}
-      title="Wesprzyj fundację."
-      intro="Pieniądze, czas albo miejsce – każde z tych trzech przybliża kogoś do pierwszego koncertu."
-    />
+    <PageHeader {...PAGE_HEADERS.wesprzyj} />
 
     <Section id="jak" heading="Jak pomóc" class="!pt-0">
       <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-5">

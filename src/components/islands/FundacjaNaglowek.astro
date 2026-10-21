@@ -1,5 +1,5 @@
 ---
-import { HOME_CITY, SITE_NAME } from "../../consts";
+import { PAGE_HEADERS } from "../../consts";
 import type { FoundationPageDoc } from "../../strony";
 import PageHeader from "../PageHeader.astro";
 import { field } from "./field";
@@ -11,7 +11,7 @@ const { page } = Astro.props;
 ---
 
 <PageHeader
-  eyebrow={`${SITE_NAME} · ${HOME_CITY}`}
+  eyebrow={PAGE_HEADERS.fundacja.eyebrow}
   title={page.heading}
   intro={page.tagline}
   titleField={field(page, "heading")}

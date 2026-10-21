@@ -112,6 +112,37 @@ export const NAV = [
 /** Sekcja „Dołącz” na stronie głównej – cel pigułki w nawigacji i przycisku w hero. */
 export const JOIN_PATH = "/#dolacz";
 
+/**
+ * Nagłówki podstron: pigułka, tytuł i akapit obok. Czyta je PageHeader na
+ * stronie i karta OG tej strony (`pageOgImage`), więc podgląd linku mówi to
+ * samo co nagłówek. Tytuł i akapit /fundacja edytuje Tina (fundacja.json),
+ * tu jest tylko jej pigułka.
+ */
+export const PAGE_HEADERS = {
+	fundacja: { eyebrow: `${SITE_NAME} · ${HOME_CITY}` },
+	wiedza: {
+		eyebrow: `${SITE_NAME} · baza wiedzy`,
+		title: "Baza wiedzy",
+		intro: "Jak działa branża muzyczna – bez skrótów.",
+	},
+	aktualnosci: {
+		eyebrow: `${SITE_NAME} · aktualności`,
+		title: "Aktualności",
+		intro: "Wydarzenia, relacje, rozmowy i sprawozdania z projektów fundacji.",
+	},
+	wesprzyj: {
+		eyebrow: `${SITE_NAME} · wsparcie`,
+		title: "Wesprzyj fundację.",
+		intro: "Pieniądze, czas albo miejsce – każde z tych trzech przybliża kogoś do pierwszego koncertu.",
+	},
+} as const;
+
+/**
+ * Karta OG podstrony – osobny katalog `/og/strony/`, żeby nie dzielić
+ * przestrzeni nazw ze slugami wpisów w `/og/<slug>.png`.
+ */
+export const pageOgImage = (page: keyof typeof PAGE_HEADERS) => `/og/strony/${page}.png`;
+
 // ---------------------------------------------------------------------------
 // Fundacja – dane rejestrowe, wpis do KRS z 15.10.2026. Puste pole = numeru
 // jeszcze nie ma; strony pokazują wtedy `REGISTRY_PENDING`. REGON w formie
