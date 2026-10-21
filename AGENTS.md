@@ -68,7 +68,7 @@ field would render `REGISTRY_PENDING` through `registryValue()` (an empty
 `iban`: „w trakcie zakładania” on `/wesprzyj`).
 `FOUNDATION.supervision` is copied from the KRS extract, which names the
 mayor of Gdańsk next to the minister – the statute names only the minister.
-The site went live a week before the entry (see „Launch”).
+The site went live on the day of the entry (see „Launch”).
 
 The design is **„Wersja 2”** – the Claude Design canvas „Pierwsze Demo —
 redesign” (`https://claude.ai/artifact/8Mmnxoays3QZQmRpP9LjLh`, artboard
@@ -794,8 +794,7 @@ decision, and reduced motion switches it off.
 
 ## Launch
 
-Live and indexable since 2026-10-15, a week **before** the KRS entry
-(2026-10-15). Worker `pierwszedemo`, account
+Live and indexable since 2026-10-15, the day of the KRS entry. Worker `pierwszedemo`, account
 „Fundacja Pierwsze Demo”, `custom_domain` route in `wrangler.jsonc`, built by
 Workers Builds from `main`; `fundacja` was fast-forwarded into it and the Tina
 branch fallback says `main`. `public/_headers` keeps only `/admin` out of the
