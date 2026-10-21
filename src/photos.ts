@@ -11,7 +11,7 @@ export const FOUNDER_PHOTOS = {
 	michal: {
 		src: michal,
 		alt: "Michał Miszczyszyn w niebieskiej kurtce, w tle panorama Bergen",
-		position: "object-[center_35%]",
+		position: "object-[65%_0%]",
 	},
 	ola: {
 		src: ola,
