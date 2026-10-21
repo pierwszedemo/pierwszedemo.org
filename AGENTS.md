@@ -488,12 +488,18 @@ is still in `src/assets/fonts/`.
 
 Every post (both collections) gets a generated cover – the Claude Design
 system „Okładki — system i generator” (artboard `Cover.dc.html`): 5 templates
-(Scena, Fala, Promienie, Cytat, Kolaż) × 8 colourways × mirror × seed.
+(Znaki, Fala, Promienie, Cytat, Kolaż) × 8 colourways × mirror × seed.
 `src/covers.ts` draws exactly like the artboard – its mulberry32, the same
 order of draws and the same rounding – so the same parameters with
 `roles: 0` give the same picture in Claude Design (`describeCover()` prints
 them in its wording). Where it departs from the generator:
 
+- Template 1 is not the artboard's Scena (its stage arch read as something
+  else) but „Znaki”: one of the five „Co robimy” icons (`ActivityIcon.astro`)
+  at 340–440 px – figure with a sun, record, bars, stairs, two circles –
+  picked by the seed. It consumes the same six random draws as Scena did, so
+  templates 2–5 still match the generator; the circles' overlap is a lens
+  path, not `mix-blend-mode`, which librsvg does not render.
 - Parameters are hashed from the **slug**, not the title, so fixing a title in
   Tina does not reshuffle the cover – FNV-1a with a fmix32 finaliser; bare
   FNV-1a took the colourway from 6 poorly mixed low bits.

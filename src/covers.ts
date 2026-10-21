@@ -13,6 +13,9 @@
  *   nie zmieniała okładki, i lepiej mieszającym hashem (FNV-1a + fmix32):
  *   w gołym FNV-1a kolorystyka zależała od 6 najniższych bitów, które słabo
  *   się mieszają;
+ * - szablon 1 to nie Scena z makiety (łuk sceny czytał się źle), tylko znaki
+ *   z „Co robimy” w dużej skali (`sign`) – na tych samych losowaniach, więc
+ *   szablony 2–5 nadal zgadzają się z generatorem;
  * - `roles` zamienia role trzech kolorów kształtów w kolorystyce (6 układów),
  *   więc wyglądów jest 5 × 8 × 6 × lustro zamiast 5 × 8 × lustro;
  * - przydział (`allocateCovers`) pilnuje, żeby szablon z kolorystyką nie
@@ -52,11 +55,11 @@ const COLORWAYS = [
 	{ name: "Granat", bg: NAVY, a: PINK, b: LIME, c: SUN, text: CREAM, wave: PINK, dark: BLUE },
 ] as const;
 
-export const COVER_TEMPLATES = ["Scena", "Fala", "Promienie", "Cytat", "Kolaż"] as const;
+export const COVER_TEMPLATES = ["Znaki", "Fala", "Promienie", "Cytat", "Kolaż"] as const;
 export const COVER_COLORWAYS = COLORWAYS.map((colorway) => colorway.name);
 
 export interface CoverParams {
-	/** 1–5: Scena, Fala, Promienie, Cytat, Kolaż. */
+	/** 1–5: Znaki, Fala, Promienie, Cytat, Kolaż. */
 	template: number;
 	/** 1–8, indeks w COLORWAYS od jedynki. */
 	colorway: number;
@@ -279,6 +282,42 @@ const barRow = (
 };
 
 /**
+ * Jeden ze znaków „Co robimy” (ActivityIcon.astro, pole 56×56) w dużej skali,
+ * w kolorach kolorystyki: postać ze słońcem, płyta, półki, schody, dwa koła.
+ * Wielkość 340–440 px i środek w poziomie z losowań szablonu; postać, półki
+ * i schody stoją na dolnej krawędzi jak na scenie, płyta i koła wiszą
+ * w środku. Część wspólną kół rysuje soczewka w kolorze ciemnym, nie
+ * `mix-blend-mode` – librsvg, który rasteryzuje warstwę w karcie OG, trybów
+ * mieszania nie zna.
+ */
+const sign = (kind: number, t: { sx: number; sy: number; sr: number }, P: CoverPalette) => {
+	const size = t.sr * 3.4;
+	const k = size / 56;
+	const left = t.sx - size / 2;
+	const grounded = (bottom: number) => COVER_HEIGHT - bottom * k;
+	const floating = COVER_HEIGHT / 2 + (t.sy - 175) - size / 2;
+	const top = kind === 1 || kind === 4 ? floating : grounded(kind === 0 ? 52 : 54);
+	const X = (u: number) => (left + u * k).toFixed(1);
+	const Y = (v: number) => (top + v * k).toFixed(1);
+	const L = (u: number) => (u * k).toFixed(1);
+	switch (kind) {
+		case 0:
+			return `<path d="M${X(4)} ${Y(52)} A${L(24)} ${L(24)} 0 0 1 ${X(52)} ${Y(52)} Z" fill="${P.a}"/><circle cx="${X(28)}" cy="${Y(16)}" r="${L(8)}" fill="${P.b}"/>`;
+		case 1:
+			return `<circle cx="${X(28)}" cy="${Y(28)}" r="${L(26)}" fill="${P.a}"/><circle cx="${X(28)}" cy="${Y(28)}" r="${L(10)}" fill="${P.c}"/><circle cx="${X(28)}" cy="${Y(28)}" r="${L(2.5)}" fill="${P.bg}"/>`;
+		case 2:
+			return `<rect x="${X(6)}" y="${Y(10)}" width="${L(12)}" height="${L(44)}" fill="${P.dark}"/><rect x="${X(22)}" y="${Y(20)}" width="${L(12)}" height="${L(34)}" fill="${P.b}"/><rect x="${X(38)}" y="${Y(4)}" width="${L(12)}" height="${L(50)}" transform="rotate(10 ${X(44)} ${Y(54)})" fill="${P.c}"/>`;
+		case 3:
+			return `<path d="M${X(2)} ${Y(54)} V${Y(42)} H${X(16)} V${Y(30)} H${X(30)} V${Y(18)} H${X(44)} V${Y(6)} H${X(54)} V${Y(54)} Z" fill="${P.a}"/>`;
+		default: {
+			// Koła r = 18 w odległości 16: soczewka między punktami przecięcia.
+			const h = Math.sqrt(18 ** 2 - 8 ** 2);
+			return `<circle cx="${X(20)}" cy="${Y(28)}" r="${L(18)}" fill="${P.b}"/><circle cx="${X(36)}" cy="${Y(28)}" r="${L(18)}" fill="${P.a}"/><path d="M${X(28)} ${Y(28 - h)} A${L(18)} ${L(18)} 0 0 1 ${X(28)} ${Y(28 + h)} A${L(18)} ${L(18)} 0 0 1 ${X(28)} ${Y(28 - h)} Z" fill="${P.dark}"/>`;
+		}
+	}
+};
+
+/**
  * Cudzysłów szablonu Cytat: w makiecie span 900 px z `line-height: 1` od
  * y = −330. Instrument Serif ma wznoszenie 0,99 i zejście 0,31 em, więc linia
  * bazowa wypada 0,84 em pod górą pudełka – stąd y w wersji SVG.
@@ -297,14 +336,18 @@ export function coverArt({ template, colorway, mirror, seed, roles }: CoverParam
 
 	// Kolejność losowań jak w makiecie: wszystkie szablony po kolei, niezależnie
 	// od tego, który się rysuje – inaczej ziarno dawałoby inny obrazek.
+	// Szablon 1 to nie Scena z makiety (łuk sceny czytał się jak co innego),
+	// tylko znaki z „Co robimy” (ActivityIcon.astro). Te same sześć losowań co
+	// Scena, więc szablony 2–5 dalej zgadzają się z generatorem co do piksela.
 	const t1 = {
-		sx: r(820, 960).toFixed(0),
-		sy: r(150, 200).toFixed(0),
-		sr: r(100, 130).toFixed(0),
+		sx: r(820, 960),
+		sy: r(150, 200),
+		sr: r(100, 130),
 		cx: r(640, 720).toFixed(0),
 		cy: r(90, 180).toFixed(0),
+		rot: r(0, 60),
 	};
-	const crot = `rotate(${r(0, 60).toFixed(0)} ${Number(t1.cx) + 13} ${Number(t1.cy) + 13})`;
+	const crot = `rotate(${t1.rot.toFixed(0)} ${Number(t1.cx) + 13} ${Number(t1.cy) + 13})`;
 
 	const peak = Math.floor(r(6, 13));
 	const t2burst = burst(r(1040, 1110), r(90, 130), 78, 42, 10, r(0, 1));
@@ -335,7 +378,7 @@ export function coverArt({ template, colorway, mirror, seed, roles }: CoverParam
 	const t5burst = burst(r(990, 1060), r(240, 300), 150, 82, 11, r(0, 1));
 
 	const shapes = [
-		`<circle cx="${t1.sx}" cy="${t1.sy}" r="${t1.sr}" fill="${P.b}"/><path d="M600 630 V440 A290 290 0 0 1 1180 440 V630 Z" fill="${P.a}"/><path d="M730 630 V470 A160 160 0 0 1 1050 470 V630 Z" fill="${P.c}"/><path d="M830 630 V510 A60 60 0 0 1 950 510 V630 Z" fill="${P.bg}"/><rect x="${t1.cx}" y="${t1.cy}" width="26" height="26" transform="${crot}" fill="${P.c}"/>`,
+		`${sign(Math.floor(t1.rot) % 5, t1, P)}<rect x="${t1.cx}" y="${t1.cy}" width="26" height="26" transform="${crot}" fill="${P.c}"/>`,
 		`<polygon points="${t2burst}" fill="${P.b}"/>${barRow(580, 560, 0, 630, t2bars, 26)}`,
 		`<polygon points="${t3.b1}" fill="${P.a}"/><polygon points="${t3.b2}" fill="${P.b}"/><polygon points="${t3.b3}" fill="${P.c}"/><polygon points="${t3.zig}" fill="${P.dark}" transform="rotate(-10 900 560)"/><circle cx="${t3.dx}" cy="${t3.dy}" r="16" fill="${P.c}"/>`,
 		`<circle cx="${t4.cx}" cy="${t4.cy}" r="${t4.cr}" fill="${P.c}"/>`,
