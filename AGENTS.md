@@ -460,9 +460,9 @@ thumbnail and no slogan pill is needed. A post's card is its cover
 icons' palette), the tagline, city and domain at the bottom – nothing else.
 „Fundacja” must read in a thumbnail; the earlier collage (slogan, cassette,
 record, „REC”) hid it in a grey footer line, and the Tina slogan says nothing
-about who we are, so the card does not use it. `PALETTE`, `STRIPE` and
+about who we are, so the card does not use it. `PALETTE`, `lockup()` and
 `wordmark()` there are the one copy every
-generated image reads – the Facebook cover and the Instagram frames import
+generated image reads – the social covers and the Instagram frames import
 them. Satori quirks that bite: padding on the root element is added *outside*
 `100%` (it pushed the footer off the card – pad a child instead), a nested
 `<svg>` element is dropped (the wave and the icon go in as data-URI `img`s),
@@ -765,12 +765,26 @@ decision, and reduced motion switches it off.
   once the post is up, so `ls instagram/` doubles as the queue; an existing
   bare directory is reused on regeneration so a posted post never gets a
   duplicate next to it.
-  `scripts/lib.mjs` holds the shared frame and imports palette, stripe and
-  logotype (`wordmark()`) from `src/og.ts` (satori + sharp, same fonts and footer);
-  `generate.mjs` draws the carousel, `format.mjs` the single formats.
+  Every slide stands on a „poświata” (glow): a colour at the frame's edge
+  melts through a white halo into a light field of a second colour (blurred
+  SVG rectangles, `glowLayer`), black text on that field, headings in large
+  Instrument Serif sized by `serifFit` (from the text length, but never
+  larger than the longest word allows – satori does not break words).
+  `scripts/lib.mjs` holds the shared frame – the „Fundacja / pierwsze demo”
+  lockup (`lockup()` from `src/og.ts`) and slide number at the top, the
+  category pill in the post's cover colour and the domain at the bottom – and
+  `postCover()`, which runs the same `allocateCovers()` as the build over every
+  post's frontmatter. A carousel's colour pair comes from that cover's
+  colourway (`glowPair` – 12 pairs, a second one for four colourways, picked
+  by the cover's `roles`), so a post keeps its colour across the site, link
+  previews and Instagram; the CTA and the single formats use fixed pairs
+  (`GLOWS`), „mit” and „liczba” with a black centre and white text.
+  `generate.mjs` draws the carousel, `format.mjs` the single formats; both
+  take `--out <dir>` and `--spec <file>` for previews that must not touch
+  `instagram/`.
   `instagram/` output is committed – it is the promotion history of a post,
-  so graphics already posted in the Swiss look stay as they are; only new
-  ones come out in „Wersja 2”.
+  so graphics already posted in an earlier look (Swiss, „Wersja 2”) stay as
+  they are; only new ones come out in the current one.
 
 ## Launch
 

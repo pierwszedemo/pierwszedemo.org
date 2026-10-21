@@ -1,6 +1,6 @@
 ---
 name: instagram-carousel
-description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.org – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony („Wersja 2”: ciepła biel, Instrument Serif i Sans, logotyp z falą, pasek akcentów); wynik ląduje w instagram/_<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
+description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.org – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp na „poświacie” – kolorowej ramie przechodzącej miękko w pole drugiego koloru, w barwach okładki wpisu – z dużym Instrument Serif i znakiem „Fundacja / pierwsze demo”; wynik ląduje w instagram/_<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
 ---
 
 # instagram-carousel
@@ -112,7 +112,8 @@ Zapisz do `instagram/_<data>-<slug>-karuzela/spec.json`:
 - `cover.eyebrow` – kategoria wpisu z frontmattera; ≤40 znaków. Bez niej
   skrypt wstawi „Blog”, ale kategoria mówi więcej – podawaj ją zawsze.
 - `cover.hook` – 40–110 znaków (dolną granicę pilnujesz sam, skrypt egzekwuje
-  tylko górną); stopień pisma dobiera się do długości, 96→64 px. `\n` w hooku
+  tylko górną); stopień pisma dobiera się do długości, 170→92 px, i maleje
+  sam, gdy najdłuższe słowo nie zmieściłoby się w kolumnie. `\n` w hooku
   to twarde łamanie wiersza – przydaje się, gdy nazwa wydarzenia albo
   produktu ma stać w osobnej linii („Great September 2026.\nKoncerty…”).
   W `alt.txt` zamienia się na spację.
@@ -121,12 +122,16 @@ Zapisz do `instagram/_<data>-<slug>-karuzela/spec.json`:
   granica geometrii; redakcyjnie celuj w 80–160 przy notatce, 120–220 przy
   przewodniku – patrz krok 2).
 - `cta` jest opcjonalne – domyślne wartości (powyżej) są dobre w 90% przypadków;
-  `lines` to tablica 1–4 linii po ≤22 znaki, `url` ≤60 znaków. Adres renderuje
-  się małymi literami – ścieżki na hostingu rozróżniają wielkość liter.
+  `lines` to tablica 1–4 linii po ≤22 znaki, `url` ≤60 znaków i musi zaczynać
+  się od `pierwszedemo.org/` (stare specyfikacje mają `pierwszedemo.com/blog/…`
+  – skrypt je odrzuci). Najlepiej nie podawać `url` wcale: skrypt składa go
+  sam z działu i sluga. Adres renderuje się małymi literami – ścieżki na
+  hostingu rozróżniają wielkość liter.
 - Żadne słowo nie może być dłuższe niż: 17 znaków w hooku, 26 w nagłówku, 30
-  w akapicie, 16 w linii CTA – satori nie dzieli wyrazów i taki token wyjechałby
-  poza kadr. Długi adres albo hashtag w treści slajdu to zły pomysł także z
-  tego powodu.
+  w akapicie, 16 w linii CTA – satori nie dzieli wyrazów. Nagłówki serifem
+  same zmniejszają stopień pod najdłuższe słowo (`serifFit`), ale długie słowo
+  ściąga wtedy cały hook w dół; akapitów to nie dotyczy. Długi adres albo
+  hashtag w treści slajdu to zły pomysł także z tego powodu.
 
 Limity to geometria, nie sugestia: satori nie zmniejsza tekstu i nadmiar
 wyjeżdża poza kadr. Walidacja w skrypcie je egzekwuje i wypisuje wszystkie
@@ -146,12 +151,34 @@ bun .agents/skills/instagram-carousel/scripts/generate.mjs <slug>
 ```
 
 Powstaje `instagram/_<data>-<slug>-karuzela/01.png` (okładka), `02.png…`
-(treść), ostatni numer to CTA na czarnym tle. Obok ląduje `alt.txt` – jedna
+(treść), ostatni numer to CTA. Każdy slajd stoi na **poświacie**: kolor przy
+krawędzi kadru przechodzi przez białą poświatę w jasne pole drugiego koloru,
+a czarny tekst stoi na tym polu.
+
+- **Para kolorów karuzeli** wynika z okładki wpisu – tej samej kolorystyki,
+  którą wpis ma jako obrazek OG i na karcie na stronie (`postCover()` liczy ją
+  tym samym `allocateCovers()` co build, z frontmattera wszystkich wpisów,
+  z ręczną okładką z /admin, jeśli jest). Pula ma 12 par; czterem
+  kolorystykom przysługują po dwie, a wybiera je okładka wpisu. Pigułka
+  kategorii ma kolor tej kolorystyki.
+- **01 – hook** w ogromnym serifie (do 170 px), na środku kadru.
+- **Treść** – nagłówek serifem (92→68 px) i akapity Instrument Sans 34 px.
+- **CTA** – para karty marki (ultramaryna w limonkę), linie CTA serifem,
+  adres, hasło fundacji.
+
+Każdy kadr ma te same ramy: u góry znak „Fundacja / pierwsze demo” i numer
+slajdu, na dole pigułka kategorii i (poza okładką i CTA) adres serwisu. Tekst
+trzyma się 150 px od krawędzi – nie wchodzi na kolorową ramę. Obok ląduje `alt.txt` – jedna
 linia na slajd (`NN: nagłówek. akapity`), do wklejenia w pole tekstu
 alternatywnego przy publikacji; powstaje z `spec.json`, więc nie edytuj go
 ręcznie. Skrypt najpierw usuwa stare `NN.png` z katalogu, więc
-po skróceniu karuzeli nie zostają slajdy z nieaktualną numeracją. PNG 1080×1350 (4:5) – Instagram i tak przekompresuje je do
-JPG, ale płaskie plamy i ostre krawędzie tej estetyki wychodzą z PNG najczyściej.
+po skróceniu karuzeli nie zostają slajdy z nieaktualną numeracją.
+
+Podgląd bez ruszania `instagram/` (np. do akceptacji albo dla posta, który
+już poszedł): `--out <katalog>` zapisuje PNG-i i `alt.txt` gdzie indziej,
+`--spec <plik>` czyta specyfikację z innego pliku – oba działają też
+w `format.mjs`. PNG 1080×1350 (4:5) – Instagram i tak przekompresuje je do
+JPG, ale gładkie przejścia poświaty wychodzą z PNG najczyściej.
 
 ## Krok 5 – kontrola wzrokowa
 
@@ -159,7 +186,9 @@ Obejrzyj (Read) **każdy** wygenerowany PNG. Walidacja łapie długości, ale ni
 łamania wierszy:
 
 - tekst nie dotyka krawędzi ani stopki, nic nie jest przycięte;
-- hook łamie się w 2–4 wiersze, bez pojedynczego słowa-sieroty w ostatnim
+- tekst stoi na jasnym (albo, w formatach mit i liczba, czarnym) polu, nie na
+  kolorowej ramie;
+- hook łamie się w 2–5 wierszy, bez pojedynczego słowa-sieroty w ostatnim
   (skrypt skleja jednoliterowe spójniki z następnym słowem, ale sierotę
   na końcu akapitu usuwa się tylko przeredagowaniem);
 - polskie znaki (ą, ś, ż…) wyglądają poprawnie;
@@ -204,33 +233,34 @@ z tym samym zestawem plików co karuzela (`spec.json`, `NN.png`, `alt.txt`,
 poszło.
 
 **Design celowo odbiega od karuzeli**, żeby profil nie zlał się w ścianę
-jasnych kadrów z tekstem po lewej. Ramy (nagłówek z etykietą, stopka
-z logotypem i paskiem akcentów, kadr 4:5) są wspólne – to one robią serię. Różni się środek
-i tego nie ujednolicaj z powrotem:
+podobnych kadrów. Ramy (poświata, znak u góry z etykietą formatu, pigułka
+kategorii w kolorze okładki wpisu i adres na dole, kadr 4:5) są wspólne – to
+one robią serię. Różni się para kolorów – stała dla formatu (`GLOWS`
+w `lib.mjs`), a nie z okładki wpisu jak w karuzeli – i środek. Tego nie
+ujednolicaj z powrotem:
 
-- **mit** – dwa slajdy w odwróconej kolejności niż karuzela: 01 negatyw,
-  etykieta `MIT` w mono 120 px, zdanie przekreślone; 02 jasny, `FAKT`, teza
-  wpisu, opcjonalne rozwinięcie. Spec:
+- **mit** – dwa slajdy: 01 pomarańcz w czerń, „Mit” w ogromnym serifie,
+  zdanie przekreślone bielą; 02 ultramaryna w ciepłą biel, „Fakt”
+  w ultramarynie, teza wpisu, opcjonalne rozwinięcie. Spec:
   `{ "eyebrow", "mit" (≤110), "fakt" (≤140), "rozwiniecie"? (≤220) }`.
   Mit ma być zdaniem, które ktoś naprawdę mówi („Wytwórnia szuka talentów”),
   nie słomianą kukłą. Fakt to teza wpisu, nie jej zaprzeczenie słowo w słowo.
-- **zapisz** – jeden slajd na tle `PANEL` (limonka #d4ff3a), tytuł i 3–6
-  numerowanych wierszy oddzielonych hairline. Spec:
+- **zapisz** – jeden slajd, limonka w ciepłą biel, tytuł i 3–6 numerowanych
+  wierszy oddzielonych linią. Spec:
   `{ "eyebrow", "tytul" (≤60), "punkty": [3–6 × ≤90] }`. Punkty to rzeczy do
   *zrobienia* albo *sprawdzenia*, wzięte z wpisu – format działa, bo ktoś chce
   do niego wrócić; opinia bez instrukcji nie nadaje się na listę.
-- **pytanie** – jeden slajd, tekst wyśrodkowany w hairline'owej ramce, wielki
-  `?` w mono. Spec:
+- **pytanie** – jeden slajd, ultramaryna w limonkę, wielki ultramarynowy „?”
+  w serifie, pytanie wyśrodkowane. Spec:
   `{ "eyebrow", "pytanie" (≤120), "podpis"? (≤60, domyślnie „Odpowiedz
   w komentarzu”) }`. Pytanie ma mieć odpowiedź, którą da się wpisać w jednym
   słowie albo liczbie – „Ile rolek leży Ci na dysku?” działa, „Co sądzisz
   o strategii w socialach?” nie. Najlepsze pytanie to takie, które wpis już
   zadaje na końcu.
-- **liczba** – jeden slajd, kadr dzielony: góra negatyw z liczbą w Instrument Serif (do 5 znaków
-  największa, dłuższe schodzą o dwa stopnie), dół jasny ze zdaniem i stopką. Jedyny format
-  z dwoma tłami w jednym kadrze – nie dodawaj podziału gdzie indziej. Spec:
+- **liczba** – jeden slajd, limonka w czerń: liczba w seledynowym serifie na
+  pół kadru (do 5 znaków 300 px, dłuższe mniej), pod nią zdanie bielą. Spec:
   `{ "eyebrow", "liczba" (≤9, np. „0 zł”, „24,99 $”, „28 dni”), "zdanie"
-  (≤170), "zrodlo"? (≤60, mono pod zdaniem) }`. Zasada 2 obowiązuje
+  (≤170), "zrodlo"? (≤60, drobnym drukiem pod zdaniem) }`. Zasada 2 obowiązuje
   podwójnie: liczba ze statystyki wchodzi tylko z linkiem we wpisie
   (i wtedy podaj `zrodlo`); liczba będąca tezą wpisu („0 zł”) – tylko jeśli
   zdanie pod nią mówi dokładnie to, co wpis, bez zaokrąglenia w wygodną
@@ -249,11 +279,13 @@ Te same bramki na cudzysłów i em dash.
 
 ## Pliki i konwencje
 
-- `scripts/lib.mjs` – wspólne ramy: kadr, paleta, fonty, nagłówek, stopka,
-  walidacja, zapis PNG + alt. Layout celowo trzyma się `src/og.ts` i bierze
-  stamtąd paletę, pasek akcentów i logotyp (`wordmark`): te same kolory, ta sama
-  stopka, te same kroje. Nagłówki idą przez `serif(px)` – stopień rośnie
-  o 18%, bo limity znaków skalibrowano pod dawne Archivo półgrube.
+- `scripts/lib.mjs` – wspólne ramy: kadr, poświata (`glowLayer` – rozmyte
+  prostokąty SVG, które renderuje librsvg; `glowPair` – para z okładki wpisu;
+  `GLOWS` – pary formatów i CTA; `glowTone` – kolory tekstu na jasnym albo
+  czarnym środku), fonty, górny wiersz (`top` – znak `lockup()` z `src/og.ts`
+  i numer albo etykieta), dolny (`bottom` – pigułka kategorii i adres),
+  okładka wpisu (`postCover`), stopień serifu (`serifFit` – z długości tekstu,
+  ale nie większy, niż pozwala najdłuższe słowo), walidacja, zapis PNG + alt.
 - `scripts/generate.mjs` – karuzela; `scripts/format.mjs` – formaty
   pojedyncze. Oba tylko składają środek kadru z klocków `lib.mjs`. Nowy
   format = nowa gałąź w `format.mjs`, nie nowy skrypt.

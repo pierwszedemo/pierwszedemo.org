@@ -67,15 +67,6 @@ export const PALETTE = {
 	sun: "#ffc93c",
 } as const;
 
-/** Pasek akcentów ze stopki strony – te same proporcje (kolumna na kolor, druga dzielona 1:2). */
-export const STRIPE = [
-	[PALETTE.orange, 3],
-	[PALETTE.sun, 1],
-	[PALETTE.pink, 2],
-	[PALETTE.blue, 3],
-	[PALETTE.lime, 3],
-] as const;
-
 // Satori bez JSX: element to zwykły obiekt {type, props}. Każdy div z wieloma
 // dziećmi musi mieć jawny `display: flex` – satori nie zakłada blokowego układu.
 const el = (type: string, style: Record<string, unknown>, children?: unknown) =>
@@ -156,14 +147,26 @@ export const wordmark = (size: number, color: string = PALETTE.ink, wave: string
  * i seledynie, na ciepłej bieli wpisów w czerni, jak logotyp w nawigacji.
  * Fala zawsze pomarańczowa.
  */
-const lockup = (
+export const lockup = (
 	size: number,
 	color = "#ffffff",
 	wordmarkColor: string = LOGO_COLORS.lime,
 	{ wave = LOGO_COLORS.orange as string, align = "flex-start" }: { wave?: string; align?: string } = {},
 ) =>
 	el("div", { display: "flex", flexDirection: "column", alignItems: align, gap: size * 0.05 }, [
-		el("div", { fontSize: size * 0.58, lineHeight: 1, letterSpacing: "-0.02em", color }, "Fundacja"),
+		// Krój wprost, nie z rodzica: na kadrach z Instrument Sans jako bazą
+		// (Instagram) „Fundacja” wychodziła bezszeryfowa.
+		el(
+			"div",
+			{
+				fontFamily: "Instrument Serif",
+				fontSize: size * 0.58,
+				lineHeight: 1,
+				letterSpacing: "-0.02em",
+				color,
+			},
+			"Fundacja",
+		),
 		wordmark(size, wordmarkColor, wave),
 	]);
 
