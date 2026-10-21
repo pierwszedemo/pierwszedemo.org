@@ -794,7 +794,7 @@ decision, and reduced motion switches it off.
 
 ## Launch
 
-Live and indexable since 2026-10-09, a week **before** the KRS entry
+Live and indexable since 2026-10-15, a week **before** the KRS entry
 (2026-10-15). Worker `pierwszedemo`, account
 „Fundacja Pierwsze Demo”, `custom_domain` route in `wrangler.jsonc`, built by
 Workers Builds from `main`; `fundacja` was fast-forwarded into it and the Tina
