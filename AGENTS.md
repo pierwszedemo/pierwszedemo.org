@@ -297,7 +297,10 @@ code: after changing a satteri plugin run `astro build --force` once, and
 clear the Workers Builds cache if CI renders the old output.
 
 A pierwszedemo skill writes to these rules;
-posts it writes stay without images.
+its knowledge-base posts stay without images, and news posts get only photos
+the user supplies. Its `references/fundatorzy.md` is the one source of what a
+post may say about the founders – including what stays private (unannounced
+release dates, the story behind lyrics) – and it asks who signs every post.
 
 ### TinaCMS
 
