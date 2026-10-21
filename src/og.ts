@@ -282,7 +282,7 @@ export async function renderOgCard({
 
 /**
  * Karta OG strony głównej – kim jesteśmy, bez ozdobników: „Fundacja” i duży
- * logotyp w wariancie ikon (seledyn z różową falą na ultramarynie), na dole
+ * logotyp w wariancie ikon (seledyn z pomarańczową falą na ultramarynie), na dole
  * czym się zajmujemy i adres. Słowo „fundacja” ma być czytelne w miniaturze
  * podglądu linku – dawny kolaż z kasetą i płytą chował je w szarej stopce.
  * Ultramaryna zamiast ciepłej bieli, bo to karta całej marki, a nie wpisu,
@@ -313,7 +313,7 @@ export async function renderHomeCard(): Promise<Buffer> {
 				[
 					el("div", { display: "flex", flexDirection: "column", gap: 10 }, [
 						el("div", { fontSize: 120, lineHeight: 1, letterSpacing: "-0.02em" }, "Fundacja"),
-						wordmark(208, LOGO_COLORS.lime, LOGO_COLORS.pink),
+						wordmark(208, LOGO_COLORS.lime),
 					]),
 					el(
 						"div",
@@ -337,7 +337,7 @@ export async function renderHomeCard(): Promise<Buffer> {
 }
 
 /**
- * Avatar z płótna „Logo — wybrane”: „demo” w seledynie nad różową falą, na
+ * Avatar z płótna „Logo — wybrane”: „demo” w seledynie nad pomarańczową falą, na
  * ultramarynie na całe pole – platformy i systemy same kadrują w koło albo
  * w zaokrąglony kafel. Zwraca wnętrze SVG (bez <svg>) z samych ścieżek
  * i prostokątów: litery zamienia na krzywe satori (librsvg wziąłby font
@@ -384,7 +384,7 @@ export async function renderAvatarBody(size: number): Promise<string> {
 	const n = (value: number) => Number(value.toFixed(2));
 	const wave = WAVE.map(
 		([x, y, h]) =>
-			`<rect x="${n(left + x * sx)}" y="${n(top + y * sy)}" width="${n(4 * sx)}" height="${n(h * sy)}" rx="${n(waveRadius(h) * sx)}" ry="${n(waveRadius(h) * sy)}" fill="${LOGO_COLORS.pink}"/>`,
+			`<rect x="${n(left + x * sx)}" y="${n(top + y * sy)}" width="${n(4 * sx)}" height="${n(h * sy)}" rx="${n(waveRadius(h) * sx)}" ry="${n(waveRadius(h) * sy)}" fill="${LOGO_COLORS.orange}"/>`,
 	);
 	return [
 		`<rect width="${size}" height="${size}" fill="${LOGO_COLORS.ultramarine}"/>`,

@@ -435,7 +435,7 @@ rasterises. A post card (`renderOgCard`) is the site in miniature: paper
 background, the eyebrow pill, the title in Instrument Serif, the icon tile,
 the logotype (`wordmark()`), a category pill and the accent stripe from the
 footer. The homepage card (`renderHomeCard`) is the brand card instead: white
-„Fundacja” over a big lime logotype with the pink wave on ultramarine (the
+„Fundacja” over a big lime logotype with the orange wave on ultramarine (the
 icons' palette), the tagline, city and domain at the bottom – nothing else.
 „Fundacja” must read in a thumbnail; the earlier collage (slogan, cassette,
 record, „REC”) hid it in a grey footer line, and the Tina slogan says nothing
@@ -474,6 +474,8 @@ one copy. Its colours are the mark's own (`#2b3bff`, `#ff5a1f`), not the
 `--color-blue`/`--color-orange` tokens – those were darkened for 7:1 *text*,
 and the wave is not text. The wave is 20 bars in a 160×28 box stretched to the
 word's width, so its proportions live in `em` and it scales with the type.
+The wave is orange everywhere – logotype, icons, cards. The canvas's icon
+section drew it pink; that was overruled: one mark, one colour.
 
 `scripts/generate-favicons.mjs` builds `favicon.svg`, the PNGs, a hand-assembled
 multi-size `.ico`, the profile picture and the BIMI logo. Run it by hand
@@ -481,12 +483,12 @@ multi-size `.ico`, the profile picture and the BIMI logo. Run it by hand
 every few years and the output is committed. Two drawings, as on the canvas:
 
 - The tab icons (`favicon.svg`, `.ico`, 96 px) are a rounded ultramarine tile
-  with six pink bars and no letters (`iconSvg()`). Each size is drawn on its
+  with six orange bars and no letters (`iconSvg()`). Each size is drawn on its
   own pixel grid, not scaled from one SVG: the canvas's 1.5 px bars at 16 px
   rasterised into grey smudges, so widths, gaps and heights are rounded and
   heights keep the size's parity.
 - The „app" icons (`apple-touch-icon`, manifest 192/512), the profile picture
-  and BIMI are the avatar: lime „demo” over a pink wave on a full ultramarine
+  and BIMI are the avatar: lime „demo” over an orange wave on a full ultramarine
   square (`renderAvatarBody()` in `og.ts`) – full bleed, because iOS fills
   transparency with black and every platform masks or crops it itself. Its
   letters are paths from satori: sharp rasterises SVG through librsvg, which

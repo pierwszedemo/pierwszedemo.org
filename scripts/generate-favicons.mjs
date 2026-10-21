@@ -6,9 +6,9 @@
  *
  * Dwa rysunki, jak na płótnie:
  * - favikona (karta przeglądarki, .ico) – kafel ultramaryny z sześcioma
- *   różowymi słupkami fali (`iconSvg` w src/logo.ts). Bez liter: przy 16 px
+ *   pomarańczowymi słupkami fali (`iconSvg` w src/logo.ts). Bez liter: przy 16 px
  *   „demo” byłoby plamą.
- * - avatar (iOS, manifest, profil, BIMI) – „demo” w seledynie nad różową falą
+ * - avatar (iOS, manifest, profil, BIMI) – „demo” w seledynie nad pomarańczową falą
  *   (`renderAvatarBody` w src/og.ts). Litery to ścieżki z satori, bo sharp
  *   rasteryzuje SVG librsvg, a ten sięga po fonty *systemowe* – Instrument
  *   Serif na nich nie ma.

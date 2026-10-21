@@ -5,13 +5,12 @@
  *
  * Kolory to kolory znaku, nie tokeny strony: `--color-blue` i `--color-orange`
  * są o krok ciemniejsze od makiety dla kontrastu 7:1 *tekstu*, a fala i ikona
- * tekstem nie są. Róż na ultramarynie daje 3,1:1, czyli próg dla grafiki
- * (WCAG 1.4.11), seledyn 5,7:1.
+ * tekstem nie są. Fala jest pomarańczowa wszędzie – w logotypie, na ikonach
+ * i na kartach; makieta ikon miała róż, ale fala to jeden znak, nie dwa.
  */
 export const LOGO_COLORS = {
 	ultramarine: "#2b3bff",
 	lime: "#d4ff3a",
-	pink: "#ff8ad8",
 	orange: "#ff5a1f",
 } as const;
 
@@ -63,7 +62,7 @@ const ICON_RADIUS = 7 / 32;
 
 /**
  * Słupki w pełnych pikselach pola `size`×`size`. Przy 16 px makieta ma słupek
- * 1,5 px – po rasteryzacji to dwa szare piksele zamiast różowego, więc szerokość,
+ * 1,5 px – po rasteryzacji to dwa rozmyte piksele zamiast jednego, więc szerokość,
  * odstęp i wysokość są zaokrąglane, a wysokości mają parzystość boku, żeby
  * środek wypadał na granicy pikseli. Gdy słupki zajęłyby więcej niż 85% boku
  * (16 px: 2 + 1 daje 17), słupek chudnie. Grupa może stać pół piksela
@@ -92,6 +91,6 @@ export const iconSvg = (size: number) =>
 	)
 		.map(
 			(bar) =>
-				`<rect x="${bar.x}" y="${bar.y}" width="${bar.width}" height="${bar.height}" rx="${bar.width / 2}" fill="${LOGO_COLORS.pink}"/>`,
+				`<rect x="${bar.x}" y="${bar.y}" width="${bar.width}" height="${bar.height}" rx="${bar.width / 2}" fill="${LOGO_COLORS.orange}"/>`,
 		)
 		.join("")}</svg>`;
