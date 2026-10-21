@@ -253,16 +253,72 @@
 /* Cytat (`>`) – cudze słowa w środku tekstu: wypowiedź, fragment regulaminu.
    Ciszej niż wyimek (pole `pullquote`, pasmo nad treścią), żeby z nim nie
    konkurował: ten sam stopień co akapit, tylko kolor ink i średnia waga.
-   Linia hairline, nie ink – to linia WEWNĄTRZ pasma treści. Bez kursywy,
-   bo kursywa niesie tu termin obcy, i bez cudzysłowów z CSS – jeśli tekst
-   ich potrzebuje, stoją w nim. */
+   Bez kursywy, bo kursywa niesie tu termin obcy.
+
+   Obok tekstu znak: kształt w kolorze akcentu z „ z Instrument Serif, które
+   zwisa z jego dolnej krawędzi – ten sam motyw co szablon Cytat w okładkach.
+   „ to ikona, nie interpunkcja cytatu: tekst dalej sam niesie cudzysłowy,
+   jeśli ich potrzebuje, a czytnik ekranu znaku nie czyta (`/ ""` w @supports
+   niżej – przeglądarka bez tekstu alternatywnego w `content` odrzuciłaby całą
+   deklarację i zgubiła znak, a dwie deklaracje w jednej regule Biome bierze
+   za duplikat i poprawka `--unsafe` usunęłaby jedną).
+   Kształt i znak są dekoracją, więc kontrast 3:1 (1.4.11) ich nie dotyczy. */
 .prose-swiss blockquote {
+	--quote-mark: 3rem;
+	position: relative;
+	/* Znak wystaje poniżej kształtu – krótki, jednowierszowy cytat nie może
+	   wpuścić go w następny akapit. */
+	min-height: calc(var(--quote-mark) * 1.1 + 0.25rem);
 	margin: 0 0 18px;
-	padding-left: 20px;
-	border-left: 1px solid var(--color-hairline);
+	padding-left: calc(var(--quote-mark) + 20px);
 	color: var(--color-ink);
 	font-weight: 500;
 	break-inside: avoid;
+}
+.prose-swiss blockquote::before {
+	content: "";
+	position: absolute;
+	top: 0.25rem;
+	left: 0;
+	width: var(--quote-mark);
+	height: var(--quote-mark);
+	border-radius: 28%;
+	background: var(--color-blue);
+}
+.prose-swiss blockquote::after {
+	content: "„";
+	position: absolute;
+	/* Limonkowy znak cały w kwadracie: wystający poza niego ginął na ciepłej
+	   bieli. Ciemny znak różowego wariantu może zwisać jak w makiecie (niżej). */
+	top: calc(0.25rem - var(--quote-mark) * 0.66);
+	left: 0;
+	width: var(--quote-mark);
+	font-family: var(--font-serif);
+	font-size: calc(var(--quote-mark) * 1.6);
+	font-weight: 400;
+	line-height: 1;
+	text-align: center;
+	color: var(--color-lime);
+	pointer-events: none;
+}
+@supports (content: "„" / "") {
+	.prose-swiss blockquote::after {
+		content: "„" / "";
+	}
+}
+/* Drugi wariant z makiety: różowe koło ze znakiem w kolorze ink. */
+.prose-swiss blockquote:nth-of-type(even)::before {
+	border-radius: 50%;
+	background: var(--color-pink);
+}
+.prose-swiss blockquote:nth-of-type(even)::after {
+	top: calc(0.25rem - var(--quote-mark) * 0.48);
+	color: var(--color-ink);
+}
+@media (min-width: 48rem) {
+	.prose-swiss blockquote {
+		--quote-mark: 3.5rem;
+	}
 }
 .prose-swiss blockquote:last-child {
 	margin-bottom: 0;

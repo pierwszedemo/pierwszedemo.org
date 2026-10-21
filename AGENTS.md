@@ -277,7 +277,13 @@ lines that Tailwind Preflight has already stripped. Tina's toolbar offers
 exactly these (`overrides.toolbar` in `tina/config.ts`) – adding a button
 there means adding its styles to `prose.css` in the same change. A `>` quote
 is someone else's words inside the text, quieter than the `pullquote` card
-(same size as a paragraph, ink colour, hairline rule on the left).
+(same size as a paragraph, ink colour, weight 500), marked by an accent shape
+on its left with a large Instrument Serif „ – a blue rounded square with a lime
+mark kept wholly inside it (lime hanging onto the paper vanished), every second
+quote a pink circle whose ink mark hangs off the bottom edge. Only the first
+shows today (one quote per post); the second stays for a later choice of rule.
+The „ is generated content muted for screen readers (`/ ""` inside
+`@supports`, so Biome does not see a duplicate `content`).
 
 Images in the body (`src/images.ts`, two satteri plugins):
 
