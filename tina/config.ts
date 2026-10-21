@@ -1,22 +1,11 @@
 import { type Collection, defineConfig, type TinaField } from "tinacms";
 import { AUTHOR_LABELS, CATEGORIES, KINDS, NEWS_KINDS } from "../src/consts";
+import { CoverField } from "./cover-field";
+import { slugify } from "./slug";
 
 // Gałąź, na którą Tina commituje. Workers Builds podaje ją w WORKERS_CI_BRANCH,
 // więc podgląd gałęzi edytuje tę samą gałąź, z której jest zbudowany.
 const branch = process.env.GITHUB_BRANCH || process.env.WORKERS_CI_BRANCH || "main";
-
-/**
- * Slug z polskiego tekstu: „Skąd wziąć pieniądze” → „skad-wziac-pieniadze”.
- * `ł` nie rozkłada się w NFD na literę i znak diakrytyczny, stąd osobna zamiana.
- */
-const slugify = (text: string) =>
-	text
-		.toLowerCase()
-		.replace(/ł/g, "l")
-		.normalize("NFD")
-		.replace(/[̀-ͯ]/g, "")
-		.replace(/[^a-z0-9]+/g, "-")
-		.replace(/^-+|-+$/g, "");
 
 /** Dzień w Warszawie, `RRRR-MM-DD` – ta sama data co w content.config.ts. */
 const warsawDay = (value?: string) =>
@@ -113,6 +102,25 @@ const tailFields: TinaField[] = [
 			validate: (value, values) =>
 				values?.image && !value ? "Wpis z grafiką musi mieć tekst alternatywny." : undefined,
 		},
+	},
+	{
+		type: "object",
+		name: "cover",
+		label: "Okładka",
+		description:
+			"Grafika wpisu na liście i w podglądzie linku. Domyślnie przydzielana automatycznie, bez powtórek z innymi wpisami; zmiana czegokolwiek ją przypina.",
+		// Lustro `cover` z base() w src/content.config.ts. Formularz rysuje
+		// cover-field.tsx – zapisuje cały obiekt albo nic (przydział automatyczny).
+		fields: [
+			{ type: "number", name: "template", label: "Szablon" },
+			{ type: "number", name: "colorway", label: "Kolorystyka" },
+			{ type: "boolean", name: "mirror", label: "Lustro" },
+			{ type: "number", name: "seed", label: "Ziarno" },
+			{ type: "number", name: "roles", label: "Role kolorów" },
+		],
+		// Typy Tiny opisują `ui.component` bez `form` i `tinaForm`, które pole
+		// dostaje i z których korzysta – stąd rzutowanie.
+		ui: { component: CoverField as never },
 	},
 	{
 		type: "rich-text",

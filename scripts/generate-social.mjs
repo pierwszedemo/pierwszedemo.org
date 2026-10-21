@@ -1,44 +1,89 @@
 /**
- * Grafiki profilowe do wgrania ręcznie (Facebook, Instagram). Uruchamiane
- * ręcznie (`bun scripts/generate-social.mjs`), wynik ląduje w `assets/`, nie
- * w `public/` – to nie są zasoby strony. Zdjęcie profilowe (monogram) robi
- * `generate-favicons.mjs`, bo dzieli z ikonami ramkę i glif.
+ * Grafiki do profili fundacji, wgrywane ręcznie: avatary (Instagram, Facebook,
+ * LinkedIn) i okładki (strona na Facebooku, strona i profile na LinkedInie).
+ * Uruchamiane ręcznie (`bun scripts/generate-social.mjs`), wynik ląduje
+ * w `public/social/` – pod pierwszedemo.org/social/, żeby pobrać je z każdego
+ * komputera, z którego zarządza się profilami.
  *
- * Okładka strony na Facebooku: plik 1640×856, ale FB pokazuje z niego dwa
- * różne kadry – desktop środkowy pas 1640×624 (proporcja 820×312), telefon
- * środkową kolumnę ~1522×856 (640×360). Kartę rysujemy więc na 1640×624
- * z szerokimi marginesami i dokładamy pasy tła strony u góry i u dołu: desktop
- * widzi kartę co do piksela, telefon tę samą kartę z oddechem.
+ * Avatar to ten z płótna „Logo — wybrane” (`renderAvatarBody`, ten sam co
+ * ikony aplikacji i BIMI): pełny kwadrat ultramaryny, bo wszystkie trzy
+ * platformy same go kadrują – Instagram i Facebook w koło, LinkedIn
+ * w zaokrąglony kwadrat.
  *
- * Na desktopie FB kładzie na dolne 68 px kadru (w skali 820×312) gradientowy
- * cień pod przyciskami – w pliku to 136 px. Karta jest więc o tyle niższa,
- * a różnicę dostaje dolny pas, żeby stopka z logotypem nie wpadała pod cień.
- *
- * Tytułem jest slogan ze strony głównej (Tina), z tym samym akcentem.
+ * Okładki (`renderSocialCover`): znak i hasło w prostokącie widocznym
+ * w każdym kadrze, grafika Fali po drugiej stronie.
+ * - Facebook 1640×856: desktop pokazuje środkowy pas 1640×624 (proporcja
+ *   820×312) z cieniem pod przyciskami na dolnych 136 px, telefon środkową
+ *   kolumnę ~1522×856 (640×360); zdjęcie profilowe wchodzi na lewy dolny róg.
+ *   Tekst więc w x 200–1440, y 116–604.
+ * - LinkedIn, strona organizacji 1128×191 (i @2x): logo zachodzi na lewą dolną
+ *   część okładki, więc tekst po prawej, a grafika na lewo od środka, za
+ *   strefą logo – inaczej logo zasłaniało pół fali.
+ * - LinkedIn, profil osobisty 1584×396 (tło profilu fundatorów): zdjęcie
+ *   zachodzi na lewy dół – układ jak wyżej.
  */
+import { mkdirSync } from "node:fs";
 import sharp from "sharp";
-import { PALETTE, renderOgCard } from "../src/og.ts";
-import { HOMEPAGE } from "../src/strony.ts";
+import { renderAvatarBody, renderSocialCover } from "../src/og.ts";
 
-const WIDTH = 1640;
-const HEIGHT = 856;
-const DESKTOP = 624;
-const SHADOW = 68 * 2;
+const OUT = "public/social";
+mkdirSync(OUT, { recursive: true });
 
-const card = await renderOgCard({
-	title: HOMEPAGE.slogan,
-	width: WIDTH,
-	height: DESKTOP - SHADOW,
-	paddingX: 200,
-});
-const band = (HEIGHT - DESKTOP) / 2;
-
-await Bun.write(
-	"assets/facebook-cover-1640x856.png",
-	await sharp(card)
-		.extend({ top: band, bottom: band + SHADOW, background: PALETTE.paper })
+const avatar = async (size) =>
+	sharp(
+		Buffer.from(
+			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}">${await renderAvatarBody(size)}</svg>`,
+		),
+		{ density: 512 },
+	)
+		.resize(size, size)
 		.png({ compressionLevel: 9 })
-		.toBuffer(),
-);
+		.toBuffer();
 
-console.log("Okładka zapisana: assets/facebook-cover-1640x856.png");
+const files = [
+	["instagram-avatar-1080.png", () => avatar(1080)],
+	["facebook-avatar-1080.png", () => avatar(1080)],
+	["linkedin-avatar-400.png", () => avatar(400)],
+	[
+		"facebook-cover-1640x856.png",
+		() =>
+			renderSocialCover({
+				width: 1640,
+				height: 856,
+				safe: { x: 200, y: 116, w: 1240, h: 488 },
+				art: { x: 940, y: 116, h: 488 },
+				textSide: "left",
+				lockupSize: 112,
+			}),
+	],
+	...[1, 2].map((scale) => [
+		`linkedin-page-cover-${1128 * scale}x${191 * scale}.png`,
+		() =>
+			renderSocialCover({
+				width: 1128,
+				height: 191,
+				safe: { x: 320, y: 20, w: 768, h: 151 },
+				art: { x: 220, y: 8, h: 175 },
+				textSide: "right",
+				lockupSize: 54,
+				scale,
+			}),
+	]),
+	[
+		"linkedin-profile-cover-1584x396.png",
+		() =>
+			renderSocialCover({
+				width: 1584,
+				height: 396,
+				safe: { x: 420, y: 40, w: 1104, h: 316 },
+				art: { x: 300, y: 24, h: 348 },
+				textSide: "right",
+				lockupSize: 104,
+			}),
+	],
+];
+
+for (const [name, make] of files) {
+	await Bun.write(`${OUT}/${name}`, await make());
+	console.log(`${OUT}/${name}`);
+}

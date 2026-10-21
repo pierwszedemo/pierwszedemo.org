@@ -1,5 +1,5 @@
 ---
-import { isoDate, plDate } from "../collections";
+import { getCovers, isoDate, plDate } from "../collections";
 import { coverArtSvg, coverParams } from "../covers";
 import { fixHanging } from "../typography";
 
@@ -13,7 +13,7 @@ import { fixHanging } from "../typography";
  */
 interface Props {
 	href: string;
-	/** Slug wpisu – z niego liczone są parametry okładki. */
+	/** Slug wpisu – klucz w przydziale okładek (`getCovers`). */
 	slug: string;
 	title: string;
 	date: Date;
@@ -22,7 +22,7 @@ interface Props {
 	heading?: "h2" | "h3";
 }
 const { href, slug, title, date, label, heading: Heading = "h3" } = Astro.props;
-const params = coverParams(slug);
+const params = (await getCovers()).get(slug) ?? coverParams(slug);
 const art = coverArtSvg(
 	params,
 	`aria-hidden="true" preserveAspectRatio="${params.mirror ? "xMinYMid" : "xMaxYMid"} slice" class="absolute inset-0 size-full"`,

@@ -99,6 +99,20 @@ const base = (image: ImageFunction) => ({
 		)
 		.optional(),
 	imageAlt: z.string().optional(),
+	/**
+	 * Okładka ustawiona ręcznie w /admin (pole „Okładka”, tina/cover-field.tsx).
+	 * Bez niej okładkę przydziela `allocateCovers` (src/covers.ts) – ze sluga,
+	 * bez powtórek. Tina zapisuje pole dopiero, gdy ktoś coś w nim zmieni.
+	 */
+	cover: z
+		.object({
+			template: z.number().int().min(1).max(5),
+			colorway: z.number().int().min(1).max(8),
+			mirror: z.boolean(),
+			seed: z.number().int().min(0).max(99999),
+			roles: z.number().int().min(0).max(5).default(0),
+		})
+		.nullish(),
 });
 
 const requireAlt = {

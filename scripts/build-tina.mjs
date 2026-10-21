@@ -14,7 +14,18 @@ import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { cpSync, existsSync, readFileSync, rmSync } from "node:fs";
 
-const INPUTS = ["tina/config.ts", "src/consts.ts", "package.json", "bun.lock"];
+// Każdy plik, który importuje tina/config.ts – inaczej zmiana w nim nie
+// przebudowałaby panelu i /admin działałby na starym kodzie z cache'u.
+const INPUTS = [
+	"tina/config.ts",
+	"tina/cover-field.tsx",
+	"tina/slug.ts",
+	"src/consts.ts",
+	"src/covers.ts",
+	"src/logo.ts",
+	"package.json",
+	"bun.lock",
+];
 const OUTPUTS = ["public/admin", "tina/__generated__"];
 
 const branch = process.env.GITHUB_BRANCH || process.env.WORKERS_CI_BRANCH || "";

@@ -1,14 +1,14 @@
 /**
  * Generuje komplet ikon z płótna „Logo — wybrane” (wariant „seledyn na
- * ultramarynie”): `public/favicon.svg` + PNG-i + .ico, zdjęcie profilowe
- * i logo BIMI. Uruchamiane ręcznie (`bun scripts/generate-favicons.mjs`), nie
+ * ultramarynie”): `public/favicon.svg` + PNG-i + .ico i logo BIMI. Avatary
+ * do profili robi `generate-social.mjs` z tego samego rysunku. Uruchamiane ręcznie (`bun scripts/generate-favicons.mjs`), nie
  * w buildzie — ikony zmieniają się raz na kilka lat, a wynik siedzi w repo.
  *
  * Dwa rysunki, jak na płótnie:
  * - favikona (karta przeglądarki, .ico) – kafel ultramaryny z sześcioma
  *   pomarańczowymi słupkami fali (`iconSvg` w src/logo.ts). Bez liter: przy 16 px
  *   „demo” byłoby plamą.
- * - avatar (iOS, manifest, profil, BIMI) – „demo” w seledynie nad pomarańczową falą
+ * - avatar (iOS, manifest, BIMI; profile – generate-social.mjs) – „demo” w seledynie nad pomarańczową falą
  *   (`renderAvatarBody` w src/og.ts). Litery to ścieżki z satori, bo sharp
  *   rasteryzuje SVG librsvg, a ten sięga po fonty *systemowe* – Instrument
  *   Serif na nich nie ma.
@@ -38,17 +38,14 @@ await Bun.write("public/favicon-96x96.png", await icon(96));
 // dokłada własną maskę, a iOS wypełnia przezroczystość czernią. Treść mieści
 // się w strefie bezpiecznej maski (koło 80% boku).
 for (const [file, size] of [
-	["public/apple-touch-icon.png", 180],
+	// 1024 zamiast 180: iOS i tak skaluje w dół, a ten sam plik nada się
+	// tam, gdzie trzeba ikony w rozmiarze sklepu z aplikacjami.
+	["public/apple-touch-icon.png", 1024],
 	["public/web-app-manifest-192x192.png", 192],
 	["public/web-app-manifest-512x512.png", 512],
 ]) {
 	await Bun.write(file, await avatar(size));
 }
-
-// Zdjęcie profilowe na Facebooka / Instagram / LinkedIn. Platformy kadrują je
-// w koło, a pełne tło daje ultramarynowe koło jak na płótnie.
-// Nie trafia do `public/`, bo to nie zasób strony, tylko plik do wgrania.
-await Bun.write("assets/profile-1080.png", await avatar(1080));
 
 // Logo do BIMI (DMARC): avatar, bo skrzynki pokazują je jak zdjęcie
 // profilowe. Profil SVG Tiny PS: `version="1.2"`, `baseProfile="tiny-ps"`,

@@ -1,4 +1,5 @@
 import { type CollectionEntry, getCollection } from "astro:content";
+import { allocateCovers, type CoverParams } from "./covers";
 import { wordCount } from "./schema";
 
 export type Article = CollectionEntry<"wiedza">;
@@ -38,6 +39,17 @@ export async function getRoutedArticles(): Promise<Article[]> {
 
 export async function getRoutedNews(): Promise<News[]> {
 	return (await getCollection("aktualnosci")).sort(byDateDesc);
+}
+
+/**
+ * Okładki wszystkich wpisów – przydział bez powtórek zależy od kolejności
+ * publikacji w obu kolekcjach naraz (src/covers.ts), więc liczy się go
+ * z pełnej listy, nie per wpis. Bez cache'u: to mniej niż milisekunda,
+ * a pamięć modułu przeżywałaby w `astro dev` zmianę daty we wpisie.
+ */
+export async function getCovers(): Promise<Map<string, CoverParams>> {
+	const entries = [...(await getRoutedArticles()), ...(await getRoutedNews())];
+	return allocateCovers(entries.map(({ id, data }) => ({ slug: id, date: data.date, cover: data.cover })));
 }
 
 /**

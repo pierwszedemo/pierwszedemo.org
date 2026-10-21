@@ -4,8 +4,8 @@
  * Uruchamiane ręcznie (`bun scripts/generate-dzwieki.mjs`), wynik ląduje
  * w `assets/`, nie w `public/` – to nie jest zasób strony.
  *
- * Osobny układ, nie `renderOgCard()`: karta OG stawia tytuł u góry i przy
- * kwadracie zostawiałaby pod nim pół pustego płótna. Tu nazwa jest plakatem –
+ * Osobny układ, nie karta OG wpisu (`renderPostCover()`): ta jest pozioma,
+ * z tytułem w wąskiej kolumnie, i w kwadracie zostawiałaby pół pustego płótna. Tu nazwa jest plakatem –
  * dwa wiersze, największy stopień pisma, jaki mieści się w szerokości,
  * dosunięte do dolnej linii. Fonty i zasady jak w `src/og.ts`: satori dostaje
  * TTF wprost i zamienia tekst na ścieżki, bo sharp (librsvg) sięgnąłby po

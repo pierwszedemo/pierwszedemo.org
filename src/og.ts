@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
 import { HOME_CITY, LOGOTYPE, SITE_HOST, SITE_TAGLINE, WORDMARK } from "./consts";
-import { COVER_HEIGHT, COVER_QUOTE, COVER_WIDTH, coverArt, coverParams } from "./covers";
+import { COVER_HEIGHT, COVER_QUOTE, COVER_WIDTH, type CoverParams, coverArt } from "./covers";
 import { LOGO_COLORS, WAVE, waveRadius, waveSvg } from "./logo";
 import { accentParts, fixHanging } from "./typography";
 
@@ -67,35 +67,26 @@ export const PALETTE = {
 	sun: "#ffc93c",
 } as const;
 
-/** Pasek akcentów ze stopki strony – te same proporcje. */
+/** Pasek akcentów ze stopki strony – te same proporcje (kolumna na kolor, druga dzielona 1:2). */
 export const STRIPE = [
 	[PALETTE.orange, 3],
 	[PALETTE.sun, 1],
 	[PALETTE.pink, 2],
-	[PALETTE.blue, 4],
-	[PALETTE.lime, 2],
+	[PALETTE.blue, 3],
+	[PALETTE.lime, 3],
 ] as const;
-
-interface CardOptions {
-	/** Tytuł; słowa w `*gwiazdkach*` dostają niebieski akcent jak w hero. */
-	title: string;
-	/** Pigułka u góry karty, naprzeciw znaku – kategoria wpisu; bez niej adres serwisu. */
-	badge?: string;
-	/** Wymiary płótna; domyślnie karta OG 1200×630. */
-	width?: number;
-	height?: number;
-	/**
-	 * Poziomy margines treści. Okładka na Facebooku jest kadrowana inaczej na
-	 * desktopie (820×312) i w telefonie (640×360), więc treść musi siedzieć
-	 * w środkowym pasie – stąd większy margines niż w karcie OG.
-	 */
-	paddingX?: number;
-}
 
 // Satori bez JSX: element to zwykły obiekt {type, props}. Każdy div z wieloma
 // dziećmi musi mieć jawny `display: flex` – satori nie zakłada blokowego układu.
 const el = (type: string, style: Record<string, unknown>, children?: unknown) =>
 	({ type, props: { style, ...(children === undefined ? {} : { children }) } }) as const;
+
+/**
+ * Satori typuje drzewo jako ReactNode, a dostaje te same obiekty {type, props},
+ * które daje JSX – bez @types/react typ był `any`, z nim trzeba to powiedzieć.
+ */
+const render = (node: unknown, options: Parameters<typeof satori>[1]) =>
+	satori(node as Parameters<typeof satori>[0], options);
 
 /**
  * Napis z kropkami „ · ” jak Middot.astro na stronie: spacja Instrument Sans
@@ -158,27 +149,6 @@ export const wordmark = (size: number, color: string = PALETTE.ink, wave: string
 	);
 };
 
-const pill = (text: string, background: string, dot?: string) =>
-	el(
-		"div",
-		{
-			display: "flex",
-			alignItems: "center",
-			gap: 12,
-			padding: dot ? "10px 22px 10px 16px" : "10px 22px",
-			borderRadius: 999,
-			backgroundColor: background,
-			border: background === "#ffffff" ? `2px solid ${PALETTE.hairline}` : "none",
-			fontFamily: "Instrument Sans",
-			fontWeight: 600,
-			fontSize: 24,
-			color: PALETTE.ink,
-		},
-		dot
-			? [el("div", { width: 16, height: 16, borderRadius: 999, backgroundColor: dot }), dotted(text)]
-			: dotted(text),
-	);
-
 /**
  * Znak na każdej karcie: „Fundacja” nad logotypem, u góry. Słowo „fundacja”
  * ma być czytelne w każdej miniaturze podglądu linku, a karty mają czytać się
@@ -190,7 +160,7 @@ const lockup = (
 	size: number,
 	color = "#ffffff",
 	wordmarkColor: string = LOGO_COLORS.lime,
-	{ wave = LOGO_COLORS.orange, align = "flex-start" } = {},
+	{ wave = LOGO_COLORS.orange as string, align = "flex-start" }: { wave?: string; align?: string } = {},
 ) =>
 	el("div", { display: "flex", flexDirection: "column", alignItems: align, gap: size * 0.05 }, [
 		el("div", { fontSize: size * 0.58, lineHeight: 1, letterSpacing: "-0.02em", color }, "Fundacja"),
@@ -211,83 +181,6 @@ const titleWords = (title: string, color: string = PALETTE.ink, accent: string =
 			.map((word) => el("span", { marginRight: "0.24em", color: part.accent ? accent : color }, word)),
 	);
 
-export async function renderOgCard({
-	title,
-	badge,
-	width = 1200,
-	height = 630,
-	paddingX = 64,
-}: CardOptions): Promise<Buffer> {
-	// Długie tytuły wpisów muszą zmieścić się w trzech wierszach – bez tego
-	// satori pozwoliłby im wyjechać poza kartę. Instrument Serif ma małe oczko,
-	// więc stopnie są większe niż przy dawnym Archivo.
-	// Niższe płótno (okładka FB) skaluje stopień proporcjonalnie do wysokości.
-	const length = title.replace(/\*/g, "").length;
-	const size = Math.round((length > 64 ? 82 : length > 40 ? 98 : 118) * Math.min(1, height / 630));
-
-	const svg = await satori(
-		el(
-			"div",
-			{
-				display: "flex",
-				width: "100%",
-				height: "100%",
-				backgroundColor: PALETTE.paper,
-				color: PALETTE.ink,
-				fontFamily: "Instrument Serif",
-			},
-			// Padding na dziecku, nie na korzeniu: satori liczy `100%` korzenia
-			// bez paddingu i stopka wyjeżdżała poza kartę.
-			el(
-				"div",
-				{
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "space-between",
-					flexGrow: 1,
-					padding: `56px ${paddingX}px 40px`,
-				},
-				[
-					el("div", { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 32 }, [
-						lockup(Math.round(80 * Math.min(1, height / 630)), PALETTE.ink, PALETTE.ink),
-						badge
-							? pill(badge, PALETTE.lime)
-							: el(
-									"div",
-									{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 24, color: PALETTE.muted },
-									SITE_HOST,
-								),
-					]),
-					el(
-						"div",
-						{
-							display: "flex",
-							flexWrap: "wrap",
-							fontSize: size,
-							lineHeight: 0.95,
-							letterSpacing: "-0.02em",
-							// Satori nie ma `text-wrap: balance`; węższa kolumna trzyma
-							// wiersze w podobnej proporcji, co nagłówki na stronie.
-							maxWidth: Math.min(1000, width - 2 * paddingX),
-						},
-						titleWords(title),
-					),
-					el(
-						"div",
-						{ display: "flex", gap: 8, height: 14 },
-						STRIPE.map(([color, grow]) =>
-							el("div", { flexGrow: grow, borderRadius: 999, backgroundColor: color }),
-						),
-					),
-				],
-			),
-		),
-		{ width, height, fonts: FONTS },
-	);
-
-	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
-}
-
 /**
  * Karta OG wpisu = jego okładka (src/covers.ts): grafika z generatora
  * Claude Design w kolorystyce i szablonie liczonych ze sluga, a w kolumnie
@@ -296,15 +189,15 @@ export async function renderOgCard({
  * idzie na lewo, a tekst na prawo, wyrównany do prawej krawędzi.
  */
 export async function renderPostCover({
-	slug,
+	params,
 	title,
 	badge,
 }: {
-	slug: string;
+	/** `resolveCover()` – ręczne z /admin albo ze sluga. */
+	params: CoverParams;
 	title: string;
 	badge: string;
 }): Promise<Buffer> {
-	const params = coverParams(slug);
 	const { palette: P, back, front, quote } = coverArt(params);
 	const layer = (shapes: string) =>
 		svgImg(
@@ -316,7 +209,7 @@ export async function renderPostCover({
 	const side = params.mirror ? { right: 64, alignItems: "flex-end" } : { left: 64, alignItems: "flex-start" };
 	const length = title.length;
 
-	const svg = await satori(
+	const svg = await render(
 		el(
 			"div",
 			{
@@ -400,16 +293,17 @@ export async function renderPostCover({
 
 /**
  * Karty marki – strona główna i podstrony – na ultramarynie, w barwach ikon.
- * Karty wpisów (`renderOgCard`) zostają na ciepłej bieli – tam tytułem jest
- * wpis, a nie fundacja.
+ * Karty wpisów to ich okładki (`renderPostCover`) – tam tytułem jest wpis,
+ * a nie fundacja.
  */
 
 /** Akapit na ultramarynie – biel przygaszona, żeby tytuł i znak zostały wyżej w hierarchii. */
 const ON_BLUE_MUTED = "#dde1ff";
 
-// Padding na dziecku, nie na korzeniu – jak w renderOgCard.
+// Padding na dziecku, nie na korzeniu: satori liczy `100%` korzenia bez
+// paddingu i treść wyjeżdżała poza kartę.
 const brandCard = async (children: unknown[]) => {
-	const svg = await satori(
+	const svg = await render(
 		el(
 			"div",
 			{
@@ -493,6 +387,91 @@ export const renderPageCard = ({ title, intro }: { title: string; intro: string 
 };
 
 /**
+ * Okładki profili (Facebook, LinkedIn) – rodzina kart marki: ultramaryna,
+ * po jednej stronie znak „Fundacja / pierwsze demo” z hasłem, po drugiej
+ * grafika z systemu okładek wpisów (szablon Fala – fala jak w logotypie).
+ * Każda platforma kadruje okładkę inaczej i kładzie na nią zdjęcie
+ * profilowe, więc tekst siedzi w `safe` – prostokącie widocznym w każdym
+ * kadrze – a grafika (`art`) tam, gdzie zdjęcie nie zasłoni nic ważnego.
+ * `scale` mnoży wszystko – wersja @2x dla ekranów o dużej gęstości.
+ */
+export async function renderSocialCover({
+	width,
+	height,
+	safe,
+	art,
+	textSide,
+	lockupSize,
+	scale = 1,
+}: {
+	width: number;
+	height: number;
+	safe: { x: number; y: number; w: number; h: number };
+	/** Lewy górny róg i wysokość grafiki; szerokość wynika z kadru 640×630. */
+	art: { x: number; y: number; h: number };
+	textSide: "left" | "right";
+	lockupSize: number;
+	scale?: number;
+}): Promise<Buffer> {
+	const mirror = textSide === "right";
+	const { back, front } = coverArt({ template: 2, colorway: 1, mirror, seed: 7, roles: 0 });
+	// Fala zajmuje w okładce 1200×630 prawe 640 px; przy lustrze – lewe.
+	const view = mirror ? "0 0 640 630" : `${COVER_WIDTH - 640} 0 640 630`;
+	const artH = art.h * scale;
+	const artW = (artH * 640) / 630;
+	const align = textSide === "left" ? "flex-start" : "flex-end";
+	const s = (value: number) => value * scale;
+
+	const svg = await render(
+		el(
+			"div",
+			{
+				display: "flex",
+				position: "relative",
+				width: "100%",
+				height: "100%",
+				backgroundColor: LOGO_COLORS.ultramarine,
+				color: "#ffffff",
+				fontFamily: "Instrument Serif",
+			},
+			[
+				svgImg(
+					`<svg xmlns="http://www.w3.org/2000/svg" viewBox="${view}">${back}${front}</svg>`,
+					artW,
+					artH,
+					{ position: "absolute", left: s(art.x), top: s(art.y) },
+				),
+				el(
+					"div",
+					{
+						position: "absolute",
+						top: s(safe.y),
+						height: s(safe.h),
+						...(textSide === "left" ? { left: s(safe.x) } : { right: s(width - safe.x - safe.w) }),
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "center",
+						alignItems: align,
+						gap: s(lockupSize * 0.22),
+					},
+					[
+						lockup(s(lockupSize), "#ffffff", LOGO_COLORS.lime, { align }),
+						dotted(`${SITE_TAGLINE} · ${HOME_CITY}`, {
+							fontFamily: "Instrument Sans",
+							fontWeight: 600,
+							fontSize: s(lockupSize * 0.24),
+							color: ON_BLUE_MUTED,
+						}),
+					],
+				),
+			],
+		),
+		{ width: width * scale, height: height * scale, fonts: FONTS },
+	);
+	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
+}
+
+/**
  * Avatar z płótna „Logo — wybrane”: „demo” w seledynie nad pomarańczową falą, na
  * ultramarynie na całe pole – platformy i systemy same kadrują w koło albo
  * w zaokrąglony kafel. Zwraca wnętrze SVG (bez <svg>) z samych ścieżek
@@ -506,7 +485,7 @@ export async function renderAvatarBody(size: number): Promise<string> {
 	const fontSize = size * 0.3;
 	// Kolor-znacznik: po nim znajdujemy w wyniku pudełko fali.
 	const marker = "#010101";
-	const svg = await satori(
+	const svg = await render(
 		el(
 			"div",
 			{ display: "flex", width: "100%", height: "100%", alignItems: "center", justifyContent: "center" },
@@ -590,7 +569,7 @@ export async function renderSwissCard({
 }): Promise<Buffer> {
 	const size = title.length > 64 ? 66 : title.length > 40 ? 78 : 94;
 
-	const svg = await satori(
+	const svg = await render(
 		el(
 			"div",
 			{

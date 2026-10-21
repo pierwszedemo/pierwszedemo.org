@@ -344,8 +344,10 @@ files; React exists only there.
   through `render()` and the satteri plugins, which `TinaMarkdown` would
   replace.
 - `bun run build` goes through `scripts/build-tina.mjs`: the admin app and the
-  generated client depend only on the Tina config, `consts.ts`, the packages,
-  the branch and the project – not on content – so they are cached in
+  generated client depend only on the Tina config (and every file it
+  imports – `INPUTS` lists them; a new import must be added there or the
+  cached admin keeps the old code), the packages, the branch and the
+  project – not on content – so they are cached in
   `node_modules/.astro/tina-admin/<hash>` (the only directory Workers Builds
   carries between Astro builds) and rebuilt only when one of those changes.
   `--skip-cloud-checks` because the check waits ~45 s for TinaCloud to index
@@ -443,10 +445,7 @@ are resources, not pages.
 rasterises. Every card opens with the same lockup – „Fundacja” over the
 logotype (`lockup()`), so the word „fundacja” reads in any link-preview
 thumbnail and no slogan pill is needed. A post's card is its cover
-(`renderPostCover`, „Post covers” below). `renderOgCard` – paper background,
-the lockup in ink with a category pill opposite, the title in Instrument Serif
-and the accent stripe from the footer – is left for the Facebook cover
-(`scripts/generate-social.mjs`). The homepage card (`renderHomeCard`) is the brand card instead: white
+(`renderPostCover`, „Post covers” below). The homepage card (`renderHomeCard`) is the brand card instead: white
 „Fundacja” over a big lime logotype with the orange wave on ultramarine (the
 icons' palette), the tagline, city and domain at the bottom – nothing else.
 „Fundacja” must read in a thumbnail; the earlier collage (slogan, cassette,
@@ -490,20 +489,56 @@ is still in `src/assets/fonts/`.
 Every post (both collections) gets a generated cover – the Claude Design
 system „Okładki — system i generator” (artboard `Cover.dc.html`): 5 templates
 (Scena, Fala, Promienie, Cytat, Kolaż) × 8 colourways × mirror × seed.
-`src/covers.ts` is a faithful port – FNV-1a, the artboard's mulberry32, the
-same order of draws and the same rounding – so the same parameters give the
-same picture in Claude Design (`describeCover()` prints them in its wording).
-Two deliberate differences: the parameters are hashed from the **slug**, not
-the title, so fixing a title in Tina does not reshuffle the cover; and the
-logotype's wave is orange only where it reaches 3:1 against the background
-(WCAG 1.4.11 – in practice black and navy), otherwise the colourway's own wave
-colour, then its text colour. The same cover is the post's OG image
-(`renderPostCover`: shapes as an SVG layer, text through satori – the lockup
-at the top of a 500 px column opposite the art, the title, the category pill)
-and, without text, its card on the site (`PostCard`, inline SVG). The „ of
-the Cytat template is text: satori sets it like the artboard's span, the site
-as `<text>` on the baseline computed from Instrument Serif's metrics
+`src/covers.ts` draws exactly like the artboard – its mulberry32, the same
+order of draws and the same rounding – so the same parameters with
+`roles: 0` give the same picture in Claude Design (`describeCover()` prints
+them in its wording). Where it departs from the generator:
+
+- Parameters are hashed from the **slug**, not the title, so fixing a title in
+  Tina does not reshuffle the cover – FNV-1a with a fmix32 finaliser; bare
+  FNV-1a took the colourway from 6 poorly mixed low bits.
+- `roles` (0–5) permutes which of a colourway's three shape colours plays
+  which part – 240 looks before mirroring instead of 40.
+- **No repeats**: `allocateCovers()` walks all posts (both collections,
+  drafts and unlisted included) in publication order; each starts from its
+  hashed template × colourway and, if that pair occurs in the previous 39
+  posts or shares the template or colourway with the post just before it,
+  takes the next pair in a fixed order (template 1 colourways 1–8, template
+  2…, wrapping after 40) that passes both. Mirror, seed and roles stay from
+  the hash. A new post is the newest, so it never changes older covers; a
+  back-dated post, a deletion or a date change can, and a cover set in
+  `/admin` pins it. A per-post hash alone cannot do this – with 16 posts and
+  40 pairs a duplicate has a 95% chance (birthday problem), and more
+  combinations only lower the odds. `getCovers()` in `collections.ts` runs it
+  over the routed posts; the OG route and `PostCard` read from there.
+- The logotype's wave is orange only where it reaches 3:1 against the
+  background (WCAG 1.4.11 – in practice black and navy), otherwise the
+  colourway's own wave colour, then its text colour.
+
+The same cover is the post's OG image (`renderPostCover`: shapes as an SVG
+layer, text through satori – the lockup at the top of a 500 px column opposite
+the art, the title, the category pill) and, without text, its card on the
+site (`PostCard`, inline SVG cropped to 4:3 from the text side). The „ of the
+Cytat template is text: satori sets it like the artboard's span, the site as
+`<text>` on the baseline computed from Instrument Serif's metrics
 (`COVER_QUOTE`).
+
+**`/admin` „Okładka” field** (`tina/cover-field.tsx`, `cover` in the
+frontmatter – optional `{ template, colorway, mirror, seed, roles }`, mirrored
+in zod). It previews the OG image and the card live. Because the automatic
+cover depends on the other posts, the field fetches every post's file name,
+date and `cover` from Tina's GraphQL once when the form opens, puts the form's
+unsaved values in place of the current post (a new post gets the slug its
+file name will get – `tina/slug.ts`, shared with `config.ts`) and runs the
+same `allocateCovers()`. Untouched, the field writes nothing; any change
+writes the whole object; „Automatycznie” sets `null` (Tina's form ignores
+`undefined` and keeps the old object). The art is `<img>` of SVG (Biome bans
+`dangerouslySetInnerHTML`), the text and the „ are HTML in the site's fonts,
+loaded in the admin from Google Fonts – close to the build's PNG, not
+pixel-identical. Tina's admin Vite compiles JSX classically and ignores the
+`@jsxImportSource` pragma, so the file uses `React.*` explicitly (an import
+used only by JSX would look unused, and the pre-commit `--unsafe` fix would
+delete it).
 
 ### Logo and favicons
 
@@ -529,7 +564,7 @@ every few years and the output is committed. Two drawings, as on the canvas:
   own pixel grid, not scaled from one SVG: the canvas's 1.5 px bars at 16 px
   rasterised into grey smudges, so widths, gaps and heights are rounded and
   heights keep the size's parity.
-- The „app" icons (`apple-touch-icon`, manifest 192/512), the profile picture
+- The „app" icons (`apple-touch-icon` at 1024 px, manifest 192/512), the profile picture
   and BIMI are the avatar: lime „demo” over an orange wave on a full ultramarine
   square (`renderAvatarBody()` in `og.ts`) – full bleed, because iOS fills
   transparency with black and every platform masks or crops it itself. Its
@@ -546,17 +581,30 @@ circle, and „demo” sits well inside it; never hand it a transparent
 background. Referenced from the DNS `default._bimi` TXT record,
 which is outside the repo.
 
-### Social assets (`assets/`)
+### Social assets (`public/social/`)
 
-Files uploaded by hand to Facebook/Instagram, not served by the site – hence
-outside `public/`. `generate-favicons.mjs` also writes `assets/profile-1080.png`:
-the avatar (platforms crop the profile picture to a circle). `scripts/generate-social.mjs` (`bun scripts/generate-social.mjs`) writes
-`assets/facebook-cover-1640x856.png` through `renderOgCard()` – `src/og.ts`
-takes `width`/`height`/`paddingX` for that. Facebook shows two crops of one
-cover: desktop the centre 1640×624 band, mobile the centre ~1522×856 column, so
-the card is drawn at 1640×624 with 200 px side margins and padded to 856 with
-paper-coloured bands – desktop gets the card pixel-for-pixel, mobile the same
-card with breathing room. Its title is the homepage slogan from Tina.
+Files uploaded by hand to the foundation's profiles – served from
+`pierwszedemo.org/social/…` so they can be downloaded from any computer that
+manages a profile (an earlier version kept them outside `public/`, in
+`assets/`; `assets/` now holds only the concert-series graphic).
+`scripts/generate-social.mjs` (`bun scripts/generate-social.mjs`) writes them
+all:
+
+- avatars – Instagram and Facebook 1080 px, LinkedIn 400 px: the avatar from
+  `renderAvatarBody` (the same drawing as the app icons and BIMI), full
+  ultramarine square, because every platform crops it itself (circle,
+  LinkedIn a rounded square);
+- covers through `renderSocialCover` – the brand-card family: the lockup and
+  tagline on one side, the Fala artwork from the cover system on the other,
+  text inside the rectangle that every crop shows and the artwork clear of
+  where the profile photo or logo overlaps:
+  - Facebook 1640×856 – desktop shows the centre 1640×624 band with a
+    gradient under the buttons on its bottom 136 px, mobile the centre
+    ~1522×856 column, and the profile photo overlaps the bottom left; text in
+    x 200–1440, y 116–604;
+  - LinkedIn page 1128×191 (and @2x) and LinkedIn personal profile 1584×396
+    (the founders' backgrounds) – logo/photo over the bottom left, so text on
+    the right, artwork left of centre.
 
 ### Analytics & consent
 
@@ -624,7 +672,9 @@ Polish diacritics.
 A „ · ” separator in sans text goes through `Middot.astro` (`dotted()` in
 `og.ts` for the cards): Instrument Sans's space is 0.19 em and the dot stuck
 to the words, so it gets a margin and a no-break space before it (a line never
-starts with the dot). Mono text (list rows, 404) does not need it.
+starts with the dot). Mono text (list rows, 404) does not need it. With
+`stack` (the homepage pill) the dots give way to line breaks below `sm` – the
+long pill wrapped at random points on a phone.
 
 Utilities in `global.css`: `label` (sans 600, 13 px, `0.08em`, uppercase – use
 it instead of respelling those five utilities), `wrap` (the 80rem content box
@@ -721,7 +771,9 @@ carried an EXIF orientation tag and GPS coordinates). `HeroPhoto.astro` takes
 `src`/`alt`/`caption` props and clips `widths` to the source size, because
 Astro refuses to upscale.
 
-The nav is the logotype (`Logo.astro` – „pierwsze demo” with the wave), four links
+The nav is the logotype with the word „Fundacja” in front of it, on one line
+and in the same size (`<Logo foundation>` – a stacked „Fundacja” added a row
+of height), four links
 (O nas → /fundacja, Co robimy → /fundacja#dzialania, Wiedza, Aktualności) and
 the „Dołącz” pill (`JOIN_PATH`, the homepage section). It is sticky (`top-0`,
 opaque paper), and `scroll-padding-top` on `:root` keeps anchor jumps clear
@@ -764,7 +816,10 @@ clause.
 
 The footer is the dark band from the canvas: logotype, „Dane fundacji” (KRS /
 NIP / REGON), „Dokumenty” (statute, privacy, the Cookies button, accessibility
-statement) and „Kontakt”, then the accent-colour stripe and ©. The registered
+statement) and „Kontakt”, then the accent-colour stripe and ©. From `lg` the
+stripe sits on the same 4-column grid as the text: each column's colour
+starts where its text starts, 8 px between colours (a negative margin into
+the 32 px grid gap), the second column split sun/pink 1:2. The registered
 address is not there on purpose: art. 5 of the e-services act wants it
 „bezpośrednio dostępny”, not on every page, so the footer links „Dane
 rejestrowe” to `/fundacja#dane` instead.

@@ -5,17 +5,26 @@
  * obrazkiem OG wpisu (z tytułem, `renderPostCover` w og.ts) i ilustracją jego
  * karty na liście (bez tytułu, PostCard.astro).
  *
- * Kod to wierny port logiki z artboardu: FNV-1a, ten sam generator liczb
- * (mulberry32), ta sama kolejność losowań i zaokrąglenia – te same parametry
- * dają w Claude Design dokładnie ten sam obrazek, więc okładkę wpisu da się
- * tam odtworzyć z `coverParams()`. Dwie świadome różnice:
+ * Rysunek to wierny port artboardu: ten sam generator liczb (mulberry32), ta
+ * sama kolejność losowań i zaokrąglenia – te same parametry (szablon,
+ * kolorystyka, lustro, ziarno, przy `roles: 0`) dają w Claude Design dokładnie
+ * ten sam obrazek. Różnice wobec generatora:
  * - parametry liczymy ze sluga, nie z tytułu, żeby poprawka tytułu w Tinie
- *   nie zmieniała okładki;
+ *   nie zmieniała okładki, i lepiej mieszającym hashem (FNV-1a + fmix32):
+ *   w gołym FNV-1a kolorystyka zależała od 6 najniższych bitów, które słabo
+ *   się mieszają;
+ * - `roles` zamienia role trzech kolorów kształtów w kolorystyce (6 układów),
+ *   więc wyglądów jest 5 × 8 × 6 × lustro zamiast 5 × 8 × lustro;
+ * - przydział (`allocateCovers`) pilnuje, żeby szablon z kolorystyką nie
+ *   powtórzył się w 40 kolejnych wpisach, a sąsiad w kolejności publikacji
+ *   miał inny szablon i inną kolorystykę – sam hash tego nie zagwarantuje
+ *   (paradoks urodzin: przy 16 wpisach i 40 kombinacjach powtórka ma 95%);
  * - fala w logotypie jest pomarańczowa, gdy ma na tle kontrast grafiki 3:1
  *   (WCAG 1.4.11) – w praktyce tylko na czerni i granacie; na pozostałych
  *   tłach bierze kolor fali z kolorystyki, a gdy i on nie wystarcza, kolor tekstu.
  *
- * Bez zależności – czyta go i build (satori), i komponent strony.
+ * Bez zależności – czyta go build (satori), komponent strony i pole „Okładka”
+ * w /admin (tina/cover-field.tsx), które liczy ten sam przydział na żywo.
  */
 import { LOGO_COLORS } from "./logo";
 
@@ -43,7 +52,8 @@ const COLORWAYS = [
 	{ name: "Granat", bg: NAVY, a: PINK, b: LIME, c: SUN, text: CREAM, wave: PINK, dark: BLUE },
 ] as const;
 
-const TEMPLATES = ["Scena", "Fala", "Promienie", "Cytat", "Kolaż"] as const;
+export const COVER_TEMPLATES = ["Scena", "Fala", "Promienie", "Cytat", "Kolaż"] as const;
+export const COVER_COLORWAYS = COLORWAYS.map((colorway) => colorway.name);
 
 export interface CoverParams {
 	/** 1–5: Scena, Fala, Promienie, Cytat, Kolaż. */
@@ -53,32 +63,136 @@ export interface CoverParams {
 	/** Grafika po lewej, tekst po prawej. Cytat nigdy – cudzysłów nie ma lustra. */
 	mirror: boolean;
 	seed: number;
+	/** 0–5: który z kolorów a, b, c gra którą rolę (`ROLES`); 0 = jak w makiecie. */
+	roles: number;
 }
 
-const fnv1a = (text: string) => {
+/** Sześć permutacji ról kolorów kształtów. */
+const ROLES = [
+	[0, 1, 2],
+	[0, 2, 1],
+	[1, 0, 2],
+	[1, 2, 0],
+	[2, 0, 1],
+	[2, 1, 0],
+] as const;
+
+/** FNV-1a z dopełnieniem fmix32 (MurmurHash3) – każdy bit zależy od całego sluga. */
+const slugHash = (text: string) => {
 	let hash = 0x811c9dc5;
 	for (let i = 0; i < text.length; i++) {
 		hash ^= text.charCodeAt(i);
-		hash = Math.imul(hash, 0x01000193) >>> 0;
+		hash = Math.imul(hash, 0x01000193);
 	}
+	hash ^= hash >>> 16;
+	hash = Math.imul(hash, 0x85ebca6b);
+	hash ^= hash >>> 13;
+	hash = Math.imul(hash, 0xc2b2ae35);
+	hash ^= hash >>> 16;
 	return hash >>> 0;
 };
 
-/** Parametry okładki ze sluga wpisu – jak `fromTitle` w generatorze. */
-export function coverParams(slug: string): CoverParams {
-	const hash = fnv1a(slug);
-	const template = (hash % 5) + 1;
-	return {
-		template,
-		colorway: ((hash >>> 3) % 8) + 1,
-		mirror: ((hash >>> 6) & 1) === 1 && template !== 4,
-		seed: (hash >>> 7) % 100000,
+/** Cytat nigdy nie ma lustra – cudzysłów odbity czyta się jak błąd. */
+const withTemplate = (params: CoverParams, template: number, colorway: number, mirrorBit: boolean) => ({
+	...params,
+	template,
+	colorway,
+	mirror: mirrorBit && template !== 4,
+});
+
+/** Parametry ze sluga, zanim przydział usunie powtórki. Kolejne cyfry hasha w systemie mieszanym. */
+const hashParams = (slug: string) => {
+	const hash = slugHash(slug);
+	const mirrorBit = Math.floor(hash / 240) % 2 === 1;
+	const params = {
+		template: 1,
+		colorway: 1,
+		mirror: false,
+		roles: Math.floor(hash / 40) % 6,
+		seed: Math.floor(hash / 480) % 100000,
 	};
+	return {
+		params: withTemplate(params, (hash % 5) + 1, (Math.floor(hash / 5) % 8) + 1, mirrorBit),
+		mirrorBit,
+	};
+};
+
+/** Parametry okładki z samego sluga – bez przydziału (wpis spoza listy wpisów). */
+export const coverParams = (slug: string): CoverParams => hashParams(slug).params;
+
+/** Dzień publikacji jak w content.config.ts: północ UTC bez zmian, inna chwila (Tina) – dzień w Warszawie. */
+const warsawDay = new Intl.DateTimeFormat("sv-SE", { timeZone: "Europe/Warsaw" });
+const publicationDay = (value: Date | string) => {
+	const date = new Date(value);
+	if (Number.isNaN(date.getTime())) return "";
+	return date.getUTCHours() === 0 && date.getUTCMinutes() === 0
+		? date.toISOString().slice(0, 10)
+		: warsawDay.format(date);
+};
+
+export interface CoverPost {
+	slug: string;
+	date: Date | string;
+	/** Okładka ustawiona ręcznie w /admin – wygrywa z przydziałem i zajmuje swoją kombinację. */
+	cover?: Partial<CoverParams> | null;
+}
+
+/** Ile kolejnych wpisów nie może powtórzyć szablonu z kolorystyką – wszystkie kombinacje minus jedna. */
+const WINDOW = 5 * 8 - 1;
+
+/**
+ * Okładki wszystkich wpisów naraz, w kolejności publikacji (obie kolekcje,
+ * także szkice i ukryte – też mają obrazek OG; przy tej samej dacie po slugu).
+ * Każdy wpis startuje z kombinacji szablon × kolorystyka z hasha. Gdy ta
+ * wystąpiła w ostatnich 39 wpisach albo ma szablon lub kolorystykę wpisu
+ * tuż przed nim, bierze następną w stałej kolejności (szablon 1 kolorystyki
+ * 1–8, szablon 2…, po 40 od początku), która przechodzi oba warunki; gdy
+ * takiej nie ma – pierwszą wolną od samych powtórek. Lustro, ziarno i role
+ * kolorów zostają z hasha. Nowy wpis jest najnowszy, więc nie zmienia
+ * starszych; przesunąć je może tylko wpis z datą wsteczną, usunięcie albo
+ * zmiana daty – wtedy okładkę przypina pole w /admin.
+ */
+export function allocateCovers(posts: CoverPost[]): Map<string, CoverParams> {
+	const sorted = posts
+		.map((post) => ({ ...post, day: publicationDay(post.date) }))
+		.sort((a, b) => a.day.localeCompare(b.day) || a.slug.localeCompare(b.slug));
+	const result = new Map<string, CoverParams>();
+	const recent: number[] = [];
+	let previous: CoverParams | undefined;
+	const key = ({ template, colorway }: CoverParams) => (template - 1) * 8 + (colorway - 1);
+
+	for (const post of sorted) {
+		const { params: hashed, mirrorBit } = hashParams(post.slug);
+		let params: CoverParams;
+		if (post.cover?.template && post.cover.colorway) {
+			params = withTemplate(
+				{ ...hashed, ...post.cover, roles: post.cover.roles ?? 0 },
+				post.cover.template,
+				post.cover.colorway,
+				post.cover.mirror ?? false,
+			);
+		} else {
+			const start = key(hashed);
+			const fits = (candidate: number, strict: boolean) =>
+				!recent.includes(candidate) &&
+				(!strict ||
+					!previous ||
+					(Math.floor(candidate / 8) + 1 !== previous.template && (candidate % 8) + 1 !== previous.colorway));
+			const order = Array.from({ length: 40 }, (_, i) => (start + i) % 40);
+			const chosen = order.find((c) => fits(c, true)) ?? order.find((c) => fits(c, false)) ?? start;
+			params = withTemplate(hashed, Math.floor(chosen / 8) + 1, (chosen % 8) + 1, mirrorBit);
+		}
+		result.set(post.slug, params);
+		recent.push(key(params));
+		if (recent.length > WINDOW) recent.shift();
+		previous = params;
+	}
+	return result;
 }
 
 /** Opis parametrów do wpisania w generatorze Claude Design. */
-export const describeCover = ({ template, colorway, mirror, seed }: CoverParams) =>
-	`szablon ${template} ${TEMPLATES[template - 1]} · kolor ${colorway} ${COLORWAYS[colorway - 1].name}${mirror ? " · lustro" : ""} · ziarno ${seed}`;
+export const describeCover = ({ template, colorway, mirror, seed, roles }: CoverParams) =>
+	`szablon ${template} ${COVER_TEMPLATES[template - 1]} · kolor ${colorway} ${COLORWAYS[colorway - 1].name}${mirror ? " · lustro" : ""} · ziarno ${seed}${roles ? ` · role kolorów ${roles} (poza generatorem)` : ""}`;
 
 const luminance = (hex: string) => {
 	const [r, g, b] = [1, 3, 5].map((i) => {
@@ -105,12 +219,17 @@ export interface CoverPalette {
 	chipText: string;
 }
 
-export function coverPalette(colorway: number): CoverPalette {
+export function coverPalette(colorway: number, roles = 0): CoverPalette {
 	const base = COLORWAYS[colorway - 1];
+	const shapes = [base.a, base.b, base.c];
+	const [a, b, c] = ROLES[roles].map((i) => shapes[i]);
 	const dark = base.bg === INK || base.bg === NAVY;
 	const chipBg = dark ? CREAM : base.bg === CREAM ? INK : CREAM;
 	return {
 		...base,
+		a,
+		b,
+		c,
 		wave: [ORANGE, base.wave, base.text].find((color) => contrast(color, base.bg) >= 3) ?? base.text,
 		chipBg,
 		chipText: chipBg === CREAM ? INK : CREAM,
@@ -171,8 +290,8 @@ export const COVER_QUOTE = { x: 600, top: -330, baseline: -330 + 0.84 * 900, siz
  * odbite, gdy `mirror`. Cudzysłów Cytatu to tekst, więc wraca osobno: satori
  * składa go jako tekst, strona jako `<text>` (`coverArtSvg`).
  */
-export function coverArt({ template, colorway, mirror, seed }: CoverParams) {
-	const P = coverPalette(colorway);
+export function coverArt({ template, colorway, mirror, seed, roles }: CoverParams) {
+	const P = coverPalette(colorway, roles);
 	const rnd = random(seed);
 	const r = (a: number, b: number) => a + (b - a) * rnd();
 
@@ -237,7 +356,7 @@ export function coverArt({ template, colorway, mirror, seed }: CoverParams) {
 export function coverArtSvg(params: CoverParams, attrs = "") {
 	const { palette, back, front, quote } = coverArt(params);
 	const glyph = quote
-		? `<text x="${COVER_QUOTE.x}" y="${COVER_QUOTE.baseline}" font-size="${COVER_QUOTE.size}" class="font-serif" fill="${quote}">${COVER_QUOTE.glyph}</text>`
+		? `<text x="${COVER_QUOTE.x}" y="${COVER_QUOTE.baseline}" font-size="${COVER_QUOTE.size}" font-family="'Instrument Serif', serif" class="font-serif" fill="${quote}">${COVER_QUOTE.glyph}</text>`
 		: "";
 	return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${COVER_WIDTH} ${COVER_HEIGHT}" ${attrs}><rect width="${COVER_WIDTH}" height="${COVER_HEIGHT}" fill="${palette.bg}"/>${back}${glyph}${front}</svg>`;
 }
