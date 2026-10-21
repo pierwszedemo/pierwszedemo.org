@@ -563,6 +563,11 @@ for numbers (activity numbers, dates in lists). All three are self-hosted
 through Astro's Fonts API in `astro.config.mjs` with the `latin-ext` subset for
 Polish diacritics.
 
+A „ · ” separator in sans text goes through `Middot.astro` (`dotted()` in
+`og.ts` for the cards): Instrument Sans's space is 0.19 em and the dot stuck
+to the words, so it gets a margin and a no-break space before it (a line never
+starts with the dot). Mono text (list rows, 404) does not need it.
+
 Utilities in `global.css`: `label` (sans 600, 13 px, `0.08em`, uppercase – use
 it instead of respelling those five utilities), `wrap` (the 80rem content box
 with the grid's side padding), `btn` + `btn-ink` / `btn-ghost` / `btn-light`

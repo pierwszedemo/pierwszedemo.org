@@ -3,6 +3,7 @@ import { HOME_CITY, SITE_NAME, SITE_TAGLINE } from "../../consts";
 import type { HomepageDoc } from "../../strony";
 import { fixHanging } from "../../typography";
 import Accent from "../Accent.astro";
+import Middot from "../Middot.astro";
 import { field } from "./field";
 
 interface Props {
@@ -21,7 +22,7 @@ const { home } = Astro.props;
 <h1
   class="self-start rounded-3xl border border-hairline bg-white px-4 py-2 text-[15px] leading-snug font-semibold"
 >
-  <span>{SITE_NAME} · {SITE_TAGLINE.toLowerCase()} · {HOME_CITY}</span>
+  <span><Middot text={`${SITE_NAME} · ${SITE_TAGLINE.toLowerCase()} · ${HOME_CITY}`} /></span>
 </h1>
 <p
   class="font-serif text-hero leading-[0.9] tracking-[-0.02em] text-balance text-body"

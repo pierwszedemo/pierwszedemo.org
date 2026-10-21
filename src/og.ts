@@ -95,6 +95,24 @@ interface CardOptions {
 const el = (type: string, style: Record<string, unknown>, children?: unknown) =>
 	({ type, props: { style, ...(children === undefined ? {} : { children }) } }) as const;
 
+/**
+ * Napis z kropkami „ · ” jak Middot.astro na stronie: spacja Instrument Sans
+ * ma 0,19 em i kropka kleiła się do słów, więc człony i kropki to osobne
+ * pudełka, a kropka ma 0,44 em marginesu – tyle co spacja plus margines na
+ * stronie.
+ */
+const dotted = (text: string, style: Record<string, unknown> = {}) =>
+	el(
+		"div",
+		{ display: "flex", ...style },
+		text
+			.split(" · ")
+			.flatMap((part, index) => [
+				...(index > 0 ? [el("div", { margin: "0 0.44em" }, "·")] : []),
+				el("div", {}, part),
+			]),
+	);
+
 /** Płyta z kolażu hero (HeroCollage.astro) – na karcie strony głównej za kasetą. */
 const RECORD_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="${PALETTE.ink}"/><circle cx="20" cy="20" r="14" fill="none" stroke="#3a3a42" stroke-width="1.5"/><circle cx="20" cy="20" r="7" fill="${PALETTE.orange}"/><circle cx="20" cy="20" r="1.8" fill="${PALETTE.paper}"/></svg>`;
 
@@ -161,8 +179,8 @@ const pill = (text: string, background: string, dot?: string) =>
 			color: PALETTE.ink,
 		},
 		dot
-			? [el("div", { width: 16, height: 16, borderRadius: 999, backgroundColor: dot }), el("div", {}, text)]
-			: text,
+			? [el("div", { width: 16, height: 16, borderRadius: 999, backgroundColor: dot }), dotted(text)]
+			: dotted(text),
 	);
 
 /**
@@ -310,7 +328,7 @@ export async function renderHomeCard({ title }: { title: string }): Promise<Buff
 							{ display: "flex", flexWrap: "wrap", fontSize: 92, lineHeight: 0.92, letterSpacing: "-0.02em" },
 							titleWords(title),
 						),
-						el("div", { ...sans, fontSize: 24, color: PALETTE.muted }, `${SITE_NAME} · ${SITE_HOST}`),
+						dotted(`${SITE_NAME} · ${SITE_HOST}`, { ...sans, fontSize: 24, color: PALETTE.muted }),
 					],
 				),
 				// Kolejność w drzewie = kolejność warstw: płyta pod kasetą, taśma na niej.

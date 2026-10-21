@@ -1,0 +1,30 @@
+---
+/**
+ * Kropka „·” między członami etykiety (pigułki nad tytułem, data i czas
+ * czytania). Spacja w Instrument Sans ma 0,19 em i kropka kleiła się do słów,
+ * więc dostaje margines – razem ze spacją ~0,45 em z każdej strony. Przed
+ * kropką twarda spacja: wiersz łamie się tylko za nią, kropka nigdy nie
+ * zaczyna linii. Z `text` składa cały napis, dzieląc go po „ · ”; bez niego
+ * to sam separator między elementami. Krojowi mono to niepotrzebne – tam
+ * spacja ma szerokość znaku.
+ */
+interface Props {
+	text?: string;
+}
+const { text } = Astro.props;
+---
+
+{
+  text === undefined ? (
+    <>
+      &nbsp;<span class="mx-[0.25em]">·</span>{" "}
+    </>
+  ) : (
+    text.split(" · ").map((part, index) => (
+      <>
+        {index > 0 && <Astro.self />}
+        {part}
+      </>
+    ))
+  )
+}

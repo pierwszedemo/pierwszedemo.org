@@ -3,6 +3,7 @@ import { Image } from "astro:assets";
 import { render } from "astro:content";
 import { type Article, hasBodyImage, isoDate, type News, plDate, readingMinutes } from "../collections";
 import Footer from "../components/Footer.astro";
+import Middot from "../components/Middot.astro";
 import Nav from "../components/Nav.astro";
 import { NAV, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../consts";
 import { breadcrumbJsonLd, isoDateTime, wordCount } from "../schema";
@@ -117,8 +118,8 @@ const breadcrumb = breadcrumbJsonLd(
           </a>
           <span class="rounded-full bg-lime px-3.5 py-1.5 font-semibold">{meta}</span>
           <span class="text-muted">
-            <time datetime={isoDate(entry.data.date)}>{plDate(entry.data.date)}</time> ·{" "}
-            {readingMinutes(entry)} min czytania
+            <time datetime={isoDate(entry.data.date)}>{plDate(entry.data.date)}</time><Middot />{readingMinutes(entry)} min
+            czytania
           </span>
         </p>
         <h1

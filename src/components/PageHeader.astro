@@ -1,6 +1,7 @@
 ---
 import { fixHanging } from "../typography";
 import Accent from "./Accent.astro";
+import Middot from "./Middot.astro";
 
 /**
  * Nagłówek podstrony w języku strony głównej: pigułka nad tytułem, wielki
@@ -25,7 +26,7 @@ const { eyebrow, title, intro, titleField, introField } = Astro.props;
     <p
       class="self-start rounded-3xl border border-hairline bg-white px-4 py-2 text-[15px] leading-snug font-semibold"
     >
-      {eyebrow}
+      <Middot text={eyebrow} />
     </p>
     <h1 class="font-serif text-hero leading-[0.92] tracking-[-0.02em] text-balance" data-tina-field={titleField}>
       <Accent text={title} />
