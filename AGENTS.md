@@ -617,7 +617,10 @@ all:
     x 200–1440, y 116–604;
   - LinkedIn page 1128×191 (and @2x) and LinkedIn personal profile 1584×396
     (the founders' backgrounds) – logo/photo over the bottom left, so text on
-    the right, artwork left of centre.
+    the right, artwork left of centre;
+  - YouTube banner 2048×1152 – TV shows all of it, desktop a 2048×423 band,
+    phones only the centre 1235×338, so text and artwork both sit inside that
+    centre.
 
 ### Analytics & consent
 

@@ -21,6 +21,9 @@
  *   strefą logo – inaczej logo zasłaniało pół fali.
  * - LinkedIn, profil osobisty 1584×396 (tło profilu fundatorów): zdjęcie
  *   zachodzi na lewy dół – układ jak wyżej.
+ * - YouTube 2048×1152: telewizor pokazuje całość, desktop pas 2048×423,
+ *   telefon tylko środek 1235×338 (x 406–1641, y 407–745) – i tekst, i grafika
+ *   mieszczą się w tym środku, reszta to samo tło.
  */
 import { mkdirSync } from "node:fs";
 import sharp from "sharp";
@@ -69,6 +72,19 @@ const files = [
 				scale,
 			}),
 	]),
+	[
+		"youtube-banner-2048x1152.png",
+		() =>
+			renderSocialCover({
+				width: 2048,
+				height: 1152,
+				// Środek 1235×338 z 40 px zapasu – na telefonie to krawędź ekranu.
+				safe: { x: 446, y: 427, w: 1155, h: 298 },
+				art: { x: 1298, y: 427, h: 298 },
+				textSide: "left",
+				lockupSize: 104,
+			}),
+	],
 	[
 		"linkedin-profile-cover-1584x396.png",
 		() =>
