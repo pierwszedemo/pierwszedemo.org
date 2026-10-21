@@ -324,8 +324,7 @@ const stronaGlowna = singleton("stronaGlowna", "Strona główna", "strona-glowna
 			{ type: "string", name: "cta", label: "Tekst przycisku", required: true },
 		],
 	},
-	paragraphs("join", "„Dołącz” – nagłówek", ACCENT),
-	paragraphs("joinIntro", "„Dołącz” – zdanie obok nagłówka"),
+	paragraphs("join", "„Dołącz” – nagłówek", `${ACCENT} Enter = nowy wiersz (od tabletu wzwyż).`),
 	{
 		type: "object",
 		name: "joinCards",

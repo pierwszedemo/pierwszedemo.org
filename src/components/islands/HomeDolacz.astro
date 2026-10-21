@@ -25,18 +25,26 @@ const kicker = "font-serif text-[28px] leading-tight italic";
 const title = "font-serif text-[40px] leading-none text-balance";
 ---
 
-<div class="flex flex-wrap items-end justify-between gap-6">
-  <h2
-    id="dolacz-naglowek"
-    class="max-w-[47.5rem] font-serif text-page leading-[0.95] tracking-[-0.02em] text-balance"
-    data-tina-field={field(home, "join")}
-  >
-    <Accent text={home.join} />
-  </h2>
-  <p class="max-w-[23.75rem] text-body" data-tina-field={field(home, "joinIntro")}>
-    {fixHanging(home.joinIntro)}
-  </p>
-</div>
+{/* Nowy wiersz w nagłówku (Enter w Tinie) łamie linię od md; na telefonie
+    to zwykła spacja – krótki ekran i tak zawija tekst po swojemu. */}
+<h2
+  id="dolacz-naglowek"
+  class="max-w-[47.5rem] font-serif text-page leading-[0.95] tracking-[-0.02em] text-balance"
+  data-tina-field={field(home, "join")}
+>
+  {
+    home.join.split("\n").map((line, index) => (
+      <>
+        {index > 0 && (
+          <>
+            <br class="max-md:hidden" />{" "}
+          </>
+        )}
+        <Accent text={line} />
+      </>
+    ))
+  }
+</h2>
 <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(18.75rem,100%),1fr))] gap-5">
   <li class={`${card} bg-orange`} data-tina-field={field(donors)}>
     <span class={kicker}>{fixHanging(donors.audience)}</span>

@@ -30,6 +30,17 @@ export const TYPE_OF_WEB_URL = "https://typeofweb.com";
 export const INSTAGRAM_URL = "https://www.instagram.com/pierwszedemo/";
 
 /**
+ * Profile fundacji – ikony na dole stopki i `sameAs` węzła Organization.
+ * Pusty adres = profilu jeszcze nie ma: ikona się nie pokazuje, JSON-LD go nie
+ * wymienia (YouTube – kanał w planach). Profile osób są w `PERSON_PROFILES`.
+ */
+export const SOCIAL_PROFILES: { name: "Instagram" | "Facebook" | "YouTube"; href: string }[] = [
+	{ name: "Instagram", href: INSTAGRAM_URL },
+	{ name: "Facebook", href: "https://www.facebook.com/fundacjapierwszedemo" },
+	{ name: "YouTube", href: "" },
+];
+
+/**
  * Stabilne @id węzłów schema.org – wiążą encje między stronami. Jadą z
  * `SITE_URL`, więc zmiana domeny przepina je wszystkie naraz; poza taką
  * przeprowadzką nie ma powodu ich ruszać.

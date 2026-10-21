@@ -7,11 +7,13 @@ import {
 	PRIVACY_POLICY_PATH,
 	registryValue,
 	SITE_TAGLINE,
+	SOCIAL_PROFILES,
 	STATUTE_PATH,
 	SUPPORT_PATH,
 } from "../consts";
 import EmailLink from "./EmailLink.astro";
 import Logo from "./Logo.astro";
+import SocialIcon from "./SocialIcon.astro";
 
 // Ciemna stopka z makiety: logotyp, dane rejestrowe, dokumenty, kontakt.
 // Adresu siedziby tu nie ma: art. 5 ustawy o świadczeniu usług drogą
@@ -83,6 +85,20 @@ const spill = "grow basis-0 lg:-mr-6";
       <span class={`${spill} ${segment} bg-blue`}></span>
       <span class={`grow basis-0 ${segment} bg-lime`}></span>
     </div>
-    <p>© {new Date().getFullYear()} {FOUNDATION.name}</p>
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <p>© {new Date().getFullYear()} {FOUNDATION.name}</p>
+      <ul class="-m-1.5 flex gap-2">
+        {
+          SOCIAL_PROFILES.filter((profile) => profile.href).map((profile) => (
+            <li>
+              <a href={profile.href} target="_blank" rel="noopener" class={`${link} block p-1.5`}>
+                <SocialIcon name={profile.name} class="size-6" />
+                <span class="sr-only">{profile.name} (otwiera się w nowej karcie)</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
   </div>
 </footer>

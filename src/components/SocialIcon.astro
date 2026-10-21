@@ -1,0 +1,41 @@
+---
+/**
+ * Znaki serwisów do stopki: jednobarwne, w `currentColor`, żeby hover stopki
+ * (`text-fog` → `text-white`) działał na nie jak na tekst. Ozdoba linku –
+ * nazwę serwisu niesie tekst `sr-only` obok.
+ */
+interface Props {
+	name: "Instagram" | "Facebook" | "YouTube";
+	class?: string;
+}
+const { name, class: className } = Astro.props;
+---
+
+<svg viewBox="0 0 24 24" aria-hidden="true" class={className}>
+  {
+    name === "Instagram" && (
+      <g fill="none" stroke="currentColor" stroke-width="1.8">
+        <rect x="3" y="3" width="18" height="18" rx="5" />
+        <circle cx="12" cy="12" r="4" />
+        <circle cx="17.3" cy="6.7" r="0.6" fill="currentColor" />
+      </g>
+    )
+  }
+  {
+    name === "Facebook" && (
+      <path
+        fill="currentColor"
+        d="M12 2a10 10 0 0 0-1.6 19.9V14.9H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 12 2z"
+      />
+    )
+  }
+  {
+    name === "YouTube" && (
+      <path
+        fill="currentColor"
+        fill-rule="evenodd"
+        d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.4a2.5 2.5 0 0 0-1.8 1.8C2 8.7 2 12 2 12s0 3.3.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.5.4-4.8.4-4.8s0-3.3-.4-4.8zM10 15V9l5.2 3L10 15z"
+      />
+    )
+  }
+</svg>

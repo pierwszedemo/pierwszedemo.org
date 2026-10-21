@@ -828,7 +828,11 @@ NIP / REGON), „Dokumenty” (statute, privacy, the Cookies button, accessibili
 statement) and „Kontakt”, then the accent-colour stripe and ©. From `lg` the
 stripe sits on the same 4-column grid as the text: each column's colour
 starts where its text starts, 8 px between colours (a negative margin into
-the 32 px grid gap), the second column split sun/pink 1:2. The registered
+the 32 px grid gap), the second column split sun/pink 1:2. Under the stripe:
+© on the left, the foundation's profile icons on the right
+(`SOCIAL_PROFILES` in `consts.ts`, `SocialIcon.astro`) – the same list feeds
+the Organization's `sameAs`, and an entry with an empty `href` (a profile that
+does not exist yet) is left out of both. The registered
 address is not there on purpose: art. 5 of the e-services act wants it
 „bezpośrednio dostępny”, not on every page, so the footer links „Dane
 rejestrowe” to `/fundacja#dane` instead.
