@@ -25,14 +25,14 @@ const registry = [
 ];
 const link = "transition-colors hover:text-white";
 const heading = "font-semibold text-white";
-// Pasek w kolorach akcentów – proporcje z makiety.
-const stripe = [
-	["bg-orange", 3],
-	["bg-sun", 1],
-	["bg-pink", 2],
-	["bg-blue", 4],
-	["bg-lime", 2],
-] as const;
+// Pasek w kolorach akcentów. Od lg stoi na tej samej siatce 4 kolumn co
+// tekst nad nim: każdy kolor kolumny zaczyna się tam, gdzie jej tekst, a
+// odstęp między kolorami to 8 px – element wchodzi ujemnym marginesem
+// w 32-pikselowy odstęp siatki (-mr-6). Druga kolumna dzieli się na słońce
+// i róż 1:2; proporcje z makiety (3:1:2:4:2) przesunęłyby limonkę z granicy
+// czwartej kolumny, więc niebieski i limonka mają po kolumnie.
+const segment = "rounded-full";
+const spill = "grow basis-0 lg:-mr-6";
 ---
 
 <footer class="bg-ink text-[15px] text-fog">
@@ -74,8 +74,14 @@ const stripe = [
         <a href={SUPPORT_PATH} class={link}>Wesprzyj fundację</a>
       </div>
     </div>
-    <div class="flex h-3.5 gap-1.5" aria-hidden="true">
-      {stripe.map(([color, grow]) => <span class={`${color} rounded-full`} style={`flex: ${grow}`} />)}
+    <div class="flex h-3.5 gap-2 lg:grid lg:grid-cols-4 lg:gap-x-8" aria-hidden="true">
+      <span class={`${spill} ${segment} bg-orange`}></span>
+      <span class={`${spill} flex gap-2`}
+        ><span class={`grow basis-0 ${segment} bg-sun`}></span><span class={`grow-2 basis-0 ${segment} bg-pink`}
+        ></span></span
+      >
+      <span class={`${spill} ${segment} bg-blue`}></span>
+      <span class={`grow basis-0 ${segment} bg-lime`}></span>
     </div>
     <p>© {new Date().getFullYear()} {FOUNDATION.name}</p>
   </div>

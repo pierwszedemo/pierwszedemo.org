@@ -5,25 +5,37 @@
  * fala liczy się w `em`, więc rośnie razem z literami. Kolumna z „demo” stoi
  * `align-top`, żeby linia bazowa obu słów się zgadzała, a fala zwisała pod
  * wierszem. Sama fala to ozdoba – nazwę niesie tekst.
+ *
+ * `foundation` dokłada przed logotypem „Fundacja” w tym samym stopniu i na tej
+ * samej linii bazowej – sam logotyp nie mówił, że to fundacja, a nad nim
+ * (jak na kartach OG) podnosił nawigację o cały wiersz.
  */
 import { LOGOTYPE } from "../consts";
 import { LOGO_COLORS, WAVE, waveRadius } from "../logo";
 
 interface Props {
 	class?: string;
+	foundation?: boolean;
 }
-const { class: className } = Astro.props;
+const { class: className, foundation = false } = Astro.props;
 const split = LOGOTYPE.lastIndexOf(" ");
 const first = LOGOTYPE.slice(0, split + 1);
 const last = LOGOTYPE.slice(split + 1);
 ---
 
-<span class:list={["inline-block font-serif leading-none tracking-[-0.015em] whitespace-nowrap", className]}
-  >{first}<span class="inline-flex flex-col gap-[0.12em] align-top"
-    >{last}<svg viewBox="0 0 160 28" preserveAspectRatio="none" aria-hidden="true" class="h-[0.33em] w-full"
-      ><g fill={LOGO_COLORS.orange}
-        >{WAVE.map(([x, y, h]) => <rect x={x} y={y} width="4" height={h} rx={waveRadius(h)} />)}</g
-      ></svg
+<span
+  class:list={[
+    "font-serif leading-none tracking-[-0.015em] whitespace-nowrap",
+    "inline-block",
+    className,
+  ]}
+  >{foundation && "Fundacja "}<span
+    >{first}<span class="inline-flex flex-col gap-[0.12em] align-top"
+      >{last}<svg viewBox="0 0 160 28" preserveAspectRatio="none" aria-hidden="true" class="h-[0.33em] w-full"
+        ><g fill={LOGO_COLORS.orange}
+          >{WAVE.map(([x, y, h]) => <rect x={x} y={y} width="4" height={h} rx={waveRadius(h)} />)}</g
+        ></svg
+      ></span
     ></span
   ></span
 >

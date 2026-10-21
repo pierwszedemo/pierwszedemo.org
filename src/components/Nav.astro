@@ -1,5 +1,5 @@
 ---
-import { JOIN_PATH, NAV } from "../consts";
+import { JOIN_PATH, NAV, SITE_NAME } from "../consts";
 import Logo from "./Logo.astro";
 
 interface Props {
@@ -23,9 +23,11 @@ const { active } = Astro.props;
 ---
 
 <header class="sticky top-0 z-40 border-b border-hairline bg-paper">
-  <div class="wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3 md:gap-x-8 md:py-5">
-    <a href="/" class="text-ink transition-colors hover:text-blue"
-      ><span class="sr-only">Fundacja </span><Logo class="text-[28px] sm:text-[34px]" /></a
+  <div class="wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-1.5 md:gap-x-8 md:py-2.5">
+    {/* Nazwa linku wprost: „Fundacja” i logotyp to elementy kolumny flex,
+        a z nich czytnik potrafi skleić „Fundacjapierwsze demo”. */}
+    <a href="/" aria-label={SITE_NAME} class="text-ink transition-colors hover:text-blue"
+      ><Logo foundation class="text-[19px] min-[22.5rem]:text-[25px] sm:text-[34px]" /></a
     >
     <a href={JOIN_PATH} class="btn btn-ink max-sm:[--btn-px:1rem] md:order-last">Dołącz</a>
     <nav aria-label="Główna" class="w-full md:ml-auto md:w-auto">

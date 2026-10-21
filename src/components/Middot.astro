@@ -7,22 +7,36 @@
  * zaczyna linii. Z `text` składa cały napis, dzieląc go po „ · ”; bez niego
  * to sam separator między elementami. Krojowi mono to niepotrzebne – tam
  * spacja ma szerokość znaku.
+ *
+ * `stack`: poniżej sm zamiast kropek każdy człon w osobnym wierszu – długa
+ * pigułka strony głównej łamała się na telefonie w przypadkowych miejscach,
+ * z kropką na końcu wiersza.
  */
 interface Props {
 	text?: string;
+	stack?: boolean;
 }
-const { text } = Astro.props;
+const { text, stack = false } = Astro.props;
 ---
 
 {
   text === undefined ? (
-    <>
-      &nbsp;<span class="mx-[0.25em]">·</span>{" "}
-    </>
+    stack ? (
+      <>
+        <span class="max-sm:hidden">
+          &nbsp;<span class="mx-[0.25em]">·</span>{" "}
+        </span>
+        <br class="sm:hidden" />
+      </>
+    ) : (
+      <>
+        &nbsp;<span class="mx-[0.25em]">·</span>{" "}
+      </>
+    )
   ) : (
     text.split(" · ").map((part, index) => (
       <>
-        {index > 0 && <Astro.self />}
+        {index > 0 && <Astro.self stack={stack} />}
         {part}
       </>
     ))

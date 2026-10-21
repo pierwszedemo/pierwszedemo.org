@@ -20,9 +20,9 @@ const { home } = Astro.props;
      tekstem na stronie. */
 }
 <h1
-  class="self-start rounded-3xl border border-hairline bg-white px-4 py-2 text-[15px] leading-snug font-semibold"
+  class="self-start rounded-3xl border border-hairline bg-white px-4 py-2 text-[15px] leading-snug font-semibold max-sm:text-sm"
 >
-  <span><Middot text={`${SITE_NAME} · ${SITE_TAGLINE.toLowerCase()} · ${HOME_CITY}`} /></span>
+  <span><Middot text={`${SITE_NAME} · ${SITE_TAGLINE.toLowerCase()} · ${HOME_CITY}`} stack /></span>
 </h1>
 <p
   class="font-serif text-hero leading-[0.9] tracking-[-0.02em] text-balance text-body"
