@@ -405,6 +405,13 @@ Breadcrumbs are JSON-LD; on a post the section pill above the title (a link
 to the list) is their visible half. They give Google a path to render under
 the result instead of a bare URL. `src/schema.ts` holds `breadcrumbJsonLd()`, `isoDateTime()` and `wordCount()`.
 
+`<title>` on posts, `/wesprzyj` and `/dzwieki-efemeryczne` goes through
+`pageTitle()` (also in `src/schema.ts`): „ – Fundacja Pierwsze Demo” is
+appended only when the whole fits in 60 characters. Google cuts a longer one
+exactly at the name, and shows the site name above the result anyway (from
+the `WebSite` node), so a long post title stands alone. The homepage and
+`/fundacja` keep hand-written titles – there the name is the keyword.
+
 Branch previews: Workers Builds builds every branch other than `main` and
 uploads it with `wrangler preview`, which names the preview after the branch.
 Each preview lives at `<branch>.pierwszedemo.org` (`previews_enabled` on the
@@ -673,7 +680,10 @@ is left for small serif labels: the „Dołącz” card kickers and the polaroid
 caption. **Instrument Sans** for text, **IBM Plex Mono** only
 for numbers (activity numbers, dates in lists). All three are self-hosted
 through Astro's Fonts API in `astro.config.mjs` with the `latin-ext` subset for
-Polish diacritics.
+Polish diacritics. Only the upright Sans and Serif are preloaded
+(`preload={[{ style: "normal" }]}` in `BaseLayout.astro`, four files): they
+set the LCP text, and preloading all twelve (italics, mono) cost the homepage
+~0.7 s of lab LCP on mobile.
 
 A „ · ” separator in sans text goes through `Middot.astro` (`dotted()` in
 `og.ts` for the cards): Instrument Sans's space is 0.19 em and the dot stuck
@@ -743,7 +753,11 @@ Live and indexable since 2026-10-09, a week **before** the KRS entry
 Workers Builds from `main`; `fundacja` was fast-forwarded into it and the Tina
 branch fallback says `main`. `public/_headers` keeps only `/admin` out of the
 index (a header, not `Disallow`: a crawler blocked by `robots.txt` never sees
-the noindex and can still index the bare URL).
+the noindex and can still index the bare URL), sends HSTS (one year, no
+`includeSubDomains`) and gives `llms.txt` `charset=utf-8` – Cloudflare serves
+`.txt` without one. HSTS only works once a visitor has reached HTTPS; the
+`http://` → `https://` redirect itself is the zone's „Always Use HTTPS”
+setting, outside the repo (a rule in `_redirects` cannot match the scheme).
 
 `pierwszedemo.com` redirects to `.org` (see Architecture); the manager site's
 Vercel project and domain are gone. The `.com` zone's BIMI record points at

@@ -16,7 +16,7 @@ import {
 	SUPPORT_PATH,
 } from "../consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { breadcrumbJsonLd } from "../schema";
+import { breadcrumbJsonLd, pageTitle } from "../schema";
 import { fixHanging } from "../typography";
 
 /*
@@ -78,7 +78,7 @@ const columnHeading = "font-serif text-item leading-none";
 ---
 
 <BaseLayout
-  title={`Wesprzyj fundację – darowizna, wolontariat, partnerstwo | ${SITE_NAME}`}
+  title={pageTitle("Wesprzyj fundację – darowizna, wolontariat, partnerstwo", " | ")}
   description={`Jak wesprzeć ${SITE_NAME} z ${HOME_CITY}a: darowizna na cele statutowe z odliczeniem od podatku, wolontariat przy koncertach, partnerstwo firm i instytucji.`}
   canonicalPath={SUPPORT_PATH}
   ogImage={pageOgImage("wesprzyj")}

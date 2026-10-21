@@ -6,3 +6,13 @@
 
 /admin
   X-Robots-Tag: noindex, nofollow
+
+# Po pierwszej wizycie przez HTTPS przeglądarka nie zapyta już o http://.
+# Bez includeSubDomains: podglądy gałęzi i poczta mają własne zasady.
+/*
+  Strict-Transport-Security: max-age=31536000
+
+# Cloudflare podaje .txt jako text/plain bez kodowania, a w llms.txt są
+# polskie znaki – przeglądarka zgadywała i wychodziły krzaki.
+/llms.txt
+  Content-Type: text/plain; charset=utf-8

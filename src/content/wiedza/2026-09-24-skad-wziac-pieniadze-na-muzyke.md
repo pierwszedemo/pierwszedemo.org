@@ -91,7 +91,7 @@ Popyt widać w liczbach. Do końca kwietnia 2026 Instytut dostał [968 wniosków
 
 ### Culture Moves Europe i Music Export Poland
 
-Culture Moves Europe, unijny grant mobilności, wymaga zaproszenia od partnera za granicą, a nabór 2025/2026 [zamknął się 30 kwietnia 2026](https://culture.ec.europa.eu/sites/default/files/2026-02/call-individual-mobility_2025-2026_culture-moves-europe_v260226.pdf). Kolejny trzeba wypatrywać na stronie programu. Music Export Poland ogłasza [nabory rzadko](http://www.musicexportpoland.org/nabory) na misje networkingowe i songwriting campy, nigdy na nagrania. Zostaje pilnowanie obu stron i własna [akredytacja na showcase](/aktualnosci/pierwszy-raz-na-great-september) w Polsce, za którą niestety nikt nie zwróci.
+Culture Moves Europe, unijny grant mobilności, wymaga zaproszenia od partnera za granicą, a nabór 2025/2026 [zamknął się 30 kwietnia 2026](https://culture.ec.europa.eu/sites/default/files/2026-02/call-individual-mobility_2025-2026_culture-moves-europe_v260226.pdf). Kolejny trzeba wypatrywać na stronie programu. Music Export Poland ogłasza [nabory rzadko](https://www.musicexportpoland.org/nabory) na misje networkingowe i songwriting campy, nigdy na nagrania. Zostaje pilnowanie obu stron i własna [akredytacja na showcase](/aktualnosci/pierwszy-raz-na-great-september) w Polsce, za którą niestety nikt nie zwróci.
 
 ## Kalendarz
 

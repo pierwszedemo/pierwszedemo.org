@@ -5,8 +5,8 @@ import { type Article, hasBodyImage, isoDate, type News, plDate, readingMinutes 
 import Footer from "../components/Footer.astro";
 import Middot from "../components/Middot.astro";
 import Nav from "../components/Nav.astro";
-import { NAV, ORGANIZATION_ID, SITE_NAME, SITE_URL, WEBSITE_ID } from "../consts";
-import { breadcrumbJsonLd, isoDateTime, wordCount } from "../schema";
+import { NAV, ORGANIZATION_ID, SITE_URL, WEBSITE_ID } from "../consts";
+import { breadcrumbJsonLd, isoDateTime, pageTitle, wordCount } from "../schema";
 import { authorJsonLd } from "../strony";
 import { fixHanging } from "../typography";
 import BaseLayout from "./BaseLayout.astro";
@@ -83,7 +83,7 @@ const breadcrumb = breadcrumbJsonLd(
 ---
 
 <BaseLayout
-  title={`${entry.data.title} – ${SITE_NAME}`}
+  title={pageTitle(entry.data.title)}
   description={entry.data.lead}
   canonicalPath={path}
   ogType="article"

@@ -16,7 +16,7 @@ import {
 	withUtm,
 } from "../consts";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { breadcrumbJsonLd } from "../schema";
+import { breadcrumbJsonLd, pageTitle } from "../schema";
 
 /*
  * Strona cyklu koncertów. Wchodzi się na nią z linku (wniosek, plakat, social
@@ -201,7 +201,7 @@ const link = "underline decoration-1 underline-offset-4";
 ---
 
 <BaseLayout
-  title={`${NAME} – cykl koncertów piosenki autorskiej w Trójmieście | ${SITE_NAME}`}
+  title={pageTitle(`${NAME} – cykl koncertów piosenki autorskiej w Trójmieście`, " | ")}
   description={description}
   canonicalPath={CONCERT_SERIES_PATH}
   ogImage={CONCERT_SERIES_OG}

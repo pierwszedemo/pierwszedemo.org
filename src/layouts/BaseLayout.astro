@@ -212,9 +212,13 @@ const jsonLd = {
       href="/rss.xml"
     />
 
-    <Font cssVariable="--font-instrument-sans" preload />
-    <Font cssVariable="--font-instrument-serif" preload />
-    <Font cssVariable="--font-ibm-plex-mono" preload />
+    {/* Preload tylko krojów prostych – nimi jest złożony największy tekst
+        pierwszego ekranu (element LCP). Preload wszystkiego to 12 plików, które
+        dzieliły łącze z tymi czterema; kursywy i mono (same liczby) przeglądarka
+        pobierze z CSS, kiedy strona ich użyje. */}
+    <Font cssVariable="--font-instrument-sans" preload={[{ style: "normal" }]} />
+    <Font cssVariable="--font-instrument-serif" preload={[{ style: "normal" }]} />
+    <Font cssVariable="--font-ibm-plex-mono" />
 
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE_NAME} />

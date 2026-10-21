@@ -1,4 +1,15 @@
-import { SITE_URL } from "./consts";
+import { SITE_NAME, SITE_URL } from "./consts";
+
+/**
+ * `<title>` z nazwą fundacji na końcu – o ile całość mieści się w 60 znakach.
+ * Dłuższy Google ucina w wynikach i ucięta zostaje właśnie nazwa („– Fundacja
+ * Pierwsze D…”), którą i tak pokazuje osobno nad wynikiem, z węzła WebSite.
+ * Za długi tytuł zostaje więc sam, w całości widoczny.
+ */
+export function pageTitle(title: string, separator = " – ") {
+	const full = `${title}${separator}${SITE_NAME}`;
+	return full.length <= 60 ? full : title;
+}
 
 /**
  * Okruszki nawigacyjne. Serwis nie pokazuje ich wizualnie – siatka z makiety
