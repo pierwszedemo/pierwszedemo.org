@@ -2,8 +2,8 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
-import { HOME_CITY, LOGOTYPE, SITE_HOST, SITE_NAME, SITE_TAGLINE, WORDMARK } from "./consts";
-import { iconSvg, LOGO_COLORS, WAVE, waveRadius, waveSvg } from "./logo";
+import { HOME_CITY, LOGOTYPE, SITE_HOST, SITE_TAGLINE, WORDMARK } from "./consts";
+import { LOGO_COLORS, WAVE, waveRadius, waveSvg } from "./logo";
 import { accentParts, fixHanging } from "./typography";
 
 /**
@@ -76,14 +76,9 @@ export const STRIPE = [
 ] as const;
 
 interface CardOptions {
-	/**
-	 * Pigułka u góry karty: nazwa fundacji i czym jest. Kartę widać
-	 * w podglądzie linku, gdzie stopka z logotypem bywa przycięta.
-	 */
-	eyebrow?: string;
 	/** Tytuł; słowa w `*gwiazdkach*` dostają niebieski akcent jak w hero. */
 	title: string;
-	/** Pigułka w stopce karty – kategoria wpisu; bez niej adres serwisu. */
+	/** Pigułka u góry karty, naprzeciw znaku – kategoria wpisu; bez niej adres serwisu. */
 	badge?: string;
 	/** Wymiary płótna; domyślnie karta OG 1200×630. */
 	width?: number;
@@ -119,12 +114,6 @@ const dotted = (text: string, style: Record<string, unknown> = {}) =>
 			]),
 	);
 
-/** SVG jako obrazek z data URI – satori pomija zagnieżdżony element <svg>. */
-const svgImg = (svg: string, width: number, height: number, style: Record<string, unknown> = {}) => ({
-	type: "img",
-	props: { src: `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`, width, height, style },
-});
-
 /** Fala bez stałej szerokości – rozciąga ją rodzic (kolumna flex). */
 const waveImg = (fill: string, height: number) => ({
 	type: "img",
@@ -133,9 +122,6 @@ const waveImg = (fill: string, height: number) => ({
 		style: { height, alignSelf: "stretch" },
 	},
 });
-
-/** Ikona znaku (kafel ultramaryny ze słupkami) – ta sama co favikona. */
-const iconMark = (size: number) => svgImg(iconSvg(size), size, size);
 
 /**
  * Logotyp z Logo.astro: „pierwsze ” i kolumna z „demo” nad falą. Kolumna flex
@@ -187,6 +173,19 @@ const pill = (text: string, background: string, dot?: string) =>
 	);
 
 /**
+ * Znak na każdej karcie: „Fundacja” nad logotypem, u góry. Słowo „fundacja”
+ * ma być czytelne w każdej miniaturze podglądu linku, a karty mają czytać się
+ * jako jedna rodzina – na ultramarynie (strona główna, podstrony) w bieli
+ * i seledynie, na ciepłej bieli wpisów w czerni, jak logotyp w nawigacji.
+ * Fala zawsze pomarańczowa.
+ */
+const lockup = (size: number, color = "#ffffff", wordmarkColor: string = LOGO_COLORS.lime) =>
+	el("div", { display: "flex", flexDirection: "column", gap: size * 0.05 }, [
+		el("div", { fontSize: size * 0.58, lineHeight: 1, letterSpacing: "-0.02em", color }, "Fundacja"),
+		wordmark(size, wordmarkColor),
+	]);
+
+/**
  * Tytuł jako ciąg słów-elementów flex z zawijaniem. Satori nie składa tekstu
  * z kilku stylów w jeden akapit – każde dziecko flexa to osobne pudełko – więc
  * akcent (`*…*`) wymaga rozbicia na słowa. Spójniki są już doklejone twardą
@@ -201,7 +200,6 @@ const titleWords = (title: string, color: string = PALETTE.ink, accent: string =
 	);
 
 export async function renderOgCard({
-	eyebrow = `${SITE_NAME} · ${SITE_TAGLINE.toLowerCase()} · ${HOME_CITY}`,
 	title,
 	badge,
 	width = 1200,
@@ -239,8 +237,14 @@ export async function renderOgCard({
 				},
 				[
 					el("div", { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 32 }, [
-						pill(eyebrow, "#ffffff"),
-						iconMark(64),
+						lockup(Math.round(80 * Math.min(1, height / 630)), PALETTE.ink, PALETTE.ink),
+						badge
+							? pill(badge, PALETTE.lime)
+							: el(
+									"div",
+									{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 24, color: PALETTE.muted },
+									SITE_HOST,
+								),
 					]),
 					el(
 						"div",
@@ -256,25 +260,13 @@ export async function renderOgCard({
 						},
 						titleWords(title),
 					),
-					el("div", { display: "flex", flexDirection: "column", gap: 28 }, [
-						el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" }, [
-							wordmark(44),
-							badge
-								? pill(badge, PALETTE.lime)
-								: el(
-										"div",
-										{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 24, color: PALETTE.muted },
-										SITE_HOST,
-									),
-						]),
-						el(
-							"div",
-							{ display: "flex", gap: 8, height: 14 },
-							STRIPE.map(([color, grow]) =>
-								el("div", { flexGrow: grow, borderRadius: 999, backgroundColor: color }),
-							),
+					el(
+						"div",
+						{ display: "flex", gap: 8, height: 14 },
+						STRIPE.map(([color, grow]) =>
+							el("div", { flexGrow: grow, borderRadius: 999, backgroundColor: color }),
 						),
-					]),
+					),
 				],
 			),
 		),
@@ -285,21 +277,10 @@ export async function renderOgCard({
 }
 
 /**
- * Karty marki – strona główna i podstrony – na ultramarynie, w barwach ikon
- * (seledynowy logotyp z pomarańczową falą). Obie zaczynają się tym samym
- * znakiem: „Fundacja” nad logotypem, więc czytają się jako jedna rodzina
- * i słowo „fundacja” widać w każdej miniaturze podglądu linku. Karty wpisów
- * (`renderOgCard`) zostają na ciepłej bieli – tam tytułem jest wpis.
+ * Karty marki – strona główna i podstrony – na ultramarynie, w barwach ikon.
+ * Karty wpisów (`renderOgCard`) zostają na ciepłej bieli – tam tytułem jest
+ * wpis, a nie fundacja.
  */
-const lockup = (size: number) =>
-	el("div", { display: "flex", flexDirection: "column", gap: size * 0.05 }, [
-		el(
-			"div",
-			{ fontSize: size * 0.58, lineHeight: 1, letterSpacing: "-0.02em", color: "#ffffff" },
-			"Fundacja",
-		),
-		wordmark(size, LOGO_COLORS.lime),
-	]);
 
 /** Akapit na ultramarynie – biel przygaszona, żeby tytuł i znak zostały wyżej w hierarchii. */
 const ON_BLUE_MUTED = "#dde1ff";

@@ -431,9 +431,11 @@ are resources, not pages.
 
 `/og.png` (homepage) and `/og/<slug>.png` (posts) are drawn at build time by
 `src/og.ts` – satori lays the card out and converts text to paths, sharp
-rasterises. A post card (`renderOgCard`) is the site in miniature: paper
-background, the eyebrow pill, the title in Instrument Serif, the icon tile,
-the logotype (`wordmark()`), a category pill and the accent stripe from the
+rasterises. Every card opens with the same lockup – „Fundacja” over the
+logotype (`lockup()`), so the word „fundacja” reads in any link-preview
+thumbnail and no slogan pill is needed. A post card (`renderOgCard`) is the
+site in miniature: paper background, the lockup in ink with a category pill
+opposite, the title in Instrument Serif and the accent stripe from the
 footer. The homepage card (`renderHomeCard`) is the brand card instead: white
 „Fundacja” over a big lime logotype with the orange wave on ultramarine (the
 icons' palette), the tagline, city and domain at the bottom – nothing else.
@@ -468,8 +470,7 @@ not; `/fundacja` takes its title and intro from Tina (`fundacja.json`). Pages
 without a card of their own fall back to `/og.png`.
 
 Posts live under `/og/<slug>.png` rather than `/wiedza/<slug>/og.png` so they don't
-collide with the `[...slug]` catch-all. The eyebrow is the foundation's name,
-not a person's. `/og/dzwieki-efemeryczne.png` alone keeps the Swiss card
+collide with the `[...slug]` catch-all. `/og/dzwieki-efemeryczne.png` alone keeps the Swiss card
 (`renderSwissCard`, Archivo + IBM Plex Mono) – like its page; so does
 `scripts/generate-dzwieki.mjs`. Those two are the only reason the Archivo TTF
 is still in `src/assets/fonts/`.
