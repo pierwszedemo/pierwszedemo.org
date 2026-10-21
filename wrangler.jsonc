@@ -9,6 +9,13 @@
 	// i certyfikat. www nie jest tu dopisane: przekierowanie www → apex to
 	// reguła strefy (Redirect Rules), nie zadanie workera.
 	"routes": [{ "pattern": "pierwszedemo.org", "custom_domain": true }],
+	// Produkcja tylko pod własną domeną – kopia pod workers.dev byłaby drugim
+	// adresem tej samej strony. Podglądy gałęzi (Workers Builds, `wrangler
+	// preview`) już tak: <gałąź>-pierwszedemo.fundacja-pierwsze-demo.workers.dev,
+	// z X-Robots-Tag: noindex. Bez `preview_urls` szły za `workers_dev`
+	// i odpowiadały błędem 1042. src/origin.ts składa z tego adresu og:image.
+	"workers_dev": false,
+	"preview_urls": true,
 	"assets": {
 		"directory": "./dist",
 		// Kanoniczne adresy są bez ukośnika na końcu (trailingSlash: "never").

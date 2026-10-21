@@ -20,6 +20,7 @@ import {
 	SITE_URL,
 	WEBSITE_ID,
 } from "../consts";
+import { ogOrigin } from "../origin";
 import { FOUNDER_PHOTOS } from "../photos";
 import { isoDateTime } from "../schema";
 import { FOUNDERS } from "../strony";
@@ -57,6 +58,9 @@ const {
 const site = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(canonicalPath, site).href;
 const ogImageUrl = new URL(ogImage, site).href;
+// Karta w podglądzie linku z hosta, który stronę podaje (dev, podgląd gałęzi),
+// a nie z produkcji – szczegóły w src/origin.ts. JSON-LD zostaje kanoniczny.
+const ogImageShared = new URL(ogImage, ogOrigin(Astro.url)).href;
 
 // Fundacja jest podmiotem strony: `NGO` to podtyp Organization, który Google
 // rozumie, a `foundingDate`, `taxID` i `legalName` to te same dane, co
@@ -213,7 +217,7 @@ const jsonLd = {
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image" content={ogImageShared} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:type" content="image/png" />
@@ -221,7 +225,7 @@ const jsonLd = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image" content={ogImageShared} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
