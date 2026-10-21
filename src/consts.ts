@@ -32,12 +32,12 @@ export const INSTAGRAM_URL = "https://www.instagram.com/pierwszedemo/";
 /**
  * Profile fundacji – ikony na dole stopki i `sameAs` węzła Organization.
  * Pusty adres = profilu jeszcze nie ma: ikona się nie pokazuje, JSON-LD go nie
- * wymienia (YouTube – kanał w planach). Profile osób są w `PERSON_PROFILES`.
+ * wymienia. Profile osób są w `PERSON_PROFILES`.
  */
 export const SOCIAL_PROFILES: { name: "Instagram" | "Facebook" | "YouTube"; href: string }[] = [
 	{ name: "Instagram", href: INSTAGRAM_URL },
 	{ name: "Facebook", href: "https://www.facebook.com/fundacjapierwszedemo" },
-	{ name: "YouTube", href: "" },
+	{ name: "YouTube", href: "https://www.youtube.com/@fundacjapierwszedemo" },
 ];
 
 /**
