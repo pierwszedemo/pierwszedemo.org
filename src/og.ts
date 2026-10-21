@@ -482,13 +482,13 @@ export async function renderSocialCover({
  * systemowy), a falę liczymy od pudełka, które satori dla niej rozłożył. Bez
  * <image>, masek i transformacji – to samo wnętrze idzie do PNG i do BIMI
  * (SVG Tiny PS). Proporcje jak na stronie: fala na szerokość słowa, odstęp
- * 0,12 em, wysokość 0,3 em. Stopień 0,38 boku: najdalszy piksel znaku sięga
- * ~85% promienia koła, w które kadrują go Instagram, Facebook i skrzynki
- * pocztowe. Przy 0,3 kończył się na 2/3 promienia i w miniaturze znak tonął
- * w ultramarynie.
+ * 0,12 em, wysokość 0,3 em. Stopień 0,34 boku: najdalszy piksel znaku sięga
+ * ~3/4 promienia koła, w które kadrują go Instagram, Facebook i skrzynki
+ * pocztowe. Przy 0,3 (2/3 promienia) znak tonął w ultramarynie, przy 0,38
+ * (83%) dotykał krawędzi.
  */
 export async function renderAvatarBody(size: number): Promise<string> {
-	const fontSize = size * 0.38;
+	const fontSize = size * 0.34;
 	// Kolor-znacznik: po nim znajdujemy w wyniku pudełko fali.
 	const marker = "#010101";
 	const svg = await render(
