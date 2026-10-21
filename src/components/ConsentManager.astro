@@ -13,12 +13,27 @@
 
     // Delegowane na document, żeby przeżyć podmianę <body> przez ClientRouter –
     // każdy element z [data-cc-preferences] otwiera panel ustawień.
+    let opener: HTMLElement | null = null;
     document.addEventListener("click", (event) => {
       const target = event.target;
       if (!(target instanceof Element)) return;
-      if (!target.closest("[data-cc-preferences]")) return;
+      const trigger = target.closest<HTMLElement>("[data-cc-preferences]");
+      if (!trigger) return;
       event.preventDefault();
+      opener = trigger;
       CookieConsent.showPreferences();
+    });
+
+    // Po zamknięciu panelu biblioteka zostawia fokus na początku strony –
+    // klawiaturowy użytkownik lądował przy „Przejdź do treści” zamiast przy
+    // przycisku, którym panel otworzył (WCAG 2.4.3). Ramka później, bo
+    // biblioteka przestawia fokus już po wysłaniu zdarzenia.
+    window.addEventListener("cc:onModalHide", (event) => {
+      const { modalName } = (event as CustomEvent<{ modalName: string }>).detail;
+      if (modalName !== "preferencesModal" || !opener?.isConnected) return;
+      const target = opener;
+      opener = null;
+      requestAnimationFrame(() => target.focus());
     });
 
     // Baner żyje bezpośrednio w <body>, a View Transitions podmieniają całe
@@ -35,6 +50,32 @@
         document.body.appendChild(ccRoot);
       }
     });
+
+    // Karta banera wisi nad dołem ekranu i przykrywała element, na który
+    // wchodził fokus przy przechodzeniu Tabem w dół (WCAG 2.4.11/2.4.12).
+    // Jej wysokość z odstępem od krawędzi idzie do `--cc-clearance`, którą
+    // global.css daje jako scroll-padding-bottom (przeglądarka przewija fokus
+    // nad kartę) i jako dolny padding stopki (ostatnie linki dają się nad nią
+    // wysunąć). Klasę `show--consent` na <html> ustawia biblioteka, póki
+    // baner jest otwarty; zmienna znika razem z nim.
+    const syncClearance = () => {
+      const root = document.documentElement;
+      const card = document.querySelector<HTMLElement>("#cc-main .cm");
+      if (!card || !root.classList.contains("show--consent")) {
+        root.style.removeProperty("--cc-clearance");
+        return;
+      }
+      // offsetHeight i `bottom`, nie getBoundingClientRect: karta wjeżdża
+      // z transformacją, a ta nie zmienia jej docelowego miejsca.
+      const bottom = Number.parseFloat(getComputedStyle(card).bottom) || 0;
+      root.style.setProperty("--cc-clearance", `${card.offsetHeight + bottom + 10}px`);
+    };
+    const resizes = new ResizeObserver(syncClearance);
+    new MutationObserver(() => {
+      const card = document.querySelector("#cc-main .cm");
+      if (card) resizes.observe(card);
+      syncClearance();
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 
     CookieConsent.run(consentConfig);
   }

@@ -54,8 +54,36 @@ const headingClass = "font-serif text-[2rem] leading-[1.05] text-balance";
         <section class={sectionClass}>
           <h2 class={headingClass}>Narzędzia zewnętrzne</h2>
           <div class="flex min-w-0 flex-col gap-6">
-            <div class="overflow-x-auto rounded-[20px] border border-hairline bg-white">
-              <table class="w-full min-w-[46rem] border-collapse text-left">
+            <!-- Pięć kolumn mieści się dopiero od xl. Węższa kolumna to karty,
+                 nie przewijana tabela: przewijany kontener musi przyjmować fokus
+                 (WCAG 2.1.1), a mając ~900 px wysokości, nie mieścił się na
+                 żadnym ekranie, więc górę jego obrysu zawsze przykrywała
+                 nawigacja (2.4.12). Wersja ukryta przez `hidden` znika też
+                 z drzewa dostępności, więc czytnik nie słyszy treści dwa razy. -->
+            <ul class="flex flex-col gap-4 xl:hidden">
+              {
+                PRIVACY_TOOLS.map((tool) => (
+                  <li class="rounded-[20px] border border-hairline bg-white p-5">
+                    <h3 class="font-semibold">{tool.name}</h3>
+                    <dl class="mt-3 grid gap-x-4 gap-y-3 text-sm sm:grid-cols-[10rem_minmax(0,1fr)]">
+                      {[
+                        [headers[1], tool.provider],
+                        [headers[2], tool.purpose],
+                        [headers[3], tool.storage],
+                        [headers[4], tool.basis],
+                      ].map(([label, value]) => (
+                        <div class="contents">
+                          <dt class="label text-muted">{label}</dt>
+                          <dd class="-mt-2 leading-relaxed text-body sm:mt-0">{value}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </li>
+                ))
+              }
+            </ul>
+            <div class="hidden overflow-hidden rounded-[20px] border border-hairline bg-white xl:block">
+              <table class="w-full border-collapse text-left">
                 <thead>
                   <tr class="border-b border-hairline">
                     {

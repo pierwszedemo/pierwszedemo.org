@@ -26,6 +26,10 @@ const registry = [
 	{ label: "REGON", value: registryValue(FOUNDATION.regon) },
 ];
 const link = "transition-colors hover:text-white";
+// Linki w kolumnach jeden pod drugim: każdy ma pełne 44 px wysokości (WCAG
+// 2.5.5, AAA), a kolumna nie dokłada odstępu. Przy 23 px tekstu i 8 px przerwy
+// powiększone pola dotyku sąsiadów nachodziłyby na siebie, więc nie `hit`.
+const item = `${link} flex min-h-11 min-w-11 items-center`;
 const heading = "font-semibold text-white";
 // Pasek w kolorach akcentów. Od lg stoi na tej samej siatce 4 kolumn co
 // tekst nad nim: każdy kolor kolumny zaczyna się tam, gdzie jej tekst, a
@@ -56,24 +60,24 @@ const spill = "grow basis-0 lg:-mr-6";
             ))
           }
         </dl>
-        <a href={`${FOUNDATION_PATH}#dane`} class={`${link} underline underline-offset-4`}>Dane rejestrowe</a>
+        <a href={`${FOUNDATION_PATH}#dane`} class={`${item} underline underline-offset-4`}>Dane rejestrowe</a>
       </div>
-      <div class="flex flex-col items-start gap-2">
+      <div class="flex flex-col items-start">
         <h2 class={heading}>Dokumenty</h2>
-        <a href={STATUTE_PATH} class={link}>Statut</a>
-        <a href={PRIVACY_POLICY_PATH} class={link}>Prywatność</a>
+        <a href={STATUTE_PATH} class={item}>Statut</a>
+        <a href={PRIVACY_POLICY_PATH} class={item}>Prywatność</a>
         <!-- Panel otwiera delegowany listener w ConsentManager.astro – dzięki temu
              przycisk działa też po podmianie DOM przez ClientRouter. -->
-        <button type="button" data-cc-preferences class={`${link} cursor-pointer text-left`}>Cookies</button>
-        <a href={ACCESSIBILITY_PATH} class={link}>Deklaracja dostępności</a>
+        <button type="button" data-cc-preferences class={`${item} cursor-pointer text-left`}>Cookies</button>
+        <a href={ACCESSIBILITY_PATH} class={item}>Deklaracja dostępności</a>
       </div>
-      <div class="flex flex-col gap-2">
+      <div class="flex flex-col items-start">
         <h2 class={heading}>Kontakt</h2>
-        <EmailLink class={`${link} break-all`} />
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener" class={link}>
+        <EmailLink class={`${item} break-all`} />
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener" class={item}>
           Instagram<span class="sr-only"> (otwiera się w nowej karcie)</span>
         </a>
-        <a href={SUPPORT_PATH} class={link}>Wesprzyj fundację</a>
+        <a href={SUPPORT_PATH} class={item}>Wesprzyj fundację</a>
       </div>
     </div>
     <div class="flex h-3.5 gap-2 lg:grid lg:grid-cols-4 lg:gap-x-8" aria-hidden="true">
@@ -87,11 +91,11 @@ const spill = "grow basis-0 lg:-mr-6";
     </div>
     <div class="flex flex-wrap items-center justify-between gap-4">
       <p>© {new Date().getFullYear()} {FOUNDATION.name}</p>
-      <ul class="-m-1.5 flex gap-2">
+      <ul class="-m-2.5 flex">
         {
           SOCIAL_PROFILES.filter((profile) => profile.href).map((profile) => (
             <li>
-              <a href={profile.href} target="_blank" rel="noopener" class={`${link} block p-1.5`}>
+              <a href={profile.href} target="_blank" rel="noopener" class={`${link} block p-2.5`}>
                 <SocialIcon name={profile.name} class="size-6" />
                 <span class="sr-only">{profile.name} (otwiera się w nowej karcie)</span>
               </a>

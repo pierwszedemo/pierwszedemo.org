@@ -13,6 +13,9 @@ import { authorsOf } from "../strony";
  * Podpis prowadzi do bio autora na /fundacja – ten sam adres, co `url`
  * węzła Person w JSON-LD, więc czytelnik i robot trafiają w jedno miejsce.
  * `rel="author"` mówi to samo przeglądarce i wyszukiwarce.
+ *
+ * Każdy link ma linijkę 44 px (cel dotyku z WCAG 2.5.5): przy dwóch autorach
+ * w zwykłej interlinii pola dotyku powiększone o `hit` nachodziłyby na siebie.
  */
 interface Props {
 	authors: readonly AuthorKey[];
@@ -29,7 +32,7 @@ const { authors, updated } = Astro.props;
         <a
           href={`${FOUNDATION_PATH}#${author.id}`}
           rel="author"
-          class="text-link font-semibold"
+          class="text-link inline-flex min-h-11 items-center font-semibold"
         >
           {author.name}
         </a>

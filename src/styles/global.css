@@ -93,6 +93,18 @@
 		outline: 2px solid var(--color-ink);
 		outline-offset: 2px;
 	}
+
+	/* Nagłówki mają po kilka słów w stopniu 40–136 px. Gdy czytelnik
+	   zwiększy odstępy między literami (WCAG 1.4.12), „Aktualności” czy
+	   „prywatności” przestawały się mieścić w 320–375 px i wyjeżdżały poza
+	   ekran. `anywhere`, nie `break-word`: tylko ono zmniejsza min-content,
+	   więc nagłówek w siatce czy flexie łamie słowo, zamiast rozpychać
+	   kolumnę. Przy zwykłych odstępach nic się nie zmienia – słowa się mieszczą. */
+	h1,
+	h2,
+	h3 {
+		overflow-wrap: anywhere;
+	}
 }
 
 /* Przełączniki w ustawieniach cookies: biblioteka rysuje je na 50×23 px,
@@ -113,6 +125,22 @@
 
 #cc-main .section__toggle:checked ~ .toggle__icon .toggle__icon-circle {
 	transform: translateX(28px);
+}
+
+/* Cel 44 px (WCAG 2.5.5, AAA) bez powiększania przełącznika: pole dotyku
+   etykiety wystaje 10 px nad i pod tor, w obrębie 58-pikselowego wiersza
+   kategorii. ::before, bo ::after biblioteka ukrywa z !important; klik
+   w pseudoelement etykiety przełącza jej pole jak klik w samą etykietę. */
+#cc-main .section__toggle-wrapper::before {
+	content: "";
+	position: absolute;
+	inset: -10px 0;
+}
+
+/* Zamknięcie panelu: biblioteka rysuje 40 × 40, cel z 2.5.5 to 44. */
+#cc-main .pm__close-btn {
+	width: 2.75rem;
+	height: 2.75rem;
 }
 
 /* Pasmo z kolumną boczną po lewej / po prawej (strona cyklu koncertów).
@@ -208,11 +236,40 @@
 	}
 }
 
+/* Cel dotyku 44 × 44 px (WCAG 2.5.5, AAA) dla linków spoza zdania – w
+   nawigacji, pod listą, obok przycisku – bez zmiany wyglądu: przezroczysty
+   ::after wystaje poza link o połowę brakującego wymiaru z każdej strony,
+   a większy link zostawia bez zmian (min z zerem). Procenty `inset` liczą
+   się od samego linku, bo `relative` robi z niego blok odniesienia. Tylko
+   tam, gdzie sąsiedni cel jest dalej niż te kilka pikseli – nachodzące
+   pola znowu dzieliłyby palec na pół (stopka ma więc prawdziwe odstępy). */
+@utility hit {
+	position: relative;
+	&::after {
+		content: "";
+		position: absolute;
+		inset-block: min(0px, calc((100% - 2.75rem) / 2));
+		inset-inline: min(0px, calc((100% - 2.75rem) / 2));
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	::view-transition-group(*),
 	::view-transition-old(*),
 	::view-transition-new(*) {
 		animation: none !important;
+	}
+
+	/* Ruch wywołany interakcją (strzałki przesuwane na hover, wjazd banera
+	   cookies) też musi dać się wyłączyć – WCAG 2.3.3. Stan końcowy zostaje,
+	   znika tylko przejście. 0.01 ms, nie 0: przejście o zerowym czasie nie
+	   wysyła `transitionend`, na które mogą czekać skrypty. */
+	*,
+	::before,
+	::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
 	}
 }
 
@@ -376,6 +433,28 @@
 	text-decoration-thickness: 2px;
 }
 
+/* `all: unset` wyżej zabiera też obrys fokusu, a reguła z warstwy `base`
+   przegrywa z regułami bez warstwy – bez tego fokus na „Ustawieniach”
+   i „Polityce” był niewidoczny (WCAG 2.4.7). Przyciski biblioteki dostają ten
+   sam obrys zamiast domyślnego pierścienia przeglądarki (2.4.13). */
+#cc-main :focus-visible,
+#cc-main .cm__desc button:focus-visible,
+#cc-main .cm__desc a:focus-visible {
+	outline: 2px solid var(--color-ink);
+	outline-offset: 2px;
+}
+
+/* Cel 44 px w pionie (WCAG 2.5.5) bez podnoszenia linii – jak utility `hit`. */
+#cc-main .cm__desc button,
+#cc-main .cm__desc a {
+	position: relative;
+	&::after {
+		content: "";
+		position: absolute;
+		inset: min(0px, calc((100% - 2.75rem) / 2));
+	}
+}
+
 #cc-main .cm__btns {
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -426,10 +505,10 @@
 		border-color 0.2s;
 }
 
-/* Biblioteka trzyma min-height: 42px – na niskiej karcie wystarcza 40 px,
-   nadal powyżej minimum celu dotyku. */
+/* Biblioteka trzyma min-height: 42px; 44 px to cel dotyku z WCAG 2.5.5 (AAA),
+   ten sam co `btn` na stronie. */
 #cc-main .cm__btn {
-	min-height: 2.5rem;
+	min-height: 2.75rem;
 	padding: 0.5rem 1.125rem;
 }
 
@@ -451,6 +530,17 @@
 #cc-main .pm__body a {
 	text-decoration: underline;
 	text-underline-offset: 4px;
+}
+
+/* Miejsce na otwarty baner: `--cc-clearance` liczy ConsentManager.astro.
+   scroll-padding sprawia, że element z fokusem staje nad kartą, a padding
+   stopki (jedynej na stronie), że da się nad nią wysunąć także ostatnie linki
+   – inaczej karta przykrywała fokus (WCAG 2.4.11/2.4.12). */
+:root {
+	scroll-padding-bottom: var(--cc-clearance, 0px);
+}
+footer {
+	padding-bottom: var(--cc-clearance, 0px);
 }
 
 /* Karta siedzi w prawym dolnym rogu – bez ruszania układu strony. */
@@ -489,6 +579,12 @@ html.show--consent #cc-main .cm {
 	#cc-main .cm__desc,
 	#cc-main .cm__btns {
 		padding: 0 !important;
+	}
+
+	/* Tu zdanie ma własny wiersz, więc może się łamać – przy zwiększonych
+	   odstępach liter (WCAG 1.4.12) `nowrap` ucinał je na krawędzi karty. */
+	#cc-main .cm__desc {
+		white-space: normal;
 	}
 
 	#cc-main .cm__btns {

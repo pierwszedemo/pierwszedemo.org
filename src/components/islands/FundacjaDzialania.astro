@@ -28,7 +28,7 @@ const { activities } = Astro.props;
         <p data-tina-field={field(activity, "description")}>{fixHanging(activity.description)}</p>
         {activity.href && (
           <p>
-            <a href={activity.href} class="text-link font-semibold">
+            <a href={activity.href} class="text-link hit font-semibold">
               {activity.linkLabel} <span aria-hidden="true">→</span>
             </a>
           </p>

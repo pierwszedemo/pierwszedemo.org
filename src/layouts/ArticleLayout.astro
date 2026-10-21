@@ -112,7 +112,7 @@ const breadcrumb = breadcrumbJsonLd(
         <p class="flex flex-wrap items-center gap-x-3 gap-y-2 text-[15px]">
           <a
             href={section.href}
-            class="rounded-full border border-hairline bg-white px-3.5 py-1.5 font-semibold transition-colors hover:border-ink"
+            class="hit rounded-full border border-hairline bg-white px-3.5 py-1.5 font-semibold transition-colors hover:border-ink"
           >
             {section.label}
           </a>
@@ -199,6 +199,8 @@ const breadcrumb = breadcrumbJsonLd(
                   allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                   loading="lazy"
                   title={`Spotify – odtwarzacz utworu z wpisu „${entry.data.title}”`}
+                  data-frame-focus
+                  class="data-focused:outline-2 data-focused:outline-offset-2 data-focused:outline-ink"
                 />
               )
             }
@@ -252,3 +254,30 @@ const breadcrumb = breadcrumbJsonLd(
   </nav>
   <Footer />
 </BaseLayout>
+
+<script>
+  // Odtwarzacz Spotify to iframe z innej domeny: fokus wewnątrz nie ustawia
+  // iframe'owi :focus, więc strona nie rysowała obrysu (WCAG 2.4.7/2.4.13),
+  // a przy Shift+Tab przeglądarka przewijała tylko do przycisku w środku –
+  // góra ramki zostawała pod przyklejoną nawigacją (2.4.12). Strona widzi
+  // tylko blur okna z iframe'em jako activeElement. Obrys tylko po Tabie
+  // (jak :focus-visible), nie po kliknięciu w odtwarzacz; scrollIntoView
+  // uwzględnia scroll-padding, więc ramka staje pod nawigacją. Nasłuch na
+  // window przeżywa nawigacje ClientRoutera.
+  let tabbedAt = 0;
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Tab") tabbedAt = event.timeStamp;
+  });
+  window.addEventListener("blur", (event) => {
+    const frame = document.activeElement;
+    if (!(frame instanceof HTMLIFrameElement) || !frame.hasAttribute("data-frame-focus")) return;
+    if (event.timeStamp - tabbedAt > 500) return;
+    frame.dataset.focused = "";
+    frame.scrollIntoView({ block: "nearest" });
+  });
+  window.addEventListener("focus", () => {
+    for (const frame of document.querySelectorAll<HTMLElement>("[data-frame-focus][data-focused]")) {
+      delete frame.dataset.focused;
+    }
+  });
+</script>

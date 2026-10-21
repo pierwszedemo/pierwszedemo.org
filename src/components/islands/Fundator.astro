@@ -24,9 +24,11 @@ const { person } = Astro.props;
   {person.bio.map((paragraph, index) => (
     <p data-tina-field={field(person, "bio", index)}>{fixHanging(paragraph)}</p>
   ))}
-  <p class="flex flex-wrap gap-x-6 gap-y-2">
-    <EmailLink address={person.email} class="text-link" />
-    <a href={withUtm(person.href, "zespol")} target="_blank" rel="noopener" class="text-link">
+  {/* gap-y-5: po zawinięciu wiersze stoją 44 px od siebie, więc pola `hit`
+      (cel dotyku z WCAG 2.5.5) nie nachodzą na siebie. */}
+  <p class="flex flex-wrap gap-x-6 gap-y-5">
+    <EmailLink address={person.email} class="text-link hit" />
+    <a href={withUtm(person.href, "zespol")} target="_blank" rel="noopener" class="text-link hit">
       {new URL(person.href).host}
       <span class="sr-only"> (otwiera się w nowej karcie)</span>
     </a>

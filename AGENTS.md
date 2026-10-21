@@ -642,7 +642,11 @@ Three tools, ported from olageppert.pl with the palette inverted (black on white
 `ConsentManager.astro` re-attaches the banner node across View Transitions and
 listens for `[data-cc-preferences]` (the footer „Cookies" cell and the button at
 the bottom of the privacy policy). Bump `revision` in `consentConfig` when the
-categories or wording change – it re-prompts everyone.
+categories or wording change – it re-prompts everyone. While the banner is
+open it measures the card into `--cc-clearance`. `global.css` uses that value
+as `scroll-padding-bottom` and as extra footer padding, so a focused element
+never ends up under the card. After the panel closes, focus returns to the
+button that opened it.
 
 The banner and the preferences panel are styled in `global.css` (`#cc-main`)
 in the site's language: a white rounded card with the orange dot, ink pill
@@ -700,11 +704,28 @@ it instead of respelling those five utilities), `wrap` (the 80rem content box
 with the grid's side padding), `btn` + `btn-ink` / `btn-ghost` / `btn-light`
 (+ `btn-lg`) for the pill buttons – sizes go through `--btn-px`/`--btn-py`,
 because two utilities setting `padding` are ordered by the stylesheet, not by
-the class attribute.
+the class attribute. `hit` grows a link's clickable area to 44×44 with a
+transparent `::after` and no change in layout – for a link outside a sentence
+whose neighbours are more than a few pixels away (nav, arrow links, a link next
+to a button). Where links stack in a list (footer columns, two-author byline)
+the expanded areas would overlap, so those get real 44 px rows (`min-h-11`)
+instead.
 
 The global `:focus-visible` outline is inside `@layer base` on purpose: unlayered
 rules beat Tailwind utilities, so a page could not override the outline colour
 on a dark band.
+
+The target is WCAG 2.2 **AAA** on every page: axe-core with the `wcag2aaa`
+tags and HTML_CodeSniffer `WCAG2AAA` report zero violations and errors at 1440
+and 375 px. Neither scanner checks the AAA rules below, so test them yourself.
+Every interactive element outside a sentence is 44 × 44 (2.5.5).
+Under reduced motion every transition and animation runs in 0.01 ms (2.3.3). No
+focused element may hide under the sticky nav or the cookie banner (2.4.12).
+Headings carry `overflow-wrap: anywhere`, so a long word still fits at 320 px
+when a reader raises letter spacing (1.4.12). Before adding a pair of colours,
+check it reaches 7:1. The one known exception is the endless title animation on
+`/dzwieki-efemeryczne` (2.2.2, no pause button). It stays by Michał's
+decision, and reduced motion switches it off.
 
 ## Conventions
 
