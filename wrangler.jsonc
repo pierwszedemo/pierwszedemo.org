@@ -8,12 +8,19 @@
 	// Domena podpięta jako Custom Domain – Cloudflare sam zakłada rekord DNS
 	// i certyfikat. www nie jest tu dopisane: przekierowanie www → apex to
 	// reguła strefy (Redirect Rules), nie zadanie workera.
-	"routes": [{ "pattern": "pierwszedemo.org", "custom_domain": true }],
+	// `previews_enabled`: ta sama domena służy też podglądom gałęzi (Workers
+	// Builds, `wrangler preview`, nazwa podglądu = gałąź) pod <gałąź>.pierwszedemo.org,
+	// np. redesign.pierwszedemo.org. Cloudflare zakłada do tego wildcard
+	// *.pierwszedemo.org (DNS i certyfikat); istniejące rekordy (www, poczta)
+	// mają pierwszeństwo przed wildcardem. Bez `enabled: false` trasa obsługuje
+	// i produkcję, i podglądy.
+	"routes": [{ "pattern": "pierwszedemo.org", "custom_domain": true, "previews_enabled": true }],
 	// Produkcja tylko pod własną domeną – kopia pod workers.dev byłaby drugim
-	// adresem tej samej strony. Podglądy gałęzi (Workers Builds, `wrangler
-	// preview`) już tak: <gałąź>-pierwszedemo.fundacja-pierwsze-demo.workers.dev,
-	// z X-Robots-Tag: noindex. Bez `preview_urls` szły za `workers_dev`
-	// i odpowiadały błędem 1042. src/origin.ts składa z tego adresu og:image.
+	// adresem tej samej strony. Podglądy gałęzi także tam:
+	// <gałąź>-pierwszedemo.fundacja-pierwsze-demo.workers.dev, z X-Robots-Tag:
+	// noindex. Bez `preview_urls` szły za `workers_dev` i odpowiadały błędem 1042.
+	// Oba ustawienia (i `previews_enabled` wyżej) wchodzą przy `wrangler deploy`
+	// produkcji, nie przy buildzie podglądu.
 	"workers_dev": false,
 	"preview_urls": true,
 	"assets": {

@@ -1,37 +1,44 @@
 /**
- * Domena, z której podgląd linku (og:image) ma pobrać kartę. Strona jest
- * statyczna: HTML powstaje raz, przy buildzie, bez żądania, więc nie zna
- * hosta, z którego zostanie podany – a og:image musi być adresem
+ * Czy build jest podglądem gałęzi i pod jakim adresem stoi. Podgląd to build
+ * Workers Builds z gałęzi innej niż `main` (`WORKERS_CI_BRANCH`), wgrany przez
+ * `wrangler preview`, który nazywa podgląd gałęzią. Stoi pod dwoma adresami:
+ * `<gałąź>.pierwszedemo.org` (trasa z `previews_enabled` w wrangler.jsonc)
+ * i `<gałąź>-pierwszedemo.fundacja-pierwsze-demo.workers.dev` (`preview_urls`).
+ *
+ * Strona jest statyczna: HTML powstaje raz, przy buildzie, bez żądania, więc
+ * nie zna hosta, z którego zostanie podany – a og:image musi być adresem
  * bezwzględnym (Facebook, LinkedIn i Slack nie rozwiązują względnych).
- * Domyślnie to więc produkcja, ale wtedy podgląd gałęzi pokazywał kartę
- * z produkcji – starą albo 404 dla wpisu, którego tam jeszcze nie ma.
+ * Z produkcyjnym hostem podgląd pokazywał w podglądzie linku kartę
+ * z produkcji – starą albo 404 dla wpisu, którego tam jeszcze nie ma. Bierze
+ * więc własną domenę, bo to ten adres się udostępnia. Gałąź czyścimy tak jak
+ * wrangler (`sanitizeBranchName`); nazwa, która nie mieści się w etykiecie
+ * DNS, zostaje przy produkcji.
  *
- * Build podglądu w Workers Builds (gałąź inna niż `main`) zna swoją gałąź
- * (`WORKERS_CI_BRANCH`), a `wrangler preview` nazywa podgląd jej nazwą, więc
- * adres da się złożyć: `<gałąź>-<worker>.<subdomena>.workers.dev`. Gałąź
- * czyścimy tak jak wrangler (`sanitizeBranchName`); gdy nazwa się nie mieści
- * w etykiecie DNS, wrangler skraca ją z haszem – wtedy zostaje produkcja.
- *
- * Dotyczy tylko og:image. Canonical, og:url i JSON-LD zostają produkcyjne,
- * bo podgląd nie może udawać strony kanonicznej. Moduł czyta `process.env`,
- * więc tylko dla kodu renderowanego na serwerze – nigdy z `src/scripts/`.
+ * Canonical, og:url i JSON-LD zostają produkcyjne – podgląd nie może udawać
+ * strony kanonicznej. Moduł czyta `process.env`, więc tylko dla kodu
+ * renderowanego na serwerze – nigdy z `src/scripts/`.
  */
-import { SITE_URL } from "./consts";
+import { SITE_HOST, SITE_URL } from "./consts";
 
-const WORKER = "pierwszedemo";
-const WORKERS_DEV = "fundacja-pierwsze-demo.workers.dev";
 const PRODUCTION_BRANCH = "main";
 
-export function previewOrigin(branch = process.env.WORKERS_CI_BRANCH): string | undefined {
-	if (!branch || branch === PRODUCTION_BRANCH) return undefined;
-	const alias = branch
+const previewBranch = () => {
+	const name = process.env.WORKERS_CI_BRANCH;
+	return name && name !== PRODUCTION_BRANCH ? name : undefined;
+};
+
+/** Build podglądu gałęzi – BaseLayout daje mu noindex. */
+export const isPreviewBuild = () => previewBranch() !== undefined;
+
+export function previewOrigin(branch = previewBranch()): string | undefined {
+	if (!branch) return undefined;
+	const label = branch
 		.replace(/[^a-zA-Z0-9-]/g, "-")
 		.replace(/-+/g, "-")
 		.replace(/^-+|-+$/g, "")
 		.toLowerCase();
-	if (!/^[a-z](?:[a-z0-9-]*[a-z0-9])?$/.test(alias) || alias.length + WORKER.length + 1 > 63)
-		return undefined;
-	return `https://${alias}-${WORKER}.${WORKERS_DEV}`;
+	if (!/^[a-z](?:[a-z0-9-]*[a-z0-9])?$/.test(label) || label.length > 63) return undefined;
+	return `https://${label}.${SITE_HOST}`;
 }
 
 /** Origin dla og:image: serwer deweloperski z żądania, podgląd gałęzi albo produkcja. */

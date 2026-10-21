@@ -20,7 +20,7 @@ import {
 	SITE_URL,
 	WEBSITE_ID,
 } from "../consts";
-import { ogOrigin } from "../origin";
+import { isPreviewBuild, ogOrigin } from "../origin";
 import { FOUNDER_PHOTOS } from "../photos";
 import { isoDateTime } from "../schema";
 import { FOUNDERS } from "../strony";
@@ -47,13 +47,18 @@ const {
 	title,
 	description = SITE_DESCRIPTION,
 	canonicalPath = Astro.url.pathname,
-	robots = "index, follow, max-image-preview:large",
+	robots: robotsProp = "index, follow, max-image-preview:large",
 	ogType = "website",
 	ogImage = "/og.png",
 	schemaPageType = "WebPage",
 	extraJsonLd = [],
 	dateModified = LAST_CONTENT_UPDATE,
 } = Astro.props;
+
+// Podgląd gałęzi pod własną domeną (redesign.pierwszedemo.org) nie dostaje od
+// Cloudflare `X-Robots-Tag: noindex` – ten nagłówek ma tylko workers.dev – więc
+// noindex idzie w HTML, inaczej podgląd wszedłby do indeksu jako kopia strony.
+const robots = isPreviewBuild() ? "noindex, nofollow" : robotsProp;
 
 const site = Astro.site ?? new URL(SITE_URL);
 const canonical = new URL(canonicalPath, site).href;

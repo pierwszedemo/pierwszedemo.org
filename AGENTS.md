@@ -402,16 +402,24 @@ Breadcrumbs are JSON-LD; on a post the section pill above the title (a link
 to the list) is their visible half. They give Google a path to render under
 the result instead of a bare URL. `src/schema.ts` holds `breadcrumbJsonLd()`, `isoDateTime()` and `wordCount()`.
 
-`og:image` / `twitter:image` are the one exception to „every absolute URL
-is the production one” (`src/origin.ts`): `astro dev` uses the request's
-origin, and a Workers Builds preview build (branch ≠ `main`) uses its own
-`<branch>-pierwszedemo.<subdomain>.workers.dev`, so a shared preview link shows
-that build's card instead of production's (stale, or 404 for a new post).
-That needs `preview_urls: true` in `wrangler.jsonc` (without it previews
-followed `workers_dev`, which stays off, and answered Cloudflare error 1042).
-Canonical, `og:url` and JSON-LD stay on production – a preview must not
-claim to be the canonical page. Facebook follows `og:url` and scrapes
-production anyway; Slack, LinkedIn and iMessage use the preview's card.
+Branch previews: Workers Builds builds every branch other than `main` and
+uploads it with `wrangler preview`, which names the preview after the branch.
+Each preview lives at `<branch>.pierwszedemo.org` (`previews_enabled` on the
+custom-domain route – Cloudflare adds the `*.pierwszedemo.org` wildcard and
+certificate; explicit records like `www` and mail win over it) and at
+`<branch>-pierwszedemo.fundacja-pierwsze-demo.workers.dev` (`preview_urls`).
+Both settings take effect on a production `wrangler deploy`, not on a preview
+build. `src/origin.ts` tells a build it is a preview (`WORKERS_CI_BRANCH`):
+
+- every page gets `noindex, nofollow` – Cloudflare sends `X-Robots-Tag:
+  noindex` only on workers.dev, so the custom-domain preview would otherwise
+  be indexed as a copy of the site;
+- `og:image` / `twitter:image` use the preview's own domain, so a shared
+  preview link shows that build's card instead of production's (stale, or
+  404 for a new post); `astro dev` uses the request's origin. These are the one
+  exception to „every absolute URL is the production one”: canonical,
+  `og:url` and JSON-LD stay on production – a preview must not claim to be the
+  canonical page. Facebook follows `og:url` and scrapes production anyway.
 
 Canonical URLs have **no** trailing slash (`trailingSlash: "never"` in Astro,
 `assets.html_handling: "drop-trailing-slash"` in `wrangler.jsonc`, which serves
