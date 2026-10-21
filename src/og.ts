@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
 import { HOME_CITY, LOGOTYPE, SITE_HOST, SITE_NAME, SITE_TAGLINE, WORDMARK } from "./consts";
+import { iconSvg, LOGO_COLORS, WAVE, waveRadius, waveSvg } from "./logo";
 import { accentParts } from "./typography";
 
 /**
@@ -94,11 +95,8 @@ interface CardOptions {
 const el = (type: string, style: Record<string, unknown>, children?: unknown) =>
 	({ type, props: { style, ...(children === undefined ? {} : { children }) } }) as const;
 
-/**
- * Znak z nawigacji (Logo.astro): płyta z pomarańczową naklejką. Jako obrazek
- * z data URI – satori pomija zagnieżdżony element <svg> w drzewie.
- */
-export const RECORD_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="${PALETTE.ink}"/><circle cx="20" cy="20" r="14" fill="none" stroke="#3a3a42" stroke-width="1.5"/><circle cx="20" cy="20" r="7" fill="${PALETTE.orange}"/><circle cx="20" cy="20" r="1.8" fill="${PALETTE.paper}"/></svg>`;
+/** Płyta z kolażu hero (HeroCollage.astro) – na karcie strony głównej za kasetą. */
+const RECORD_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><circle cx="20" cy="20" r="20" fill="${PALETTE.ink}"/><circle cx="20" cy="20" r="14" fill="none" stroke="#3a3a42" stroke-width="1.5"/><circle cx="20" cy="20" r="7" fill="${PALETTE.orange}"/><circle cx="20" cy="20" r="1.8" fill="${PALETTE.paper}"/></svg>`;
 
 /** SVG jako obrazek z data URI – satori pomija zagnieżdżony element <svg>. */
 const svgImg = (svg: string, width: number, height: number, style: Record<string, unknown> = {}) => ({
@@ -106,7 +104,45 @@ const svgImg = (svg: string, width: number, height: number, style: Record<string
 	props: { src: `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`, width, height, style },
 });
 
-const recordMark = (size: number) => svgImg(RECORD_SVG, size, size);
+/** Fala bez stałej szerokości – rozciąga ją rodzic (kolumna flex). */
+const waveImg = (fill: string, height: number) => ({
+	type: "img",
+	props: {
+		src: `data:image/svg+xml;base64,${Buffer.from(waveSvg(fill)).toString("base64")}`,
+		style: { height, alignSelf: "stretch" },
+	},
+});
+
+/** Ikona znaku (kafel ultramaryny ze słupkami) – ta sama co favikona. */
+const iconMark = (size: number) => svgImg(iconSvg(size), size, size);
+
+/**
+ * Logotyp z Logo.astro: „pierwsze ” i kolumna z „demo” nad falą. Kolumna flex
+ * rozciąga falę na szerokość słowa, proporcje w `em` jak na stronie. Twarda
+ * spacja, bo satori obcina zwykłą na końcu pudełka.
+ */
+export const wordmark = (size: number, color: string = PALETTE.ink) => {
+	const split = LOGOTYPE.lastIndexOf(" ");
+	return el(
+		"div",
+		{
+			display: "flex",
+			alignItems: "flex-start",
+			fontFamily: "Instrument Serif",
+			fontSize: size,
+			lineHeight: 1,
+			letterSpacing: "-0.015em",
+			color,
+		},
+		[
+			el("div", {}, `${LOGOTYPE.slice(0, split)}\u00a0`),
+			el("div", { display: "flex", flexDirection: "column", gap: size * 0.12 }, [
+				el("div", {}, LOGOTYPE.slice(split + 1)),
+				waveImg(LOGO_COLORS.orange, size * 0.33),
+			]),
+		],
+	);
+};
 
 const pill = (text: string, background: string, dot?: string) =>
 	el(
@@ -185,7 +221,7 @@ export async function renderOgCard({
 				[
 					el("div", { display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 32 }, [
 						pill(eyebrow, "#ffffff"),
-						recordMark(64),
+						iconMark(64),
 					]),
 					el(
 						"div",
@@ -203,7 +239,7 @@ export async function renderOgCard({
 					),
 					el("div", { display: "flex", flexDirection: "column", gap: 28 }, [
 						el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" }, [
-							el("div", { fontSize: 44, letterSpacing: "-0.01em" }, LOGOTYPE),
+							wordmark(44),
 							badge
 								? pill(badge, PALETTE.lime)
 								: el(
@@ -268,10 +304,7 @@ export async function renderHomeCard({ title }: { title: string }): Promise<Buff
 						justifyContent: "space-between",
 					},
 					[
-						el("div", { display: "flex", alignItems: "center", gap: 14 }, [
-							recordMark(48),
-							el("div", { fontSize: 40, letterSpacing: "-0.01em" }, LOGOTYPE),
-						]),
+						wordmark(40),
 						el(
 							"div",
 							{ display: "flex", flexWrap: "wrap", fontSize: 92, lineHeight: 0.92, letterSpacing: "-0.02em" },
@@ -323,6 +356,63 @@ export async function renderHomeCard({ title }: { title: string }): Promise<Buff
 	);
 
 	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
+}
+
+/**
+ * Avatar z płótna „Logo — wybrane”: „demo” w seledynie nad różową falą, na
+ * ultramarynie na całe pole – platformy i systemy same kadrują w koło albo
+ * w zaokrąglony kafel. Zwraca wnętrze SVG (bez <svg>) z samych ścieżek
+ * i prostokątów: litery zamienia na krzywe satori (librsvg wziąłby font
+ * systemowy), a falę liczymy od pudełka, które satori dla niej rozłożył. Bez
+ * <image>, masek i transformacji – to samo wnętrze idzie do PNG i do BIMI
+ * (SVG Tiny PS). Proporcje jak na stronie: fala na szerokość słowa, odstęp
+ * 0,12 em, wysokość 0,3 em.
+ */
+export async function renderAvatarBody(size: number): Promise<string> {
+	const fontSize = size * 0.3;
+	// Kolor-znacznik: po nim znajdujemy w wyniku pudełko fali.
+	const marker = "#010101";
+	const svg = await satori(
+		el(
+			"div",
+			{ display: "flex", width: "100%", height: "100%", alignItems: "center", justifyContent: "center" },
+			el(
+				"div",
+				{
+					display: "flex",
+					flexDirection: "column",
+					gap: fontSize * 0.12,
+					fontFamily: "Instrument Serif",
+					fontSize,
+					lineHeight: 1,
+					color: LOGO_COLORS.lime,
+				},
+				[
+					el("div", {}, LOGOTYPE.slice(LOGOTYPE.lastIndexOf(" ") + 1)),
+					el("div", { height: fontSize * 0.3, backgroundColor: marker }),
+				],
+			),
+		),
+		{ width: size, height: size, fonts: FONTS },
+	);
+	const glyphs = svg.match(new RegExp(`<path fill="${LOGO_COLORS.lime}" d="[^"]+"/>`, "g"));
+	const box = svg.match(
+		new RegExp(`<rect x="([\\d.]+)" y="([\\d.]+)" width="([\\d.]+)" height="([\\d.]+)" fill="${marker}"/>`),
+	);
+	if (!glyphs || !box) throw new Error("Satori zmienił format SVG: brak ścieżki słowa albo pudełka fali.");
+	const [left, top, width, height] = box.slice(1).map(Number);
+	const sx = width / 160;
+	const sy = height / 28;
+	const n = (value: number) => Number(value.toFixed(2));
+	const wave = WAVE.map(
+		([x, y, h]) =>
+			`<rect x="${n(left + x * sx)}" y="${n(top + y * sy)}" width="${n(4 * sx)}" height="${n(h * sy)}" rx="${n(waveRadius(h) * sx)}" ry="${n(waveRadius(h) * sy)}" fill="${LOGO_COLORS.pink}"/>`,
+	);
+	return [
+		`<rect width="${size}" height="${size}" fill="${LOGO_COLORS.ultramarine}"/>`,
+		...glyphs,
+		...wave,
+	].join("");
 }
 
 /**

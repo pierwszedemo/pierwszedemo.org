@@ -1,5 +1,5 @@
 ---
-import { JOIN_PATH, LOGOTYPE, NAV } from "../consts";
+import { JOIN_PATH, NAV } from "../consts";
 import Logo from "./Logo.astro";
 
 interface Props {
@@ -24,12 +24,9 @@ const { active } = Astro.props;
 
 <header class="sticky top-0 z-40 border-b border-hairline bg-paper">
   <div class="wrap flex flex-wrap items-center justify-between gap-x-4 gap-y-1 py-3 md:gap-x-8 md:py-5">
-    <a href="/" class="flex items-center gap-2.5 text-ink transition-colors hover:text-blue sm:gap-3">
-      <Logo class="size-9 shrink-0 sm:size-10" />
-      <span class="font-serif text-[24px] leading-none tracking-[-0.01em] sm:text-[28px]"
-        ><span class="sr-only">Fundacja </span>{LOGOTYPE}</span
-      >
-    </a>
+    <a href="/" class="text-ink transition-colors hover:text-blue"
+      ><span class="sr-only">Fundacja </span><Logo class="text-[28px] sm:text-[34px]" /></a
+    >
     <a href={JOIN_PATH} class="btn btn-ink max-sm:[--btn-px:1rem] md:order-last">Dołącz</a>
     <nav aria-label="Główna" class="w-full md:ml-auto md:w-auto">
       <ul class="flex flex-wrap gap-x-3 text-[15px] font-medium max-[22rem]:gap-x-2 max-[22rem]:text-sm sm:gap-x-5 sm:text-base md:gap-x-7">

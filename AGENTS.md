@@ -421,17 +421,17 @@ are resources, not pages.
 `/og.png` (homepage) and `/og/<slug>.png` (posts) are drawn at build time by
 `src/og.ts` – satori lays the card out and converts text to paths, sharp
 rasterises. A post card (`renderOgCard`) is the site in miniature: paper
-background, the eyebrow pill, the title in Instrument Serif, the record mark,
-the logotype, a category pill and the accent stripe from the footer. The
-homepage card (`renderHomeCard`) is the hero in miniature instead, without
-photos: the Tina slogan with its blue `*accent*`, a big text-less cassette
-with the lime tape, the record behind it and the „REC” sticker. `PALETTE`, `STRIPE` and
-`RECORD_SVG` there are the one copy every generated image reads – favicons,
-the Facebook cover and the Instagram frames import them. Satori quirks that
-bite: padding on the root element is added *outside* `100%` (it pushed the
-footer off the card – pad a child instead), a nested `<svg>` element is
-dropped (the record goes in as a data-URI `img`), and text with two styles
-must be split into word boxes (`titleWords`). Two constraints are load-bearing:
+background, the eyebrow pill, the title in Instrument Serif, the icon tile,
+the logotype (`wordmark()`), a category pill and the accent stripe from the
+footer. The homepage card (`renderHomeCard`) is the hero in miniature instead,
+without photos: the logotype, the Tina slogan with its blue `*accent*`, a big
+text-less cassette with the lime tape, the record behind it and the „REC”
+sticker. `PALETTE`, `STRIPE` and `wordmark()` there are the one copy every
+generated image reads – the Facebook cover and the Instagram frames import
+them. Satori quirks that bite: padding on the root element is added *outside*
+`100%` (it pushed the footer off the card – pad a child instead), a nested
+`<svg>` element is dropped (the wave and the icon go in as data-URI `img`s),
+and text with two styles must be split into word boxes (`titleWords`). Two constraints are load-bearing:
 
 - Fonts are vendored as **TTF** in `src/assets/fonts/`. Astro's Fonts API caches
   woff2, which satori cannot read; and handing plain SVG to sharp would render
@@ -449,38 +449,50 @@ not a person's. `/og/dzwieki-efemeryczne.png` alone keeps the Swiss card
 `scripts/generate-dzwieki.mjs`. Those two are the only reason the Archivo TTF
 is still in `src/assets/fonts/`.
 
-### Favicons
+### Logo and favicons
 
-`scripts/generate-favicons.mjs` builds `favicon.svg`, the PNGs and a hand-assembled
-multi-size `.ico` from one source. Run it by hand (`bun scripts/generate-favicons.mjs`),
-not in the build — icons change once every few years and the output is committed.
+The logo is the canvas artboard „Logo — wybrane” (`Logo-wybrane.dc.html` on the
+same canvas as „Wersja 2”): the logotype „pierwsze demo” in Instrument Serif
+with an orange sound wave under „demo”, and, for icons, the variant „seledyn
+na ultramarynie”. `src/logo.ts` holds its geometry and colours, with no
+dependencies, so `Logo.astro` (nav, footer), `src/og.ts` and the scripts read
+one copy. Its colours are the mark's own (`#2b3bff`, `#ff5a1f`), not the
+`--color-blue`/`--color-orange` tokens – those were darkened for 7:1 *text*,
+and the wave is not text. The wave is 20 bars in a 160×28 box stretched to the
+word's width, so its proportions live in `em` and it scales with the type.
 
-The icon is the record from the nav (`RECORD_SVG`): circles only, no text.
-The old „PD" monogram had to be a path baked from the font – sharp rasterises
-SVG through librsvg, which resolves *system* fonts, and so does a visitor's
-browser rendering `favicon.svg` – and at 16 px its stems fell below a pixel.
-A dark disc with an orange centre has neither problem. If the icon ever gets
-letters again, bake them as outlines, never `<text>`.
+`scripts/generate-favicons.mjs` builds `favicon.svg`, the PNGs, a hand-assembled
+multi-size `.ico`, the profile picture and the BIMI logo. Run it by hand
+(`bun scripts/generate-favicons.mjs`), not in the build — icons change once
+every few years and the output is committed. Two drawings, as on the canvas:
 
-The tab icons (`favicon.svg`, `.ico`, 96 px) are the bare disc on
-transparency; the „app" icons (`apple-touch-icon`, manifest 192/512) put it on
-the paper colour with a margin, because iOS fills transparency with black and
-masks the corners.
+- The tab icons (`favicon.svg`, `.ico`, 96 px) are a rounded ultramarine tile
+  with six pink bars and no letters (`iconSvg()`). Each size is drawn on its
+  own pixel grid, not scaled from one SVG: the canvas's 1.5 px bars at 16 px
+  rasterised into grey smudges, so widths, gaps and heights are rounded and
+  heights keep the size's parity.
+- The „app" icons (`apple-touch-icon`, manifest 192/512), the profile picture
+  and BIMI are the avatar: lime „demo” over a pink wave on a full ultramarine
+  square (`renderAvatarBody()` in `og.ts`) – full bleed, because iOS fills
+  transparency with black and every platform masks or crops it itself. Its
+  letters are paths from satori: sharp rasterises SVG through librsvg, which
+  resolves *system* fonts, and so would a visitor's browser. Never `<text>`.
 
-`public/bimi.svg` (BIMI logo for DMARC) comes out of the same script: SVG Tiny PS
+`public/bimi.svg` (BIMI logo for DMARC) is the avatar as SVG Tiny PS
 (`version="1.2"`, `baseProfile="tiny-ps"`, `<title>` first, no `x`/`y` on the
-root, no scripts/styles/images/external refs – validators reject each of these;
-the circles are computed directly rather than through a `<g transform>`).
-Mail clients crop it to a circle, so the disc sits inside the edge; never hand
-it a transparent background. Referenced from the DNS `default._bimi` TXT record,
+root, no scripts/styles/images/external refs – validators reject each of these).
+That is why `renderAvatarBody()` returns bare paths and rects in absolute
+coordinates – the wave is recomputed from the box satori laid out for it,
+rather than an `<image>` or a `<g transform>`. Mail clients crop it to a
+circle, and „demo” sits well inside it; never hand it a transparent
+background. Referenced from the DNS `default._bimi` TXT record,
 which is outside the repo.
 
 ### Social assets (`assets/`)
 
 Files uploaded by hand to Facebook/Instagram, not served by the site – hence
 outside `public/`. `generate-favicons.mjs` also writes `assets/profile-1080.png`:
-the record on the paper colour with a wide margin (platforms crop the profile
-picture to a circle). `scripts/generate-social.mjs` (`bun scripts/generate-social.mjs`) writes
+the avatar (platforms crop the profile picture to a circle). `scripts/generate-social.mjs` (`bun scripts/generate-social.mjs`) writes
 `assets/facebook-cover-1640x856.png` through `renderOgCard()` – `src/og.ts`
 takes `width`/`height`/`paddingX` for that. Facebook shows two crops of one
 cover: desktop the centre 1640×624 band, mobile the centre ~1522×856 column, so
@@ -598,7 +610,7 @@ on a dark band.
   bare directory is reused on regeneration so a posted post never gets a
   duplicate next to it.
   `scripts/lib.mjs` holds the shared frame and imports palette, stripe and
-  record mark from `src/og.ts` (satori + sharp, same fonts and footer);
+  logotype (`wordmark()`) from `src/og.ts` (satori + sharp, same fonts and footer);
   `generate.mjs` draws the carousel, `format.mjs` the single formats.
   `instagram/` output is committed – it is the promotion history of a post,
   so graphics already posted in the Swiss look stay as they are; only new
@@ -646,7 +658,7 @@ carried an EXIF orientation tag and GPS coordinates). `HeroPhoto.astro` takes
 `src`/`alt`/`caption` props and clips `widths` to the source size, because
 Astro refuses to upscale.
 
-The nav is the logotype (`Logo.astro` + „pierwsze demo” in serif), four links
+The nav is the logotype (`Logo.astro` – „pierwsze demo” with the wave), four links
 (O nas → /fundacja, Co robimy → /fundacja#dzialania, Wiedza, Aktualności) and
 the „Dołącz” pill (`JOIN_PATH`, the homepage section). It is sticky (`top-0`,
 opaque paper), and `scroll-padding-top` on `:root` keeps anchor jumps clear

@@ -2,9 +2,9 @@
  * Wspólny język wizualny grafik na Instagram – to, co łączy karuzelę
  * (generate.mjs) z formatami pojedynczymi (format.mjs): kadr 4:5, paleta
  * strony („Wersja 2”), Instrument Serif w nagłówkach i Instrument Sans
- * w tekście, nagłówek z etykietą i numeracją, stopka z płytą, logotypem
- * i paskiem akcentów – jak stopka strony i karty OG (src/og.ts, skąd idą
- * paleta, pasek i znak). Formaty różnią się układem środka kadru; ramy mają
+ * w tekście, nagłówek z etykietą i numeracją, stopka z logotypem (fala pod
+ * „demo”) i paskiem akcentów – jak stopka strony i karty OG (src/og.ts, skąd
+ * idą paleta, pasek i logotyp). Formaty różnią się układem środka kadru; ramy mają
  * identyczne, bo to one robią z profilu serię.
  *
  * Dlaczego satori, a nie SVG w sharpie: sharp renderuje SVG librsvg, który
@@ -16,8 +16,8 @@ import { existsSync, readdirSync, readFileSync, rmSync, writeFileSync } from "no
 import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
-import { LOGOTYPE, SITE_HOST } from "../../../../src/consts.ts";
-import { PALETTE, RECORD_SVG, STRIPE } from "../../../../src/og.ts";
+import { SITE_HOST } from "../../../../src/consts.ts";
+import { PALETTE, STRIPE, wordmark } from "../../../../src/og.ts";
 
 // 4:5 – najwyższy kadr, jaki Instagram pokazuje w feedzie bez przycinania;
 // kwadrat oddaje ~20% wysokości ekranu sąsiednim postom.
@@ -209,23 +209,10 @@ export const header = (left, right, onInk) =>
 		el("div", { ...mono, color: onInk ? "#ffffff" : INK }, right),
 	]);
 
-/** Płyta z nawigacji jako obrazek – satori pomija zagnieżdżony <svg>. */
-const recordMark = (size) => ({
-	type: "img",
-	props: {
-		src: `data:image/svg+xml;base64,${Buffer.from(RECORD_SVG).toString("base64")}`,
-		width: size,
-		height: size,
-	},
-});
-
 export const footer = (onInk) =>
 	el("div", { display: "flex", flexDirection: "column", gap: 30 }, [
 		el("div", { display: "flex", justifyContent: "space-between", alignItems: "center" }, [
-			el("div", { display: "flex", alignItems: "center", gap: 18 }, [
-				recordMark(52),
-				el("div", { fontFamily: "Instrument Serif", fontSize: 44, letterSpacing: "-0.01em" }, LOGOTYPE),
-			]),
+			wordmark(44, onInk ? "#ffffff" : INK),
 			el(
 				"div",
 				{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 24, color: onInk ? MUTED_ON_INK : MUTED },

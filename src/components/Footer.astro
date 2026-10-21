@@ -4,7 +4,6 @@ import {
 	FOUNDATION,
 	FOUNDATION_PATH,
 	INSTAGRAM_URL,
-	LOGOTYPE,
 	PRIVACY_POLICY_PATH,
 	registryValue,
 	SITE_TAGLINE,
@@ -12,6 +11,7 @@ import {
 	SUPPORT_PATH,
 } from "../consts";
 import EmailLink from "./EmailLink.astro";
+import Logo from "./Logo.astro";
 
 // Ciemna stopka z makiety: logotyp, dane rejestrowe, dokumenty, kontakt.
 // Adresu siedziby tu nie ma: art. 5 ustawy o świadczeniu usług drogą
@@ -39,7 +39,7 @@ const stripe = [
   <div class="wrap flex flex-col gap-12 pt-16 pb-10">
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
       <div class="flex flex-col gap-3">
-        <span class="font-serif text-4xl leading-none text-white">{LOGOTYPE}</span>
+        <Logo class="text-[40px] text-white" />
         <span>Fundacja – {SITE_TAGLINE.toLowerCase()}.</span>
       </div>
       <div class="flex flex-col gap-2">

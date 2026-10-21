@@ -1,6 +1,6 @@
 ---
 name: instagram-carousel
-description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.org – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony („Wersja 2”: ciepła biel, Instrument Serif i Sans, płyta, pasek akcentów); wynik ląduje w instagram/_<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
+description: Generuje grafiki na Instagram z istniejącego wpisu na blogu pierwszedemo.org – karuzelę 1080×1350 (4:5) (okładka z hookiem, 1–4 slajdy teza+konkret, slajd CTA) albo jeden z formatów pojedynczych (mit/fakt, lista „zapisz na później”, pytanie do publiczności, jedna liczba) plus gotowy opis posta. Grafiki rysuje skrypt satori+sharp w języku wizualnym strony („Wersja 2”: ciepła biel, Instrument Serif i Sans, logotyp z falą, pasek akcentów); wynik ląduje w instagram/_<data>-<slug>-<typ>/. Użyj, gdy pada „karuzela na Instagram”, „grafiki na IG”, „post na Instagram z wpisu”, „mit i fakt”, „checklista na IG”, „pytanie na Instagram”, „grafika z liczbą”, „promocja wpisu w social mediach”.
 ---
 
 # instagram-carousel
@@ -204,8 +204,8 @@ z tym samym zestawem plików co karuzela (`spec.json`, `NN.png`, `alt.txt`,
 poszło.
 
 **Design celowo odbiega od karuzeli**, żeby profil nie zlał się w ścianę
-jasnych kadrów z tekstem po lewej. Ramy (nagłówek z etykietą, stopka z płytą,
-logotypem i paskiem akcentów, kadr 4:5) są wspólne – to one robią serię. Różni się środek
+jasnych kadrów z tekstem po lewej. Ramy (nagłówek z etykietą, stopka
+z logotypem i paskiem akcentów, kadr 4:5) są wspólne – to one robią serię. Różni się środek
 i tego nie ujednolicaj z powrotem:
 
 - **mit** – dwa slajdy w odwróconej kolejności niż karuzela: 01 negatyw,
@@ -251,7 +251,7 @@ Te same bramki na cudzysłów i em dash.
 
 - `scripts/lib.mjs` – wspólne ramy: kadr, paleta, fonty, nagłówek, stopka,
   walidacja, zapis PNG + alt. Layout celowo trzyma się `src/og.ts` i bierze
-  stamtąd paletę, pasek akcentów i znak płyty: te same kolory, ta sama
+  stamtąd paletę, pasek akcentów i logotyp (`wordmark`): te same kolory, ta sama
   stopka, te same kroje. Nagłówki idą przez `serif(px)` – stopień rośnie
   o 18%, bo limity znaków skalibrowano pod dawne Archivo półgrube.
 - `scripts/generate.mjs` – karuzela; `scripts/format.mjs` – formaty

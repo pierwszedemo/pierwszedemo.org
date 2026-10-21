@@ -1,17 +1,29 @@
 ---
 /**
- * Znak fundacji z makiety: płyta z pomarańczową naklejką. Ozdoba obok
- * logotypu, więc `aria-hidden` – nazwę niesie tekst linku.
+ * Logotyp z płótna „Logo — wybrane”: „pierwsze demo” w Instrument Serif,
+ * pod „demo” fala dźwięku. Rozmiar i kolor tekstu daje `class` (text-*),
+ * fala liczy się w `em`, więc rośnie razem z literami. Kolumna z „demo” stoi
+ * `align-top`, żeby linia bazowa obu słów się zgadzała, a fala zwisała pod
+ * wierszem. Sama fala to ozdoba – nazwę niesie tekst.
  */
+import { LOGOTYPE } from "../consts";
+import { LOGO_COLORS, WAVE, waveRadius } from "../logo";
+
 interface Props {
 	class?: string;
 }
 const { class: className } = Astro.props;
+const split = LOGOTYPE.lastIndexOf(" ");
+const first = LOGOTYPE.slice(0, split + 1);
+const last = LOGOTYPE.slice(split + 1);
 ---
 
-<svg viewBox="0 0 40 40" aria-hidden="true" class={className}>
-  <circle cx="20" cy="20" r="20" fill="#15151a"></circle>
-  <circle cx="20" cy="20" r="14" fill="none" stroke="#3a3a42" stroke-width="1.5"></circle>
-  <circle cx="20" cy="20" r="7" fill="#ff7d40"></circle>
-  <circle cx="20" cy="20" r="1.8" fill="#fbfaf7"></circle>
-</svg>
+<span class:list={["inline-block font-serif leading-none tracking-[-0.015em] whitespace-nowrap", className]}
+  >{first}<span class="inline-flex flex-col gap-[0.12em] align-top"
+    >{last}<svg viewBox="0 0 160 28" preserveAspectRatio="none" aria-hidden="true" class="h-[0.33em] w-full"
+      ><g fill={LOGO_COLORS.orange}
+        >{WAVE.map(([x, y, h]) => <rect x={x} y={y} width="4" height={h} rx={waveRadius(h)} />)}</g
+      ></svg
+    ></span
+  ></span
+>

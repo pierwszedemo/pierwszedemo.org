@@ -1,82 +1,68 @@
 /**
- * Generuje komplet ikon z jednego źródła: `public/favicon.svg` + PNG-i + .ico,
- * zdjęcie profilowe i logo BIMI. Uruchamiane ręcznie
- * (`bun scripts/generate-favicons.mjs`), nie w buildzie — ikony zmieniają się
- * raz na kilka lat, a wynik siedzi w repo.
+ * Generuje komplet ikon z płótna „Logo — wybrane” (wariant „seledyn na
+ * ultramarynie”): `public/favicon.svg` + PNG-i + .ico, zdjęcie profilowe
+ * i logo BIMI. Uruchamiane ręcznie (`bun scripts/generate-favicons.mjs`), nie
+ * w buildzie — ikony zmieniają się raz na kilka lat, a wynik siedzi w repo.
  *
- * Znakiem jest płyta z nawigacji (`RECORD_SVG` w src/og.ts, ten sam rysunek co
- * Logo.astro): same koła, bez tekstu. Poprzednia ikona była monogramem „PD"
- * i musiała wypalać litery jako ścieżki, bo sharp rasteryzuje SVG librsvg,
- * a ten sięga po fonty *systemowe*. Koła tego problemu nie mają – i przy
- * 16 px czytają się lepiej niż dwie litery: ciemny krążek z pomarańczowym
- * środkiem, bez lasek, które schodzą poniżej piksela.
+ * Dwa rysunki, jak na płótnie:
+ * - favikona (karta przeglądarki, .ico) – kafel ultramaryny z sześcioma
+ *   różowymi słupkami fali (`iconSvg` w src/logo.ts). Bez liter: przy 16 px
+ *   „demo” byłoby plamą.
+ * - avatar (iOS, manifest, profil, BIMI) – „demo” w seledynie nad różową falą
+ *   (`renderAvatarBody` w src/og.ts). Litery to ścieżki z satori, bo sharp
+ *   rasteryzuje SVG librsvg, a ten sięga po fonty *systemowe* – Instrument
+ *   Serif na nich nie ma.
  */
 import sharp from "sharp";
 import { SITE_NAME } from "../src/consts.ts";
-import { PALETTE, RECORD_SVG } from "../src/og.ts";
-
-const SIZE = 64;
-
-/** Wnętrze znaku (bez <svg>), przeskalowane z viewBoxa 40 na `diameter` i wyśrodkowane. */
-const record = (diameter) => {
-	const scale = diameter / 40;
-	const offset = (SIZE - diameter) / 2;
-	const inner = RECORD_SVG.replace(/^<svg[^>]*>/, "").replace(/<\/svg>$/, "");
-	return `<g transform="translate(${offset} ${offset}) scale(${scale})">${inner}</g>`;
-};
-
-const svg = (body, background) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SIZE} ${SIZE}">
-  ${background ? `<rect width="${SIZE}" height="${SIZE}" fill="${background}"/>` : ""}
-  ${record(SIZE * body)}
-</svg>
-`;
-
-// Karta przeglądarki: sam krążek na przezroczystym tle, na całe pole.
-const bare = svg(1);
-// Ikony „aplikacji” (iOS, manifest): system dokłada własną maskę z zaokrąglonymi
-// rogami i nie znosi przezroczystości – iOS wypełnia ją czernią. Stąd tło
-// strony i krążek z marginesem.
-const tile = svg(0.72, PALETTE.paper);
-
-await Bun.write("public/favicon.svg", bare);
+import { iconSvg } from "../src/logo.ts";
+import { renderAvatarBody } from "../src/og.ts";
 
 const render = (size, source) =>
 	sharp(Buffer.from(source), { density: 512 }).resize(size, size).png({ compressionLevel: 9 }).toBuffer();
 
-for (const [file, size, source] of [
-	["public/favicon-96x96.png", 96, bare],
-	["public/apple-touch-icon.png", 180, tile],
-	["public/web-app-manifest-192x192.png", 192, tile],
-	["public/web-app-manifest-512x512.png", 512, tile],
+/** Każdy rozmiar z własnego pola – słupki liczone w pikselach docelowych, nie skalowane z jednego SVG. */
+const icon = (size) => render(size, iconSvg(size));
+
+const avatar = async (size) =>
+	render(
+		size,
+		`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}">${await renderAvatarBody(size)}</svg>`,
+	);
+
+// Karta przeglądarki: kafel z zaokrąglonymi rogami na przezroczystym tle.
+await Bun.write("public/favicon.svg", `${iconSvg(32)}\n`);
+await Bun.write("public/favicon-96x96.png", await icon(96));
+
+// Ikony „aplikacji” (iOS, manifest): pełny kwadrat bez zaokrągleń – system
+// dokłada własną maskę, a iOS wypełnia przezroczystość czernią. Treść mieści
+// się w strefie bezpiecznej maski (koło 80% boku).
+for (const [file, size] of [
+	["public/apple-touch-icon.png", 180],
+	["public/web-app-manifest-192x192.png", 192],
+	["public/web-app-manifest-512x512.png", 512],
 ]) {
-	await Bun.write(file, await render(size, source));
+	await Bun.write(file, await avatar(size));
 }
 
-// Zdjęcie profilowe na Facebooka / Instagram. Platformy pokazują je w kółku,
-// więc krążek dostaje margines, a tło jest tłem strony.
+// Zdjęcie profilowe na Facebooka / Instagram / LinkedIn. Platformy kadrują je
+// w koło, a pełne tło daje ultramarynowe koło jak na płótnie.
 // Nie trafia do `public/`, bo to nie zasób strony, tylko plik do wgrania.
-await Bun.write("assets/profile-1080.png", await render(1080, svg(0.7, PALETTE.paper)));
+await Bun.write("assets/profile-1080.png", await avatar(1080));
 
-// Logo do BIMI (DMARC). Profil SVG Tiny PS: `version="1.2"`,
-// `baseProfile="tiny-ps"`, `<title>` jako pierwsze dziecko, bez `x`/`y` na
-// korzeniu, bez skryptów, stylów, obrazków i odwołań zewnętrznych – walidator
-// BIMI odrzuca plik za każde z nich. Tło pełne, bo przezroczystość
-// w skrzynkach wychodzi różnie. Gmail i Apple Mail kadrują logo w kółko, więc
-// krążek ma margines – przy średnicy równej bokowi kadr ścinałby jego krawędź.
-// Bez <g transform> – walidatory Tiny PS bywają na nie wrażliwe, więc koła
-// są przeliczone wprost.
-const BIMI_DIAMETER = SIZE * 0.72;
-const c = SIZE / 2;
-/** Promień ze skali znaku (viewBox 40) na pole BIMI, do dwóch miejsc po przecinku. */
-const k = (value) => Number(((value * BIMI_DIAMETER) / 40).toFixed(2));
+// Logo do BIMI (DMARC): avatar, bo skrzynki pokazują je jak zdjęcie
+// profilowe. Profil SVG Tiny PS: `version="1.2"`, `baseProfile="tiny-ps"`,
+// `<title>` jako pierwsze dziecko, bez `x`/`y` na korzeniu, bez skryptów,
+// stylów, obrazków i odwołań zewnętrznych – walidator BIMI odrzuca plik za
+// każde z nich. Tło pełne, bo przezroczystość w skrzynkach wychodzi różnie.
+// Gmail i Apple Mail kadrują w koło – „demo” z falą siedzi w środku z zapasem.
+// `renderAvatarBody` daje same ścieżki i prostokąty w liczbach bezwzględnych,
+// bez <g transform>, na które walidatory Tiny PS bywają wrażliwe.
+const BIMI_SIZE = 512;
 const bimi = `<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny-ps" viewBox="0 0 ${SIZE} ${SIZE}">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.2" baseProfile="tiny-ps" viewBox="0 0 ${BIMI_SIZE} ${BIMI_SIZE}">
   <title>${SITE_NAME}</title>
-  <rect width="${SIZE}" height="${SIZE}" fill="${PALETTE.paper}"/>
-  <circle cx="${c}" cy="${c}" r="${k(20)}" fill="${PALETTE.ink}"/>
-  <circle cx="${c}" cy="${c}" r="${k(14)}" fill="none" stroke="#3a3a42" stroke-width="${k(1.5)}"/>
-  <circle cx="${c}" cy="${c}" r="${k(7)}" fill="${PALETTE.orange}"/>
-  <circle cx="${c}" cy="${c}" r="${k(1.8)}" fill="${PALETTE.paper}"/>
+  ${await renderAvatarBody(BIMI_SIZE)}
 </svg>
 `;
 await Bun.write("public/bimi.svg", bimi);
@@ -95,7 +81,7 @@ await Bun.write("public/bimi.svg", bimi);
 // `file`) bierze go jako signed char i 128 wychodzi im jako -128. 96 mieści
 // się poniżej progu i żaden parser nie musi zgadywać.
 const sizes = [96, 64, 48, 32, 16];
-const pngs = await Promise.all(sizes.map((size) => render(size, bare)));
+const pngs = await Promise.all(sizes.map(icon));
 
 const header = Buffer.alloc(6);
 header.writeUInt16LE(1, 2); // typ: ikona
