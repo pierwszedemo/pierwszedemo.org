@@ -8,6 +8,7 @@ import tina from "@tinacms/astro/integration";
 import { defineConfig, fontProviders } from "astro/config";
 import { DATE_PREFIX, LAST_CONTENT_UPDATE, SITE_URL } from "./src/consts";
 import { assetImages, figures } from "./src/images";
+import { speakerLabels } from "./src/speakers";
 import { tableLabels, tableScroll } from "./src/table-scroll";
 import { satteriHanging } from "./src/typography";
 
@@ -116,14 +117,15 @@ export default defineConfig({
 			},
 		}),
 	],
-	// `satteri()` bez opcji to i tak domyślny procesor Astro 7 – tu dostaje dwie
-	// wtyczki więcej: spójniki (mdast) i wrapper przewijanej tabeli (hast).
+	// `satteri()` bez opcji to i tak domyślny procesor Astro 7 – tu dostaje
+	// wtyczki: spójniki i ścieżki obrazków (mdast), tabele, figury i etykiety
+	// rozmówców (hast).
 	// Tytuły i leady nie idą przez markdown, więc tam funkcja od spójników jest
 	// wołana wprost w szablonach wpisu i listy.
 	markdown: {
 		processor: satteri({
 			mdastPlugins: [satteriHanging, assetImages],
-			hastPlugins: [tableLabels, tableScroll, figures],
+			hastPlugins: [tableLabels, tableScroll, figures, speakerLabels],
 		}),
 	},
 	vite: { plugins: [tailwindcss()] },

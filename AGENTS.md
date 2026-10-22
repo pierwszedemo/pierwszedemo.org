@@ -285,6 +285,21 @@ shows today (one quote per post); the second stays for a later choice of rule.
 The „ is generated content muted for screen readers (`/ ""` inside
 `@supports`, so Biome does not see a duplicate `content`).
 
+`**bold**` in a post is a lime highlighter stroke (`prose.css`: an angled
+gradient that is dense at the start, fades and pools at the end, a streak
+along the top and a lime `text-shadow` as ink bleeding down;
+`box-decoration-break: clone` so each wrapped line gets its own stroke). It is
+`mix-blend-mode: multiply`, like a real marker – the stroke overhangs the
+words, and an inline background paints over the text before it, so plain
+lime hid the full stop ending the previous sentence. A link inside it is blue
+on lime, 7.04:1 at the densest point. Plain bold stays plain in three places,
+where it labels a row instead of stressing a sentence: list items and tables
+(the selector excludes `li` and `table`), and speaker labels in an interview
+(`**Ola:** …`) – `speakerLabels` (`src/speakers.ts`, hast) gives a bold at the
+start of a paragraph ending with a colon the class `speaker`; 43 highlighted
+names would make the highlighter mean nothing. Forced-colors mode drops the
+stroke and keeps the weight.
+
 Images in the body (`src/images.ts`, two satteri plugins):
 
 - `assetImages` (mdast) rewrites Tina's `/blog/x.jpg` (relative to

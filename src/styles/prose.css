@@ -65,6 +65,56 @@
 	font-weight: 600;
 	color: var(--color-ink);
 }
+/* Pogrubienie w treści to zdanie, które ma zostać w głowie, więc wygląda
+   jak przeciągnięte zakreślaczem, w limonce (akcent marki). Pisak dociska
+   na początku, w połowie słabnie i zostawia plamę tam, gdzie się podnosi
+   (gradient pod kątem, więc końce są skośne); drugi gradient to smuga
+   wzdłuż górnej krawędzi, a cień pod literami – tusz, który rozlał się
+   w dół. `clone` powtarza pociągnięcie na każdym wierszu, inaczej zdanie
+   złamane na dwie linie miałoby jeden otwarty koniec. Ujemny margines przy
+   paddingu: tusz wystaje poza słowa, tekst stoi tam, gdzie stał.
+   `multiply` jak prawdziwy zakreślacz – tło elementu maluje się NA tekście
+   przed nim, więc pełna limonka na lewym końcu zjadała kropkę kończącą
+   poprzednie zdanie; po przemnożeniu kropka zostaje czarna.
+   Kontrast po przemnożeniu przez paper: ink ~15:1, link (blue) 7,04:1 na
+   pełnej limonce – jaśniejsze miejsca pociągnięcia tylko go podnoszą.
+   Nie w listach i tabelach: tam pogrubienie to zwykle początek pozycji albo
+   nazwa w wierszu, powtarzane w każdej linijce – zakreślona byłaby cała
+   kolumna. */
+.prose-swiss strong:not(.speaker, li strong, table strong) {
+	--marker: var(--color-lime);
+	margin: 0 -0.4em;
+	padding: 0.1em 0.4em;
+	border-radius: 0.45em;
+	background-image:
+		linear-gradient(
+			104deg,
+			color-mix(in oklab, var(--marker) 0%, transparent) 0.9%,
+			var(--marker) 2.4%,
+			color-mix(in oklab, var(--marker) 50%, transparent) 5.8%,
+			color-mix(in oklab, var(--marker) 10%, transparent) 93%,
+			color-mix(in oklab, var(--marker) 70%, transparent) 96%,
+			color-mix(in oklab, var(--marker) 0%, transparent) 98%
+		),
+		linear-gradient(
+			183deg,
+			color-mix(in oklab, var(--marker) 0%, transparent),
+			color-mix(in oklab, var(--marker) 30%, transparent) 7.9%,
+			color-mix(in oklab, var(--marker) 0%, transparent) 15%
+		);
+	text-shadow: -0.7em 0.7em 0.6em color-mix(in oklab, var(--marker) 70%, transparent);
+	mix-blend-mode: multiply;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+/* W trybie wysokiego kontrastu tekst dostaje kolor systemowy (np. biały),
+   a gradient by został – zostaje samo pogrubienie. */
+@media (forced-colors: active) {
+	.prose-swiss strong:not(.speaker, li strong, table strong) {
+		background-image: none;
+		text-shadow: none;
+	}
+}
 /* Kursywa niesie termin obcy („to jest bet"). Preflight nie rusza `em`, więc
    pochylenie działałoby i bez tej reguły – ale dopiero wariant `italic`
    Instrument Sans z astro.config.mjs daje prawdziwy krój zamiast skosu. Reguła stoi
