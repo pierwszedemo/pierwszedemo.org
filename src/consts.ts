@@ -338,7 +338,7 @@ export const PRIVACY_SECTIONS = [
 	{
 		title: "Jakie dane zbieramy",
 		paragraphs: [
-			"Strona nie ma formularzy, logowania ani koszyka – nie proszę o żadne dane i nie zakładam kont.",
+			"Strona nie ma formularzy, logowania ani koszyka – nie prosimy o żadne dane i nie zakładamy kont.",
 			"Zbierane są wyłącznie dane techniczne związane z odwiedzinami: adres IP, typ przeglądarki i urządzenia, adres odwiedzonej podstrony, źródło wejścia oraz przybliżona lokalizacja na poziomie kraju. Trafiają do narzędzi statystycznych wymienionych niżej.",
 			`Jeśli napiszesz na ${CONTACT_EMAIL}, przetwarzamy dane zawarte w wiadomości wyłącznie po to, żeby na nią odpowiedzieć.`,
 		],
