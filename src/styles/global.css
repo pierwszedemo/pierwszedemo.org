@@ -399,11 +399,16 @@
 	margin-top: 0;
 }
 
+/* Biblioteka daje opisowi overflow-y: auto i max-height – pola dotyku linków
+   (::after niżej) wystają nad i pod linię, więc w karcie pojawiał się pasek
+   przewijania. Zdanie jest jednolinijkowe, nie ma czego przewijać. */
 #cc-main .cm__desc {
 	font-size: 0.875rem;
 	line-height: 1.4;
 	white-space: nowrap;
 	color: var(--color-body);
+	max-height: none;
+	overflow: visible;
 }
 
 /* Kropka z pigułek nad nagłówkami – ten sam znak serii co na stronie. */
@@ -442,6 +447,13 @@
 #cc-main .cm__desc a:focus-visible {
 	outline: 2px solid var(--color-ink);
 	outline-offset: 2px;
+}
+
+/* Po otwarciu karty i panelu biblioteka przenosi fokus na pusty
+   `div[tabindex="-1"]` na ich początku – punkt startu dla Taba, nie kontrolkę.
+   Obrys z reguły wyżej rysował na nim czarny pasek u góry karty. */
+#cc-main [tabindex="-1"]:focus-visible {
+	outline: none;
 }
 
 /* Cel 44 px w pionie (WCAG 2.5.5) bez podnoszenia linii – jak utility `hit`. */
