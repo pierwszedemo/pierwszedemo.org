@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import satori from "satori";
 import sharp from "sharp";
-import { HOME_CITY, LOGOTYPE, SITE_HOST, SITE_TAGLINE, WORDMARK } from "./consts";
+import { HOME_CITY, LOGOTYPE, type PAGE_HEADERS, SITE_HOST, SITE_TAGLINE, WORDMARK } from "./consts";
 import { COVER_HEIGHT, COVER_QUOTE, COVER_WIDTH, type CoverParams, coverArt } from "./covers";
 import { LOGO_COLORS, WAVE, waveRadius, waveSvg } from "./logo";
 import { accentParts, fixHanging } from "./typography";
@@ -143,9 +143,9 @@ export const wordmark = (size: number, color: string = PALETTE.ink, wave: string
 /**
  * Znak na każdej karcie: „Fundacja” nad logotypem, u góry. Słowo „fundacja”
  * ma być czytelne w każdej miniaturze podglądu linku, a karty mają czytać się
- * jako jedna rodzina – na ultramarynie (strona główna, podstrony) w bieli
- * i seledynie, na ciepłej bieli wpisów w czerni, jak logotyp w nawigacji.
- * Fala zawsze pomarańczowa.
+ * jako jedna rodzina – na ciepłej bieli (strona główna, podstrony, wpisy)
+ * w czerni, jak logotyp w nawigacji, na ultramarynie okładek profili w bieli
+ * i seledynie. Fala zawsze pomarańczowa.
  */
 export const lockup = (
 	size: number,
@@ -185,6 +185,40 @@ const titleWords = (title: string, color: string = PALETTE.ink, accent: string =
 	);
 
 /**
+ * Grafika okładki jako warstwy satori: kształty pod spodem, „ szablonu Cytat
+ * (tekst, nie ścieżka – patrz COVER_QUOTE) i kształty na wierzchu.
+ */
+const coverLayers = ({ back, front, quote }: ReturnType<typeof coverArt>) => {
+	const layer = (shapes: string) =>
+		svgImg(
+			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${COVER_WIDTH} ${COVER_HEIGHT}">${shapes}</svg>`,
+			COVER_WIDTH,
+			COVER_HEIGHT,
+			{ position: "absolute", left: 0, top: 0 },
+		);
+	return [
+		layer(back),
+		...(quote
+			? [
+					el(
+						"div",
+						{
+							position: "absolute",
+							left: COVER_QUOTE.x,
+							top: COVER_QUOTE.top,
+							fontSize: COVER_QUOTE.size,
+							lineHeight: 1,
+							color: quote,
+						},
+						COVER_QUOTE.glyph,
+					),
+				]
+			: []),
+		layer(front),
+	];
+};
+
+/**
  * Karta OG wpisu = jego okładka (src/covers.ts): grafika z generatora
  * Claude Design w kolorystyce i szablonie liczonych ze sluga, a w kolumnie
  * po drugiej stronie znak „Fundacja / pierwsze demo” u góry, tytuł i pigułka
@@ -201,14 +235,8 @@ export async function renderPostCover({
 	title: string;
 	badge: string;
 }): Promise<Buffer> {
-	const { palette: P, back, front, quote } = coverArt(params);
-	const layer = (shapes: string) =>
-		svgImg(
-			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${COVER_WIDTH} ${COVER_HEIGHT}">${shapes}</svg>`,
-			COVER_WIDTH,
-			COVER_HEIGHT,
-			{ position: "absolute", left: 0, top: 0 },
-		);
+	const art = coverArt(params);
+	const P = art.palette;
 	const side = params.mirror ? { right: 64, alignItems: "flex-end" } : { left: 64, alignItems: "flex-start" };
 	const length = title.length;
 
@@ -226,24 +254,7 @@ export async function renderPostCover({
 				overflow: "hidden",
 			},
 			[
-				layer(back),
-				...(quote
-					? [
-							el(
-								"div",
-								{
-									position: "absolute",
-									left: COVER_QUOTE.x,
-									top: COVER_QUOTE.top,
-									fontSize: COVER_QUOTE.size,
-									lineHeight: 1,
-									color: quote,
-								},
-								COVER_QUOTE.glyph,
-							),
-						]
-					: []),
-				layer(front),
+				...coverLayers(art),
 				el(
 					"div",
 					{
@@ -295,99 +306,127 @@ export async function renderPostCover({
 }
 
 /**
- * Karty marki – strona główna i podstrony – na ultramarynie, w barwach ikon.
+ * Karty marki – strona główna i podstrony – w kolorystyce „Krem” z systemu
+ * okładek: ciepła biel, czerń, a po prawej grafika z okładek w niebieskim,
+ * pomarańczu i limonce, każda strona w innym szablonie. Ultramaryna na całą
+ * kartę krzyczała w podglądzie linku; sama biel z tekstem była za grzeczna.
+ * Grafika okładki zajmuje prawe 640 px, więc tekst ma kolumnę 440 px po
+ * lewej – w żadnym szablonie kształty nie sięgają bliżej niż x = 500.
  * Karty wpisów to ich okładki (`renderPostCover`) – tam tytułem jest wpis,
  * a nie fundacja.
  */
+const KREM = 7;
+export type BrandPage = keyof typeof PAGE_HEADERS;
+const BRAND_ART = {
+	home: { template: 2, colorway: KREM, mirror: false, seed: 13, roles: 0 },
+	fundacja: { template: 1, colorway: KREM, mirror: false, seed: 12, roles: 0 },
+	wiedza: { template: 3, colorway: KREM, mirror: false, seed: 14, roles: 0 },
+	aktualnosci: { template: 4, colorway: KREM, mirror: false, seed: 15, roles: 0 },
+	wesprzyj: { template: 5, colorway: KREM, mirror: false, seed: 16, roles: 0 },
+} satisfies Record<BrandPage | "home", CoverParams>;
 
-/** Akapit na ultramarynie – biel przygaszona, żeby tytuł i znak zostały wyżej w hierarchii. */
-const ON_BLUE_MUTED = "#dde1ff";
+/** Adres w limonkowej pigułce, jak pigułka kategorii nad tytułem wpisu. */
+const hostPill = (fontSize: number) =>
+	el(
+		"div",
+		{
+			fontFamily: "Instrument Sans",
+			fontWeight: 600,
+			fontSize,
+			lineHeight: 1,
+			color: PALETTE.ink,
+			backgroundColor: PALETTE.lime,
+			borderRadius: 999,
+			padding: "0.4em 0.75em",
+		},
+		SITE_HOST,
+	);
 
-// Padding na dziecku, nie na korzeniu: satori liczy `100%` korzenia bez
-// paddingu i treść wyjeżdżała poza kartę.
-const brandCard = async (children: unknown[]) => {
+const brandCard = async (art: CoverParams, children: unknown[]) => {
 	const svg = await render(
 		el(
 			"div",
 			{
 				display: "flex",
+				position: "relative",
 				width: "100%",
 				height: "100%",
-				backgroundColor: LOGO_COLORS.ultramarine,
-				color: "#ffffff",
+				backgroundColor: PALETTE.paper,
+				color: PALETTE.ink,
 				fontFamily: "Instrument Serif",
+				overflow: "hidden",
 			},
-			el(
-				"div",
-				{
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "space-between",
-					flexGrow: 1,
-					padding: "52px 72px 56px",
-				},
-				children,
-			),
+			[
+				...coverLayers(coverArt(art)),
+				el(
+					"div",
+					{
+						position: "absolute",
+						left: 64,
+						top: 56,
+						bottom: 56,
+						width: 440,
+						display: "flex",
+						flexDirection: "column",
+						justifyContent: "space-between",
+						alignItems: "flex-start",
+						gap: 24,
+					},
+					children,
+				),
+			],
 		),
-		{ width: 1200, height: 630, fonts: FONTS },
+		{ width: COVER_WIDTH, height: COVER_HEIGHT, fonts: FONTS },
 	);
 	return sharp(Buffer.from(svg)).png({ compressionLevel: 9 }).toBuffer();
 };
 
-/** Strona główna: sam znak, duży, a na dole czym się zajmujemy i adres. */
+/** Strona główna: znak, a na dole czym się zajmujemy, gdzie i adres. */
 export const renderHomeCard = () =>
-	brandCard([
-		lockup(208),
-		el(
-			"div",
-			{
-				display: "flex",
-				justifyContent: "space-between",
-				alignItems: "flex-end",
-				fontFamily: "Instrument Sans",
-				fontWeight: 600,
-				fontSize: 30,
-			},
-			[dotted(`${SITE_TAGLINE} · ${HOME_CITY}`), el("div", { color: LOGO_COLORS.lime }, SITE_HOST)],
-		),
+	brandCard(BRAND_ART.home, [
+		// Większy znak wszedłby na grafikę – kolumna ma 440 px.
+		lockup(100, PALETTE.ink, PALETTE.ink),
+		el("div", { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 22 }, [
+			el(
+				"div",
+				{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 30, lineHeight: 1.2 },
+				fixHanging(`${SITE_TAGLINE} – ${HOME_CITY}`),
+			),
+			hostPill(24),
+		]),
 	]);
 
 /**
- * Podstrona: znak mały u góry (obok adres), na dole tytuł strony i akapit
- * z jej nagłówka. Bez pigułki z nazwą i hasłem – nazwę niesie znak.
+ * Podstrona: znak u góry, na dole tytuł strony i akapit z jej nagłówka. Bez
+ * pigułki z nazwą i hasłem – nazwę niesie znak.
  */
-export const renderPageCard = ({ title, intro }: { title: string; intro: string }) => {
+export const renderPageCard = ({ page, title, intro }: { page: BrandPage; title: string; intro: string }) => {
 	const length = title.replace(/\*/g, "").length;
-	return brandCard([
-		el("div", { display: "flex", justifyContent: "space-between", alignItems: "flex-start" }, [
-			lockup(104),
-			el(
-				"div",
-				{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 26, color: LOGO_COLORS.lime },
-				SITE_HOST,
-			),
-		]),
-		el("div", { display: "flex", flexDirection: "column", gap: 22 }, [
+	return brandCard(BRAND_ART[page], [
+		lockup(76, PALETTE.ink, PALETTE.ink),
+		el("div", { display: "flex", flexDirection: "column", gap: 18 }, [
 			el(
 				"div",
 				{
 					display: "flex",
 					flexWrap: "wrap",
-					fontSize: length > 32 ? 92 : 112,
+					fontSize: length > 24 ? 60 : 76,
 					lineHeight: 0.95,
 					letterSpacing: "-0.02em",
-					maxWidth: 1000,
 				},
-				titleWords(title, "#ffffff", LOGO_COLORS.lime),
+				titleWords(title, PALETTE.ink, PALETTE.blue),
 			),
 			el(
 				"div",
-				{ fontFamily: "Instrument Sans", fontSize: 30, lineHeight: 1.3, color: ON_BLUE_MUTED, maxWidth: 880 },
+				{ fontFamily: "Instrument Sans", fontSize: 24, lineHeight: 1.3, color: PALETTE.muted },
 				fixHanging(intro),
 			),
 		]),
 	]);
 };
+
+/** Akapit na ultramarynie okładek profili – biel przygaszona, żeby znak został wyżej w hierarchii. */
+const ON_BLUE_MUTED = "#dde1ff";
 
 /**
  * Okładki profili (Facebook, LinkedIn) – rodzina kart marki: ultramaryna,

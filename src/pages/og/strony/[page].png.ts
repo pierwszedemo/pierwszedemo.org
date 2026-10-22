@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { PAGE_HEADERS } from "../../../consts";
-import { OG_HEADERS, renderPageCard } from "../../../og";
+import { type BrandPage, OG_HEADERS, renderPageCard } from "../../../og";
 import { FOUNDATION_PAGE_DOC } from "../../../strony";
 
 export const prerender = true;
@@ -20,7 +20,11 @@ export function getStaticPaths() {
 	return Object.entries(cards).map(([page, card]) => ({ params: { page }, props: card }));
 }
 
-export const GET: APIRoute<Card> = async ({ props }) => {
-	const png = await renderPageCard({ title: props.title, intro: props.intro });
+export const GET: APIRoute<Card> = async ({ params, props }) => {
+	const png = await renderPageCard({
+		page: params.page as BrandPage,
+		title: props.title,
+		intro: props.intro,
+	});
 	return new Response(png, { headers: OG_HEADERS });
 };

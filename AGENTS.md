@@ -470,9 +470,14 @@ are resources, not pages.
 rasterises. Every card opens with the same lockup – „Fundacja” over the
 logotype (`lockup()`), so the word „fundacja” reads in any link-preview
 thumbnail and no slogan pill is needed. A post's card is its cover
-(`renderPostCover`, „Post covers” below). The homepage card (`renderHomeCard`) is the brand card instead: white
-„Fundacja” over a big lime logotype with the orange wave on ultramarine (the
-icons' palette), the tagline, city and domain at the bottom – nothing else.
+(`renderPostCover`, „Post covers” below). The homepage card (`renderHomeCard`) is the brand card instead: the
+covers' „Krem” colourway (paper and ink; blue, orange and lime in the shapes)
+– a 440 px text column on the left with the ink lockup, the tagline with the
+city and the domain in a lime pill, and the cover system's artwork on the
+right (Fala, the logo's sound wave). Each brand card has its own fixed cover
+template (`BRAND_ART` in `og.ts`; no shape comes closer than x = 500, hence
+the column). It was full-bleed ultramarine with a lime logotype – too loud
+next to a feed – and then plain warm white with text, which was too timid.
 „Fundacja” must read in a thumbnail; the earlier collage (slogan, cassette,
 record, „REC”) hid it in a grey footer line, and the Tina slogan says nothing
 about who we are, so the card does not use it. `PALETTE`, `lockup()` and
@@ -494,10 +499,11 @@ and text with two styles must be split into word boxes (`titleWords`). Two const
 
 `/fundacja`, `/wiedza`, `/aktualnosci` and `/wesprzyj` have their own cards at
 `/og/strony/<page>.png` (`src/pages/og/strony/[page].png.ts`, `renderPageCard`):
-the homepage card's family – ultramarine, the same „Fundacja” + logotype
-lockup (`lockup()`), smaller, at the top with the domain beside it, then the
-page title and its intro paragraph. No slogan pill: the lockup carries the
-name. Homepage and page cards share `brandCard()`, so they cannot drift
+the homepage card's family – „Krem”, the same „Fundacja” + logotype
+lockup (`lockup()`), smaller, at the top of the column, then the page title
+and its intro paragraph, and a different template on the right for each
+page (Znaki, Promienie, Cytat, Kolaż). No slogan pill and no domain: the
+lockup carries the name, the preview shows the domain. Homepage and page cards share `brandCard()`, so they cannot drift
 apart. The words come from `PAGE_HEADERS` in `consts.ts` – the same object
 the page's `PageHeader` reads – so a card never says something the page does
 not; `/fundacja` takes its title and intro from Tina (`fundacja.json`). Pages
@@ -625,7 +631,8 @@ all:
   `renderAvatarBody` (the same drawing as the app icons and BIMI), full
   ultramarine square, because every platform crops it itself (circle,
   LinkedIn a rounded square);
-- covers through `renderSocialCover` – the brand-card family: the lockup and
+- covers through `renderSocialCover` – still on ultramarine (the brand cards
+  moved to „Krem”; the profiles were not redrawn): the lockup and
   tagline on one side, the Fala artwork from the cover system on the other,
   text inside the rectangle that every crop shows and the artwork clear of
   where the profile photo or logo overlaps:
