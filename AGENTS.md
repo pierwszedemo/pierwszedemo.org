@@ -475,8 +475,12 @@ covers' „Krem” colourway (paper and ink; blue, orange and lime in the shapes
 – a 440 px text column on the left with the ink lockup, the tagline with the
 city and the domain in a lime pill, and the cover system's artwork on the
 right (Fala, the logo's sound wave). Each brand card has its own fixed cover
-template (`BRAND_ART` in `og.ts`; no shape comes closer than x = 500, hence
-the column). It was full-bleed ultramarine with a lime logotype – too loud
+template and a `fit` (`BRAND_ART` in `og.ts`). The lockup at 100 px runs past
+the column to x ≈ 550, and Fala and Kolaż start at x = 500–580 – the cover's
+sound wave stood right next to the logotype's – so `fit` scales the artwork
+from the right edge (Kolaż from the bottom-right corner, so its band stays on
+the bottom edge) and shifts it until no shape is closer than 125 px to a
+letter. The other templates clear that without a fit. It was full-bleed ultramarine with a lime logotype – too loud
 next to a feed – and then plain warm white with text, which was too timid.
 „Fundacja” must read in a thumbnail; the earlier collage (slogan, cassette,
 record, „REC”) hid it in a grey footer line, and the Tina slogan says nothing
@@ -499,12 +503,14 @@ and text with two styles must be split into word boxes (`titleWords`). Two const
 
 `/fundacja`, `/wiedza`, `/aktualnosci` and `/wesprzyj` have their own cards at
 `/og/strony/<page>.png` (`src/pages/og/strony/[page].png.ts`, `renderPageCard`):
-the homepage card's family – „Krem”, the same „Fundacja” + logotype
-lockup (`lockup()`), smaller, at the top of the column, then the page title
-and its intro paragraph, and a different template on the right for each
-page (Znaki, Promienie, Cytat, Kolaż). No slogan pill and no domain: the
-lockup carries the name, the preview shows the domain. Homepage and page cards share `brandCard()`, so they cannot drift
-apart. The words come from `PAGE_HEADERS` in `consts.ts` – the same object
+the homepage card's layout – „Krem”, the same lockup at the same size, then
+at the bottom the page title in Instrument Sans 600 (where the homepage has
+the tagline), its intro paragraph in muted sans, and the page's address in
+the lime pill (`pierwszedemo.org/wiedza`), with a different template on the
+right for each page (Znaki, Promienie, Cytat, Kolaż). An earlier version had
+a smaller lockup and the title in large serif – it read as a different
+family. Homepage and page cards share `brandCard()` (lockup, text and pill
+included), so they cannot drift apart. The words come from `PAGE_HEADERS` in `consts.ts` – the same object
 the page's `PageHeader` reads – so a card never says something the page does
 not; `/fundacja` takes its title and intro from Tina (`fundacja.json`). Pages
 without a card of their own fall back to `/og.png`.

@@ -185,13 +185,32 @@ const titleWords = (title: string, color: string = PALETTE.ink, accent: string =
 	);
 
 /**
- * Grafika okładki jako warstwy satori: kształty pod spodem, „ szablonu Cytat
- * (tekst, nie ścieżka – patrz COVER_QUOTE) i kształty na wierzchu.
+ * Skala grafiki od prawej krawędzi i punktu `originY` (domyślnie środek
+ * wysokości – dolna krawędź trzyma przy niej kształty stojące na dole), potem
+ * przesunięcie w prawo o `dx`.
  */
-const coverLayers = ({ back, front, quote }: ReturnType<typeof coverArt>) => {
+interface ArtFit {
+	dx?: number;
+	scale?: number;
+	originY?: number;
+}
+
+/**
+ * Grafika okładki jako warstwy satori: kształty pod spodem, „ szablonu Cytat
+ * (tekst, nie ścieżka – patrz COVER_QUOTE) i kształty na wierzchu. `fit`
+ * odsuwa ją od tekstu na kartach marki; okładki wpisów rysują ją bez zmian.
+ */
+const coverLayers = (
+	{ back, front, quote }: ReturnType<typeof coverArt>,
+	{ dx = 0, scale = 1, originY = COVER_HEIGHT / 2 }: ArtFit = {},
+) => {
+	const tx = COVER_WIDTH * (1 - scale) + dx;
+	const ty = originY * (1 - scale);
 	const layer = (shapes: string) =>
 		svgImg(
-			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${COVER_WIDTH} ${COVER_HEIGHT}">${shapes}</svg>`,
+			`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${COVER_WIDTH} ${COVER_HEIGHT}">${
+				tx || ty ? `<g transform="translate(${tx} ${ty}) scale(${scale})">${shapes}</g>` : shapes
+			}</svg>`,
 			COVER_WIDTH,
 			COVER_HEIGHT,
 			{ position: "absolute", left: 0, top: 0 },
@@ -204,9 +223,9 @@ const coverLayers = ({ back, front, quote }: ReturnType<typeof coverArt>) => {
 						"div",
 						{
 							position: "absolute",
-							left: COVER_QUOTE.x,
-							top: COVER_QUOTE.top,
-							fontSize: COVER_QUOTE.size,
+							left: COVER_QUOTE.x * scale + tx,
+							top: COVER_QUOTE.top * scale + ty,
+							fontSize: COVER_QUOTE.size * scale,
 							lineHeight: 1,
 							color: quote,
 						},
@@ -310,39 +329,51 @@ export async function renderPostCover({
  * okładek: ciepła biel, czerń, a po prawej grafika z okładek w niebieskim,
  * pomarańczu i limonce, każda strona w innym szablonie. Ultramaryna na całą
  * kartę krzyczała w podglądzie linku; sama biel z tekstem była za grzeczna.
- * Grafika okładki zajmuje prawe 640 px, więc tekst ma kolumnę 440 px po
- * lewej – w żadnym szablonie kształty nie sięgają bliżej niż x = 500.
+ * Wszystkie mają układ strony głównej: duży znak u góry kolumny 440 px, na
+ * dole zdanie w Instrument Sans i adres w limonkowej pigułce. Znak przy tej
+ * wielkości wychodzi poza kolumnę (do x ≈ 550), a Fala i Kolaż zaczynają się
+ * przy x = 500–580 – fala z okładki stała tuż przy fali logotypu. Stąd `fit`:
+ * grafika zmniejszona albo przesunięta tak, że żaden kształt nie podchodzi
+ * do liter bliżej niż na 125 px (Fala, Kolaż; reszta szablonów ma tyle
+ * i bez tego).
  * Karty wpisów to ich okładki (`renderPostCover`) – tam tytułem jest wpis,
  * a nie fundacja.
  */
 const KREM = 7;
 export type BrandPage = keyof typeof PAGE_HEADERS;
 const BRAND_ART = {
-	home: { template: 2, colorway: KREM, mirror: false, seed: 13, roles: 0 },
-	fundacja: { template: 1, colorway: KREM, mirror: false, seed: 12, roles: 0 },
-	wiedza: { template: 3, colorway: KREM, mirror: false, seed: 14, roles: 0 },
-	aktualnosci: { template: 4, colorway: KREM, mirror: false, seed: 15, roles: 0 },
-	wesprzyj: { template: 5, colorway: KREM, mirror: false, seed: 16, roles: 0 },
-} satisfies Record<BrandPage | "home", CoverParams>;
+	home: { params: { template: 2, colorway: KREM, mirror: false, seed: 13, roles: 0 }, fit: { scale: 0.85 } },
+	fundacja: { params: { template: 1, colorway: KREM, mirror: false, seed: 12, roles: 0 }, fit: {} },
+	wiedza: { params: { template: 3, colorway: KREM, mirror: false, seed: 14, roles: 0 }, fit: {} },
+	aktualnosci: { params: { template: 4, colorway: KREM, mirror: false, seed: 15, roles: 0 }, fit: {} },
+	wesprzyj: {
+		params: { template: 5, colorway: KREM, mirror: false, seed: 16, roles: 0 },
+		fit: { dx: 10, scale: 0.76, originY: COVER_HEIGHT },
+	},
+} satisfies Record<BrandPage | "home", { params: CoverParams; fit: ArtFit }>;
 
 /** Adres w limonkowej pigułce, jak pigułka kategorii nad tytułem wpisu. */
-const hostPill = (fontSize: number) =>
+const hostPill = (path = "") =>
 	el(
 		"div",
 		{
 			fontFamily: "Instrument Sans",
 			fontWeight: 600,
-			fontSize,
+			fontSize: 24,
 			lineHeight: 1,
 			color: PALETTE.ink,
 			backgroundColor: PALETTE.lime,
 			borderRadius: 999,
 			padding: "0.4em 0.75em",
 		},
-		SITE_HOST,
+		`${SITE_HOST}${path}`,
 	);
 
-const brandCard = async (art: CoverParams, children: unknown[]) => {
+const brandCard = async (
+	{ params, fit }: { params: CoverParams; fit: ArtFit },
+	text: unknown[],
+	path?: string,
+) => {
 	const svg = await render(
 		el(
 			"div",
@@ -357,7 +388,7 @@ const brandCard = async (art: CoverParams, children: unknown[]) => {
 				overflow: "hidden",
 			},
 			[
-				...coverLayers(coverArt(art)),
+				...coverLayers(coverArt(params), fit),
 				el(
 					"div",
 					{
@@ -372,7 +403,24 @@ const brandCard = async (art: CoverParams, children: unknown[]) => {
 						alignItems: "flex-start",
 						gap: 24,
 					},
-					children,
+					[
+						lockup(100, PALETTE.ink, PALETTE.ink),
+						el("div", { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 22 }, [
+							el(
+								"div",
+								{
+									display: "flex",
+									flexDirection: "column",
+									gap: 8,
+									fontFamily: "Instrument Sans",
+									fontSize: 30,
+									lineHeight: 1.2,
+								},
+								text,
+							),
+							hostPill(path),
+						]),
+					],
 				),
 			],
 		),
@@ -383,47 +431,25 @@ const brandCard = async (art: CoverParams, children: unknown[]) => {
 
 /** Strona główna: znak, a na dole czym się zajmujemy, gdzie i adres. */
 export const renderHomeCard = () =>
-	brandCard(BRAND_ART.home, [
-		// Większy znak wszedłby na grafikę – kolumna ma 440 px.
-		lockup(100, PALETTE.ink, PALETTE.ink),
-		el("div", { display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 22 }, [
-			el(
-				"div",
-				{ fontFamily: "Instrument Sans", fontWeight: 600, fontSize: 30, lineHeight: 1.2 },
-				fixHanging(`${SITE_TAGLINE} – ${HOME_CITY}`),
-			),
-			hostPill(24),
-		]),
-	]);
+	brandCard(BRAND_ART.home, [el("div", { fontWeight: 600 }, fixHanging(`${SITE_TAGLINE} – ${HOME_CITY}`))]);
 
 /**
- * Podstrona: znak u góry, na dole tytuł strony i akapit z jej nagłówka. Bez
- * pigułki z nazwą i hasłem – nazwę niesie znak.
+ * Podstrona: ten sam układ, a na dole tytuł strony, akapit z jej nagłówka
+ * i adres strony w pigułce.
  */
-export const renderPageCard = ({ page, title, intro }: { page: BrandPage; title: string; intro: string }) => {
-	const length = title.replace(/\*/g, "").length;
-	return brandCard(BRAND_ART[page], [
-		lockup(76, PALETTE.ink, PALETTE.ink),
-		el("div", { display: "flex", flexDirection: "column", gap: 18 }, [
+export const renderPageCard = ({ page, title, intro }: { page: BrandPage; title: string; intro: string }) =>
+	brandCard(
+		BRAND_ART[page],
+		[
 			el(
 				"div",
-				{
-					display: "flex",
-					flexWrap: "wrap",
-					fontSize: length > 24 ? 60 : 76,
-					lineHeight: 0.95,
-					letterSpacing: "-0.02em",
-				},
+				{ display: "flex", flexWrap: "wrap", fontWeight: 600 },
 				titleWords(title, PALETTE.ink, PALETTE.blue),
 			),
-			el(
-				"div",
-				{ fontFamily: "Instrument Sans", fontSize: 24, lineHeight: 1.3, color: PALETTE.muted },
-				fixHanging(intro),
-			),
-		]),
-	]);
-};
+			el("div", { fontSize: 24, lineHeight: 1.3, color: PALETTE.muted }, fixHanging(intro)),
+		],
+		`/${page}`,
+	);
 
 /** Akapit na ultramarynie okładek profili – biel przygaszona, żeby znak został wyżej w hierarchii. */
 const ON_BLUE_MUTED = "#dde1ff";

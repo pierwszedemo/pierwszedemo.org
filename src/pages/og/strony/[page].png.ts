@@ -10,8 +10,8 @@ interface Card {
 	intro: string;
 }
 
-// Te same słowa co nagłówek strony (PageHeader), bez pigułki – nazwę niesie
-// znak na karcie. /fundacja bierze tytuł i akapit z Tiny, jak jej nagłówek.
+// Te same słowa co nagłówek strony (PageHeader), bez jego pigułki – nazwę
+// niesie znak na karcie. /fundacja bierze tytuł i akapit z Tiny, jak jej nagłówek.
 export function getStaticPaths() {
 	const cards: Record<keyof typeof PAGE_HEADERS, Card> = {
 		...PAGE_HEADERS,
